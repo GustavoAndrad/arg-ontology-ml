@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Desempenho no conjunto de teste no Pipeline A (apenas features de sequência).}
+  \label{tab:pipeline_a}
+  \begin{tabular}{lcccc}
+    \toprule
+    Modelo & Acurácia & Precisão (macro) & Revocação (macro) & F1 (macro) \\
+    \midrule
+    Random Forest & 0,9699 & 0,7366 & 0,6028 & 0,6550 \\
+    XGBoost & 0,9767 & 0,7180 & 0,6462 & 0,6787 \\
+    Logistic Regression & 0,9552 & 0,6002 & 0,6654 & 0,6271 \\
+    SVM (RBF) & 0,9707 & 0,6557 & 0,6694 & 0,6605 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

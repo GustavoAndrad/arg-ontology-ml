@@ -1,0 +1,42 @@
+{
+  "card_version": "4.0.1",
+  "access_date": "2026-06-14",
+  "files": {
+    "aro_index": {
+      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\aro_index.tsv",
+      "md5": "0f183c7869876fa32c8f86aade0df7b5"
+    },
+    "aro_categories_index": {
+      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\aro_categories_index.tsv",
+      "md5": "d5fbc673c0de6601b07c8016b3909f8e"
+    },
+    "aro_categories": {
+      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\aro_categories.tsv",
+      "md5": "6f9c4b0410b9e2b3cf5867a2a3f1db07"
+    },
+    "card_json": {
+      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\card.json",
+      "md5": "72156d00155f69e637664bfb5d3b5395"
+    },
+    "protein_fasta_homolog": {
+      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\protein_fasta_protein_homolog_model.fasta",
+      "md5": "36ea300133fd7c5a45de2fee4c5050bf"
+    },
+    "protein_fasta_knockout": {
+      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\protein_fasta_protein_knockout_model.fasta",
+      "md5": "f16667df70d1a5f910d3ae45f5250c3d"
+    },
+    "protein_fasta_overexpression": {
+      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\protein_fasta_protein_overexpression_model.fasta",
+      "md5": "723e8762be5c96aed8c379a6499cecee"
+    },
+    "protein_fasta_variant": {
+      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\protein_fasta_protein_variant_model.fasta",
+      "md5": "8c02d8fc84c9a90953f8534355244019"
+    },
+    "aro_owl": {
+      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\ontologia\\aro.owl",
+      "md5": "511f4c94faa4995864e20238cf2afc49"
+    }
+  }
+}

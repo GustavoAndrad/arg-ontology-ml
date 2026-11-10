@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Ganho de desempenho do Pipeline B em relação ao Pipeline A.}
+  \label{tab:ganho}
+  \begin{tabular}{lcccc}
+    \toprule
+    Modelo & F1 macro (A) & F1 macro (B) & $\Delta$ Absoluto & $\Delta$ Percentual \\
+    \midrule
+    Random Forest & 0,6550 & 0,7228 & +0,0678 & +10,35\% \\
+    XGBoost & 0,6787 & 0,7305 & +0,0518 & +7,63\% \\
+    Logistic Regression & 0,6271 & 0,7182 & +0,0911 & +14,52\% \\
+    SVM (RBF) & 0,6605 & 0,7243 & +0,0638 & +9,66\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}

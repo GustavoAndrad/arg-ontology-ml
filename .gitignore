@@ -1,0 +1,27 @@
+# Pastas ocultas locais (backups, caches, configurações de editor e ambientes)
+.*/
+!.github/
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+env/
+
+# Artigos de referência (PDFs de terceiros)
+articles/
+
+# Dados do CARD/ARO: licença da McMaster University não permite redistribuição
+# irrestrita. Baixe o CARD 4.0.1 conforme o README.
+data/dataset/
+data/ontologia/*.owl
+# Derivados dos dados do CARD (regenerados pelas Etapas 2, 4 e 5)
+data/processed/*.csv
+
+# Modelos treinados (regenerados por `python -m src.train_evaluate`)
+models/*.joblib
+
+# Sistema
+Thumbs.db
+Desktop.ini
+.DS_Store

@@ -1,0 +1,33 @@
+pipeline,modelo,classe,f1_teste,n_teste
+a,random_forest,antibiotic efflux,0.8888888888888888,54
+a,random_forest,antibiotic inactivation,0.984037558685446,1048
+a,random_forest,antibiotic target alteration,0.7472527472527473,57
+a,random_forest,reduced permeability to antibiotic,0.0,2
+a,xgboost,antibiotic efflux,0.88,54
+a,xgboost,antibiotic inactivation,0.9886578449905482,1048
+a,xgboost,antibiotic target alteration,0.8461538461538461,57
+a,xgboost,reduced permeability to antibiotic,0.0,2
+a,logistic_regression,antibiotic efflux,0.8181818181818182,54
+a,logistic_regression,antibiotic inactivation,0.9802028005794302,1048
+a,logistic_regression,antibiotic target alteration,0.7101449275362319,57
+a,logistic_regression,reduced permeability to antibiotic,0.0,2
+a,svm,antibiotic efflux,0.8543689320388349,54
+a,svm,antibiotic inactivation,0.9875717017208413,1048
+a,svm,antibiotic target alteration,0.8,57
+a,svm,reduced permeability to antibiotic,0.0,2
+b,random_forest,antibiotic efflux,0.9719626168224299,54
+b,random_forest,antibiotic inactivation,0.9947793070716658,1048
+b,random_forest,antibiotic target alteration,0.9245283018867925,57
+b,random_forest,reduced permeability to antibiotic,0.0,2
+b,xgboost,antibiotic efflux,0.9629629629629629,54
+b,xgboost,antibiotic inactivation,0.9952426260704091,1048
+b,xgboost,antibiotic target alteration,0.9636363636363636,57
+b,xgboost,reduced permeability to antibiotic,0.0,2
+b,logistic_regression,antibiotic efflux,0.9724770642201835,54
+b,logistic_regression,antibiotic inactivation,0.9928263988522238,1048
+b,logistic_regression,antibiotic target alteration,0.907563025210084,57
+b,logistic_regression,reduced permeability to antibiotic,0.0,2
+b,svm,antibiotic efflux,0.9642857142857143,54
+b,svm,antibiotic inactivation,0.9947494033412888,1048
+b,svm,antibiotic target alteration,0.9380530973451328,57
+b,svm,reduced permeability to antibiotic,0.0,2

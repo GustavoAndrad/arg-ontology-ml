@@ -1,0 +1,74 @@
+secao,item,valor_tcc,valor_obtido,diferenca,igual
+Tab. 4.1,total de instâncias,5801.0,5801.0,0.0,True
+Tab. 4.1,instâncias: antibiotic inactivation,5239.0,5239.0,0.0,True
+Tab. 4.1,instâncias: antibiotic target alteration,285.0,285.0,0.0,True
+Tab. 4.1,instâncias: antibiotic efflux,269.0,269.0,0.0,True
+Tab. 4.1,instâncias: reduced permeability to antibiotic,8.0,8.0,0.0,True
+Tab. 4.2,features de sequência,426.0,426.0,0.0,True
+Seç. 4.5,features ontológicas,39.0,39.0,0.0,True
+Seç. 4.7,features Pipeline B,465.0,465.0,0.0,True
+Seç. 4.6.1,F1 somente ontologia,0.8011,0.801146,4.6e-05,True
+Tab. 5.1,A random_forest accuracy (teste),0.9699,0.969854,-4.6e-05,True
+Tab. 5.1,A random_forest precision_macro (teste),0.7366,0.736589,-1.1e-05,True
+Tab. 5.1,A random_forest recall_macro (teste),0.6028,0.602827,2.7e-05,True
+Tab. 5.1,A random_forest f1_macro (teste),0.655,0.655045,4.5e-05,True
+Tab. 5.4,A random_forest roc_auc_ovr (teste),0.9297,0.929654,-4.6e-05,True
+Tab. 5.5,A random_forest F1 CV média,0.7095,0.70955,5e-05,True
+Tab. 5.5,A random_forest F1 CV desvio,0.0952,0.095215,1.5e-05,True
+Tab. 5.1,A xgboost accuracy (teste),0.9767,0.976744,4.4e-05,True
+Tab. 5.1,A xgboost precision_macro (teste),0.718,0.718023,2.3e-05,True
+Tab. 5.1,A xgboost recall_macro (teste),0.6462,0.646209,9e-06,True
+Tab. 5.1,A xgboost f1_macro (teste),0.6787,0.678703,3e-06,True
+Tab. 5.4,A xgboost roc_auc_ovr (teste),0.9916,0.991552,-4.8e-05,True
+Tab. 5.5,A xgboost F1 CV média,0.7624,0.762364,-3.6e-05,True
+Tab. 5.5,A xgboost F1 CV desvio,0.1215,0.121461,-3.9e-05,True
+Tab. 5.1,A logistic_regression accuracy (teste),0.9552,0.955211,1.1e-05,True
+Tab. 5.1,A logistic_regression precision_macro (teste),0.6002,0.600172,-2.8e-05,True
+Tab. 5.1,A logistic_regression recall_macro (teste),0.6654,0.665373,-2.7e-05,True
+Tab. 5.1,A logistic_regression f1_macro (teste),0.6271,0.627132,3.2e-05,True
+Tab. 5.4,A logistic_regression roc_auc_ovr (teste),0.9702,0.970223,2.3e-05,True
+Tab. 5.5,A logistic_regression F1 CV média,0.6848,0.684825,2.5e-05,True
+Tab. 5.5,A logistic_regression F1 CV desvio,0.0947,0.094725,2.5e-05,True
+Tab. 5.1,A svm accuracy (teste),0.9707,0.970715,1.5e-05,True
+Tab. 5.1,A svm precision_macro (teste),0.6557,0.655679,-2.1e-05,True
+Tab. 5.1,A svm recall_macro (teste),0.6694,0.669424,2.4e-05,True
+Tab. 5.1,A svm f1_macro (teste),0.6605,0.660485,-1.5e-05,True
+Tab. 5.4,A svm roc_auc_ovr (teste),0.9886,0.988585,-1.5e-05,True
+Tab. 5.5,A svm F1 CV média,0.7513,0.751339,3.9e-05,True
+Tab. 5.5,A svm F1 CV desvio,0.1092,0.109248,4.8e-05,True
+Tab. 5.2,B random_forest accuracy (teste),0.9897,0.989664,-3.6e-05,True
+Tab. 5.2,B random_forest precision_macro (teste),0.7427,0.742686,-1.4e-05,True
+Tab. 5.2,B random_forest recall_macro (teste),0.7057,0.705653,-4.7e-05,True
+Tab. 5.2,B random_forest f1_macro (teste),0.7228,0.722818,1.8e-05,True
+Tab. 5.4,B random_forest roc_auc_ovr (teste),0.9943,0.994342,4.2e-05,True
+Tab. 5.5,B random_forest F1 CV média,0.798,0.797973,-2.7e-05,True
+Tab. 5.5,B random_forest F1 CV desvio,0.1237,0.123661,-3.9e-05,True
+Tab. 5.2,B xgboost accuracy (teste),0.9914,0.991387,-1.3e-05,True
+Tab. 5.2,B xgboost precision_macro (teste),0.7388,0.738843,4.3e-05,True
+Tab. 5.2,B xgboost recall_macro (teste),0.7227,0.72272,2e-05,True
+Tab. 5.2,B xgboost f1_macro (teste),0.7305,0.73046,-4e-05,True
+Tab. 5.4,B xgboost roc_auc_ovr (teste),0.9979,0.997921,2.1e-05,True
+Tab. 5.5,B xgboost F1 CV média,0.8266,0.826583,-1.7e-05,True
+Tab. 5.5,B xgboost F1 CV desvio,0.1181,0.11805,-5e-05,True
+Tab. 5.2,B logistic_regression accuracy (teste),0.9862,0.986219,1.9e-05,True
+Tab. 5.2,B logistic_regression precision_macro (teste),0.7075,0.707453,-4.7e-05,True
+Tab. 5.2,B logistic_regression recall_macro (teste),0.7298,0.729827,2.7e-05,True
+Tab. 5.2,B logistic_regression f1_macro (teste),0.7182,0.718217,1.7e-05,True
+Tab. 5.4,B logistic_regression roc_auc_ovr (teste),0.9938,0.993829,2.9e-05,True
+Tab. 5.5,B logistic_regression F1 CV média,0.7527,0.752739,3.9e-05,True
+Tab. 5.5,B logistic_regression F1 CV desvio,0.0998,0.099815,1.5e-05,True
+Tab. 5.2,B svm accuracy (teste),0.9897,0.989664,-3.6e-05,True
+Tab. 5.2,B svm precision_macro (teste),0.7182,0.718172,-2.8e-05,True
+Tab. 5.2,B svm recall_macro (teste),0.731,0.731025,2.5e-05,True
+Tab. 5.2,B svm f1_macro (teste),0.7243,0.724272,-2.8e-05,True
+Tab. 5.4,B svm roc_auc_ovr (teste),0.9979,0.997883,-1.7e-05,True
+Tab. 5.5,B svm F1 CV média,0.8206,0.820556,-4.4e-05,True
+Tab. 5.5,B svm F1 CV desvio,0.1208,0.120845,4.5e-05,True
+Tab. 5.6,random_forest Wilcoxon W,0.0,0.0,0.0,True
+Tab. 5.6,random_forest Wilcoxon p,0.002,0.001953,-4.7e-05,True
+Tab. 5.6,xgboost Wilcoxon W,0.0,0.0,0.0,True
+Tab. 5.6,xgboost Wilcoxon p,0.002,0.001953,-4.7e-05,True
+Tab. 5.6,logistic_regression Wilcoxon W,9.0,9.0,0.0,True
+Tab. 5.6,logistic_regression Wilcoxon p,0.0645,0.064453,-4.7e-05,True
+Tab. 5.6,svm Wilcoxon W,0.0,0.0,0.0,True
+Tab. 5.6,svm Wilcoxon p,0.002,0.001953,-4.7e-05,True

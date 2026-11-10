@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+  \centering
+  \caption{ROC-AUC macro (OvR) no conjunto de teste.}
+  \label{tab:roc_auc}
+  \begin{tabular}{lccc}
+    \toprule
+    Modelo & ROC-AUC (A) & ROC-AUC (B) & $\Delta$ \\
+    \midrule
+    Random Forest & 0,9297 & 0,9943 & +0,0647 \\
+    XGBoost & 0,9916 & 0,9979 & +0,0064 \\
+    Logistic Regression & 0,9702 & 0,9938 & +0,0236 \\
+    SVM (RBF) & 0,9886 & 0,9979 & +0,0093 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

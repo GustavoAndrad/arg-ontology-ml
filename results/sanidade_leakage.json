@@ -1,0 +1,12 @@
+{
+  "f1_macro_somente_ontologia": 0.8011463955608213,
+  "accuracy": 0.979328165374677,
+  "f1_por_classe": {
+    "antibiotic efflux": 0.8412698412698413,
+    "antibiotic inactivation": 0.9894026974951831,
+    "antibiotic target alteration": 0.9739130434782609,
+    "reduced permeability to antibiotic": 0.4
+  },
+  "limiar": 0.85,
+  "decisao": "manter features (sem evidência de leakage direto)"
+}
