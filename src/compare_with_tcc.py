@@ -1,6 +1,11 @@
 """
 compare_with_tcc.py — Confronta os resultados gerados com os valores publicados no TCC 1.
 
+**Congelado no TCC1.** Desde o TCC2 (ponto 2, 5 classes) o experimento é outro, e
+este script passa a apontar diferenças por construção. Ele só faz sentido no commit
+``2b0247f``, onde o código reproduz 73/73 itens do PDF do TCC1. Fica no repositório
+como registro do gabarito usado para validar a reimplementação.
+
 Os valores de referência abaixo foram transcritos do PDF (Tabelas 4.1, 4.2, 5.1–5.6 e
 Seção 4.6.1). Nenhum deles é usado para gerar resultados: servem apenas de gabarito.
 Um item é considerado igual quando coincide no número de casas decimais publicado.

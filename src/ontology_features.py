@@ -1,12 +1,23 @@
 """
 ontology_features.py — Features ontológicas da ARO (Pipeline B, Seção 4.5).
 
-39 atributos por instância:
+Atributos por instância:
     * ``depth_isa``      — profundidade na hierarquia is-a (raiz = 0, menor caminho);
     * ``ancestor_count`` — número de ancestrais (fecho transitivo de is-a);
     * ``children_count`` — número de subclasses diretas;
-    * 36 flags binárias ``drug_class_*`` — classes de antibiótico associadas ao gene
-      (coluna ``Drug Class`` do CARD, separada por ';').
+    * uma flag binária ``drug_class_*`` por classe de antibiótico observada nos genes
+      do experimento (coluna ``Drug Class`` do ``aro_index.tsv``, separada por ';').
+
+Quantidade: as 3 estruturais vêm do ``aro.owl``; as flags dependem das classes do
+experimento. Com as 5 classes do TCC2 (CARD 4.0.1) são 38 flags, 41 no total; no
+TCC1, com 4 classes, eram 36 (39 no total). As duas novas, "sulfone antibiotic" e
+"antibiotic without defined classification", só aparecem em genes de substituição
+(3) e de proteção do alvo (2), respectivamente — ponto a observar na ablação e na
+informação mútua (ponto 4).
+
+O vocabulário de flags é definido pelos genes do experimento e reaplicado, com as
+mesmas colunas, aos genes do estudo de caso (``extract_ontological_features(...,
+vocabulary=...)``). Assim os modelos treinados podem ser aplicados a eles.
 
 O ``aro.owl`` do CARD 4.0.1 está em sintaxe OWL/XML (não RDF/XML), que o rdflib não
 lê. Por isso a hierarquia é extraída com ``xml.etree`` dos axiomas
@@ -29,7 +40,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.config import ONTOLOGY_PATH
-from src.experiment_config import PROCESSED_DIR, load_experiment_dataset
+from src.experiment_config import PROCESSED_DIR, load_case_study_dataset, load_experiment_dataset
 
 logger = logging.getLogger(__name__)
 
@@ -144,20 +155,41 @@ def drug_class_column(name: str) -> str:
     return "drug_class_" + re.sub(r"[^0-9a-zA-Z]+", "_", name.strip().lower()).strip("_")
 
 
-def extract_drug_class_flags(drug_class_values: pd.Series) -> pd.DataFrame:
+def drug_class_vocabulary(drug_class_values: pd.Series) -> list[str]:
+    """Classes de antibiótico distintas (ordem alfabética), que viram as colunas de flags."""
+    return sorted(set().union(*(split_drug_classes(v) for v in drug_class_values)))
+
+
+def extract_drug_class_flags(drug_class_values: pd.Series, vocabulary: list[str] | None = None) -> pd.DataFrame:
     """
-    Flags 0/1 para cada classe de antibiótico observada (ordem alfabética).
+    Flags 0/1 para cada classe de antibiótico (ordem alfabética).
+
+    ``vocabulary``: classes que viram colunas. Se ``None``, usa as classes presentes
+    em ``drug_class_values`` (caso dos genes do experimento). Para outros genes (estudo
+    de caso), passe o vocabulário do experimento, para obter as mesmas colunas;
+    classes fora dele são ignoradas com aviso, porque o modelo não as conhece.
 
     # ANTI-LEAKAGE: Drug Class NÃO é proxy de Resistance_Mechanism — descreve o
     # antibiótico afetado, não o mecanismo pelo qual o gene confere resistência.
     """
     sets = [split_drug_classes(v) for v in drug_class_values]
-    classes = sorted(set().union(*sets))
-    return pd.DataFrame({drug_class_column(c): [int(c in s) for s in sets] for c in classes})
+    classes = drug_class_vocabulary(drug_class_values) if vocabulary is None else list(vocabulary)
+    unknown = sorted(set().union(*sets) - set(classes))
+    if unknown:
+        logger.warning("Classes de antibiótico fora do vocabulário (ignoradas): %s", unknown)
+    return pd.DataFrame(
+        {drug_class_column(c): [int(c in s) for s in sets] for c in classes}, index=range(len(sets))
+    )
 
 
-def extract_ontological_features(df: pd.DataFrame, owl_path: Path = ONTOLOGY_PATH) -> pd.DataFrame:
-    """Retorna ``ARO_Accession`` + 3 features estruturais + flags de Drug Class."""
+def extract_ontological_features(
+    df: pd.DataFrame, owl_path: Path = ONTOLOGY_PATH, vocabulary: list[str] | None = None
+) -> pd.DataFrame:
+    """
+    Retorna ``ARO_Accession`` + 3 features estruturais + flags de Drug Class.
+
+    ``vocabulary``: classes de antibiótico que viram flags (ver ``extract_drug_class_flags``).
+    """
     graph = load_ontology(owl_path)
     ids = df["ARO_Accession"].tolist()
     missing = [a for a in ids if a not in graph.nodes]
@@ -170,7 +202,7 @@ def extract_ontological_features(df: pd.DataFrame, owl_path: Path = ONTOLOGY_PAT
             "children_count": [max(compute_children_count(a, graph), 0) for a in ids],
         }
     )
-    flags = extract_drug_class_flags(df["Drug_Class"])
+    flags = extract_drug_class_flags(df["Drug_Class"], vocabulary)
     out = pd.concat([structural, flags], axis=1)
     logger.info("Features ontológicas: %d estruturais + %d drug_class = %d.", 3, flags.shape[1], out.shape[1])
     out.insert(0, "ARO_Accession", ids)
@@ -188,3 +220,11 @@ if __name__ == "__main__":
     output = PROCESSED_DIR / "features_ontologicas.csv"
     features.to_csv(output, index=False)
     logger.info("Salvo em %s (antes da verificação de leakage).", output)
+
+    # Estudo de caso: mesmas colunas do experimento (vocabulário dos genes do experimento).
+    case = load_case_study_dataset()
+    case_features = extract_ontological_features(case, vocabulary=drug_class_vocabulary(data["Drug_Class"]))
+    assert list(case_features.columns) == list(features.columns), "Colunas do estudo de caso divergentes"
+    case_output = PROCESSED_DIR / "features_ontologicas_estudo_caso.csv"
+    case_features.to_csv(case_output, index=False)
+    logger.info("Estudo de caso: %d genes salvos em %s.", len(case_features), case_output)

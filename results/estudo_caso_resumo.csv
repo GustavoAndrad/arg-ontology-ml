@@ -1,0 +1,10 @@
+ARO_Accession,Resistance_Mechanism,AMR_Gene_Family,A_random_forest,A_xgboost,A_logistic_regression,A_svm,B_random_forest,B_xgboost,B_logistic_regression,B_svm
+ARO:3004123,reduced permeability to antibiotic,General Bacterial Porin with reduced permeability to beta-lactams,inactivation,efflux,efflux,inactivation,inactivation,inactivation,inactivation,inactivation
+ARO:3007678,reduced permeability to antibiotic,Serine/threonine kinases,efflux,target protection,target protection,target protection,efflux,efflux,target protection,efflux
+ARO:3004122,reduced permeability to antibiotic,General Bacterial Porin with reduced permeability to beta-lactams,inactivation,inactivation,inactivation,inactivation,inactivation,inactivation,inactivation,inactivation
+ARO:3005052,reduced permeability to antibiotic,Intrinsic peptide antibiotic resistant Lps,inactivation,target alteration,target alteration,inactivation,inactivation,inactivation,target alteration,target alteration
+ARO:3005051,reduced permeability to antibiotic,Intrinsic peptide antibiotic resistant Lps,inactivation,inactivation,efflux,inactivation,efflux,efflux,target alteration,target alteration
+ARO:3007682,reduced permeability to antibiotic,Outer Membrane Porin (Opr),efflux,inactivation,inactivation,inactivation,efflux,efflux,inactivation,inactivation
+ARO:3005044,reduced permeability to antibiotic,General Bacterial Porin with reduced permeability to peptide antibiotics,inactivation,inactivation,inactivation,inactivation,inactivation,target alteration,target alteration,target alteration
+ARO:3007427,resistance by host-dependent nutrient acquisition,ECF transporter S component,inactivation,efflux,efflux,efflux,efflux,efflux,efflux,efflux
+ARO:3003059,reduced permeability to antibiotic,tunicamycin resistance protein,inactivation,efflux,target alteration,inactivation,efflux,efflux,efflux,efflux

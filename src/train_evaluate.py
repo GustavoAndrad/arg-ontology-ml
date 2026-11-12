@@ -1,13 +1,20 @@
 """
 train_evaluate.py — Treinamento, validação cruzada e avaliação (Seções 4.8–4.11, 5.2–5.5).
 
-Para cada modelo e cada pipeline (A: 426 features; B: 465 features):
+Para cada modelo e cada pipeline (A: 426 features; B: 467 features com as 5 classes):
     * validação cruzada estratificada de 10 folds no conjunto de treino;
     * treino final no conjunto de treino (80%) e avaliação no teste (20%).
 
 Métricas: acurácia, precisão/revocação/F1 macro, acurácia balanceada e ROC-AUC
-macro One-vs-Rest. O F1-macro segue ``sklearn.metrics.f1_score(average='macro')``:
-a média é feita sobre as classes presentes em ``y_true`` ou ``y_pred`` do fold.
+macro One-vs-Rest.
+
+Classes declaradas (TCC2, ponto 2): precisão, revocação e F1 macro recebem
+``labels`` com todas as classes. Sem isso, o scikit-learn faz a média só sobre as
+classes que aparecem no fold, e uma classe ausente simplesmente some da média (era
+o que acontecia no TCC1, ao contrário do que diz a Seção 5.5). Para que a média
+seja sempre sobre as 5 classes, o código também confere, antes de treinar, que
+cada fold de validação tem genes de todas elas (``check_class_counts_per_fold``) e
+salva essas contagens em ``results/cv_contagem_classes.csv``.
 
 Uso:
     python -m src.train_evaluate
@@ -34,14 +41,17 @@ from sklearn.metrics import (
 )
 
 from src.experiment_config import (
+    MIN_GENES_PER_FOLD,
     MODEL_NAMES,
     MODELS_DIR,
     PROCESSED_DIR,
     RESULTS_DIR,
     TARGET,
     cv_splitter,
+    dataset_composition,
     encode_target,
     load_experiment_dataset,
+    load_integrated_dataset,
     split_indices,
 )
 from src.pipeline_builder import build_full_pipeline
@@ -76,19 +86,42 @@ def split_dataset(y: np.ndarray, save: bool = True) -> tuple[np.ndarray, np.ndar
 
 
 def compute_metrics(y_true, y_pred, proba, n_classes: int) -> dict[str, float]:
+    """Métricas macro sobre as ``n_classes`` classes declaradas (ver docstring do módulo)."""
     labels = list(range(n_classes))
     try:
         auc = roc_auc_score(y_true, proba, multi_class="ovr", average="macro", labels=labels)
-    except ValueError:  # classe ausente no fold de validação
+    except ValueError:  # classe ausente no fold de validação (impedido por check_class_counts_per_fold)
         auc = float("nan")
     return {
         "accuracy": accuracy_score(y_true, y_pred),
-        "precision_macro": precision_score(y_true, y_pred, average="macro", zero_division=0),
-        "recall_macro": recall_score(y_true, y_pred, average="macro", zero_division=0),
-        "f1_macro": f1_score(y_true, y_pred, average="macro", zero_division=0),
+        "precision_macro": precision_score(y_true, y_pred, labels=labels, average="macro", zero_division=0),
+        "recall_macro": recall_score(y_true, y_pred, labels=labels, average="macro", zero_division=0),
+        "f1_macro": f1_score(y_true, y_pred, labels=labels, average="macro", zero_division=0),
         "balanced_accuracy": balanced_accuracy_score(y_true, y_pred),
         "roc_auc_ovr": auc,
     }
+
+
+def check_class_counts_per_fold(y_train: np.ndarray, classes: list[str]) -> pd.DataFrame:
+    """
+    Conta os genes de cada classe em cada fold de validação e aplica o critério do ponto 2.
+
+    Os folds dependem só de ``y_train`` e da semente, então são os mesmos para todos
+    os modelos e para os Pipelines A e B. Erro se alguma classe faltar num fold (o F1
+    dela não existiria); aviso se ficar abaixo de ``MIN_GENES_PER_FOLD``.
+    """
+    rows = []
+    for i, (_, val_idx) in enumerate(cv_splitter().split(np.zeros(len(y_train)), y_train), start=1):
+        counts = np.bincount(y_train[val_idx], minlength=len(classes))
+        rows.append({"fold": i, **dict(zip(classes, map(int, counts)))})
+    table = pd.DataFrame(rows)
+    minimum = table[classes].min()
+    if (minimum == 0).any():
+        raise ValueError(f"Classe ausente em algum fold de validação: {minimum[minimum == 0].index.tolist()}")
+    for c, m in minimum.items():
+        log = logger.warning if m < MIN_GENES_PER_FOLD else logger.info
+        log("Validação cruzada: classe %-32s mínimo de %d genes por fold.", c, m)
+    return table
 
 
 def run_cross_validation(model_name: str, X_train: np.ndarray, y_train: np.ndarray, n_classes: int) -> list[dict]:
@@ -138,6 +171,9 @@ def run_experiment(model_names: list[str] = MODEL_NAMES) -> None:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     PREDICTIONS_DIR.mkdir(parents=True, exist_ok=True)
     (RESULTS_DIR / "classes.json").write_text(json.dumps(classes, ensure_ascii=False, indent=2), encoding="utf-8")
+    check_class_counts_per_fold(y[train_idx], classes).to_csv(RESULTS_DIR / "cv_contagem_classes.csv", index=False)
+    # Tabela 4.1 / Seção 4.3.3: todos os mecanismos do dataset integrado e o destino de cada um.
+    dataset_composition(load_integrated_dataset()).to_csv(RESULTS_DIR / "composicao_dataset.csv", index=False)
 
     cv_rows, per_class_rows = [], []
     for key, X_df in (("a", X_a), ("b", X_b)):

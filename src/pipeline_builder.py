@@ -32,10 +32,12 @@ from src.experiment_config import K_FEATURES, MODEL_NAMES, MODELS_DIR, RANDOM_ST
 
 logger = logging.getLogger(__name__)
 
+# Nomes exibidos em figuras e tabelas. "Regressão Logística" em português, como no
+# resto do texto do TCC (ponto 12 do documento de decisões); os demais são nomes próprios.
 MODEL_LABELS: dict[str, str] = {
     "random_forest": "Random Forest",
     "xgboost": "XGBoost",
-    "logistic_regression": "Logistic Regression",
+    "logistic_regression": "Regressão Logística",
     "svm": "SVM (RBF)",
 }
 

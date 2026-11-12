@@ -37,10 +37,38 @@ SPEARMAN_LEAKAGE_THRESHOLD: float = 0.95
 
 # ── Alvo de classificação ──────────────────────────────────────────────────────
 TARGET_COLUMN: str = "Resistance Mechanism"
+
+# Classes do experimento (TCC2, ponto 2 de docs/TCC2_decisoes_banca.md).
+#
+# Por que estas 5: são os mecanismos de rótulo único do dataset integrado
+# (CARD 4.0.1, protein homolog model, 6.052 genes) com genes suficientes para
+# ter cerca de 5 por fold de validação. São filhos diretos de "mechanism of
+# antibiotic resistance" na ARO; nenhum é subtipo de outro, então não se juntam.
+#
+# Histórico do erro corrigido aqui: a lista anterior (copiada da especificação
+# do planejamento, .kiro/specs/.../requirements.md) tinha "reduced permeability"
+# e "resistance by absence", mas não "target protection" (170 genes) nem
+# "target replacement" (70 genes), que existem nos dados. O TCC1 acabou usando
+# 4 classes por causa disso, e não por escolha de método.
 TARGET_CLASSES: list[str] = [
-    "antibiotic inactivation",
-    "antibiotic efflux",
-    "antibiotic target alteration",
-    "reduced permeability to antibiotic",
-    "resistance by absence",
+    "antibiotic inactivation",       # 5.239 genes
+    "antibiotic target alteration",  # 285
+    "antibiotic efflux",             # 269
+    "antibiotic target protection",  # 170
+    "antibiotic target replacement", # 70
 ]
+
+# Mecanismos raros demais para a avaliação quantitativa (8 e 1 genes: 0 ou 1 por
+# fold). Ficam fora do treino e viram um estudo de caso qualitativo: os modelos
+# treinados com as 5 classes são aplicados a esses genes.
+CASE_STUDY_CLASSES: list[str] = [
+    "reduced permeability to antibiotic",                 # 8 genes
+    "resistance by host-dependent nutrient acquisition",  # 1 gene
+]
+
+# Genes com mais de um mecanismo aparecem com os rótulos separados por ";"
+# (10 genes). Ficam fora: a tarefa é multiclasse de rótulo único.
+MULTI_LABEL_SEPARATOR: str = ";"
+
+# "resistance by absence" (definida na ARO) não aparece no dataset: é perda de
+# gene, sem proteína no FASTA do protein homolog model.

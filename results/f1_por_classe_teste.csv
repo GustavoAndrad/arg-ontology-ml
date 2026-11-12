@@ -1,33 +1,41 @@
 pipeline,modelo,classe,f1_teste,n_teste
-a,random_forest,antibiotic efflux,0.8888888888888888,54
-a,random_forest,antibiotic inactivation,0.984037558685446,1048
-a,random_forest,antibiotic target alteration,0.7472527472527473,57
-a,random_forest,reduced permeability to antibiotic,0.0,2
-a,xgboost,antibiotic efflux,0.88,54
-a,xgboost,antibiotic inactivation,0.9886578449905482,1048
-a,xgboost,antibiotic target alteration,0.8461538461538461,57
-a,xgboost,reduced permeability to antibiotic,0.0,2
-a,logistic_regression,antibiotic efflux,0.8181818181818182,54
-a,logistic_regression,antibiotic inactivation,0.9802028005794302,1048
-a,logistic_regression,antibiotic target alteration,0.7101449275362319,57
-a,logistic_regression,reduced permeability to antibiotic,0.0,2
-a,svm,antibiotic efflux,0.8543689320388349,54
-a,svm,antibiotic inactivation,0.9875717017208413,1048
-a,svm,antibiotic target alteration,0.8,57
-a,svm,reduced permeability to antibiotic,0.0,2
-b,random_forest,antibiotic efflux,0.9719626168224299,54
-b,random_forest,antibiotic inactivation,0.9947793070716658,1048
-b,random_forest,antibiotic target alteration,0.9245283018867925,57
-b,random_forest,reduced permeability to antibiotic,0.0,2
-b,xgboost,antibiotic efflux,0.9629629629629629,54
-b,xgboost,antibiotic inactivation,0.9952426260704091,1048
-b,xgboost,antibiotic target alteration,0.9636363636363636,57
-b,xgboost,reduced permeability to antibiotic,0.0,2
-b,logistic_regression,antibiotic efflux,0.9724770642201835,54
-b,logistic_regression,antibiotic inactivation,0.9928263988522238,1048
-b,logistic_regression,antibiotic target alteration,0.907563025210084,57
-b,logistic_regression,reduced permeability to antibiotic,0.0,2
-b,svm,antibiotic efflux,0.9642857142857143,54
-b,svm,antibiotic inactivation,0.9947494033412888,1048
-b,svm,antibiotic target alteration,0.9380530973451328,57
-b,svm,reduced permeability to antibiotic,0.0,2
+a,random_forest,antibiotic efflux,0.8910891089108911,54
+a,random_forest,antibiotic inactivation,0.983575786015955,1048
+a,random_forest,antibiotic target alteration,0.7608695652173914,57
+a,random_forest,antibiotic target protection,0.9850746268656716,34
+a,random_forest,antibiotic target replacement,0.782608695652174,14
+a,xgboost,antibiotic efflux,0.9019607843137255,54
+a,xgboost,antibiotic inactivation,0.9900615238996687,1048
+a,xgboost,antibiotic target alteration,0.8269230769230769,57
+a,xgboost,antibiotic target protection,0.9705882352941176,34
+a,xgboost,antibiotic target replacement,0.8888888888888888,14
+a,logistic_regression,antibiotic efflux,0.8,54
+a,logistic_regression,antibiotic inactivation,0.9776264591439688,1048
+a,logistic_regression,antibiotic target alteration,0.7007299270072993,57
+a,logistic_regression,antibiotic target protection,0.9041095890410958,34
+a,logistic_regression,antibiotic target replacement,0.6666666666666666,14
+a,svm,antibiotic efflux,0.8333333333333334,54
+a,svm,antibiotic inactivation,0.9865384615384616,1048
+a,svm,antibiotic target alteration,0.7938931297709924,57
+a,svm,antibiotic target protection,1.0,34
+a,svm,antibiotic target replacement,0.8148148148148148,14
+b,random_forest,antibiotic efflux,0.9541284403669725,54
+b,random_forest,antibiotic inactivation,0.9943074003795066,1048
+b,random_forest,antibiotic target alteration,0.9038461538461539,57
+b,random_forest,antibiotic target protection,0.9850746268656716,34
+b,random_forest,antibiotic target replacement,0.9230769230769231,14
+b,xgboost,antibiotic efflux,0.954954954954955,54
+b,xgboost,antibiotic inactivation,0.9976156413924654,1048
+b,xgboost,antibiotic target alteration,0.972972972972973,57
+b,xgboost,antibiotic target protection,0.9705882352941176,34
+b,xgboost,antibiotic target replacement,0.8888888888888888,14
+b,logistic_regression,antibiotic efflux,0.9541284403669725,54
+b,logistic_regression,antibiotic inactivation,0.9942473633748802,1048
+b,logistic_regression,antibiotic target alteration,0.9482758620689655,57
+b,logistic_regression,antibiotic target protection,0.9066666666666666,34
+b,logistic_regression,antibiotic target replacement,1.0,14
+b,svm,antibiotic efflux,0.954954954954955,54
+b,svm,antibiotic inactivation,0.9966523194643712,1048
+b,svm,antibiotic target alteration,0.9739130434782609,57
+b,svm,antibiotic target protection,0.9855072463768116,34
+b,svm,antibiotic target replacement,1.0,14

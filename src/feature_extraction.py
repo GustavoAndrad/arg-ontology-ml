@@ -13,6 +13,11 @@ e do cálculo físico-químico; o comprimento usa a sequência original. Nos
 dipeptídeos, pares que contêm resíduo ambíguo são descartados (sem juntar os
 vizinhos do resíduo removido).
 
+Saídas: ``data/processed/features_sequencia.csv`` (genes do experimento) e
+``data/processed/features_sequencia_estudo_caso.csv`` (genes do estudo de caso,
+TCC2 ponto 2). Os atributos dependem só da sequência de cada gene, então os
+genes que já estavam no TCC1 têm exatamente os mesmos valores.
+
 Uso:
     python -m src.feature_extraction
 """
@@ -27,7 +32,7 @@ from collections import Counter
 import pandas as pd
 from Bio.SeqUtils.ProtParam import ProteinAnalysis
 
-from src.experiment_config import PROCESSED_DIR, load_experiment_dataset
+from src.experiment_config import PROCESSED_DIR, load_case_study_dataset, load_experiment_dataset
 
 logger = logging.getLogger(__name__)
 
@@ -136,3 +141,7 @@ if __name__ == "__main__":
     output = PROCESSED_DIR / "features_sequencia.csv"
     features.to_csv(output, index=False)
     logger.info("Salvo em %s", output)
+
+    case_output = PROCESSED_DIR / "features_sequencia_estudo_caso.csv"
+    extract_sequence_features(load_case_study_dataset()).to_csv(case_output, index=False)
+    logger.info("Estudo de caso salvo em %s", case_output)

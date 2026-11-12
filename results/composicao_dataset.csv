@@ -1,0 +1,11 @@
+mecanismo,genes,destino
+antibiotic inactivation,5239,experimento
+antibiotic target alteration,285,experimento
+antibiotic efflux,269,experimento
+antibiotic target protection,170,experimento
+antibiotic target replacement,70,experimento
+reduced permeability to antibiotic,8,estudo_de_caso
+resistance by host-dependent nutrient acquisition,1,estudo_de_caso
+antibiotic efflux;antibiotic target alteration,4,multirrotulo
+antibiotic efflux;reduced permeability to antibiotic,4,multirrotulo
+antibiotic target alteration;antibiotic target replacement,2,multirrotulo
