@@ -16,9 +16,22 @@ Um mecanismo que não esteja em nenhuma lista gera erro, em vez de ser descartad
 em silêncio como acontecia no TCC1 (foi assim que duas classes sumiram sem
 ninguém perceber).
 
-Ainda iguais ao TCC1 (mudam nos pontos seguintes): validação cruzada estratificada
-com **10 folds** (Seção 4.8.1; ponto 5 muda para 5) e divisão aleatória 80/20
-(ponto 3 muda para divisão por grupos).
+Divisão treino/teste e validação cruzada **por grupos de similaridade** (TCC2,
+ponto 3): genes com identidade ≥ ``SIMILARITY_THRESHOLD`` (70%) e cobertura ≥ 50%
+ficam no mesmo grupo (``src.homology_groups``), e o grupo inteiro vai para o treino
+ou para o teste. Assim o teste não tem variantes quase idênticas de genes do treino.
+
+* Teste: um dos 5 folds de um ``StratifiedGroupKFold`` (~20%), escolhido **só pela
+  proporção das classes** entre sementes candidatas (``choose_test_partition``),
+  nunca pelo desempenho.
+* Validação cruzada: ``StratifiedGroupKFold`` com **5 folds** no treino. Com grupos,
+  10 folds deixariam a substituição do alvo com cerca de 3 genes por fold, abaixo
+  do critério de entrada (antecipa a decisão 1 do ponto 5). A semente dos folds
+  também é escolhida só pela distribuição das classes (``choose_cv_seed``): com
+  grupos grandes, uma semente qualquer pode deixar uma classe pequena com 1 a 3
+  genes num fold (com a semente 42, a substituição do alvo ficava com 3).
+* ``groups=None`` (ou ``random_groups``) reproduz a divisão aleatória como caso
+  particular: cada gene é o seu próprio grupo.
 
 O TCC1 (4 classes, 5.801 genes) é reproduzido pelo commit ``2b0247f``.
 """
@@ -28,6 +41,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from src.config import (
@@ -36,6 +50,7 @@ from src.config import (
     K_FEATURES,
     MULTI_LABEL_SEPARATOR,
     MODELS_DIR,
+    N_CV_SPLITS,
     PLOTS_DIR,
     PROCESSED_DIR,
     RANDOM_STATE,
@@ -61,7 +76,13 @@ __all__ = [
     "SPEARMAN_LEAKAGE_THRESHOLD",
     "TEST_SIZE",
     "VARIANCE_THRESHOLD",
-    "N_CV_SPLITS_TCC",
+    "N_CV_SPLITS",
+    "SIMILARITY_THRESHOLD",
+    "PARTITION_SEED_CANDIDATES",
+    "load_groups",
+    "random_groups",
+    "choose_test_partition",
+    "choose_cv_seed",
     "MIN_GENES_PER_FOLD",
     "EFFECTIVE_CLASSES",
     "CASE_STUDY_CLASSES",
@@ -82,8 +103,11 @@ __all__ = [
     "load_case_study_dataset",
 ]
 
-# SEED FIXA — StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
-N_CV_SPLITS_TCC: int = 10
+# Limiar de identidade (%) dos grupos da avaliação principal (ponto 3).
+SIMILARITY_THRESHOLD: int = 70
+# Sementes testadas para escolher a partição de teste pela proporção das classes.  # SEED FIXA
+PARTITION_SEED_CANDIDATES: range = range(100)
+TEST_FRACTION_TARGET: float = 0.2
 
 # Critério de entrada das classes (ponto 2): cerca de 5 genes de cada classe em cada
 # fold de validação. Abaixo disso o código avisa; com 0 genes o F1 da classe não
@@ -119,25 +143,134 @@ def encode_target(labels: pd.Series):
     return y, list(le.classes_)
 
 
-def split_indices(y):
+def random_groups(n: int) -> np.ndarray:
+    """Cada gene no seu próprio grupo: a divisão por grupos vira a divisão aleatória."""
+    return np.arange(n)
+
+
+def load_groups(threshold: int | None = SIMILARITY_THRESHOLD, data: pd.DataFrame | None = None) -> np.ndarray:
     """
-    Partição estratificada 80/20 (Seção 4.8), idêntica para os Pipelines A e B.
+    Grupo de cada gene do experimento (na ordem de ``load_experiment_dataset``).
+
+    ``threshold=None`` devolve grupos unitários (divisão aleatória). Os grupos vêm de
+    ``results/grupos_similaridade.csv``, gerado por ``python -m src.homology_groups``.
+    """
+    data = load_experiment_dataset() if data is None else data
+    if threshold is None:
+        return random_groups(len(data))
+    path = RESULTS_DIR / "grupos_similaridade.csv"
+    if not path.exists():
+        raise FileNotFoundError(f"{path} não encontrado. Execute `python -m src.homology_groups` primeiro.")
+    table = pd.read_csv(path)
+    if table["ARO_Accession"].tolist() != data["ARO_Accession"].tolist():
+        raise ValueError("Grupos desalinhados ao dataset do experimento; reexecute `python -m src.homology_groups`.")
+    return table[f"grupo_{threshold}"].to_numpy()
+
+
+def _test_fraction_by_class(y: np.ndarray, test_idx: np.ndarray) -> np.ndarray:
+    return np.bincount(y[test_idx], minlength=y.max() + 1) / np.bincount(y, minlength=y.max() + 1)
+
+
+def choose_test_partition(y: np.ndarray, groups: np.ndarray, seeds=PARTITION_SEED_CANDIDATES):
+    """
+    Escolhe a partição treino/teste por grupos mais próxima de 20% de cada classe no teste.
+
+    Candidatas: os 5 folds de ``StratifiedGroupKFold(5, shuffle=True, random_state=s)``
+    para cada semente s. Critério, fixado antes de ver qualquer resultado: menor desvio
+    máximo |fração da classe no teste − 0,20| entre as classes; empate pelo desvio do
+    tamanho total do teste e depois pela menor semente. Retorna (train_idx, test_idx, info).
+    # SEED FIXA  # ANTI-LEAKAGE: grupos inteiros de um lado só
+    """
+    from sklearn.model_selection import StratifiedGroupKFold
+
+    n_folds = round(1 / TEST_FRACTION_TARGET)
+    best = None
+    for seed in seeds:
+        cv = StratifiedGroupKFold(n_splits=n_folds, shuffle=True, random_state=seed)
+        for fold, (train_idx, test_idx) in enumerate(cv.split(np.zeros(len(y)), y, groups)):
+            frac = _test_fraction_by_class(y, test_idx)
+            key = (
+                float(np.abs(frac - TEST_FRACTION_TARGET).max()),
+                abs(len(test_idx) / len(y) - TEST_FRACTION_TARGET),
+                seed,
+                fold,
+            )
+            if best is None or key < best[0]:
+                best = (key, train_idx, test_idx, frac)
+    (max_dev, size_dev, seed, fold), train_idx, test_idx, frac = best
+    assert not set(groups[train_idx]) & set(groups[test_idx]), "grupo nos dois lados"
+    info = {
+        "semente": int(seed),
+        "fold": int(fold),
+        "n_folds": n_folds,
+        "sementes_testadas": [min(seeds), max(seeds)],
+        "desvio_maximo_da_fracao_por_classe": max_dev,
+        "fracao_teste_por_classe": [float(f) for f in frac],
+        "n_treino": int(len(train_idx)),
+        "n_teste": int(len(test_idx)),
+        "grupos_treino": int(len(set(groups[train_idx]))),
+        "grupos_teste": int(len(set(groups[test_idx]))),
+    }
+    return np.sort(train_idx), np.sort(test_idx), info
+
+
+def split_indices(y, groups: np.ndarray | None = None):
+    """
+    Partição treino/teste do experimento, idêntica para os Pipelines A e B.
+
+    Com ``groups`` (o padrão do experimento é ``load_groups()``), usa ``choose_test_partition``.
+    Sem ``groups``, cada gene é um grupo (divisão aleatória estratificada).
     # SEED FIXA  # ANTI-LEAKAGE: índices de treino e teste disjuntos
     """
-    import numpy as np
-    from sklearn.model_selection import train_test_split
-
-    idx = np.arange(len(y))
-    train_idx, test_idx = train_test_split(idx, test_size=TEST_SIZE, stratify=y, random_state=RANDOM_STATE)
+    y = np.asarray(y)
+    groups = random_groups(len(y)) if groups is None else np.asarray(groups)
+    train_idx, test_idx, _ = choose_test_partition(y, groups)
     assert len(set(train_idx) & set(test_idx)) == 0
     return train_idx, test_idx
 
 
-def cv_splitter():
-    """StratifiedKFold de 10 folds com embaralhamento (Seção 4.8.1).  # SEED FIXA"""
-    from sklearn.model_selection import StratifiedKFold
+def cv_splitter(random_state: int = RANDOM_STATE):
+    """
+    Validação cruzada por grupos: ``StratifiedGroupKFold(5, shuffle=True, random_state)``.
+    No experimento, ``random_state`` vem de ``choose_cv_seed``. Use ``.split(X, y, groups)``.  # SEED FIXA
+    """
+    from sklearn.model_selection import StratifiedGroupKFold
 
-    return StratifiedKFold(n_splits=N_CV_SPLITS_TCC, shuffle=True, random_state=RANDOM_STATE)
+    return StratifiedGroupKFold(n_splits=N_CV_SPLITS, shuffle=True, random_state=random_state)
+
+
+def choose_cv_seed(y_train: np.ndarray, groups_train: np.ndarray, seeds=PARTITION_SEED_CANDIDATES):
+    """
+    Escolhe a semente dos folds da validação cruzada só pela distribuição das classes.
+
+    Critério, fixado antes de ver qualquer resultado: maior número mínimo de genes de
+    uma classe num fold (o critério de entrada das classes é cerca de 5 por fold);
+    empate pelo menor desvio máximo |fração da classe no fold − 1/5|; depois pela menor
+    semente. Retorna (semente, info).  # SEED FIXA
+    """
+    y_train = np.asarray(y_train)
+    n_classes = y_train.max() + 1
+    totals = np.bincount(y_train, minlength=n_classes)
+    best = None
+    for seed in seeds:
+        counts = np.array(
+            [
+                np.bincount(y_train[val], minlength=n_classes)
+                for _, val in cv_splitter(seed).split(np.zeros(len(y_train)), y_train, groups_train)
+            ]
+        )
+        key = (-int(counts.min()), float(np.abs(counts / totals - 1 / N_CV_SPLITS).max()), seed)
+        if best is None or key < best[0]:
+            best = (key, counts)
+    (neg_min, max_dev, seed), counts = best
+    info = {
+        "semente_cv": int(seed),
+        "sementes_cv_testadas": [min(seeds), max(seeds)],
+        "minimo_genes_classe_fold": int(-neg_min),
+        "minimo_por_classe": [int(c) for c in counts.min(axis=0)],
+        "desvio_maximo_fracao_fold": max_dev,
+    }
+    return int(seed), info
 
 
 def assign_split(mechanism: str) -> str:

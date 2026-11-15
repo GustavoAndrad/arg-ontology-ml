@@ -3,8 +3,8 @@ interpretability.py — Importância de features dos modelos finais.
 
 * Gini importance do Random Forest (Pipelines A e B);
 * Permutation importance (n_repeats=10, random_state=42) no conjunto de teste,
-  métrica F1-macro, restrita às features escolhidas pelo SelectKBest (as demais
-  não chegam ao classificador e têm importância zero por construção);
+  métrica F1-macro, sobre todos os atributos (73 no A, 114 no B), já que o
+  experimento não usa seleção de atributos;
 * SHAP (TreeExplainer) para o Random Forest do Pipeline B, se ``shap`` estiver instalado.
 
 Uso:
@@ -40,6 +40,7 @@ SEQ_PREFIXES = (
     "instability_index",
     "charge_at_pH7",
     "aa_comp_",
+    "pair_",
     "dipep_",
 )
 
@@ -49,9 +50,20 @@ def feature_type(name: str) -> str:
 
 
 def get_feature_names_after_pipeline(pipeline, feature_names_in: list[str]) -> list[str]:
+    """
+    Nomes dos atributos que chegam ao classificador.
+
+    No experimento não há seleção, então são todos. Se o pipeline tiver a seleção
+    conjunta do TCC1 (etapas "variance" e "select"), aplica as máscaras dela.
+    """
     names = np.asarray(feature_names_in)
-    names = names[pipeline.named_steps["variance"].get_support()]
-    return list(names[pipeline.named_steps["select"].get_support()])
+    if "select" in pipeline.named_steps:
+        names = names[pipeline.named_steps["variance"].get_support()]
+        names = names[pipeline.named_steps["select"].get_support()]
+    n_in = pipeline.named_steps["clf"].n_features_in_
+    if len(names) != n_in:
+        raise ValueError(f"{len(names)} nomes para {n_in} atributos do classificador.")
+    return list(names)
 
 
 def compute_gini_importance(pipeline, feature_names: list[str]) -> pd.DataFrame:

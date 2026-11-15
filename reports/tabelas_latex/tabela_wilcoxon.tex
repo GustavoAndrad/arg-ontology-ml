@@ -1,15 +1,15 @@
 \begin{table}[htbp]
   \centering
-  \caption{Resultado do teste de Wilcoxon Signed-Rank (F1-macro, A vs. B, $N = 10$ folds, $\alpha = 0{,}05$).}
+  \caption{Resultado do teste de Wilcoxon Signed-Rank (F1-macro, A vs. B, $N = 5$ folds, $\alpha = 0{,}05$; menor $p$ possível com 5 pares $= 0,0625$).}
   \label{tab:wilcoxon}
   \begin{tabular}{lccc}
     \toprule
     Modelo & Estatística $W$ & valor-$p$ & Decisão \\
     \midrule
-    Random Forest & 0,0 & 0,0020 & Rejeita $H_0$ \\
-    XGBoost & 0,0 & 0,0020 & Rejeita $H_0$ \\
-    Regressão Logística & 0,0 & 0,0020 & Rejeita $H_0$ \\
-    SVM (RBF) & 0,0 & 0,0020 & Rejeita $H_0$ \\
+    Random Forest & 0,0 & 0,0625 & Falha em rejeitar $H_0$ \\
+    XGBoost & 0,0 & 0,0625 & Falha em rejeitar $H_0$ \\
+    Regressão Logística & 0,0 & 0,0625 & Falha em rejeitar $H_0$ \\
+    SVM (RBF) & 0,0 & 0,0625 & Falha em rejeitar $H_0$ \\
     \bottomrule
   \end{tabular}
 \end{table}

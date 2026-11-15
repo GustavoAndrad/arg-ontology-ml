@@ -1,0 +1,25 @@
+limiar,mecanismo,genes,grupos,maior_grupo,fracao_maior_grupo,grupos_unitarios
+40,antibiotic efflux,269.0,139,21.0,0.07806691449814127,108.0
+40,antibiotic inactivation,5239.0,93,1542.0,0.2943309791945028,40.0
+40,antibiotic target alteration,285.0,63,108.0,0.37894736842105264,40.0
+40,antibiotic target protection,170.0,17,107.0,0.6294117647058823,9.0
+40,antibiotic target replacement,70.0,14,41.0,0.5857142857142857,8.0
+40,(grupos com mais de um mecanismo),,4,,,
+50,antibiotic efflux,269.0,171,20.0,0.07434944237918216,144.0
+50,antibiotic inactivation,5239.0,199,1360.0,0.25959152510020994,92.0
+50,antibiotic target alteration,285.0,87,47.0,0.1649122807017544,57.0
+50,antibiotic target protection,170.0,29,107.0,0.6294117647058823,17.0
+50,antibiotic target replacement,70.0,28,18.0,0.2571428571428571,19.0
+50,(grupos com mais de um mecanismo),,0,,,
+70,antibiotic efflux,269.0,231,8.0,0.02973977695167286,209.0
+70,antibiotic inactivation,5239.0,426,639.0,0.12196984157281925,263.0
+70,antibiotic target alteration,285.0,148,43.0,0.15087719298245614,121.0
+70,antibiotic target protection,170.0,50,77.0,0.45294117647058824,39.0
+70,antibiotic target replacement,70.0,39,15.0,0.21428571428571427,34.0
+70,(grupos com mais de um mecanismo),,0,,,
+90,antibiotic efflux,269.0,257,6.0,0.022304832713754646,250.0
+90,antibiotic inactivation,5239.0,648,626.0,0.11948845199465546,448.0
+90,antibiotic target alteration,285.0,185,40.0,0.14035087719298245,173.0
+90,antibiotic target protection,170.0,66,75.0,0.4411764705882353,56.0
+90,antibiotic target replacement,70.0,53,4.0,0.05714285714285714,44.0
+90,(grupos com mais de um mecanismo),,0,,,

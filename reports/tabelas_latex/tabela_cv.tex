@@ -1,15 +1,15 @@
 \begin{table}[htbp]
   \centering
-  \caption{F1-score macro (média $\pm$ desvio padrão) na validação cruzada de 10 folds.}
+  \caption{F1-score macro (média $\pm$ desvio padrão) na validação cruzada por grupos de 5 folds.}
   \label{tab:cv}
   \begin{tabular}{lcc}
     \toprule
     Modelo & Pipeline A & Pipeline B \\
     \midrule
-    Random Forest & 0,8414 $\pm$ 0,0529 & 0,9413 $\pm$ 0,0261 \\
-    XGBoost & 0,9049 $\pm$ 0,0363 & 0,9556 $\pm$ 0,0256 \\
-    Regressão Logística & 0,8323 $\pm$ 0,0537 & 0,9273 $\pm$ 0,0297 \\
-    SVM (RBF) & 0,8897 $\pm$ 0,0267 & 0,9592 $\pm$ 0,0211 \\
+    Random Forest & 0,5627 $\pm$ 0,0908 & 0,7834 $\pm$ 0,0978 \\
+    XGBoost & 0,6899 $\pm$ 0,0729 & 0,8663 $\pm$ 0,1039 \\
+    Regressão Logística & 0,5260 $\pm$ 0,1444 & 0,9312 $\pm$ 0,0215 \\
+    SVM (RBF) & 0,6606 $\pm$ 0,0973 & 0,9476 $\pm$ 0,0108 \\
     \bottomrule
   \end{tabular}
 \end{table}

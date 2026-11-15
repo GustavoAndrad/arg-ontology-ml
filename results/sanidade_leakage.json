@@ -1,11 +1,11 @@
 {
-  "f1_macro_somente_ontologia": 0.9120962880691907,
-  "accuracy": 0.971830985915493,
+  "f1_macro_somente_ontologia": 0.91811238614851,
+  "accuracy": 0.9790675547098002,
   "f1_por_classe": {
-    "antibiotic efflux": 0.78125,
-    "antibiotic inactivation": 0.9884169884169884,
-    "antibiotic target alteration": 0.9739130434782609,
-    "antibiotic target protection": 0.8169014084507042,
+    "antibiotic efflux": 0.8444444444444444,
+    "antibiotic inactivation": 0.9944196428571429,
+    "antibiotic target alteration": 0.9724770642201835,
+    "antibiotic target protection": 0.7792207792207793,
     "antibiotic target replacement": 1.0
   },
   "limiar": 0.85,

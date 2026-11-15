@@ -1,14 +1,14 @@
 CONCLUSÕES DO EXPERIMENTO — Pipeline A (sequência) vs Pipeline B (sequência + ontologia ARO)
 
-Ganho médio de F1-macro no teste: +10.54% (de +4.51% a +18.63%).
-Melhor modelo: SVM (RBF) no Pipeline B (F1-macro = 0.9822).
+Ganho médio de F1-macro no teste: +37.94% (de +12.70% a +57.30%).
+Melhor modelo: SVM (RBF) no Pipeline B (F1-macro = 0.9733).
 Pipeline B superou o A no F1-macro de teste em 4 de 4 modelos.
 
-Teste de Wilcoxon (10 folds, alfa = 0.05):
-  - Random Forest: W = 0.0, p = 0.0020, B > A em 10/10 folds -> rejeita H0
-  - XGBoost: W = 0.0, p = 0.0020, B > A em 10/10 folds -> rejeita H0
-  - Regressão Logística: W = 0.0, p = 0.0020, B > A em 10/10 folds -> rejeita H0
-  - SVM (RBF): W = 0.0, p = 0.0020, B > A em 10/10 folds -> rejeita H0
+Teste de Wilcoxon (5 folds, alfa = 0.05; menor p possível com 5 pares = 0.0625):
+  - Random Forest: W = 0.0, p = 0.0625, B > A em 5/5 folds -> falha em rejeitar H0
+  - XGBoost: W = 0.0, p = 0.0625, B > A em 5/5 folds -> falha em rejeitar H0
+  - Regressão Logística: W = 0.0, p = 0.0625, B > A em 5/5 folds -> falha em rejeitar H0
+  - SVM (RBF): W = 0.0, p = 0.0625, B > A em 5/5 folds -> falha em rejeitar H0
 
-H0 rejeitada para: Random Forest, XGBoost, Regressão Logística, SVM (RBF).
-Sem significância estatística: nenhum.
+H0 rejeitada para: nenhum modelo.
+Sem significância estatística: Random Forest, XGBoost, Regressão Logística, SVM (RBF).

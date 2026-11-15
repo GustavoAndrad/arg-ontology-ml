@@ -1,7 +1,9 @@
 {
-  "k_features": 100,
-  "k_selection_criterion": "f_classif (ANOVA F-value)",
-  "variance_threshold": 0.0,
+  "preprocessing": "MinMaxScaler (ajustado só no treino); sem seleção de atributos",
+  "n_features": {
+    "pipeline_a": 73,
+    "pipeline_b": "pipeline_a + atributos ontológicos (41 com o CARD 4.0.1: 3 estruturais + 38 flags)"
+  },
   "random_state": 42,
   "class_balancing": {
     "random_forest": "class_weight='balanced'",

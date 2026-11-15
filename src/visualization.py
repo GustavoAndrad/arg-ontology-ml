@@ -9,6 +9,7 @@ Saídas (PNG e PDF, 300 DPI):
     plots/roc_curves/roc_{modelo}                   — ROC por modelo
     plots/confusion_matrices/cm_{modelo}_{a|b}      — matrizes normalizadas por linha
     plots/interpretabilidade/feature_importance_rf_b — top-20 Gini (se existir o CSV)
+    plots/comparacao_pipelines/curva_limiar        — F1 por divisão (aleatória e grupos 90/70/50%)
 
 Uso:
     python -m src.visualization
@@ -227,6 +228,38 @@ def plot_feature_importance(importance: pd.DataFrame, output_path: Path, top_n: 
     _save(fig, output_path)
 
 
+def plot_threshold_curve(curve: pd.DataFrame, partitions: pd.DataFrame, output_path: Path) -> None:
+    """
+    F1-macro no teste por divisão (aleatória → grupos de 90, 70 e 50%), A e B, um painel por modelo.
+
+    Mostra se a vantagem da ontologia cresce quando o teste fica menos parecido com o
+    treino. Cenários que não atendem o critério de entrada das classes (menos de 5
+    genes de uma classe num fold) aparecem com marcador vazio.
+    """
+    order = ["aleatoria", "90", "70", "50"]
+    labels = ["aleatória", "grupos 90%", "grupos 70%", "grupos 50%"]
+    ok = partitions.set_index("cenario")["atende_criterio"].astype(bool)
+    fig, axes = plt.subplots(1, 4, figsize=(16, 4.2), sharey=True)
+    for ax, model in zip(axes, MODEL_NAMES):
+        sub = curve[curve.modelo == model].set_index("cenario").loc[order]
+        x = np.arange(len(order))
+        for key, color, label in (("a", COLOR_A, "Pipeline A"), ("b", COLOR_B, "Pipeline B")):
+            vals = sub[f"f1_teste_{key}"].values
+            ax.plot(x, vals, "-", color=color, lw=2, label=label)
+            for xi, v, c in zip(x, vals, order):
+                ax.plot(xi, v, "o", ms=7, color=color, mfc=color if ok[str(c)] else "white", mew=2)
+        ax.set_xticks(x, labels, rotation=30, ha="right", fontsize=9)
+        ax.set_title(MODEL_LABELS[model], fontweight="bold")
+        ax.set_ylim(0, 1.02)
+        ax.grid(alpha=0.2)
+        ax.spines[["top", "right"]].set_visible(False)
+    axes[0].set_ylabel("F1-score macro (teste)")
+    axes[0].legend(loc="lower left", fontsize=9)
+    fig.suptitle("Desempenho por divisão treino/teste (marcador vazio: não atende o critério de genes por fold)", fontsize=11)
+    fig.tight_layout()
+    _save(fig, output_path)
+
+
 def generate_all_figures() -> None:
     data = load_experiment_dataset()
     plot_class_distribution(data[TARGET].value_counts(), PLOTS_DIR / "eda" / "class_distribution_experimento")
@@ -245,6 +278,13 @@ def generate_all_figures() -> None:
                 f"{MODEL_LABELS[model]} — Pipeline {key.upper()}",
                 PLOTS_DIR / "confusion_matrices" / f"cm_{model}_{key}",
             )
+    curve_path = RESULTS_DIR / "curva_limiar.csv"
+    if curve_path.exists():
+        plot_threshold_curve(
+            pd.read_csv(curve_path),
+            pd.read_csv(RESULTS_DIR / "curva_limiar_particoes.csv", dtype={"cenario": str}),
+            PLOTS_DIR / "comparacao_pipelines" / "curva_limiar",
+        )
     imp_path = RESULTS_DIR / "feature_importance_gini_rf_b.csv"
     if imp_path.exists():
         plot_feature_importance(pd.read_csv(imp_path), PLOTS_DIR / "interpretabilidade" / "feature_importance_rf_b")

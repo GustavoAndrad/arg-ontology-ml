@@ -17,6 +17,12 @@ data/dataset/
 data/ontologia/*.owl
 # Derivados dos dados do CARD (regenerados pelas Etapas 2, 4 e 5)
 data/processed/*.csv
+# Sequências e resultados brutos do MMseqs2 (regenerados por `python -m src.homology_groups`)
+data/processed/*.fasta
+data/processed/mmseqs/
+
+# Programas externos baixados (MMseqs2; versão e SHA-256 em results/mmseqs_parametros.json)
+tools/
 
 # Modelos treinados (regenerados por `python -m src.train_evaluate`)
 models/*.joblib

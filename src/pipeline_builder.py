@@ -1,7 +1,26 @@
 """
 pipeline_builder.py — Pipelines scikit-learn (Seções 4.7, 4.9 e 4.10).
 
-    MinMaxScaler → VarianceThreshold(0.0) → SelectKBest(f_classif, k=100) → classificador
+Experimento:
+
+    MinMaxScaler → classificador
+
+Todos os atributos entram no modelo (73 no Pipeline A, 114 no B), sem seleção.
+Por que não há mais SelectKBest nem VarianceThreshold (TCC2, ponto 7):
+    * o k = 100 do TCC1 era arbitrário, e o tamanho do ganho do B dependia dele;
+    * no Pipeline B, a seleção conjunta deixava entrar só 18 dos 41 atributos
+      ontológicos e mudava também quais atributos de sequência entravam, de modo
+      que A e B não diferiam só pela ontologia (Seção 4.7);
+    * o VarianceThreshold só remove colunas constantes; sem ele, todas as colunas
+      entram em todo fold (duas flags de classe de antibiótico têm 1 gene no treino
+      e poderiam ficar constantes num fold, mudando o número de atributos do B).
+
+A seleção do TCC1 continua disponível via ``selection`` (``FeatureSelection``) só
+para a análise de sensibilidade à representação (``src.sensitivity_representation``):
+    * escopo "todos": MinMaxScaler → VarianceThreshold → SelectKBest(k) → clf
+      (exatamente o pipeline do TCC1);
+    * escopo "sequencia": a seleção é aplicada só às colunas de sequência e as
+      ontológicas passam inteiras (B = A_k + 41).
 
 Classificadores (random_state=42):
     * Random Forest — n_estimators=100, class_weight='balanced'
@@ -18,9 +37,11 @@ from __future__ import annotations
 import json
 import logging
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
 from sklearn.base import BaseEstimator
+from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_selection import SelectKBest, VarianceThreshold, f_classif
 from sklearn.linear_model import LogisticRegression
@@ -28,7 +49,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVC
 
-from src.experiment_config import K_FEATURES, MODEL_NAMES, MODELS_DIR, RANDOM_STATE, VARIANCE_THRESHOLD
+from src.experiment_config import MODEL_NAMES, MODELS_DIR, RANDOM_STATE, VARIANCE_THRESHOLD
 
 logger = logging.getLogger(__name__)
 
@@ -52,12 +73,62 @@ def _model_params() -> dict[str, dict]:
     }
 
 
-def build_preprocessor(k_features: int = K_FEATURES) -> list[tuple[str, BaseEstimator]]:
-    """Etapas de pré-processamento.  # ANTI-LEAKAGE: fit exclusivo no treino (dentro do Pipeline)."""
-    return [
-        ("scaler", MinMaxScaler()),
-        ("variance", VarianceThreshold(threshold=VARIANCE_THRESHOLD)),
-        ("select", SelectKBest(score_func=f_classif, k=k_features)),
+@dataclass(frozen=True)
+class FeatureSelection:
+    """
+    Seleção de atributos do TCC1, usada só na análise de sensibilidade.
+
+    ``k``: número de atributos mantidos pelo SelectKBest (ANOVA F).
+    ``scope``: "todos" (seleção conjunta, como no TCC1) ou "sequencia" (seleção só
+    nas primeiras ``n_sequence`` colunas, que são as de sequência; as demais passam).
+    """
+
+    k: int
+    scope: str = "todos"
+    n_sequence: int | None = None
+
+    def __post_init__(self) -> None:
+        if self.scope not in ("todos", "sequencia"):
+            raise ValueError(f"Escopo de seleção desconhecido: {self.scope}")
+        if self.scope == "sequencia" and self.n_sequence is None:
+            raise ValueError("Seleção 'sequencia' exige n_sequence.")
+
+
+def _selector(k: int) -> Pipeline:
+    """VarianceThreshold → SelectKBest(f_classif, k), como no TCC1."""
+    return Pipeline(
+        [
+            ("variance", VarianceThreshold(threshold=VARIANCE_THRESHOLD)),
+            ("select", SelectKBest(score_func=f_classif, k=k)),
+        ]
+    )
+
+
+def build_preprocessor(
+    selection: FeatureSelection | None = None, n_features: int | None = None
+) -> list[tuple[str, BaseEstimator]]:
+    """
+    Etapas de pré-processamento.  # ANTI-LEAKAGE: fit exclusivo no treino (dentro do Pipeline).
+
+    Sem ``selection`` (experimento): só o MinMaxScaler. ``n_features`` (total de
+    colunas da matriz) só é necessário para a seleção de escopo "sequencia".
+    """
+    steps: list[tuple[str, BaseEstimator]] = [("scaler", MinMaxScaler())]
+    if selection is None:
+        return steps
+    if selection.scope == "todos" or (n_features is not None and selection.n_sequence >= n_features):
+        # Seleção conjunta (TCC1). No Pipeline A, "sequencia" é o mesmo que "todos".
+        return steps + [("variance", VarianceThreshold(threshold=VARIANCE_THRESHOLD)),
+                        ("select", SelectKBest(score_func=f_classif, k=selection.k))]
+    if n_features is None:
+        raise ValueError("Seleção 'sequencia' exige n_features.")
+    seq_cols = list(range(selection.n_sequence))
+    onto_cols = list(range(selection.n_sequence, n_features))
+    return steps + [
+        (
+            "select_sequencia",
+            ColumnTransformer([("sequencia", _selector(selection.k), seq_cols), ("ontologia", "passthrough", onto_cols)]),
+        )
     ]
 
 
@@ -67,7 +138,7 @@ def build_classifier(model_name: str) -> BaseEstimator:
     if model_name == "random_forest":
         return RandomForestClassifier(**params)
     if model_name == "xgboost":
-        from xgboost import XGBClassifier  # rótulos já chegam codificados como inteiros 0..3
+        from xgboost import XGBClassifier  # rótulos já chegam codificados como inteiros 0..n_classes-1
 
         return XGBClassifier(**params)
     if model_name == "logistic_regression":
@@ -77,9 +148,16 @@ def build_classifier(model_name: str) -> BaseEstimator:
     raise ValueError(f"Modelo desconhecido: {model_name}")
 
 
-def build_full_pipeline(model_name: str, k_features: int = K_FEATURES) -> Pipeline:
-    """Pipeline completo (idêntico para os Pipelines A e B; só muda a matriz de entrada)."""
-    return Pipeline(build_preprocessor(k_features) + [("clf", build_classifier(model_name))])
+def build_full_pipeline(
+    model_name: str, selection: FeatureSelection | None = None, n_features: int | None = None
+) -> Pipeline:
+    """
+    Pipeline completo (idêntico para os Pipelines A e B; só muda a matriz de entrada).
+
+    No experimento, chame sem ``selection``. ``selection`` e ``n_features`` existem
+    só para a análise de sensibilidade.
+    """
+    return Pipeline(build_preprocessor(selection, n_features) + [("clf", build_classifier(model_name))])
 
 
 def save_hyperparameters(output_path: Path = MODELS_DIR / "hyperparameters.json") -> dict:
@@ -87,10 +165,14 @@ def save_hyperparameters(output_path: Path = MODELS_DIR / "hyperparameters.json"
     import sklearn
     import xgboost
 
+    from src.feature_extraction import SEQUENCE_FEATURE_COLUMNS
+
     params = {
-        "k_features": K_FEATURES,
-        "k_selection_criterion": "f_classif (ANOVA F-value)",
-        "variance_threshold": VARIANCE_THRESHOLD,
+        "preprocessing": "MinMaxScaler (ajustado só no treino); sem seleção de atributos",
+        "n_features": {
+            "pipeline_a": len(SEQUENCE_FEATURE_COLUMNS),
+            "pipeline_b": "pipeline_a + atributos ontológicos (41 com o CARD 4.0.1: 3 estruturais + 38 flags)",
+        },
         "random_state": RANDOM_STATE,
         "class_balancing": {
             "random_forest": "class_weight='balanced'",

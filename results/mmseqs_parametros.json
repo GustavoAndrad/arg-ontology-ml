@@ -1,0 +1,19 @@
+{
+  "programa": "MMseqs2",
+  "versao_release": "18-8cc5c",
+  "versao_commit": "8cc5ce367b5638c4306c2d7cfc652dd099a4643f",
+  "sha256_executavel": "ad319fc9fc67500ca2da9b9247d9611d2113e66cb800c15b603949f5652e2a0b",
+  "sha256_zip": "9752087ca4e25e93b830775832a75044dc94ae348d66d4681f9ff0355eecfcbf",
+  "comando": "mmseqs easy-search dataset_integrado.fasta dataset_integrado.fasta hits.m8 tmp --min-seq-id 0.4 -c 0 --cov-mode 0 -s 7.5 -e 0.001 --max-seqs 10000 --alignment-mode 3 --format-output query,target,fident,alnlen,qlen,tlen,qcov,tcov,evalue,bits --threads 11",
+  "identidade": "fident = resíduos idênticos / comprimento do alinhamento",
+  "cobertura_minima_nas_duas_sequencias": 0.5,
+  "limiares_de_identidade": [
+    40,
+    50,
+    70,
+    90
+  ],
+  "tempo_s": 677.9,
+  "genes_buscados": 6052,
+  "pares_encontrados_sem_autopares": 4316311
+}

@@ -34,6 +34,7 @@ from src.experiment_config import (
     TARGET,
     encode_target,
     load_experiment_dataset,
+    load_groups,
     split_indices,
 )
 from src.pipeline_builder import build_classifier
@@ -85,10 +86,10 @@ def run_leakage_check(
     return remove_leaky_features(ontological, leaky, log_path), corr
 
 
-def run_sanity_experiment(ontological: pd.DataFrame, target: pd.Series) -> dict:
-    """RF treinado apenas com features ontológicas; métricas no conjunto de teste."""
+def run_sanity_experiment(ontological: pd.DataFrame, target: pd.Series, groups=None) -> dict:
+    """RF treinado apenas com features ontológicas; métricas no conjunto de teste (mesma partição do experimento)."""
     y, classes = encode_target(target)
-    train_idx, test_idx = split_indices(y)
+    train_idx, test_idx = split_indices(y, groups)
     model = Pipeline(
         [("scaler", MinMaxScaler()), ("variance", VarianceThreshold(0.0)), ("clf", build_classifier("random_forest"))]
     )
@@ -122,7 +123,7 @@ if __name__ == "__main__":
     assert (onto["ARO_Accession"].values == data["ARO_Accession"].values).all(), "Ordem das instâncias divergente"
     feats = onto.drop(columns=["ARO_Accession"])
     clean, corr = run_leakage_check(feats, data[TARGET])
-    sanity = run_sanity_experiment(clean, data[TARGET])
+    sanity = run_sanity_experiment(clean, data[TARGET], load_groups(data=data))
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     corr.to_csv(RESULTS_DIR / "spearman_features_ontologicas.csv", header=True)
     (RESULTS_DIR / "sanidade_leakage.json").write_text(

@@ -1,9 +1,14 @@
 """
 train_evaluate.py — Treinamento, validação cruzada e avaliação (Seções 4.8–4.11, 5.2–5.5).
 
-Para cada modelo e cada pipeline (A: 426 features; B: 467 features com as 5 classes):
-    * validação cruzada estratificada de 10 folds no conjunto de treino;
-    * treino final no conjunto de treino (80%) e avaliação no teste (20%).
+Para cada modelo e cada pipeline (A: 73 features de sequência; B: A + 41 ontológicas = 114):
+    * validação cruzada por grupos (StratifiedGroupKFold, 5 folds) no treino;
+    * treino final no treino (~80%) e avaliação no teste (~20%).
+
+A partição é feita por grupos de similaridade de sequência (``load_groups``,
+limiar de 70%): nenhum grupo aparece no treino e no teste, nem em dois folds.
+A escolha da partição de teste (semente e proporções) fica em
+``results/particao_teste.json``.
 
 Métricas: acurácia, precisão/revocação/F1 macro, acurácia balanceada e ROC-AUC
 macro One-vs-Rest.
@@ -47,12 +52,16 @@ from src.experiment_config import (
     PROCESSED_DIR,
     RESULTS_DIR,
     TARGET,
+    RANDOM_STATE,
+    SIMILARITY_THRESHOLD,
+    choose_cv_seed,
+    choose_test_partition,
     cv_splitter,
     dataset_composition,
     encode_target,
     load_experiment_dataset,
+    load_groups,
     load_integrated_dataset,
-    split_indices,
 )
 from src.pipeline_builder import build_full_pipeline
 
@@ -76,12 +85,23 @@ def load_feature_matrices() -> tuple[pd.DataFrame, pd.DataFrame, np.ndarray, lis
     return X_a, X_b, y, classes
 
 
-def split_dataset(y: np.ndarray, save: bool = True) -> tuple[np.ndarray, np.ndarray]:
-    """Partição 80/20 estratificada; índices salvos em data/processed/.  # SEED FIXA  # ANTI-LEAKAGE"""
-    train_idx, test_idx = split_indices(y)
+def split_dataset(y: np.ndarray, groups: np.ndarray, save: bool = True) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Partição treino/teste por grupos; índices e escolha salvos.  # SEED FIXA  # ANTI-LEAKAGE
+
+    Salva ``data/processed/{train,test}_indices.npy`` e ``results/particao_teste.json``
+    (semente escolhida, fração de cada classe no teste, número de grupos).
+    """
+    train_idx, test_idx, info = choose_test_partition(y, groups)
     if save:
         np.save(PROCESSED_DIR / "train_indices.npy", train_idx)
         np.save(PROCESSED_DIR / "test_indices.npy", test_idx)
+        info["limiar_similaridade"] = SIMILARITY_THRESHOLD
+        (RESULTS_DIR / "particao_teste.json").write_text(json.dumps(info, indent=2, ensure_ascii=False), encoding="utf-8")
+    logger.info(
+        "Partição por grupos: treino %d / teste %d genes (semente %d, fold %d; desvio máximo da fração por classe %.3f).",
+        len(train_idx), len(test_idx), info["semente"], info["fold"], info["desvio_maximo_da_fracao_por_classe"],
+    )
     return train_idx, test_idx
 
 
@@ -102,16 +122,19 @@ def compute_metrics(y_true, y_pred, proba, n_classes: int) -> dict[str, float]:
     }
 
 
-def check_class_counts_per_fold(y_train: np.ndarray, classes: list[str]) -> pd.DataFrame:
+def check_class_counts_per_fold(
+    y_train: np.ndarray, classes: list[str], groups_train: np.ndarray | None = None, cv_seed: int = RANDOM_STATE
+) -> pd.DataFrame:
     """
     Conta os genes de cada classe em cada fold de validação e aplica o critério do ponto 2.
 
-    Os folds dependem só de ``y_train`` e da semente, então são os mesmos para todos
-    os modelos e para os Pipelines A e B. Erro se alguma classe faltar num fold (o F1
-    dela não existiria); aviso se ficar abaixo de ``MIN_GENES_PER_FOLD``.
+    Os folds dependem só de ``y_train``, dos grupos e da semente, então são os mesmos
+    para todos os modelos e para os Pipelines A e B. Erro se alguma classe faltar num
+    fold (o F1 dela não existiria); aviso se ficar abaixo de ``MIN_GENES_PER_FOLD``.
     """
+    groups_train = np.arange(len(y_train)) if groups_train is None else groups_train
     rows = []
-    for i, (_, val_idx) in enumerate(cv_splitter().split(np.zeros(len(y_train)), y_train), start=1):
+    for i, (_, val_idx) in enumerate(cv_splitter(cv_seed).split(np.zeros(len(y_train)), y_train, groups_train), start=1):
         counts = np.bincount(y_train[val_idx], minlength=len(classes))
         rows.append({"fold": i, **dict(zip(classes, map(int, counts)))})
     table = pd.DataFrame(rows)
@@ -124,10 +147,17 @@ def check_class_counts_per_fold(y_train: np.ndarray, classes: list[str]) -> pd.D
     return table
 
 
-def run_cross_validation(model_name: str, X_train: np.ndarray, y_train: np.ndarray, n_classes: int) -> list[dict]:
-    """10-fold estratificado; transformadores ajustados só no treino de cada fold.  # ANTI-LEAKAGE  # SEED FIXA"""
+def run_cross_validation(
+    model_name: str,
+    X_train: np.ndarray,
+    y_train: np.ndarray,
+    n_classes: int,
+    groups_train: np.ndarray,
+    cv_seed: int = RANDOM_STATE,
+) -> list[dict]:
+    """CV por grupos (5 folds); transformadores ajustados só no treino de cada fold.  # ANTI-LEAKAGE  # SEED FIXA"""
     folds = []
-    for i, (fit_idx, val_idx) in enumerate(cv_splitter().split(X_train, y_train), start=1):
+    for i, (fit_idx, val_idx) in enumerate(cv_splitter(cv_seed).split(X_train, y_train, groups_train), start=1):
         pipe = build_full_pipeline(model_name).fit(X_train[fit_idx], y_train[fit_idx])
         m = compute_metrics(
             y_train[val_idx], pipe.predict(X_train[val_idx]), pipe.predict_proba(X_train[val_idx]), n_classes
@@ -166,12 +196,19 @@ def save_metrics(rows: list[dict], pipeline_key: str) -> pd.DataFrame:
 def run_experiment(model_names: list[str] = MODEL_NAMES) -> None:
     start = time.time()
     X_a, X_b, y, classes = load_feature_matrices()
-    train_idx, test_idx = split_dataset(y)
+    groups = load_groups()
+    train_idx, test_idx = split_dataset(y, groups)
+    cv_seed, cv_info = choose_cv_seed(y[train_idx], groups[train_idx])
+    part_path = RESULTS_DIR / "particao_teste.json"
+    part = json.loads(part_path.read_text(encoding="utf-8"))
+    part.update(cv_info)
+    part_path.write_text(json.dumps(part, indent=2, ensure_ascii=False), encoding="utf-8")
+    logger.info("Semente da validação cruzada: %d (mínimo de %d genes de uma classe num fold).", cv_seed, cv_info["minimo_genes_classe_fold"])
     n_classes = len(classes)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     PREDICTIONS_DIR.mkdir(parents=True, exist_ok=True)
     (RESULTS_DIR / "classes.json").write_text(json.dumps(classes, ensure_ascii=False, indent=2), encoding="utf-8")
-    check_class_counts_per_fold(y[train_idx], classes).to_csv(RESULTS_DIR / "cv_contagem_classes.csv", index=False)
+    check_class_counts_per_fold(y[train_idx], classes, groups[train_idx], cv_seed).to_csv(RESULTS_DIR / "cv_contagem_classes.csv", index=False)
     # Tabela 4.1 / Seção 4.3.3: todos os mecanismos do dataset integrado e o destino de cada um.
     dataset_composition(load_integrated_dataset()).to_csv(RESULTS_DIR / "composicao_dataset.csv", index=False)
 
@@ -181,7 +218,7 @@ def run_experiment(model_names: list[str] = MODEL_NAMES) -> None:
         metric_rows = []
         for name in model_names:
             t0 = time.time()
-            folds = run_cross_validation(name, X[train_idx], y[train_idx], n_classes)
+            folds = run_cross_validation(name, X[train_idx], y[train_idx], n_classes, groups[train_idx], cv_seed)
             pipe = train_final_model(name, key, X[train_idx], y[train_idx])
             test_metrics, extra = evaluate_on_test(pipe, X[test_idx], y[test_idx], n_classes)
             np.savez(

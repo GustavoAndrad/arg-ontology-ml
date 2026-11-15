@@ -1,0 +1,36 @@
+{
+  "semente": 67,
+  "fold": 2,
+  "n_folds": 5,
+  "sementes_testadas": [
+    0,
+    99
+  ],
+  "desvio_maximo_da_fracao_por_classe": 0.042857142857142844,
+  "fracao_teste_por_classe": [
+    0.17472118959107807,
+    0.1717885092574919,
+    0.19298245614035087,
+    0.18823529411764706,
+    0.24285714285714285
+  ],
+  "n_treino": 4982,
+  "n_teste": 1051,
+  "grupos_treino": 722,
+  "grupos_teste": 172,
+  "limiar_similaridade": 70,
+  "semente_cv": 97,
+  "sementes_cv_testadas": [
+    0,
+    99
+  ],
+  "minimo_genes_classe_fold": 7,
+  "minimo_por_classe": [
+    37,
+    388,
+    23,
+    8,
+    7
+  ],
+  "desvio_maximo_fracao_fold": 0.3942028985507246
+}

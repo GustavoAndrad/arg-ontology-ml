@@ -27,7 +27,10 @@ N_CV_SPLITS: int = 5
 ALPHA_STAT: float = 0.05
 
 # ── Seleção de features ────────────────────────────────────────────────────────
-K_FEATURES: int = 100           # Determinado empiricamente; registrado em hyperparameters.json
+# O experimento não usa seleção de atributos (TCC2, ponto 7). Estes valores são os
+# do TCC1 (SelectKBest k=100 após VarianceThreshold 0.0) e só são usados pela
+# análise de sensibilidade à representação (src/sensitivity_representation.py).
+K_FEATURES: int = 100
 VARIANCE_THRESHOLD: float = 0.0
 
 # ── Parâmetros de avaliação ────────────────────────────────────────────────────
