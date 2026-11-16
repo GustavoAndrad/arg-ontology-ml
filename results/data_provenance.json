@@ -3,40 +3,58 @@
   "access_date": "2026-06-14",
   "files": {
     "aro_index": {
-      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\aro_index.tsv",
-      "md5": "0f183c7869876fa32c8f86aade0df7b5"
+      "path": "data/dataset/card-data/aro_index.tsv",
+      "md5": "0f183c7869876fa32c8f86aade0df7b5",
+      "sha256": "bcc211d81abd900a592f623ab5539fb5f279729fdabb76ec5c118ab0f8bbe00d",
+      "modificado_em": "2025-05-29"
     },
     "aro_categories_index": {
-      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\aro_categories_index.tsv",
-      "md5": "d5fbc673c0de6601b07c8016b3909f8e"
+      "path": "data/dataset/card-data/aro_categories_index.tsv",
+      "md5": "d5fbc673c0de6601b07c8016b3909f8e",
+      "sha256": "89bb97146697c6de0975f68815c27ab5c98ae93cde843410204e3ec94ff4b6b1",
+      "modificado_em": "2025-05-29"
     },
     "aro_categories": {
-      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\aro_categories.tsv",
-      "md5": "6f9c4b0410b9e2b3cf5867a2a3f1db07"
+      "path": "data/dataset/card-data/aro_categories.tsv",
+      "md5": "6f9c4b0410b9e2b3cf5867a2a3f1db07",
+      "sha256": "902558bf7cc71be6b8d553164f8eae5d050a09c2a69322ee1d1f4386f381f913",
+      "modificado_em": "2025-05-29"
     },
     "card_json": {
-      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\card.json",
-      "md5": "72156d00155f69e637664bfb5d3b5395"
+      "path": "data/dataset/card-data/card.json",
+      "md5": "72156d00155f69e637664bfb5d3b5395",
+      "sha256": "dee4dcdb0d9c7f79107452d64211d816d1eab55289ddf8dc5f1e99ddfdc5e111",
+      "modificado_em": "2025-05-29"
     },
     "protein_fasta_homolog": {
-      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\protein_fasta_protein_homolog_model.fasta",
-      "md5": "36ea300133fd7c5a45de2fee4c5050bf"
+      "path": "data/dataset/card-data/protein_fasta_protein_homolog_model.fasta",
+      "md5": "36ea300133fd7c5a45de2fee4c5050bf",
+      "sha256": "e0cdedd17911717b434e17ceb390cdcf2e0d7d67106f7dd3c27a5fb2a74725bf",
+      "modificado_em": "2025-05-29"
     },
     "protein_fasta_knockout": {
-      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\protein_fasta_protein_knockout_model.fasta",
-      "md5": "f16667df70d1a5f910d3ae45f5250c3d"
+      "path": "data/dataset/card-data/protein_fasta_protein_knockout_model.fasta",
+      "md5": "f16667df70d1a5f910d3ae45f5250c3d",
+      "sha256": "4c6e5d1c65d72f3350a5af6011955dccf254c3c92049c452c9a782ca5a5a876f",
+      "modificado_em": "2025-05-29"
     },
     "protein_fasta_overexpression": {
-      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\protein_fasta_protein_overexpression_model.fasta",
-      "md5": "723e8762be5c96aed8c379a6499cecee"
+      "path": "data/dataset/card-data/protein_fasta_protein_overexpression_model.fasta",
+      "md5": "723e8762be5c96aed8c379a6499cecee",
+      "sha256": "ecf71d5355b3ceb84ae51bd55ed21338f47524b49f511a871cb3d42ba4d13c73",
+      "modificado_em": "2025-05-29"
     },
     "protein_fasta_variant": {
-      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\dataset\\card-data\\protein_fasta_protein_variant_model.fasta",
-      "md5": "8c02d8fc84c9a90953f8534355244019"
+      "path": "data/dataset/card-data/protein_fasta_protein_variant_model.fasta",
+      "md5": "8c02d8fc84c9a90953f8534355244019",
+      "sha256": "03d5662b9ae19d9327c6a94a29a75608f6d30330cd6c32a4475e370777008d69",
+      "modificado_em": "2025-05-29"
     },
     "aro_owl": {
-      "path": "C:\\Users\\gusta\\Documents\\Faculdade\\TCC\\data\\ontologia\\aro.owl",
-      "md5": "511f4c94faa4995864e20238cf2afc49"
+      "path": "data/ontologia/aro.owl",
+      "md5": "511f4c94faa4995864e20238cf2afc49",
+      "sha256": "3fc5498de236452861123528e09f8bbf30b331e80b696d65b24ec3a8048ee01f",
+      "modificado_em": "2026-06-14"
     }
   }
 }

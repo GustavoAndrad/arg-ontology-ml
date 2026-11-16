@@ -165,6 +165,22 @@ class TestGenerateProvenance:
         today = date.today().isoformat()
         assert result["access_date"] == today
 
+    def test_existing_access_date_is_kept(self, tmp_path: Path):
+        """Rodar de novo não troca a data de acesso original (TCC2, ponto 13)."""
+        data_files = self._make_data_files(tmp_path)
+        out = tmp_path / "p.json"
+        out.write_text(json.dumps({"access_date": "2026-06-14"}), encoding="utf-8")
+        assert generate_provenance(data_files, "4.0.1", out)["access_date"] == "2026-06-14"
+        assert generate_provenance(data_files, "4.0.1", out, access_date="2026-01-01")["access_date"] == "2026-01-01"
+
+    def test_sha256_and_relative_paths(self, tmp_path: Path):
+        """SHA-256 correto e caminho relativo à raiz informada."""
+        data_files = self._make_data_files(tmp_path)
+        result = generate_provenance(data_files, "4.0.1", tmp_path / "p.json", base_dir=tmp_path)
+        for name, file_path in data_files.items():
+            assert result["files"][name]["sha256"] == hashlib.sha256(file_path.read_bytes()).hexdigest()
+            assert result["files"][name]["path"] == file_path.name
+
     def test_files_dict_has_path_and_md5_per_entry(self, tmp_path: Path):
         """Cada entrada em 'files' deve ter as chaves 'path' e 'md5'."""
         data_files = self._make_data_files(tmp_path)

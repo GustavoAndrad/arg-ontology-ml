@@ -48,7 +48,7 @@ Visão geral no Capítulo 4 do artigo (Figura 4.1).
    - **Pipeline A (baseline):** 73 atributos de sequência — 4 propriedades físico-químicas (comprimento, ponto isoelétrico, índice de instabilidade e carga em pH 7), composição de 20 aminoácidos e frequência de 49 pares de grupos de aminoácidos vizinhos, com um alfabeto reduzido de 7 grupos: {AGV}, {ILFP}, {YMTS}, {HNQW}, {RK}, {DE}, {C} (Shen et al. 2007). Peso molecular e aromaticidade não entram, por serem redundantes com o comprimento e com a soma das frações de F, W e Y.
    - **Pipeline B (enriquecido):** os mesmos 73 + 41 atributos ontológicos (114 no total) — profundidade, número de ancestrais e de filhos na hierarquia *is-a* da ARO e 38 indicadores de classe de antibiótico (coluna `Drug Class` do `aro_index.tsv`).
 3. **Controle de leakage** (Seção 4.6) — correlação de Spearman entre atributos ontológicos e rótulo e um experimento de sanidade com os atributos ontológicos isolados.
-4. **Treinamento e avaliação** (Seções 4.7 a 4.12) — partição treino/teste **por grupos de similaridade de sequência** (genes com identidade ≥ 70% e cobertura ≥ 50%, calculadas com o MMseqs2, ficam no mesmo grupo, e o grupo inteiro vai para o treino ou para o teste; ~80/20), validação cruzada por grupos (`StratifiedGroupKFold`, 5 folds), pré-processamento `MinMaxScaler` ajustado só no treino, sem seleção de atributos (todos os atributos entram no modelo), e quatro classificadores: Random Forest, XGBoost, Regressão Logística e SVM (RBF). A métrica principal é o **F1-score macro**, e a comparação A × B usa o **teste de Wilcoxon Signed-Rank** (α = 0,05).
+4. **Treinamento e avaliação** (Seções 4.7 a 4.12) — partição treino/teste **por grupos de similaridade de sequência** (genes com identidade ≥ 70% e cobertura ≥ 50%, calculadas com o MMseqs2, ficam no mesmo grupo, e o grupo inteiro vai para o treino ou para o teste; ~80/20), validação cruzada por grupos (`StratifiedGroupKFold`, 5 folds), pré-processamento `MinMaxScaler` ajustado só no treino, sem seleção de atributos (todos os atributos entram no modelo), e quatro classificadores: Random Forest, XGBoost, Regressão Logística e SVM (RBF), com hiperparâmetros fixos (os padrão das bibliotecas, salvo poucos definidos no código), iguais nos dois pipelines, e **peso por classe** nos quatro (`class_weight='balanced'`; no XGBoost, o peso equivalente por amostra). A métrica principal é o **F1-score macro**, e a comparação A × B usa o **teste de Wilcoxon Signed-Rank** (α = 0,05).
 
 Os dois pipelines diferem **apenas** nos atributos de entrada; todas as demais etapas são idênticas.
 
@@ -61,13 +61,15 @@ F1-score macro no conjunto de teste (5 classes, 1.051 genes; divisão por grupos
 | Modelo | Pipeline A (sequência) | Pipeline B (+ ontologia) | Ganho | Wilcoxon: p (folds com B > A) |
 |---|---|---|---|---|
 | Random Forest | 0,6407 | 0,8884 | +38,66% | 0,0625 (5/5) |
-| XGBoost | 0,8212 | 0,9255 | +12,70% | 0,0625 (5/5) |
+| XGBoost | 0,8645 | 0,9654 | +11,66% | 0,0625 (5/5) |
 | Regressão Logística | 0,6110 | 0,9611 | +57,30% | 0,0625 (5/5) |
 | SVM (RBF) | 0,6802 | **0,9733** | +43,10% | 0,0625 (5/5) |
 
 Com 5 pares, o menor p possível do Wilcoxon é 0,0625: o teste não pode rejeitar H0 a 5%, mesmo com B > A em todos os folds.
 
 O desempenho por divisão (aleatória e grupos de 90, 70 e 50%) está em `results/curva_limiar.csv` e na figura `plots/comparacao_pipelines/curva_limiar`.
+
+Análises de sensibilidade (descritivas): à representação da sequência (`results/sensibilidade_representacao.csv`), à estratégia de balanceamento (`results/sensibilidade_balanceamento.csv`; o Pipeline B supera o A nas 7 estratégias e nos 4 modelos) e ao ajuste de hiperparâmetros (`results/sensibilidade_ajuste.csv`).
 
 ---
 
@@ -96,7 +98,7 @@ Os arquivos do CARD e da ARO não são distribuídos neste repositório. O uso �
 
 1. Em [card.mcmaster.ca/download](https://card.mcmaster.ca/download), baixe os **dados do CARD versão 4.0.1** e extraia o conteúdo em `data/dataset/card-data/`. São usados `aro_index.tsv` e `protein_fasta_protein_homolog_model.fasta`.
 2. Baixe a **ontologia (ARO) da mesma versão** e salve o arquivo `aro.owl` em `data/ontologia/`.
-3. Confira se os arquivos são os mesmos usados no artigo comparando os hashes MD5 com os registrados em `results/data_provenance.json`:
+3. Confira se os arquivos são os mesmos usados no artigo comparando os hashes (MD5 ou SHA-256) com os registrados em `results/data_provenance.json`:
 
    ```bash
    # Windows (PowerShell)
@@ -109,7 +111,7 @@ Os arquivos do CARD e da ARO não são distribuídos neste repositório. O uso �
 
 ## Execução
 
-Execute os comandos **na raiz do repositório**, com o ambiente virtual ativo. A execução completa leva entre 10 e 20 minutos em um computador pessoal; a etapa de interpretabilidade é a mais demorada.
+Execute os comandos **na raiz do repositório**, com o ambiente virtual ativo. As etapas 1 a 12 levam entre 10 e 20 minutos em um computador pessoal (a interpretabilidade é a mais demorada); as análises das etapas 13 a 16 levam de 20 a 25 minutos cada.
 
 ```bash
 python -m src.data_loader          # 1. integra CARD e sequências
@@ -120,6 +122,7 @@ python -m src.ontology_features    # 4. atributos ontológicos (Pipeline B)
 python -m src.leakage_check        # 5. verificação de leakage e experimento de sanidade
 python -m src.pipeline_builder     # 6. registra a configuração dos pipelines
 python -m src.train_evaluate       # 7. treino, validação cruzada e teste
+python -m src.experiment_record    # 7b. hiperparâmetros completos, versões, dados e sementes
 python -m src.statistical_tests    # 8. teste de Wilcoxon
 python -m src.interpretability     # 9. importância de atributos
 python -m src.visualization        # 10. figuras
@@ -127,6 +130,8 @@ python -m src.report_generator     # 11. tabelas comparativas, LaTeX e conclusõ
 python -m src.case_study           # 12. estudo de caso dos mecanismos raros
 python -m src.sensitivity_representation  # 13. sensibilidade à representação da sequência (~20 min)
 python -m src.threshold_curve      # 14. desempenho por limiar de similaridade (~20 min)
+python -m src.sensitivity_balancing  # 15. sensibilidade à estratégia de balanceamento (~25 min)
+python -m src.sensitivity_tuning   # 16. sensibilidade ao ajuste de hiperparâmetros (~20 min)
 ```
 
 Ao final, `results/metrics_pipeline_a.csv`, `results/metrics_pipeline_b.csv`, `results/cv_folds.csv` e `results/testes_estatisticos.csv` contêm os valores no formato das Tabelas 5.1 a 5.6 do artigo.
@@ -141,8 +146,9 @@ Ao final, `results/metrics_pipeline_a.csv`, `results/metrics_pipeline_b.csv`, `r
 | 3 | `feature_extraction` | 73 atributos por sequência: propriedades físico-químicas (Biopython `ProtParam`), composição de aminoácidos e de pares de grupos do alfabeto reduzido. Gera também a representação de 426 atributos (com os 400 dipeptídeos), usada só na análise de sensibilidade | `data/processed/features_sequencia.csv`, `features_sequencia_estudo_caso.csv` e `features_sequencia_completa_426.csv` | 4.4 |
 | 4 | `ontology_features` | 41 atributos: profundidade, ancestrais e filhos na hierarquia *is-a* da ARO e 38 indicadores de classe de antibiótico (coluna `Drug Class` do CARD). O estudo de caso recebe as mesmas colunas | `data/processed/features_ontologicas.csv` e `features_ontologicas_estudo_caso.csv` | 4.5 |
 | 5 | `leakage_check` | Spearman entre atributos ontológicos e rótulo (remoção se \|ρ\| ≥ 0,95) e experimento de sanidade com Random Forest só com atributos ontológicos | `results/sanidade_leakage.json`, `results/spearman_features_ontologicas.csv` | 4.6 |
-| 6 | `pipeline_builder` | Registra o pré-processamento e os hiperparâmetros (os pipelines são instanciados na etapa 7) | `models/hyperparameters.json` | 4.7, 4.9, 4.10 |
+| 6 | `pipeline_builder` | Registra o pré-processamento, o balanceamento de cada modelo e todos os hiperparâmetros, lidos com `get_params()` (os pipelines são instanciados na etapa 7) | `models/hyperparameters.json` | 4.7, 4.9, 4.10 |
 | 7 | `train_evaluate` | Partição por grupos de similaridade (70%; teste escolhido entre 100 sementes só pela proporção das classes, ~20% de cada), validação cruzada por grupos de 5 folds, treino final e avaliação no teste para 4 modelos × 2 pipelines. Métricas macro sobre as 5 classes declaradas; confere que cada fold tem genes de todas as classes | `results/metrics_pipeline_{a,b}.csv`, `results/cv_folds.csv`, `results/cv_contagem_classes.csv`, `results/composicao_dataset.csv`, `models/*.joblib` | 4.8, 4.11, 5.2–5.5 |
+| 7b | `experiment_record` | Tabela de todos os hiperparâmetros (com os valores efetivos do XGBoost, lidos do modelo treinado) e registro de versões, dados (SHA-256) e sementes | `results/hiperparametros.csv`, `reports/tabelas_latex/tabela_hiperparametros.tex`, `results/ambiente.json` | 5.1 |
 | 8 | `statistical_tests` | Wilcoxon Signed-Rank pareado sobre os folds (A vs B); com 5 folds, o menor p possível é 0,0625 | `results/testes_estatisticos.csv` | 4.12, 5.5.1 |
 | 9 | `interpretability` | Importância Gini (Random Forest) e permutation importance de todos os modelos | `results/feature_importance_*.csv`, `results/permutation_importance.csv` | — |
 | 10 | `visualization` | Curvas ROC macro One-vs-Rest, matrizes de confusão, F1 A vs B e ganho percentual (PNG 300 DPI e PDF) | `plots/` | 5.3, 5.4 |
@@ -150,8 +156,10 @@ Ao final, `results/metrics_pipeline_a.csv`, `results/metrics_pipeline_b.csv`, `r
 | 12 | `case_study` | Aplica os 8 modelos finais aos 9 genes dos mecanismos raros: classe prevista e probabilidade de cada uma das 5 classes (qualitativo, sem F1) | `results/estudo_caso_predicoes.csv`, `results/estudo_caso_resumo.csv` | — |
 | 13 | `sensitivity_representation` | Repete treino, validação cruzada e teste com representações alternativas da sequência (426 atributos com e sem SelectKBest, k = 20/50/100, só as 26 básicas), com a mesma partição e os mesmos modelos; descritiva | `results/sensibilidade_representacao.csv`, `results/sensibilidade_representacao_folds.csv` | — |
 | 14 | `threshold_curve` | Repete treino, validação cruzada e teste com quatro divisões (aleatória e grupos de 90, 70 e 50%) e mede, em cada uma, a identidade de cada gene do teste com o mais parecido do treino; descritiva | `results/curva_limiar.csv`, `results/curva_limiar_particoes.csv` | — |
+| 15 | `sensitivity_balancing` | Compara o peso por classe com: nenhum balanceamento, undersampling da classe majoritária (até a segunda maior), oversampling, SMOTE (SMOTENC no Pipeline B, com os atributos ontológicos como categóricos), SMOTE + ENN e abordagem hierárquica (inativação × resto, depois as outras 4). Reamostragem só no treino de cada fold; mesma partição, folds e modelos; descritiva | `results/sensibilidade_balanceamento.csv`, `_folds.csv`, `_por_classe.csv` | — |
+| 16 | `sensitivity_tuning` | Validação cruzada aninhada: busca em grade pequena (sempre com o valor padrão) com 3 folds internos por grupos dentro de cada um dos 5 folds externos, e busca no treino inteiro para o teste; mesmo espaço para A e B; descritiva | `results/sensibilidade_ajuste.csv`, `results/sensibilidade_ajuste_folds.csv` | — |
 
-O módulo `provenance` (`python -m src.provenance`) gera `results/data_provenance.json` com a versão do CARD e os hashes MD5 dos dados brutos. O arquivo versionado registra os dados usados no artigo; reexecutá-lo sobrescreve o registro com a data do dia.
+O módulo `provenance` (`python -m src.provenance`) gera `results/data_provenance.json` com a versão do CARD e, para cada arquivo de dados brutos, os hashes MD5 e SHA-256, o caminho relativo à raiz e a data de modificação. O `aro.owl` não traz número de versão; ele é identificado pela data de acesso e pelo SHA-256. Reexecutar o módulo mantém a data de acesso já registrada (14/06/2026).
 
 #### Detalhes de implementação
 
@@ -177,7 +185,7 @@ O módulo `provenance` (`python -m src.provenance`) gera `results/data_provenanc
 ├── src/
 │   ├── config.py                      # Constantes globais e caminhos
 │   ├── experiment_config.py           # Parâmetros do experimento, separação dos genes por classe, divisão por grupos e carga do dataset
-│   ├── provenance.py                  # Versão e hashes MD5 dos dados brutos
+│   ├── provenance.py                  # Versão e hashes (MD5 e SHA-256) dos dados brutos
 │   ├── data_loader.py                 # Integração aro_index.tsv + FASTA
 │   ├── eda.py                         # Análise exploratória
 │   ├── feature_extraction.py          # Atributos de sequência (Pipeline A)
@@ -193,6 +201,9 @@ O módulo `provenance` (`python -m src.provenance`) gera `results/data_provenanc
 │   ├── sensitivity_representation.py  # Sensibilidade à representação da sequência
 │   ├── homology_groups.py             # Grupos de similaridade de sequência (MMseqs2)
 │   ├── threshold_curve.py             # Desempenho por limiar de similaridade
+│   ├── experiment_record.py           # Hiperparâmetros completos, versões, dados e sementes
+│   ├── sensitivity_balancing.py       # Sensibilidade à estratégia de balanceamento
+│   ├── sensitivity_tuning.py          # Sensibilidade ao ajuste de hiperparâmetros
 │   └── compare_with_tcc.py            # Confronto com os valores publicados no artigo
 ├── tests/                             # Testes unitários e de propriedade (pytest + hypothesis)
 ├── requirements.txt
@@ -209,14 +220,15 @@ Os arquivos versionados em `results/`, `plots/` e `reports/` são regenerados pe
 pytest tests/ -v
 ```
 
-A suíte (141 testes) cobre a separação dos genes por classe, a integração dos dados, a EDA, a extração de atributos de sequência e ontológicos, a verificação de leakage, os pipelines, a partição treino/teste e o teste estatístico, além de testes de propriedade (`hypothesis`) para a integridade do dataset final.
+A suíte (160 testes) cobre a separação dos genes por classe, a integração dos dados, a EDA, a extração de atributos de sequência e ontológicos, a verificação de leakage, os pipelines (inclusive o peso por classe do XGBoost e o registro dos hiperparâmetros), a partição treino/teste, as estratégias de balanceamento, o ajuste aninhado e o teste estatístico, além de testes de propriedade (`hypothesis`) para a integridade do dataset final.
 
 ---
 
 ## Reprodutibilidade e Controle de Leakage
 
 - `random_state=42` é fixado em todos os pontos de aleatoriedade (marcados com `# SEED FIXA`), e a execução é determinística.
-- Os dados de entrada são identificados por versão e hash MD5 em `results/data_provenance.json`.
+- Os dados de entrada são identificados por versão e hashes (MD5 e SHA-256) em `results/data_provenance.json`.
+- Versões das bibliotecas, do Python e do MMseqs2, os dados e as sementes (modelos, partição de teste e validação cruzada) ficam em `results/ambiente.json`; todos os hiperparâmetros, em `results/hiperparametros.csv`.
 - A partição treino/teste é feita por grupos de similaridade, é determinística e seus índices são salvos em `data/processed/train_indices.npy` e `test_indices.npy`; a semente escolhida e a fração de cada classe no teste ficam em `results/particao_teste.json`. Nenhum grupo aparece no treino e no teste.
 - O MinMaxScaler é ajustado exclusivamente no treino de cada fold, via `sklearn.Pipeline`; a não-sobreposição entre treino e teste é verificada por `assert`.
 - Nenhum atributo ontológico é construído a partir do mecanismo de resistência. Pontos críticos são marcados com `# ANTI-LEAKAGE`.

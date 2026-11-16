@@ -1,21 +1,56 @@
 """
 provenance.py — Rastreabilidade Científica do experimento arg-ml-semantic-classification.
 
-Calcula hashes MD5 dos arquivos de dados brutos e registra a proveniência do
-dataset em `results/data_provenance.json`, garantindo que os dados usados no
-experimento sejam identificáveis e reproduzíveis.
+Calcula hashes MD5 e SHA-256 dos arquivos de dados brutos e registra a
+proveniência do dataset em `results/data_provenance.json`, garantindo que os
+dados usados no experimento sejam identificáveis e reproduzíveis.
+
+Por que o SHA-256 (TCC2, ponto 13): o ``aro.owl`` não traz número de versão; a
+versão da ARO usada fica identificada pela data de download e pelo checksum.
+O MD5 continua, para comparar com o registro do TCC1.
+
+Data de acesso: é a do primeiro registro (14/06/2026, quando os dados do TCC1
+foram baixados; é também a data de modificação do ``aro.owl``). Rodar o módulo de
+novo **não** troca essa data: ela é lida do JSON existente. Antes do TCC2, cada
+execução gravava a data do dia, o que apagaria a informação.
+
+Caminhos: gravados relativos à raiz do projeto, para não depender da pasta (nem
+do usuário) de quem rodou. A data de modificação de cada arquivo também é
+registrada, como evidência auxiliar (pode mudar se o arquivo for copiado).
 """
 
 import hashlib
 import json
 import logging
 import re
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
-from src.config import RAW_CARD_DIR, ONTOLOGY_PATH, RESULTS_DIR
+from src.config import _PROJECT_ROOT, RAW_CARD_DIR, ONTOLOGY_PATH, RESULTS_DIR
 
 logger = logging.getLogger(__name__)
+
+
+def compute_sha256(file_path: Path) -> str:
+    """SHA-256 de um arquivo, lido em blocos (mesma leitura do ``compute_md5``)."""
+    file_path = Path(file_path)
+    if not file_path.exists():
+        raise FileNotFoundError(f"Arquivo não encontrado: {file_path}")
+    hasher = hashlib.sha256()
+    with file_path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            hasher.update(chunk)
+    return hasher.hexdigest()
+
+
+def _relative_path(file_path: Path, base_dir: Path | None) -> str:
+    """Caminho relativo a ``base_dir`` (com "/"), ou o próprio caminho se estiver fora dele."""
+    if base_dir is not None:
+        try:
+            return Path(file_path).resolve().relative_to(Path(base_dir).resolve()).as_posix()
+        except ValueError:
+            pass
+    return str(file_path)
 
 
 def compute_md5(file_path: Path) -> str:
@@ -95,13 +130,14 @@ def generate_provenance(
     data_files: dict[str, Path],
     card_version: str,
     output_path: Path,
+    access_date: str | None = None,
+    base_dir: Path | None = None,
 ) -> dict:
     """
     Gera e salva o arquivo ``data_provenance.json``.
 
-    Para cada arquivo listado em ``data_files``, calcula o hash MD5 e registra
-    o caminho relativo (como string). O resultado é salvo como JSON indentado
-    no caminho ``output_path``.
+    Para cada arquivo listado em ``data_files``, calcula MD5 e SHA-256 e registra
+    o caminho (relativo a ``base_dir``, se dado) e a data de modificação.
 
     Parâmetros:
         data_files: Dicionário ``{nome_logico: caminho}`` dos arquivos de dados
@@ -109,6 +145,9 @@ def generate_provenance(
         card_version: Versão do CARD identificada (ex.: ``'3.2.6'``).
         output_path: Caminho de saída para o JSON (ex.:
                      ``results/data_provenance.json``).
+        access_date: Data de acesso (ISO 8601). Se ``None``, mantém a do JSON já
+                     existente em ``output_path``; se não houver, usa a de hoje.
+        base_dir: Raiz para gravar caminhos relativos (``None`` = caminho como veio).
 
     Retorno:
         dict: Conteúdo do provenance gerado, com campos:
@@ -117,7 +156,7 @@ def generate_provenance(
               - ``access_date`` (str): data de acesso no formato ISO 8601
                 (``YYYY-MM-DD``).
               - ``files`` (dict): mapeamento
-                ``{nome_logico: {"path": str, "md5": str}}``.
+                ``{nome_logico: {"path", "md5", "sha256", "modificado_em"}}``.
 
     Levanta:
         FileNotFoundError: Se algum arquivo em ``data_files`` não existir.
@@ -125,19 +164,28 @@ def generate_provenance(
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
+    if access_date is None and output_path.exists():
+        try:
+            access_date = json.loads(output_path.read_text(encoding="utf-8")).get("access_date")
+        except (OSError, json.JSONDecodeError):
+            access_date = None
+    if access_date is None:
+        access_date = date.today().isoformat()
+
     files_info: dict[str, dict] = {}
     for logical_name, file_path in data_files.items():
         file_path = Path(file_path)
-        logger.info("Calculando MD5 de '%s' (%s)…", logical_name, file_path)
-        md5 = compute_md5(file_path)
+        logger.info("Calculando MD5 e SHA-256 de '%s' (%s)…", logical_name, file_path)
         files_info[logical_name] = {
-            "path": str(file_path),
-            "md5": md5,
+            "path": _relative_path(file_path, base_dir),
+            "md5": compute_md5(file_path),
+            "sha256": compute_sha256(file_path),
+            "modificado_em": datetime.fromtimestamp(file_path.stat().st_mtime).date().isoformat(),
         }
 
     provenance = {
         "card_version": card_version,
-        "access_date": date.today().isoformat(),
+        "access_date": access_date,
         "files": files_info,
     }
 
@@ -175,7 +223,7 @@ if __name__ == "__main__":
     card_version = extract_card_version(readme_path, card_json_path)
     output_path = RESULTS_DIR / "data_provenance.json"
 
-    provenance = generate_provenance(data_files, card_version, output_path)
+    provenance = generate_provenance(data_files, card_version, output_path, base_dir=_PROJECT_ROOT)
     print(f"Proveniência gerada com sucesso. Versão do CARD: {provenance['card_version']}")
     print(f"Data de acesso: {provenance['access_date']}")
     print(f"Arquivos rastreados: {list(provenance['files'].keys())}")

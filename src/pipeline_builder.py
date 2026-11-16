@@ -22,11 +22,26 @@ para a análise de sensibilidade à representação (``src.sensitivity_represent
     * escopo "sequencia": a seleção é aplicada só às colunas de sequência e as
       ontológicas passam inteiras (B = A_k + 41).
 
-Classificadores (random_state=42):
+Classificadores (random_state=42; hiperparâmetros fixos e iguais para A e B):
     * Random Forest — n_estimators=100, class_weight='balanced'
-    * XGBoost       — n_estimators=100, eval_metric='mlogloss' (sem class_weight)
+    * XGBoost       — n_estimators=100, eval_metric='mlogloss', peso 'balanced' por amostra
     * Regressão Logística — max_iter=1000, class_weight='balanced'
     * SVM (RBF)     — probability=True, class_weight='balanced'
+Os demais hiperparâmetros são os padrão das bibliotecas; a lista completa, lida
+com ``get_params()``, fica em ``models/hyperparameters.json`` e em
+``results/hiperparametros.csv`` (``src.experiment_record``).
+
+Peso por classe em todos os modelos (TCC2, ponto 6): o XGBoost não tem
+``class_weight``; o peso vai como ``sample_weight`` no ``fit``. Em vez de passar o
+peso em cada lugar que treina um modelo (CV, modelo final, curva por limiar,
+análises de sensibilidade) — e arriscar esquecer um —, ``BalancedXGBClassifier``
+calcula o peso sozinho a cada ``fit``, com a mesma fórmula do
+``class_weight='balanced'`` do scikit-learn: n_amostras / (n_classes × n_da_classe).
+Assim os 4 modelos usam exatamente a mesma regra de balanceamento.
+
+Hiperparâmetros fixos (TCC2, ponto 13): o objetivo é comparar conjuntos de
+atributos nas mesmas condições, não achar o melhor modelo possível. O ajuste entra
+só como análise de sensibilidade (``src.sensitivity_tuning``).
 
 Uso:
     python -m src.pipeline_builder   # grava models/hyperparameters.json
@@ -48,10 +63,39 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVC
+from sklearn.utils.class_weight import compute_sample_weight
+from xgboost import XGBClassifier
 
 from src.experiment_config import MODEL_NAMES, MODELS_DIR, RANDOM_STATE, VARIANCE_THRESHOLD
 
 logger = logging.getLogger(__name__)
+
+
+class BalancedXGBClassifier(XGBClassifier):
+    """
+    XGBoost com peso por classe "balanced" calculado em cada ``fit``.
+
+    Se ``sample_weight`` não for passado, usa
+    ``compute_sample_weight("balanced", y)``: cada gene recebe
+    n_amostras / (n_classes × n_genes_da_classe), a mesma regra do
+    ``class_weight='balanced'`` dos outros três modelos. Os hiperparâmetros são os
+    do ``XGBClassifier`` (``get_params()`` não muda). Os rótulos chegam codificados
+    como inteiros 0..n_classes-1.
+    """
+
+    def fit(self, X, y, *, sample_weight=None, **kwargs):
+        if sample_weight is None:
+            sample_weight = compute_sample_weight("balanced", y)
+        return super().fit(X, y, sample_weight=sample_weight, **kwargs)
+
+
+# Como cada modelo compensa o desbalanceamento (registrado no hyperparameters.json).
+CLASS_BALANCING: dict[str, str] = {
+    "random_forest": "class_weight='balanced'",
+    "xgboost": "sample_weight 'balanced' em cada fit (BalancedXGBClassifier)",
+    "logistic_regression": "class_weight='balanced'",
+    "svm": "class_weight='balanced'",
+}
 
 # Nomes exibidos em figuras e tabelas. "Regressão Logística" em português, como no
 # resto do texto do TCC (ponto 12 do documento de decisões); os demais são nomes próprios.
@@ -64,7 +108,7 @@ MODEL_LABELS: dict[str, str] = {
 
 
 def _model_params() -> dict[str, dict]:
-    # SEED FIXA em todos os classificadores
+    """Hiperparâmetros definidos à mão; os demais ficam no padrão da biblioteca.  # SEED FIXA"""
     return {
         "random_forest": {"n_estimators": 100, "class_weight": "balanced", "random_state": RANDOM_STATE, "n_jobs": -1},
         "xgboost": {"n_estimators": 100, "eval_metric": "mlogloss", "random_state": RANDOM_STATE, "n_jobs": -1},
@@ -138,9 +182,7 @@ def build_classifier(model_name: str) -> BaseEstimator:
     if model_name == "random_forest":
         return RandomForestClassifier(**params)
     if model_name == "xgboost":
-        from xgboost import XGBClassifier  # rótulos já chegam codificados como inteiros 0..n_classes-1
-
-        return XGBClassifier(**params)
+        return BalancedXGBClassifier(**params)
     if model_name == "logistic_regression":
         return LogisticRegression(**params)
     if model_name == "svm":
@@ -160,8 +202,28 @@ def build_full_pipeline(
     return Pipeline(build_preprocessor(selection, n_features) + [("clf", build_classifier(model_name))])
 
 
+def _json_value(v):
+    """Valor de ``get_params()`` em forma gravável (NaN e objetos viram texto)."""
+    if isinstance(v, float) and v != v:
+        return "nan"
+    if v is None or isinstance(v, (bool, int, float, str)):
+        return v
+    return repr(v)
+
+
+def classifier_params(model_name: str) -> dict:
+    """Todos os hiperparâmetros do classificador, lidos com ``get_params()`` (nada transcrito à mão)."""
+    return {k: _json_value(v) for k, v in sorted(build_classifier(model_name).get_params().items())}
+
+
 def save_hyperparameters(output_path: Path = MODELS_DIR / "hyperparameters.json") -> dict:
-    """Registra pré-processamento e hiperparâmetros em JSON."""
+    """
+    Registra pré-processamento e hiperparâmetros em JSON.
+
+    ``models`` traz todos os hiperparâmetros de cada classificador, lidos com
+    ``get_params()``; ``definidos_no_codigo`` separa os que foram escolhidos à mão.
+    Os valores são os mesmos nos Pipelines A e B.
+    """
     import sklearn
     import xgboost
 
@@ -174,13 +236,10 @@ def save_hyperparameters(output_path: Path = MODELS_DIR / "hyperparameters.json"
             "pipeline_b": "pipeline_a + atributos ontológicos (41 com o CARD 4.0.1: 3 estruturais + 38 flags)",
         },
         "random_state": RANDOM_STATE,
-        "class_balancing": {
-            "random_forest": "class_weight='balanced'",
-            "logistic_regression": "class_weight='balanced'",
-            "svm": "class_weight='balanced'",
-            "xgboost": "nenhum (sem class_weight / sample_weight)",
-        },
-        "models": _model_params(),
+        "iguais_nos_pipelines_a_e_b": True,
+        "class_balancing": CLASS_BALANCING,
+        "definidos_no_codigo": _model_params(),
+        "models": {name: classifier_params(name) for name in MODEL_NAMES},
         "versions": {"scikit-learn": sklearn.__version__, "xgboost": xgboost.__version__},
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)

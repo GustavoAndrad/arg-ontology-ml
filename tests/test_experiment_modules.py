@@ -7,6 +7,7 @@ import pytest
 from src.experiment_config import (
     CASE_STUDY_CLASSES,
     EFFECTIVE_CLASSES,
+    MODEL_NAMES,
     N_CV_SPLITS,
     choose_test_partition,
     SPLIT_CASE_STUDY,
@@ -333,6 +334,66 @@ def test_pipeline_structure_and_fit(model):
     assert pipe.named_steps["clf"].n_features_in_ == 8
 
 
+def test_xgboost_uses_balanced_sample_weight():
+    # Ponto 6: o XGBoost usa a mesma regra de peso dos outros modelos, calculada em cada fit.
+    from sklearn.base import clone
+    from sklearn.utils.class_weight import compute_sample_weight
+    from xgboost import XGBClassifier
+
+    from src.pipeline_builder import BalancedXGBClassifier, _model_params, build_classifier
+
+    rng = np.random.default_rng(0)
+    X, y = rng.random((120, 5)), np.repeat([0, 1, 2], [90, 20, 10])
+    model = build_classifier("xgboost")
+    assert isinstance(model, BalancedXGBClassifier)
+    assert isinstance(clone(model), BalancedXGBClassifier)  # clone (CV, GridSearchCV) mantém o peso
+    manual = XGBClassifier(**_model_params()["xgboost"]).fit(X, y, sample_weight=compute_sample_weight("balanced", y))
+    unweighted = XGBClassifier(**_model_params()["xgboost"]).fit(X, y)
+    np.testing.assert_allclose(model.fit(X, y).predict_proba(X), manual.predict_proba(X))
+    assert not np.allclose(model.predict_proba(X), unweighted.predict_proba(X))
+
+
+def test_all_models_balance_classes():
+    from src.pipeline_builder import CLASS_BALANCING, build_classifier
+
+    assert set(CLASS_BALANCING) == set(MODEL_NAMES)
+    for name in ("random_forest", "logistic_regression", "svm"):
+        assert build_classifier(name).get_params()["class_weight"] == "balanced"
+
+
+def test_hyperparameters_record_is_complete(tmp_path):
+    # Ponto 13: o registro vem do get_params(), não de uma lista escrita à mão.
+    import json
+
+    from src.pipeline_builder import build_classifier, save_hyperparameters
+
+    out = tmp_path / "hp.json"
+    save_hyperparameters(out)
+    rec = json.loads(out.read_text(encoding="utf-8"))
+    for name in MODEL_NAMES:
+        assert set(rec["models"][name]) == set(build_classifier(name).get_params())
+        for k, v in rec["definidos_no_codigo"][name].items():
+            assert rec["models"][name][k] == v
+    assert "sample_weight" in rec["class_balancing"]["xgboost"]
+
+
+def test_xgboost_effective_params_from_trained_model(tmp_path):
+    # Ponto 13: os padrão do XGBoost (None no get_params) são lidos do modelo treinado.
+    import joblib
+
+    from src.experiment_record import MAIN_PARAMS, xgboost_effective_params
+    from src.pipeline_builder import classifier_params
+
+    rng = np.random.default_rng(0)
+    pipe = build_full_pipeline("xgboost").fit(rng.random((60, 4)), np.repeat([0, 1, 2], 20))
+    joblib.dump(pipe, tmp_path / "xgb.joblib")
+    eff = xgboost_effective_params(tmp_path / "xgb.joblib")
+    assert eff["learning_rate"] == "0.3" and eff["max_depth"] == "6"
+    assert eff["objective"] == "multi:softprob"
+    for name, params in MAIN_PARAMS.items():
+        assert set(params) <= set(classifier_params(name))
+
+
 def test_sensitivity_selection_variants():
     from src.pipeline_builder import FeatureSelection
 
@@ -357,3 +418,102 @@ def test_wilcoxon_decision_consistent_with_p():
     assert res["p_value"] == pytest.approx(0.001953125) and res["decision"] == "reject_H0"
     same = run_wilcoxon_test(a, a)
     assert same["decision"] == "fail_to_reject"
+
+
+# ── Ponto 6: sensibilidade ao balanceamento ──────────────────────────────────
+
+
+def test_undersampling_reduces_only_majority_to_second_largest():
+    from src.sensitivity_balancing import undersample_to_second_largest
+
+    y = np.repeat([0, 1, 2, 3], [30, 400, 50, 10])
+    assert undersample_to_second_largest(y) == {1: 50}
+
+
+@pytest.mark.parametrize("model", ["random_forest", "xgboost", "logistic_regression", "svm"])
+def test_unweighted_classifier_keeps_other_params(model):
+    from src.pipeline_builder import build_classifier
+    from src.sensitivity_balancing import unweighted_classifier
+
+    base, plain = build_classifier(model).get_params(), unweighted_classifier(model).get_params()
+    diff = {k for k in base if repr(base[k]) != repr(plain.get(k))}  # repr: NaN != NaN
+    assert diff <= {"class_weight"}
+    if model != "xgboost":
+        assert plain["class_weight"] is None
+
+
+def test_hierarchical_classifier_consistent():
+    from src.pipeline_builder import build_classifier
+    from src.sensitivity_balancing import HierarchicalClassifier
+
+    rng = np.random.default_rng(0)
+    y = np.repeat([0, 1, 2, 3], [20, 80, 20, 20])
+    X = rng.random((len(y), 4)) + np.eye(4)[y] * 2  # classes separáveis
+    for model in ("random_forest", "xgboost"):
+        h = HierarchicalClassifier(build_classifier(model), majority_label=1).fit(X, y)
+        proba = h.predict_proba(X)
+        np.testing.assert_allclose(proba.sum(axis=1), 1.0)
+        assert (h.predict(X) == y).mean() > 0.95
+        assert set(h.predict(X)) <= {0, 1, 2, 3}
+
+
+def test_smotenc_keeps_ontology_values_and_resampling_only_in_fit():
+    from src.sensitivity_balancing import build_strategy_pipeline
+
+    rng = np.random.default_rng(0)
+    y = np.repeat([0, 1, 2], [20, 100, 15])
+    X = np.c_[rng.random((len(y), 3)), rng.integers(0, 2, (len(y), 2)), rng.integers(1, 4, len(y))]
+    cat = [3, 4, 5]
+    pipe = build_strategy_pipeline("smote", "random_forest", y, cat, majority_label=1).fit(X, y)
+    Xs = pipe.named_steps["scaler"].transform(X)
+    Xr, yr = pipe.named_steps["sampler"].fit_resample(Xs, y)
+    assert np.bincount(yr).tolist() == [100, 100, 100]
+    for j in cat:  # gene sintético só tem valores que existem nos dados
+        assert set(np.round(Xr[:, j], 9)) <= set(np.round(Xs[:, j], 9))
+    assert len(pipe.predict(X)) == len(y)  # predição não reamostra
+
+
+def test_weight_strategy_equals_main_pipeline():
+    from src.sensitivity_balancing import build_strategy_pipeline
+
+    rng = np.random.default_rng(1)
+    y = np.repeat([0, 1, 2], [20, 60, 20])
+    X = rng.random((len(y), 5))
+    for model in ("random_forest", "xgboost"):
+        a = build_strategy_pipeline("peso", model, y, None, majority_label=1).fit(X, y).predict_proba(X)
+        b = build_full_pipeline(model).fit(X, y).predict_proba(X)
+        np.testing.assert_allclose(a, b)
+
+
+# ── Ponto 13: sensibilidade ao ajuste de hiperparâmetros ─────────────────────
+
+
+@pytest.mark.parametrize("model", ["random_forest", "xgboost", "logistic_regression", "svm"])
+def test_tuning_grid_contains_experiment_defaults(model):
+    from src.pipeline_builder import build_full_pipeline
+    from src.sensitivity_tuning import DEFAULT_IN_GRID, PARAM_GRIDS
+
+    grid, default = PARAM_GRIDS[model], DEFAULT_IN_GRID[model]
+    assert set(grid) == set(default)
+    params = build_full_pipeline(model).get_params()
+    for k, v in default.items():
+        assert v in grid[k]
+        if params[k] is not None:  # no XGBoost, None = padrão efetivo (0,3 e 6), conferido em outro teste
+            assert params[k] == v
+
+
+def test_nested_tuning_runs_with_groups():
+    from src.sensitivity_tuning import evaluate_model
+
+    rng = np.random.default_rng(0)
+    y = np.repeat([0, 1, 2], [40, 60, 40])
+    X = rng.random((len(y), 4)) + np.eye(3)[y][:, [0, 1, 2, 0]]
+    groups = np.arange(len(y)) // 2
+    idx = np.arange(len(y))
+    train_idx, test_idx = idx[idx % 5 != 0], idx[idx % 5 == 0]
+    from sklearn.model_selection import StratifiedGroupKFold
+
+    splits = list(StratifiedGroupKFold(3, shuffle=True, random_state=0).split(train_idx, y[train_idx], groups[train_idx]))
+    summary, folds = evaluate_model("logistic_regression", X, y, 3, train_idx, test_idx, groups, splits)
+    assert len(folds) == 3 and 0 <= summary["folds_com_o_padrao_escolhido"] <= 3
+    assert 0 <= summary["f1_teste_ajustado"] <= 1

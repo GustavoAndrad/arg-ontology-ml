@@ -1,6 +1,6 @@
 CONCLUSÕES DO EXPERIMENTO — Pipeline A (sequência) vs Pipeline B (sequência + ontologia ARO)
 
-Ganho médio de F1-macro no teste: +37.94% (de +12.70% a +57.30%).
+Ganho médio de F1-macro no teste: +37.68% (de +11.66% a +57.30%).
 Melhor modelo: SVM (RBF) no Pipeline B (F1-macro = 0.9733).
 Pipeline B superou o A no F1-macro de teste em 4 de 4 modelos.
 

@@ -1,0 +1,45 @@
+{
+  "python": "3.12.9",
+  "sistema": "Windows-11-10.0.26200-SP0",
+  "bibliotecas": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.1",
+    "scipy": "1.12.0",
+    "scikit-learn": "1.4.1.post1",
+    "xgboost": "3.2.0",
+    "imbalanced-learn": "0.12.3",
+    "biopython": "1.83",
+    "rdflib": "7.0.0",
+    "matplotlib": "3.8.3",
+    "seaborn": "0.13.2",
+    "shap": "0.45.0",
+    "joblib": "1.3.2",
+    "hypothesis": "6.100.0",
+    "pytest": "8.1.0"
+  },
+  "mmseqs2": {
+    "versao_release": "18-8cc5c",
+    "versao_commit": "8cc5ce367b5638c4306c2d7cfc652dd099a4643f",
+    "sha256_executavel": "ad319fc9fc67500ca2da9b9247d9611d2113e66cb800c15b603949f5652e2a0b"
+  },
+  "dados": {
+    "card_versao": "4.0.1",
+    "data_de_acesso": "2026-06-14",
+    "aro_owl_sha256": "3fc5498de236452861123528e09f8bbf30b331e80b696d65b24ec3a8048ee01f",
+    "aro_index_sha256": "bcc211d81abd900a592f623ab5539fb5f279729fdabb76ec5c118ab0f8bbe00d"
+  },
+  "sementes": {
+    "modelos_random_state": 42,
+    "particao_teste": 67,
+    "particao_teste_fold": 2,
+    "validacao_cruzada": 97,
+    "candidatas_testadas": "0 a 99 (escolha pela distribuição das classes, sem olhar o desempenho)"
+  },
+  "limiar_similaridade": 70,
+  "balanceamento": {
+    "random_forest": "class_weight='balanced'",
+    "xgboost": "sample_weight 'balanced' em cada fit (BalancedXGBClassifier)",
+    "logistic_regression": "class_weight='balanced'",
+    "svm": "class_weight='balanced'"
+  }
+}

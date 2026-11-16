@@ -4,11 +4,11 @@ a,random_forest,antibiotic inactivation,0.9640365002683843,900
 a,random_forest,antibiotic target alteration,0.5333333333333333,55
 a,random_forest,antibiotic target protection,0.9206349206349206,32
 a,random_forest,antibiotic target replacement,0.0,17
-a,xgboost,antibiotic efflux,0.8631578947368421,47
-a,xgboost,antibiotic inactivation,0.9797037849698299,900
-a,xgboost,antibiotic target alteration,0.6739130434782609,55
-a,xgboost,antibiotic target protection,0.875,32
-a,xgboost,antibiotic target replacement,0.7142857142857143,17
+a,xgboost,antibiotic efflux,0.8666666666666667,47
+a,xgboost,antibiotic inactivation,0.9856194690265486,900
+a,xgboost,antibiotic target alteration,0.7428571428571429,55
+a,xgboost,antibiotic target protection,0.927536231884058,32
+a,xgboost,antibiotic target replacement,0.8,17
 a,logistic_regression,antibiotic efflux,0.7008547008547008,47
 a,logistic_regression,antibiotic inactivation,0.9395184967704052,900
 a,logistic_regression,antibiotic target alteration,0.48,55
@@ -24,10 +24,10 @@ b,random_forest,antibiotic inactivation,0.9846322722283205,900
 b,random_forest,antibiotic target alteration,0.7692307692307693,55
 b,random_forest,antibiotic target protection,0.9375,32
 b,random_forest,antibiotic target replacement,0.8666666666666667,17
-b,xgboost,antibiotic efflux,0.9130434782608695,47
-b,xgboost,antibiotic inactivation,0.9906025428413489,900
-b,xgboost,antibiotic target alteration,0.9345794392523364,55
-b,xgboost,antibiotic target protection,0.819672131147541,32
+b,xgboost,antibiotic efflux,0.9484536082474226,47
+b,xgboost,antibiotic inactivation,0.9955555555555555,900
+b,xgboost,antibiotic target alteration,0.9433962264150944,55
+b,xgboost,antibiotic target protection,0.9696969696969697,32
 b,xgboost,antibiotic target replacement,0.9696969696969697,17
 b,logistic_regression,antibiotic efflux,0.9574468085106383,47
 b,logistic_regression,antibiotic inactivation,0.9944196428571429,900

@@ -1,0 +1,43 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Principais hiperparâmetros dos classificadores, iguais nos Pipelines A e B. $^{*}$Definido no código; os demais são os valores padrão das bibliotecas. Semente (\texttt{random\_state}) = 42 em todos.}
+  \label{tab:hiperparametros}
+  \begin{tabular}{lcc}
+    \toprule
+    Modelo & Hiperparâmetro & Valor \\
+    \midrule
+    Random Forest & \texttt{n\_estimators} & 100$^{*}$ \\
+     & \texttt{criterion} & gini \\
+     & \texttt{max\_depth} & None \\
+     & \texttt{max\_features} & sqrt \\
+     & \texttt{min\_samples\_split} & 2 \\
+     & \texttt{min\_samples\_leaf} & 1 \\
+     & \texttt{bootstrap} & True \\
+     & \texttt{class\_weight} & balanced$^{*}$ \\
+    XGBoost & \texttt{n\_estimators} & 100$^{*}$ \\
+     & \texttt{learning\_rate} & 0,3 \\
+     & \texttt{max\_depth} & 6 \\
+     & \texttt{min\_child\_weight} & 1 \\
+     & \texttt{subsample} & 1 \\
+     & \texttt{colsample\_bytree} & 1 \\
+     & \texttt{reg\_lambda} & 1 \\
+     & \texttt{reg\_alpha} & 0 \\
+     & \texttt{gamma} & 0 \\
+     & \texttt{objective} & multi:softprob \\
+     & \texttt{eval\_metric} & mlogloss$^{*}$ \\
+     & peso por classe & \texttt{sample\_weight} balanceado$^{*}$ \\
+    Regressão Logística & \texttt{penalty} & l2 \\
+     & \texttt{C} & 1,0 \\
+     & \texttt{solver} & lbfgs \\
+     & \texttt{max\_iter} & 1000$^{*}$ \\
+     & \texttt{multi\_class} & auto \\
+     & \texttt{class\_weight} & balanced$^{*}$ \\
+    SVM (RBF) & \texttt{kernel} & rbf$^{*}$ \\
+     & \texttt{C} & 1,0 \\
+     & \texttt{gamma} & scale \\
+     & \texttt{probability} & True$^{*}$ \\
+     & \texttt{decision\_function\_shape} & ovr \\
+     & \texttt{class\_weight} & balanced$^{*}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
