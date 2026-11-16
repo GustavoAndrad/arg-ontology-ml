@@ -2,16 +2,30 @@
 train_evaluate.py — Treinamento, validação cruzada e avaliação (Seções 4.8–4.11, 5.2–5.5).
 
 Para cada modelo e cada pipeline (A: 73 features de sequência; B: A + 41 ontológicas = 114):
-    * validação cruzada por grupos (StratifiedGroupKFold, 5 folds) no treino;
+    * validação cruzada por grupos repetida 10 × 5 (StratifiedGroupKFold) no treino:
+      50 estimativas por modelo, pareadas entre A e B (mesmas divisões);
     * treino final no treino (~80%) e avaliação no teste (~20%).
+
+Validação cruzada repetida (TCC2, ponto 5, decisão 2): base do teste t corrigido
+(``src.statistical_tests``). As 10 sementes vêm de ``choose_cv_seeds`` (as
+primeiras que deixam >= 5 genes de cada classe em cada fold) e ficam em
+``results/particao_teste.json``.
 
 A partição é feita por grupos de similaridade de sequência (``load_groups``,
 limiar de 70%): nenhum grupo aparece no treino e no teste, nem em dois folds.
 A escolha da partição de teste (semente e proporções) fica em
 ``results/particao_teste.json``.
 
-Métricas: acurácia, precisão/revocação/F1 macro, acurácia balanceada e ROC-AUC
-macro One-vs-Rest.
+Métricas: acurácia, precisão/revocação/F1 macro, acurácia balanceada, ROC-AUC
+macro One-vs-Rest e PR-AUC macro (TCC2, ponto 10). Também por classe: precisão,
+revocação, F1, ROC-AUC e PR-AUC (uma classe contra as outras), no teste e em cada
+fold da validação cruzada.
+
+PR-AUC = precisão média (``average_precision_score``): soma das precisões em cada
+limiar, ponderada pelo ganho de revocação, sem interpolar a curva. É o cálculo
+padrão do scikit-learn. Ao lado da ROC-AUC, mostra o desempenho nas classes
+pequenas: com uma classe muito grande, a taxa de falsos positivos da ROC fica baixa
+mesmo quando muitos alarmes são falsos.
 
 Classes declaradas (TCC2, ponto 2): precisão, revocação e F1 macro recebem
 ``labels`` com todas as classes. Sem isso, o scikit-learn faz a média só sobre as
@@ -37,9 +51,11 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import (
     accuracy_score,
+    average_precision_score,
     balanced_accuracy_score,
     confusion_matrix,
     f1_score,
+    precision_recall_fscore_support,
     precision_score,
     recall_score,
     roc_auc_score,
@@ -52,11 +68,10 @@ from src.experiment_config import (
     PROCESSED_DIR,
     RESULTS_DIR,
     TARGET,
-    RANDOM_STATE,
     SIMILARITY_THRESHOLD,
-    choose_cv_seed,
+    choose_cv_seeds,
     choose_test_partition,
-    cv_splitter,
+    repeated_cv_splits,
     dataset_composition,
     encode_target,
     load_experiment_dataset,
@@ -66,7 +81,7 @@ from src.experiment_config import (
 from src.pipeline_builder import build_full_pipeline
 
 logger = logging.getLogger(__name__)
-METRICS = ["accuracy", "precision_macro", "recall_macro", "f1_macro", "balanced_accuracy", "roc_auc_ovr"]
+METRICS = ["accuracy", "precision_macro", "recall_macro", "f1_macro", "balanced_accuracy", "roc_auc_ovr", "pr_auc_macro"]
 PREDICTIONS_DIR = RESULTS_DIR / "predicoes"
 
 
@@ -105,6 +120,26 @@ def split_dataset(y: np.ndarray, groups: np.ndarray, save: bool = True) -> tuple
     return train_idx, test_idx
 
 
+def pr_auc_per_class(y_true, proba, n_classes: int) -> np.ndarray:
+    """PR-AUC (precisão média) de cada classe contra as outras; NaN se a classe não aparece."""
+    y_true = np.asarray(y_true)
+    out = np.full(n_classes, np.nan)
+    for k in range(n_classes):
+        if (y_true == k).any():
+            out[k] = average_precision_score(y_true == k, proba[:, k])
+    return out
+
+
+def roc_auc_per_class(y_true, proba, n_classes: int) -> np.ndarray:
+    """ROC-AUC de cada classe contra as outras; NaN se a classe não aparece (ou é a única)."""
+    y_true = np.asarray(y_true)
+    out = np.full(n_classes, np.nan)
+    for k in range(n_classes):
+        if (y_true == k).any() and not (y_true == k).all():
+            out[k] = roc_auc_score(y_true == k, proba[:, k])
+    return out
+
+
 def compute_metrics(y_true, y_pred, proba, n_classes: int) -> dict[str, float]:
     """Métricas macro sobre as ``n_classes`` classes declaradas (ver docstring do módulo)."""
     labels = list(range(n_classes))
@@ -119,24 +154,33 @@ def compute_metrics(y_true, y_pred, proba, n_classes: int) -> dict[str, float]:
         "f1_macro": f1_score(y_true, y_pred, labels=labels, average="macro", zero_division=0),
         "balanced_accuracy": balanced_accuracy_score(y_true, y_pred),
         "roc_auc_ovr": auc,
+        "pr_auc_macro": float(np.mean(pr_auc_per_class(y_true, proba, n_classes))),
     }
 
 
-def check_class_counts_per_fold(
-    y_train: np.ndarray, classes: list[str], groups_train: np.ndarray | None = None, cv_seed: int = RANDOM_STATE
-) -> pd.DataFrame:
+def per_class_metrics(y_true, y_pred, proba, classes: list[str]) -> list[dict]:
+    """Precisão, revocação, F1, ROC-AUC e PR-AUC de cada classe (uma linha por classe)."""
+    n = len(classes)
+    prec, rec, f1, support = precision_recall_fscore_support(y_true, y_pred, labels=list(range(n)), zero_division=0)
+    roc, pr = roc_auc_per_class(y_true, proba, n), pr_auc_per_class(y_true, proba, n)
+    return [
+        {"classe": c, "precisao": prec[k], "revocacao": rec[k], "f1": f1[k], "roc_auc": roc[k], "pr_auc": pr[k], "n": int(support[k])}
+        for k, c in enumerate(classes)
+    ]
+
+
+def check_class_counts_per_fold(y_train: np.ndarray, classes: list[str], splits: list[tuple]) -> pd.DataFrame:
     """
     Conta os genes de cada classe em cada fold de validação e aplica o critério do ponto 2.
 
-    Os folds dependem só de ``y_train``, dos grupos e da semente, então são os mesmos
-    para todos os modelos e para os Pipelines A e B. Erro se alguma classe faltar num
-    fold (o F1 dela não existiria); aviso se ficar abaixo de ``MIN_GENES_PER_FOLD``.
+    ``splits`` vem de ``repeated_cv_splits``: as mesmas divisões valem para todos os
+    modelos e para os Pipelines A e B. Erro se alguma classe faltar num fold (o F1 dela
+    não existiria); aviso se ficar abaixo de ``MIN_GENES_PER_FOLD``.
     """
-    groups_train = np.arange(len(y_train)) if groups_train is None else groups_train
     rows = []
-    for i, (_, val_idx) in enumerate(cv_splitter(cv_seed).split(np.zeros(len(y_train)), y_train, groups_train), start=1):
+    for rep, fold, _, val_idx in splits:
         counts = np.bincount(y_train[val_idx], minlength=len(classes))
-        rows.append({"fold": i, **dict(zip(classes, map(int, counts)))})
+        rows.append({"repeticao": rep, "fold": fold, **dict(zip(classes, map(int, counts)))})
     table = pd.DataFrame(rows)
     minimum = table[classes].min()
     if (minimum == 0).any():
@@ -151,20 +195,24 @@ def run_cross_validation(
     model_name: str,
     X_train: np.ndarray,
     y_train: np.ndarray,
-    n_classes: int,
-    groups_train: np.ndarray,
-    cv_seed: int = RANDOM_STATE,
-) -> list[dict]:
-    """CV por grupos (5 folds); transformadores ajustados só no treino de cada fold.  # ANTI-LEAKAGE  # SEED FIXA"""
-    folds = []
-    for i, (fit_idx, val_idx) in enumerate(cv_splitter(cv_seed).split(X_train, y_train, groups_train), start=1):
+    classes: list[str],
+    splits: list[tuple],
+) -> tuple[list[dict], list[dict]]:
+    """
+    CV por grupos repetida; transformadores ajustados só no treino de cada fold.  # ANTI-LEAKAGE  # SEED FIXA
+
+    Retorna (métricas macro por fold, métricas por classe por fold), com a repetição,
+    o fold e os tamanhos de ajuste e de validação (usados no teste t corrigido).
+    """
+    n_classes = len(classes)
+    folds, per_class = [], []
+    for rep, fold, fit_idx, val_idx in splits:
         pipe = build_full_pipeline(model_name).fit(X_train[fit_idx], y_train[fit_idx])
-        m = compute_metrics(
-            y_train[val_idx], pipe.predict(X_train[val_idx]), pipe.predict_proba(X_train[val_idx]), n_classes
-        )
-        m["fold"] = i
-        folds.append(m)
-    return folds
+        pred, proba = pipe.predict(X_train[val_idx]), pipe.predict_proba(X_train[val_idx])
+        m = compute_metrics(y_train[val_idx], pred, proba, n_classes)
+        folds.append({"repeticao": rep, "fold": fold, "n_ajuste": len(fit_idx), "n_validacao": len(val_idx), **m})
+        per_class += [{"repeticao": rep, "fold": fold, **r} for r in per_class_metrics(y_train[val_idx], pred, proba, classes)]
+    return folds, per_class
 
 
 def train_final_model(model_name: str, pipeline_key: str, X_train: np.ndarray, y_train: np.ndarray):
@@ -198,27 +246,31 @@ def run_experiment(model_names: list[str] = MODEL_NAMES) -> None:
     X_a, X_b, y, classes = load_feature_matrices()
     groups = load_groups()
     train_idx, test_idx = split_dataset(y, groups)
-    cv_seed, cv_info = choose_cv_seed(y[train_idx], groups[train_idx])
+    cv_seeds, cv_info = choose_cv_seeds(y[train_idx], groups[train_idx])
     part_path = RESULTS_DIR / "particao_teste.json"
     part = json.loads(part_path.read_text(encoding="utf-8"))
     part.update(cv_info)
     part_path.write_text(json.dumps(part, indent=2, ensure_ascii=False), encoding="utf-8")
-    logger.info("Semente da validação cruzada: %d (mínimo de %d genes de uma classe num fold).", cv_seed, cv_info["minimo_genes_classe_fold"])
+    logger.info(
+        "Sementes da validação cruzada repetida: %s (mínimo de genes de uma classe num fold, por semente: %s).",
+        cv_seeds, cv_info["minimo_genes_classe_fold_por_semente"],
+    )
+    splits = repeated_cv_splits(y[train_idx], groups[train_idx], cv_seeds)
     n_classes = len(classes)
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     PREDICTIONS_DIR.mkdir(parents=True, exist_ok=True)
     (RESULTS_DIR / "classes.json").write_text(json.dumps(classes, ensure_ascii=False, indent=2), encoding="utf-8")
-    check_class_counts_per_fold(y[train_idx], classes, groups[train_idx], cv_seed).to_csv(RESULTS_DIR / "cv_contagem_classes.csv", index=False)
+    check_class_counts_per_fold(y[train_idx], classes, splits).to_csv(RESULTS_DIR / "cv_contagem_classes.csv", index=False)
     # Tabela 4.1 / Seção 4.3.3: todos os mecanismos do dataset integrado e o destino de cada um.
     dataset_composition(load_integrated_dataset()).to_csv(RESULTS_DIR / "composicao_dataset.csv", index=False)
 
-    cv_rows, per_class_rows = [], []
+    cv_rows, cv_class_rows, test_class_rows = [], [], []
     for key, X_df in (("a", X_a), ("b", X_b)):
         X = X_df.to_numpy(dtype=float)
         metric_rows = []
         for name in model_names:
             t0 = time.time()
-            folds = run_cross_validation(name, X[train_idx], y[train_idx], n_classes, groups[train_idx], cv_seed)
+            folds, folds_per_class = run_cross_validation(name, X[train_idx], y[train_idx], classes, splits)
             pipe = train_final_model(name, key, X[train_idx], y[train_idx])
             test_metrics, extra = evaluate_on_test(pipe, X[test_idx], y[test_idx], n_classes)
             np.savez(
@@ -228,18 +280,12 @@ def run_experiment(model_names: list[str] = MODEL_NAMES) -> None:
                 proba=extra["proba"],
                 confusion_matrix=extra["confusion_matrix"],
             )
-            for f in folds:
-                cv_rows.append({"pipeline": key, "modelo": name, **f})
-            for c, v in zip(classes, extra["f1_per_class"]):
-                per_class_rows.append(
-                    {
-                        "pipeline": key,
-                        "modelo": name,
-                        "classe": c,
-                        "f1_teste": v,
-                        "n_teste": int((y[test_idx] == classes.index(c)).sum()),
-                    }
-                )
+            cv_rows += [{"pipeline": key, "modelo": name, **f} for f in folds]
+            cv_class_rows += [{"pipeline": key, "modelo": name, **r} for r in folds_per_class]
+            test_class_rows += [
+                {"pipeline": key, "modelo": name, **r}
+                for r in per_class_metrics(y[test_idx], extra["y_pred"], extra["proba"], classes)
+            ]
             for metric in METRICS:
                 vals = np.array([f[metric] for f in folds], dtype=float)
                 metric_rows.append(
@@ -248,22 +294,25 @@ def run_experiment(model_names: list[str] = MODEL_NAMES) -> None:
                         "metrica": metric,
                         "valor_teste": test_metrics[metric],
                         "media_cv": np.nanmean(vals),
-                        "std_cv": np.nanstd(vals),
+                        # Desvio amostral (n − 1), o mesmo usado no teste t corrigido.
+                        "std_cv": np.nanstd(vals, ddof=1),
                         "folds_validos_cv": int(np.isfinite(vals).sum()),
                     }
                 )
             logger.info(
-                "Pipeline %s | %-20s F1 teste=%.4f | F1 CV=%.4f ± %.4f | %.1fs",
+                "Pipeline %s | %-20s F1 teste=%.4f | F1 CV=%.4f ± %.4f (%d folds) | %.1fs",
                 key.upper(),
                 name,
                 test_metrics["f1_macro"],
                 np.mean([f["f1_macro"] for f in folds]),
-                np.std([f["f1_macro"] for f in folds]),
+                np.std([f["f1_macro"] for f in folds], ddof=1),
+                len(folds),
                 time.time() - t0,
             )
         save_metrics(metric_rows, key)
     pd.DataFrame(cv_rows).to_csv(RESULTS_DIR / "cv_folds.csv", index=False)
-    pd.DataFrame(per_class_rows).to_csv(RESULTS_DIR / "f1_por_classe_teste.csv", index=False)
+    pd.DataFrame(cv_class_rows).to_csv(RESULTS_DIR / "cv_por_classe.csv", index=False)
+    pd.DataFrame(test_class_rows).to_csv(RESULTS_DIR / "metricas_por_classe_teste.csv", index=False)
     logger.info("Experimento concluído em %.1f min.", (time.time() - start) / 60)
 
 

@@ -1,0 +1,31 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Precisão (P), revocação (R) e F1 de cada mecanismo no conjunto de teste. Intervalos de 95\% em \texttt{results/bootstrap\_teste.csv}.}
+  \label{tab:por_classe}
+  \begin{tabular}{lcccccccc}
+    \toprule
+    Modelo & Mecanismo & $n$ & P (A) & R (A) & F1 (A) & P (B) & R (B) & F1 (B) \\
+    \midrule
+    Random Forest & efflux & 47 & 0,89 & 0,70 & 0,79 & 0,88 & 0,89 & 0,88 \\
+     & inactivation & 900 & 0,93 & 1,00 & 0,96 & 0,97 & 1,00 & 0,98 \\
+     & target alteration & 55 & 1,00 & 0,36 & 0,53 & 0,97 & 0,64 & 0,77 \\
+     & target protection & 32 & 0,94 & 0,91 & 0,92 & 0,94 & 0,94 & 0,94 \\
+     & target replacement & 17 & 0,00 & 0,00 & 0,00 & 1,00 & 0,76 & 0,87 \\
+    XGBoost & efflux & 47 & 0,91 & 0,83 & 0,87 & 0,92 & 0,98 & 0,95 \\
+     & inactivation & 900 & 0,98 & 0,99 & 0,99 & 1,00 & 1,00 & 1,00 \\
+     & target alteration & 55 & 0,78 & 0,71 & 0,74 & 0,98 & 0,91 & 0,94 \\
+     & target protection & 32 & 0,86 & 1,00 & 0,93 & 0,94 & 1,00 & 0,97 \\
+     & target replacement & 17 & 0,92 & 0,71 & 0,80 & 1,00 & 0,94 & 0,97 \\
+    Regressão Logística & efflux & 47 & 0,59 & 0,87 & 0,70 & 0,96 & 0,96 & 0,96 \\
+     & inactivation & 900 & 1,00 & 0,89 & 0,94 & 1,00 & 0,99 & 0,99 \\
+     & target alteration & 55 & 0,35 & 0,76 & 0,48 & 0,88 & 0,95 & 0,91 \\
+     & target protection & 32 & 0,77 & 0,62 & 0,69 & 0,89 & 1,00 & 0,94 \\
+     & target replacement & 17 & 0,19 & 0,35 & 0,24 & 1,00 & 1,00 & 1,00 \\
+    SVM (RBF) & efflux & 47 & 0,59 & 0,87 & 0,70 & 0,96 & 1,00 & 0,98 \\
+     & inactivation & 900 & 1,00 & 0,94 & 0,97 & 1,00 & 0,99 & 1,00 \\
+     & target alteration & 55 & 0,48 & 0,87 & 0,62 & 0,96 & 0,96 & 0,96 \\
+     & target protection & 32 & 0,83 & 0,62 & 0,71 & 0,86 & 1,00 & 0,93 \\
+     & target replacement & 17 & 0,62 & 0,29 & 0,40 & 1,00 & 1,00 & 1,00 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

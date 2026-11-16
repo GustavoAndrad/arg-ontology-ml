@@ -41,15 +41,15 @@ Decisões (registradas em TCC2_resultados_para_o_texto.md, pontos 6 e 13):
       P(inativação) = p1 e P(outra c) = (1 − p1) · p2(c), usada só na ROC-AUC.
 
 É uma análise **descritiva** (sem teste estatístico), como definido no ponto 5.
-Os folds são passados de fora (``splits``) para que a versão final use a
-validação cruzada repetida do ponto 5 sem mudar este módulo.
+Usa as mesmas divisões da validação cruzada repetida 10 × 5 do experimento; o ganho
+do B na CV vem com o intervalo de 95% corrigido (Nadeau e Bengio), sem teste.
 
 Saídas:
     results/sensibilidade_balanceamento.csv            — estratégia × modelo
     results/sensibilidade_balanceamento_folds.csv      — F1-macro de cada fold
     results/sensibilidade_balanceamento_por_classe.csv — F1 por classe no teste
 
-Uso (cerca de 25 min):
+Uso (cerca de 4 h):
     python -m src.sensitivity_balancing
 """
 
@@ -73,12 +73,13 @@ from src.experiment_config import (
     MODEL_NAMES,
     RANDOM_STATE,
     RESULTS_DIR,
-    choose_cv_seed,
-    cv_splitter,
+    choose_cv_seeds,
     load_groups,
+    repeated_cv_splits,
     split_indices,
 )
 from src.pipeline_builder import _model_params, build_classifier
+from src.statistical_tests import corrected_interval
 from src.train_evaluate import compute_metrics, load_feature_matrices
 
 logger = logging.getLogger(__name__)
@@ -186,18 +187,18 @@ def evaluate_strategy(
     majority = classes.index(MAJORITY_CLASS)
     Xtr, ytr = X[train_idx], y[train_idx]
     f1s, folds = [], []
-    for i, (fit, val) in enumerate(splits, start=1):
+    for rep, i, fit, val in splits:
         p = build_strategy_pipeline(strategy, model, ytr[fit], categorical, majority).fit(Xtr[fit], ytr[fit])
         f1 = compute_metrics(ytr[val], p.predict(Xtr[val]), p.predict_proba(Xtr[val]), n_classes)["f1_macro"]
         f1s.append(f1)
-        folds.append({"fold": i, "f1_macro": f1})
+        folds.append({"repeticao": rep, "fold": i, "f1_macro": f1})
     final = build_strategy_pipeline(strategy, model, ytr, categorical, majority).fit(Xtr, ytr)
     pred = final.predict(X[test_idx])
     test = compute_metrics(y[test_idx], pred, final.predict_proba(X[test_idx]), n_classes)
     per_class = f1_score(y[test_idx], pred, labels=list(range(n_classes)), average=None, zero_division=0)
     summary = {
         "f1_cv_media": float(np.mean(f1s)),
-        "f1_cv_std": float(np.std(f1s)),
+        "f1_cv_std": float(np.std(f1s, ddof=1)),
         "f1_teste": float(test["f1_macro"]),
         "roc_auc_teste": float(test["roc_auc_ovr"]),
         "n_treino_final": _resampled_size(final, Xtr, ytr),
@@ -209,9 +210,10 @@ def run(strategies: list[str] = STRATEGIES, model_names: list[str] = MODEL_NAMES
     X_a, X_b, y, classes = load_feature_matrices()
     groups = load_groups()
     train_idx, test_idx = split_indices(y, groups)  # mesma partição do experimento  # SEED FIXA
-    if splits is None:  # mesmos 5 folds do experimento principal
-        cv_seed, _ = choose_cv_seed(y[train_idx], groups[train_idx])
-        splits = list(cv_splitter(cv_seed).split(np.zeros(len(train_idx)), y[train_idx], groups[train_idx]))
+    if splits is None:  # mesmas divisões (10 × 5) do experimento principal
+        cv_seeds, _ = choose_cv_seeds(y[train_idx], groups[train_idx])
+        splits = repeated_cv_splits(y[train_idx], groups[train_idx], cv_seeds)
+    ratio = float(np.mean([len(val) / len(fit) for _, _, fit, val in splits]))
     n_seq = X_a.shape[1]
     rows, fold_rows, class_rows = [], [], []
     for strategy in strategies:
@@ -228,6 +230,9 @@ def run(strategies: list[str] = STRATEGIES, model_names: list[str] = MODEL_NAMES
                 class_rows += [{"estrategia": strategy, "modelo": model, "pipeline": key, **c} for c in per_class]
             row["ganho_teste"] = row["f1_teste_b"] - row["f1_teste_a"]
             row["ganho_cv"] = row["f1_cv_media_b"] - row["f1_cv_media_a"]
+            fa = np.array([f["f1_macro"] for f in fold_rows if f["estrategia"] == strategy and f["modelo"] == model and f["pipeline"] == "a"])
+            fb = np.array([f["f1_macro"] for f in fold_rows if f["estrategia"] == strategy and f["modelo"] == model and f["pipeline"] == "b"])
+            row["ganho_cv_ic95_inf"], row["ganho_cv_ic95_sup"] = corrected_interval(fb - fa, ratio)
             rows.append(row)
             logger.info(
                 "%-11s %-20s teste A=%.4f B=%.4f | CV A=%.4f B=%.4f | treino A=%d B=%d",

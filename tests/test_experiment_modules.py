@@ -41,7 +41,7 @@ from src.ontology_features import (
     iri_to_accession,
 )
 from src.pipeline_builder import build_full_pipeline
-from src.statistical_tests import run_wilcoxon_test
+from src.statistical_tests import corrected_resampled_ttest, holm_adjust
 
 SEQ = "MKTAYIAKQRQISFVKSHFSRQ"
 
@@ -178,20 +178,51 @@ def test_group_split_keeps_groups_whole():
     assert np.array_equal(te, te2)
 
 
-def test_cv_seed_rule_maximizes_minimum_per_fold():
-    from src.experiment_config import choose_cv_seed
+def _min_per_fold(y, groups, seed, n_classes=3):
+    return min(np.bincount(y[v], minlength=n_classes).min() for _, v in cv_splitter(seed).split(np.zeros(len(y)), y, groups))
+
+
+def test_cv_seeds_rule_first_valid_in_order():
+    # Ponto 5: as primeiras sementes (em ordem) com >= min_genes de cada classe em cada fold.
+    from src.experiment_config import choose_cv_seeds
 
     rng = np.random.default_rng(1)
     sizes = rng.integers(1, 8, 80)  # 80 grupos de tamanhos variados
     groups = np.repeat(np.arange(80), sizes)
     y = np.repeat(np.arange(80) % 3, sizes)
-    seed, info = choose_cv_seed(y, groups, seeds=range(15))
-    # A semente escolhida tem o maior mínimo entre as testadas.
-    for s in range(15):
-        folds = cv_splitter(s).split(np.zeros(len(y)), y, groups)
-        m = min(np.bincount(y[v], minlength=3).min() for _, v in folds)
-        assert m <= info["minimo_genes_classe_fold"]
-    assert choose_cv_seed(y, groups, seeds=range(15))[0] == seed  # determinística
+    minimum = {s: _min_per_fold(y, groups, s) for s in range(30)}
+    threshold = sorted(minimum.values())[len(minimum) // 2]  # cerca de metade das sementes atende
+    seeds, info = choose_cv_seeds(y, groups, n_repeats=4, seeds=range(30), min_genes=threshold)
+    expected = [s for s in range(30) if minimum[s] >= threshold][:4]
+    assert seeds == expected and info["todas_atendem_o_criterio"]
+    assert choose_cv_seeds(y, groups, n_repeats=4, seeds=range(30), min_genes=threshold)[0] == seeds  # determinística
+
+
+def test_cv_seeds_complete_with_best_invalid_when_too_few_valid():
+    from src.experiment_config import choose_cv_seeds
+
+    rng = np.random.default_rng(2)
+    sizes = rng.integers(1, 8, 60)
+    groups = np.repeat(np.arange(60), sizes)
+    y = np.repeat(np.arange(60) % 3, sizes)
+    minimum = {s: _min_per_fold(y, groups, s) for s in range(10)}
+    top = max(minimum.values())
+    seeds, info = choose_cv_seeds(y, groups, n_repeats=10, seeds=range(10), min_genes=top + 1)  # nenhuma atende
+    assert not info["todas_atendem_o_criterio"] and len(seeds) == 10
+    assert [minimum[s] for s in seeds] == sorted(minimum.values(), reverse=True)
+
+
+def test_repeated_splits_pair_every_fold():
+    from src.experiment_config import repeated_cv_splits
+
+    groups = np.repeat(np.arange(60), 2)
+    y = np.repeat(np.arange(60) % 3, 2)
+    splits = repeated_cv_splits(y, groups, [0, 1, 2])
+    assert len(splits) == 3 * N_CV_SPLITS
+    assert [(r, f) for r, f, _, _ in splits][:6] == [(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 1)]
+    for r in (1, 2, 3):  # em cada repetição, cada gene é validado exatamente uma vez
+        val = np.concatenate([v for rr, _, _, v in splits if rr == r])
+        assert sorted(val) == list(range(len(y)))
 
 
 def test_cv_has_five_group_folds():
@@ -295,15 +326,33 @@ def test_macro_metrics_average_over_all_declared_classes():
 
 
 def test_class_counts_per_fold_criterion():
+    from src.experiment_config import repeated_cv_splits
     from src.train_evaluate import check_class_counts_per_fold
 
     classes = ["a", "b", "c"]
     y = np.repeat([0, 1, 2], [50, 25, 25])  # 5 por fold nas classes menores, com 5 folds
-    table = check_class_counts_per_fold(y, classes)
-    assert len(table) == 5 and table[classes].sum().tolist() == [50, 25, 25]
+    groups = np.arange(len(y))
+    table = check_class_counts_per_fold(y, classes, repeated_cv_splits(y, groups, [0, 1]))
+    assert len(table) == 10 and table[classes].sum().tolist() == [100, 50, 50]  # 2 repetições
     assert table[["b", "c"]].min().min() == 5
+    y_small = np.repeat([0, 1, 2], [100, 50, 3])  # 3 genes em 5 folds
     with pytest.raises(ValueError, match="Classe ausente"):
-        check_class_counts_per_fold(np.repeat([0, 1, 2], [100, 50, 3]), classes)  # 3 genes em 5 folds
+        check_class_counts_per_fold(y_small, classes, repeated_cv_splits(y_small, np.arange(len(y_small)), [0]))
+
+
+def test_per_class_metrics_and_pr_auc():
+    from sklearn.metrics import average_precision_score
+
+    from src.train_evaluate import compute_metrics, per_class_metrics
+
+    y_true = np.array([0, 0, 1, 1, 2, 2])
+    proba = np.array([[0.8, 0.1, 0.1], [0.4, 0.5, 0.1], [0.2, 0.7, 0.1], [0.3, 0.6, 0.1], [0.1, 0.2, 0.7], [0.5, 0.1, 0.4]])
+    y_pred = proba.argmax(axis=1)
+    rows = per_class_metrics(y_true, y_pred, proba, ["x", "y", "z"])
+    expected = [average_precision_score(y_true == k, proba[:, k]) for k in range(3)]
+    assert [r["pr_auc"] for r in rows] == pytest.approx(expected)
+    assert compute_metrics(y_true, y_pred, proba, 3)["pr_auc_macro"] == pytest.approx(np.mean(expected))
+    assert rows[0]["precisao"] == pytest.approx(0.5) and rows[0]["revocacao"] == pytest.approx(0.5)
 
 
 def test_case_study_summary_one_row_per_gene():
@@ -412,12 +461,49 @@ def test_sensitivity_selection_variants():
     assert [s for s, _ in a_only.steps] == ["scaler", "variance", "select", "clf"]
 
 
-def test_wilcoxon_decision_consistent_with_p():
-    a = np.linspace(0.6, 0.7, 10)
-    res = run_wilcoxon_test(a, a + 0.05)
-    assert res["p_value"] == pytest.approx(0.001953125) and res["decision"] == "reject_H0"
-    same = run_wilcoxon_test(a, a)
-    assert same["decision"] == "fail_to_reject"
+def test_corrected_ttest_matches_hand_calculation():
+    # Ponto 5: t = média(d) / sqrt((1/J + n_val/n_ajuste) · s²), gl = J − 1.
+    from scipy import stats
+
+    rng = np.random.default_rng(0)
+    a = rng.uniform(0.6, 0.7, 50)
+    d = rng.normal(0.05, 0.03, 50)
+    res = corrected_resampled_ttest(a, a + d, test_train_ratio=0.25)
+    se = np.sqrt((1 / 50 + 0.25) * d.var(ddof=1))
+    assert res["t"] == pytest.approx(d.mean() / se)
+    assert res["p_value"] == pytest.approx(2 * stats.t.sf(abs(d.mean() / se), 49))
+    half = stats.t.ppf(0.975, 49) * se
+    assert (res["ic95_inf"], res["ic95_sup"]) == pytest.approx((d.mean() - half, d.mean() + half))
+    # A correção deixa o teste mais conservador que o t pareado comum.
+    assert res["p_value"] > stats.ttest_rel(a + d, a).pvalue
+
+
+def test_holm_adjustment():
+    p = np.array([0.01, 0.04, 0.03, 0.005])
+    # Ordenados: 0,005 x 4 = 0,02; 0,01 x 3 = 0,03; 0,03 x 2 = 0,06; 0,04 x 1 = 0,04 -> máximo acumulado 0,06.
+    assert holm_adjust(p).tolist() == pytest.approx([0.03, 0.06, 0.06, 0.02])
+    assert holm_adjust([0.9, 0.8]).max() <= 1.0
+
+
+def test_stratified_group_bootstrap_keeps_groups_and_classes():
+    from sklearn.metrics import precision_recall_fscore_support
+
+    from src.bootstrap_test import class_metrics_from_predictions, stratified_group_resamples
+
+    sizes = [3, 2, 4, 1, 1, 2]
+    groups = np.repeat(np.arange(6), sizes)
+    y = np.repeat([0, 0, 1, 2, 2, 2], sizes)
+    for idx in stratified_group_resamples(y, groups, 50, seed=0):
+        assert set(y[idx]) == {0, 1, 2}  # nenhuma classe some
+        n_groups = {0: 0.0, 1: 0.0, 2: 0.0}
+        for g in set(groups[idx]):
+            copies = (groups[idx] == g).sum() / (groups == g).sum()
+            assert copies == int(copies)  # grupos entram inteiros
+            n_groups[y[groups == g][0]] += copies
+        assert n_groups == {0: 2, 1: 1, 2: 3}  # mesmo número de grupos por classe
+    y_pred = np.array([0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 0, 2])  # 13 genes
+    p, r, f, _ = precision_recall_fscore_support(y, y_pred, labels=[0, 1, 2], zero_division=0)
+    assert class_metrics_from_predictions(y, y_pred, 3) == pytest.approx(np.vstack([p, r, f]))
 
 
 # ── Ponto 6: sensibilidade ao balanceamento ──────────────────────────────────
@@ -513,7 +599,23 @@ def test_nested_tuning_runs_with_groups():
     train_idx, test_idx = idx[idx % 5 != 0], idx[idx % 5 == 0]
     from sklearn.model_selection import StratifiedGroupKFold
 
-    splits = list(StratifiedGroupKFold(3, shuffle=True, random_state=0).split(train_idx, y[train_idx], groups[train_idx]))
+    folds = StratifiedGroupKFold(3, shuffle=True, random_state=0).split(train_idx, y[train_idx], groups[train_idx])
+    splits = [(1, i, fit, val) for i, (fit, val) in enumerate(folds, start=1)]
     summary, folds = evaluate_model("logistic_regression", X, y, 3, train_idx, test_idx, groups, splits)
     assert len(folds) == 3 and 0 <= summary["folds_com_o_padrao_escolhido"] <= 3
     assert 0 <= summary["f1_teste_ajustado"] <= 1
+
+
+def test_macro_pr_curve_shapes():
+    # Ponto 10: classificador perfeito -> precisão 1 em toda a curva; sem informação ->
+    # precisão perto da prevalência da classe em revocação alta.
+    from src.visualization import macro_pr_curve
+
+    rng = np.random.default_rng(0)
+    y = np.repeat([0, 1], [900, 100])
+    perfect = np.eye(2)[y]
+    _, prec, ap = macro_pr_curve(y, perfect)
+    assert np.allclose(prec, 1.0) and ap == pytest.approx(1.0)
+    noise = rng.random(len(y))
+    _, prec, _ = macro_pr_curve(y, np.c_[1 - noise, noise])
+    assert prec[-1] < 0.8  # revocação 1: média das prevalências (0,9 e 0,1) = 0,5

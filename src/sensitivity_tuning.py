@@ -9,8 +9,9 @@ ajuste entra só aqui, de forma descritiva.
 
 Desenho (decisão 2 do ponto 13; Hastie et al. 2009, seção 7.10 — a escolha de
 hiperparâmetros por validação cruzada, feita só dentro do treino):
-    * Validação cruzada aninhada. Folds externos = os mesmos 5 folds por grupos do
-      experimento. Em cada fold externo, busca em grade (``GridSearchCV``) com 3
+    * Validação cruzada aninhada. Folds externos = os 5 folds da 1ª repetição da
+      validação cruzada repetida do experimento (a decisão do ponto 13 pede uma
+      repetição de 5 folds; a busca dentro de cada fold é o que custa). Em cada fold externo, busca em grade (``GridSearchCV``) com 3
       folds internos por grupos (``StratifiedGroupKFold``), só no treino do fold;
       o melhor conjunto é avaliado no fold externo de validação.
     * Teste: a mesma busca no treino inteiro (3 folds internos por grupos); o
@@ -57,9 +58,9 @@ from src.experiment_config import (
     MODEL_NAMES,
     RANDOM_STATE,
     RESULTS_DIR,
-    choose_cv_seed,
-    cv_splitter,
+    choose_cv_seeds,
     load_groups,
+    repeated_cv_splits,
     split_indices,
 )
 from src.pipeline_builder import build_full_pipeline
@@ -115,7 +116,7 @@ def _short(params: dict) -> str:
 def evaluate_model(model, X, y, n_classes, train_idx, test_idx, groups, splits) -> tuple[dict, list[dict]]:
     Xtr, ytr, gtr = X[train_idx], y[train_idx], groups[train_idx]
     folds = []
-    for i, (fit, val) in enumerate(splits, start=1):
+    for _, i, fit, val in splits:
         default = build_full_pipeline(model).fit(Xtr[fit], ytr[fit])
         search = grid_search(model, n_classes).fit(Xtr[fit], ytr[fit], groups=gtr[fit])
         f1_default = compute_metrics(ytr[val], default.predict(Xtr[val]), default.predict_proba(Xtr[val]), n_classes)["f1_macro"]
@@ -134,8 +135,8 @@ def evaluate_model(model, X, y, n_classes, train_idx, test_idx, groups, splits) 
     summary = {
         "f1_cv_padrao": float(np.mean([f["f1_padrao"] for f in folds])),
         "f1_cv_ajustado": float(np.mean([f["f1_ajustado"] for f in folds])),
-        "f1_cv_std_padrao": float(np.std([f["f1_padrao"] for f in folds])),
-        "f1_cv_std_ajustado": float(np.std([f["f1_ajustado"] for f in folds])),
+        "f1_cv_std_padrao": float(np.std([f["f1_padrao"] for f in folds], ddof=1)),
+        "f1_cv_std_ajustado": float(np.std([f["f1_ajustado"] for f in folds], ddof=1)),
         "f1_teste_padrao": float(test_default["f1_macro"]),
         "f1_teste_ajustado": float(test_tuned["f1_macro"]),
         "parametros_teste": _short(search.best_params_),
@@ -150,9 +151,9 @@ def run(model_names: list[str] = MODEL_NAMES, splits=None) -> pd.DataFrame:
     n_classes = len(classes)
     groups = load_groups()
     train_idx, test_idx = split_indices(y, groups)  # mesma partição do experimento  # SEED FIXA
-    if splits is None:  # mesmos 5 folds externos do experimento principal
-        cv_seed, _ = choose_cv_seed(y[train_idx], groups[train_idx])
-        splits = list(cv_splitter(cv_seed).split(np.zeros(len(train_idx)), y[train_idx], groups[train_idx]))
+    if splits is None:  # 1ª repetição (5 folds) da validação cruzada repetida do experimento
+        cv_seeds, _ = choose_cv_seeds(y[train_idx], groups[train_idx])
+        splits = repeated_cv_splits(y[train_idx], groups[train_idx], cv_seeds[:1])
     rows, fold_rows = [], []
     for model in model_names:
         for key, X_df in (("a", X_a), ("b", X_b)):

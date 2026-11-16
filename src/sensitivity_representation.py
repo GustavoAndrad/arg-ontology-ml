@@ -25,14 +25,15 @@ Leituras previstas:
 
 É uma análise **descritiva** (sem teste estatístico), como definido no ponto 5.
 Usa a mesma partição por grupos de similaridade do experimento (``load_groups``) e a
-mesma validação cruzada por grupos. A versão final é refeita com o desenho definitivo
-(validação cruzada repetida). ``run(threshold=None)`` roda com a divisão aleatória.
+mesma validação cruzada por grupos repetida 10 × 5 do experimento (mesmas divisões).
+O ganho do B na CV vem com o intervalo de 95% corrigido (Nadeau e Bengio), sem teste.
+``run(threshold=None)`` roda com a divisão aleatória.
 
 Saídas:
     results/sensibilidade_representacao.csv        — uma linha por configuração × modelo
     results/sensibilidade_representacao_folds.csv  — F1-macro de cada fold
 
-Uso (cerca de 30 min):
+Uso (cerca de 2 h):
     python -m src.sensitivity_representation
 """
 
@@ -52,17 +53,18 @@ from src.experiment_config import (
     PROCESSED_DIR,
     RESULTS_DIR,
     TARGET,
-    cv_splitter,
     SIMILARITY_THRESHOLD,
-    choose_cv_seed,
+    choose_cv_seeds,
     encode_target,
     load_experiment_dataset,
     load_groups,
+    repeated_cv_splits,
     split_indices,
 )
 from src.feature_extraction import ALL_PHYSICOCHEMICAL_COLUMNS, AA_COMPOSITION_COLUMNS, REPRESENTATIONS
 from src.interpretability import feature_type, get_feature_names_after_pipeline
 from src.pipeline_builder import FeatureSelection, build_full_pipeline
+from src.statistical_tests import corrected_interval
 from src.train_evaluate import compute_metrics
 
 logger = logging.getLogger(__name__)
@@ -120,28 +122,31 @@ def _n_ontological_in_model(pipe, names: list[str], cfg: RepresentationConfig, n
     return n_onto  # sem seleção, ou seleção só na sequência: todos passam
 
 
-def evaluate_config(cfg, seq, onto, y, classes, train_idx, test_idx, groups, cv_seed) -> tuple[list[dict], list[dict]]:
+def evaluate_config(cfg, seq, onto, y, classes, train_idx, test_idx, splits) -> tuple[list[dict], list[dict]]:
     n_classes = len(classes)
+    ratio = float(np.mean([len(val) / len(fit) for _, _, fit, val in splits]))
     rows, fold_rows = [], []
     for model in MODEL_NAMES:
         result = {"config": cfg.name, "descricao": cfg.description, "modelo": model}
+        f1_by_key = {}
         for key in ("a", "b"):
             X_df = seq[cfg.columns] if key == "a" else pd.concat([seq[cfg.columns], onto], axis=1)
             X, names = X_df.to_numpy(dtype=float), list(X_df.columns)
             Xtr, ytr = X[train_idx], y[train_idx]
             f1s = []
-            for i, (fit, val) in enumerate(cv_splitter(cv_seed).split(Xtr, ytr, groups[train_idx]), start=1):
+            for rep, i, fit, val in splits:
                 p = _pipeline(model, cfg, len(cfg.columns), X.shape[1]).fit(Xtr[fit], ytr[fit])
                 f1 = compute_metrics(ytr[val], p.predict(Xtr[val]), p.predict_proba(Xtr[val]), n_classes)["f1_macro"]
                 f1s.append(f1)
-                fold_rows.append({"config": cfg.name, "modelo": model, "pipeline": key, "fold": i, "f1_macro": f1})
+                fold_rows.append({"config": cfg.name, "modelo": model, "pipeline": key, "repeticao": rep, "fold": i, "f1_macro": f1})
+            f1_by_key[key] = np.array(f1s)
             final = _pipeline(model, cfg, len(cfg.columns), X.shape[1]).fit(Xtr, ytr)
             test = compute_metrics(y[test_idx], final.predict(X[test_idx]), final.predict_proba(X[test_idx]), n_classes)
             result.update(
                 {
                     f"n_atributos_{key}": int(final.named_steps["clf"].n_features_in_),
                     f"f1_cv_media_{key}": float(np.mean(f1s)),
-                    f"f1_cv_std_{key}": float(np.std(f1s)),
+                    f"f1_cv_std_{key}": float(np.std(f1s, ddof=1)),
                     f"f1_teste_{key}": float(test["f1_macro"]),
                 }
             )
@@ -149,6 +154,7 @@ def evaluate_config(cfg, seq, onto, y, classes, train_idx, test_idx, groups, cv_
                 result["n_ontologicos_no_modelo_b"] = _n_ontological_in_model(final, names, cfg, onto.shape[1])
         result["ganho_teste"] = result["f1_teste_b"] - result["f1_teste_a"]
         result["ganho_cv"] = result["f1_cv_media_b"] - result["f1_cv_media_a"]
+        result["ganho_cv_ic95_inf"], result["ganho_cv_ic95_sup"] = corrected_interval(f1_by_key["b"] - f1_by_key["a"], ratio)
         rows.append(result)
         logger.info(
             "%-16s %-20s A=%.4f B=%.4f (teste) | CV A=%.4f B=%.4f | ontológicos no B: %d",
@@ -162,11 +168,12 @@ def run(configs: list[RepresentationConfig] = CONFIGS, threshold: int | None = S
     seq, onto, y, classes = load_matrices()
     groups = load_groups(threshold)
     train_idx, test_idx = split_indices(y, groups)  # mesma partição do experimento  # SEED FIXA
-    cv_seed, _ = choose_cv_seed(y[train_idx], groups[train_idx])  # mesmos folds do experimento
+    cv_seeds, _ = choose_cv_seeds(y[train_idx], groups[train_idx])  # mesmas divisões do experimento
+    splits = repeated_cv_splits(y[train_idx], groups[train_idx], cv_seeds)
     rows, fold_rows = [], []
     for cfg in configs:
         t0 = time.time()
-        r, f = evaluate_config(cfg, seq, onto, y, classes, train_idx, test_idx, groups, cv_seed)
+        r, f = evaluate_config(cfg, seq, onto, y, classes, train_idx, test_idx, splits)
         rows += r
         fold_rows += f
         logger.info("Configuração %s concluída em %.1f min.", cfg.name, (time.time() - t0) / 60)

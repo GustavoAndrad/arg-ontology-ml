@@ -1,15 +1,15 @@
 \begin{table}[htbp]
   \centering
-  \caption{ROC-AUC macro (OvR) no conjunto de teste.}
+  \caption{ROC-AUC e PR-AUC (precisão média) macro, uma classe contra as outras, no conjunto de teste.}
   \label{tab:roc_auc}
-  \begin{tabular}{lccc}
+  \begin{tabular}{lcccc}
     \toprule
-    Modelo & ROC-AUC (A) & ROC-AUC (B) & $\Delta$ \\
+    Modelo & ROC-AUC (A) & PR-AUC (A) & ROC-AUC (B) & PR-AUC (B) \\
     \midrule
-    Random Forest & 0,9606 & 0,9989 & +0,0384 \\
-    XGBoost & 0,9844 & 0,9994 & +0,0150 \\
-    Regressão Logística & 0,9596 & 0,9994 & +0,0398 \\
-    SVM (RBF) & 0,9843 & 0,9992 & +0,0149 \\
+    Random Forest & 0,9606 & 0,8508 & 0,9989 & 0,9849 \\
+    XGBoost & 0,9844 & 0,9293 & 0,9994 & 0,9950 \\
+    Regressão Logística & 0,9596 & 0,6765 & 0,9994 & 0,9939 \\
+    SVM (RBF) & 0,9843 & 0,8243 & 0,9992 & 0,9839 \\
     \bottomrule
   \end{tabular}
 \end{table}

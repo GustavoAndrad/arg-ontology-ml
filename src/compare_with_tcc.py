@@ -4,7 +4,9 @@ compare_with_tcc.py — Confronta os resultados gerados com os valores publicado
 **Congelado no TCC1.** Desde o TCC2 (ponto 2, 5 classes) o experimento é outro, e
 este script passa a apontar diferenças por construção. Ele só faz sentido no commit
 ``2b0247f``, onde o código reproduz 73/73 itens do PDF do TCC1. Fica no repositório
-como registro do gabarito usado para validar a reimplementação.
+como registro do gabarito usado para validar a reimplementação. Desde o ponto 5, o
+Wilcoxon foi trocado pelo teste t corrigido, e ``results/testes_estatisticos.csv`` não
+tem mais as colunas que este script lê: fora daquele commit, ele termina com erro.
 
 Os valores de referência abaixo foram transcritos do PDF (Tabelas 4.1, 4.2, 5.1–5.6 e
 Seção 4.6.1). Nenhum deles é usado para gerar resultados: servem apenas de gabarito.

@@ -1,14 +1,19 @@
 CONCLUSÕES DO EXPERIMENTO — Pipeline A (sequência) vs Pipeline B (sequência + ontologia ARO)
 
-Ganho médio de F1-macro no teste: +37.68% (de +11.66% a +57.30%).
+Conjunto de teste (IC 95% por bootstrap de grupos):
+  - Random Forest: A = 0.6407 [0.5597; 0.6802], B = 0.8884 [0.8171; 0.9248], B − A = +0.2477 [+0.1971; +0.3023]
+  - XGBoost: A = 0.8645 [0.7877; 0.9061], B = 0.9654 [0.9321; 0.9848], B − A = +0.1008 [+0.0616; +0.1652]
+  - Regressão Logística: A = 0.6110 [0.4998; 0.7125], B = 0.9611 [0.9291; 0.9811], B − A = +0.3501 [+0.2412; +0.4610]
+  - SVM (RBF): A = 0.6802 [0.5801; 0.7791], B = 0.9733 [0.9399; 0.9898], B − A = +0.2931 [+0.1897; +0.3949]
 Melhor modelo: SVM (RBF) no Pipeline B (F1-macro = 0.9733).
 Pipeline B superou o A no F1-macro de teste em 4 de 4 modelos.
 
-Teste de Wilcoxon (5 folds, alfa = 0.05; menor p possível com 5 pares = 0.0625):
-  - Random Forest: W = 0.0, p = 0.0625, B > A em 5/5 folds -> falha em rejeitar H0
-  - XGBoost: W = 0.0, p = 0.0625, B > A em 5/5 folds -> falha em rejeitar H0
-  - Regressão Logística: W = 0.0, p = 0.0625, B > A em 5/5 folds -> falha em rejeitar H0
-  - SVM (RBF): W = 0.0, p = 0.0625, B > A em 5/5 folds -> falha em rejeitar H0
+Teste t corrigido (validação cruzada 10 × 5, 50 estimativas pareadas; Holm sobre 4 comparações; alfa = 0.05):
+  - Random Forest: B − A = +0.2361 [+0.1688; +0.3035], t = 7.05, p = 5.64e-09, p_Holm = 1.69e-08, B > A em 50/50 -> rejeita H0
+  - XGBoost: B − A = +0.1817 [+0.1017; +0.2617], t = 4.56, p = 3.40e-05, p_Holm = 3.40e-05, B > A em 49/50 -> rejeita H0
+  - Regressão Logística: B − A = +0.3629 [+0.2692; +0.4567], t = 7.78, p = 4.19e-10, p_Holm = 1.68e-09, B > A em 50/50 -> rejeita H0
+  - SVM (RBF): B − A = +0.2629 [+0.1719; +0.3539], t = 5.81, p = 4.65e-07, p_Holm = 9.30e-07, B > A em 50/50 -> rejeita H0
 
-H0 rejeitada para: nenhum modelo.
-Sem significância estatística: Random Forest, XGBoost, Regressão Logística, SVM (RBF).
+H0 rejeitada para: Random Forest, XGBoost, Regressão Logística, SVM (RBF).
+Sem significância estatística: nenhum.
+Família confirmatória provisória: o cenário 'gene novo' (ponto 4) acrescentará 4 testes à correção de Holm.

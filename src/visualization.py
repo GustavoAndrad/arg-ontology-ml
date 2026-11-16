@@ -10,6 +10,16 @@ Saídas (PNG e PDF, 300 DPI):
     plots/confusion_matrices/cm_{modelo}_{a|b}      — matrizes normalizadas por linha
     plots/interpretabilidade/feature_importance_rf_b — top-20 Gini (se existir o CSV)
     plots/comparacao_pipelines/curva_limiar        — F1 por divisão (aleatória e grupos 90/70/50%)
+    plots/roc_pr/roc_pr_all_models                 — ROC e precisão-revocação lado a lado (ponto 10)
+    plots/comparacao_pipelines/ganho_por_classe    — B − A por classe e modelo, com IC 95% (precisão, revocação, F1)
+
+ROC e precisão-revocação lado a lado (TCC2, ponto 10, decisão 2): com uma classe
+muito grande (inativação), a ROC fica perto de 1 mesmo quando muitos alarmes das
+classes pequenas são falsos; a curva de precisão-revocação mostra isso. As curvas
+macro são a média, entre as 5 classes, das curvas de cada classe contra as outras,
+numa grade comum (FPR na ROC; revocação na PR, com a precisão interpolada pelo
+máximo à direita, a forma usual da curva PR). O número da legenda é a ROC-AUC macro
+e a PR-AUC macro (precisão média), os mesmos das tabelas.
 
 Uso:
     python -m src.visualization
@@ -28,7 +38,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
-from sklearn.metrics import roc_auc_score, roc_curve  # noqa: E402
+from sklearn.metrics import average_precision_score, precision_recall_curve, roc_auc_score, roc_curve  # noqa: E402
 
 from src.config import DPI_FIGURES  # noqa: E402
 from src.experiment_config import MODEL_NAMES, PLOTS_DIR, RESULTS_DIR, ROC_GRID_POINTS, TARGET, load_experiment_dataset  # noqa: E402
@@ -188,6 +198,81 @@ def plot_roc_curves(output_dir: Path) -> None:
         _save(fig, output_dir / f"roc_{model}")
 
 
+def macro_pr_curve(y_true: np.ndarray, proba: np.ndarray, n_points: int = ROC_GRID_POINTS):
+    """
+    Curva precisão-revocação macro: em cada classe (contra as outras), precisão interpolada
+    (máximo da precisão para revocação ≥ r) numa grade comum de revocação; média entre classes.
+    Devolve também a PR-AUC macro (média da precisão média de cada classe).
+    """
+    grid = np.linspace(0, 1, n_points)
+    precisions, aps = [], []
+    for c in range(proba.shape[1]):
+        positive = (y_true == c).astype(int)
+        precision, recall, _ = precision_recall_curve(positive, proba[:, c])
+        # Precisão interpolada pela definição: em cada revocação r da grade, a maior
+        # precisão entre os pontos com revocação >= r (pontos empatados incluídos).
+        precisions.append(np.array([precision[recall >= r].max() for r in grid]))
+        aps.append(average_precision_score(positive, proba[:, c]))
+    return grid, np.mean(precisions, axis=0), float(np.mean(aps))
+
+
+def plot_roc_pr_curves(output_path: Path) -> None:
+    """Uma linha por modelo: ROC macro à esquerda e precisão-revocação macro à direita, A e B."""
+    fig, axes = plt.subplots(len(MODEL_NAMES), 2, figsize=(12, 4.2 * len(MODEL_NAMES)))
+    for row, model in zip(axes, MODEL_NAMES):
+        for key, color, style in (("a", COLOR_A, "--"), ("b", COLOR_B, "-")):
+            d = _load_pred(key, model)
+            grid, tpr, auc = macro_roc_curve(d["y_true"], d["proba"])
+            row[0].plot(grid, tpr, style, color=color, lw=2, label=f"Pipeline {key.upper()} (ROC-AUC = {auc:.3f})")
+            rgrid, prec, ap = macro_pr_curve(d["y_true"], d["proba"])
+            row[1].plot(rgrid, prec, style, color=color, lw=2, label=f"Pipeline {key.upper()} (PR-AUC = {ap:.3f})")
+        row[0].plot([0, 1], [0, 1], color="grey", lw=0.5, alpha=0.6)
+        row[0].set_xlabel("Taxa de falsos positivos")
+        row[0].set_ylabel("Revocação (TPR)")
+        row[0].legend(loc="lower right", fontsize=8)
+        row[1].set_xlabel("Revocação")
+        row[1].set_ylabel("Precisão")
+        row[1].legend(loc="lower left", fontsize=8)
+        for ax, kind in zip(row, ("ROC", "Precisão-revocação")):
+            ax.set_xlim(0, 1)
+            ax.set_ylim(0, 1.02)
+            ax.grid(alpha=0.2)
+            ax.set_title(f"{MODEL_LABELS[model]} — {kind} (macro)", fontweight="bold", fontsize=10)
+    fig.tight_layout()
+    _save(fig, output_path)
+
+
+def plot_gain_per_class(boot: pd.DataFrame, output_path: Path) -> None:
+    """
+    Mapa de calor de B − A por classe (linhas) e modelo (colunas), para precisão, revocação
+    e F1 no teste, com o IC 95% do bootstrap de grupos. Descritivo (sem teste), como
+    definido no ponto 5. Responde "o B ganha porque deixa de perder genes (revocação) ou
+    porque dá menos alarmes falsos (precisão)?".
+    """
+    diff = boot[(boot["comparacao"] == "b_menos_a") & (boot["classe"] != "macro")]
+    classes = list(dict.fromkeys(diff["classe"]))
+    short = [c.replace("antibiotic ", "") for c in classes]
+    metrics = [("precisao", "Precisão"), ("revocacao", "Revocação"), ("f1", "F1")]
+    fig, axes = plt.subplots(1, 3, figsize=(18, 4.8), sharey=True)
+    for ax, (metric, title) in zip(axes, metrics):
+        sub = diff[diff["metrica"] == metric].set_index(["classe", "modelo"])
+        values = np.array([[sub.loc[(c, m), "valor"] for m in MODEL_NAMES] for c in classes])
+        im = ax.imshow(values, cmap="RdBu", vmin=-1, vmax=1, aspect="auto")
+        for i, c in enumerate(classes):
+            for j, m in enumerate(MODEL_NAMES):
+                r = sub.loc[(c, m)]
+                ax.text(
+                    j, i, f"{r['valor']:+.2f}\n[{r['ic95_inf']:+.2f}; {r['ic95_sup']:+.2f}]",
+                    ha="center", va="center", fontsize=7.5,
+                    color="white" if abs(r["valor"]) > 0.6 else "black",
+                )
+        ax.set_xticks(range(len(MODEL_NAMES)), [MODEL_LABELS[m] for m in MODEL_NAMES], rotation=20, ha="right", fontsize=9)
+        ax.set_title(f"{title}: B − A (teste, IC 95%)", fontweight="bold", fontsize=10)
+    axes[0].set_yticks(range(len(short)), short)
+    fig.colorbar(im, ax=axes, fraction=0.02, pad=0.01, label="B − A")
+    _save(fig, output_path)
+
+
 def plot_confusion_matrix(cm: np.ndarray, class_names: list[str], title: str, output_path: Path) -> None:
     norm = cm / np.maximum(cm.sum(axis=1, keepdims=True), 1)
     fig, ax = plt.subplots(figsize=(7, 6))
@@ -230,16 +315,43 @@ def plot_feature_importance(importance: pd.DataFrame, output_path: Path, top_n: 
 
 def plot_threshold_curve(curve: pd.DataFrame, partitions: pd.DataFrame, output_path: Path) -> None:
     """
-    F1-macro no teste por divisão (aleatória → grupos de 90, 70 e 50%), A e B, um painel por modelo.
+    F1-macro no teste por divisão (aleatória → grupos de 90, 70 e 50%), A e B, um painel por modelo
+    (linha de cima), e o ganho B − A (linha de baixo).
 
     Mostra se a vantagem da ontologia cresce quando o teste fica menos parecido com o
     treino. Cenários que não atendem o critério de entrada das classes (menos de 5
     genes de uma classe num fold) aparecem com marcador vazio.
+
+    Linha de baixo (ponto 5 do TCC2): ganho médio na validação cruzada repetida 10 × 5,
+    com o IC 95% do teste t corrigido (``ganho_cv_ic95_inf/sup`` de ``curva_limiar.csv``),
+    e o ganho no teste como referência. A linha de cima vem de uma única partição de
+    teste por cenário; o intervalo da CV mostra quanto o ganho varia entre divisões.
+    Os intervalos de cenários diferentes não são uma comparação pareada (cada cenário
+    tem outra partição): a leitura é descritiva, sem teste.
     """
     order = ["aleatoria", "90", "70", "50"]
     labels = ["aleatória", "grupos 90%", "grupos 70%", "grupos 50%"]
     ok = partitions.set_index("cenario")["atende_criterio"].astype(bool)
-    fig, axes = plt.subplots(1, 4, figsize=(16, 4.2), sharey=True)
+    has_ci = {"ganho_cv", "ganho_cv_ic95_inf", "ganho_cv_ic95_sup"} <= set(curve.columns)
+    n_rows = 2 if has_ci else 1
+    fig, grid = plt.subplots(n_rows, 4, figsize=(16, 4.2 * n_rows), sharey="row", squeeze=False)
+    axes = grid[0]
+    if has_ci:
+        for ax, model in zip(grid[1], MODEL_NAMES):
+            sub = curve[curve.modelo == model].set_index("cenario").loc[order]
+            x = np.arange(len(order))
+            g = sub["ganho_cv"].values
+            err = np.vstack([g - sub["ganho_cv_ic95_inf"].values, sub["ganho_cv_ic95_sup"].values - g])
+            ax.errorbar(x, g, yerr=err, fmt="-", color="0.25", lw=2, capsize=4, label="CV 10 × 5 (IC 95% corrigido)")
+            for xi, v, c in zip(x, g, order):
+                ax.plot(xi, v, "o", ms=7, color="0.25", mfc="0.25" if ok[str(c)] else "white", mew=2)
+            ax.plot(x, sub["ganho_teste"].values, "D", ms=6, color=COLOR_B, label="teste")
+            ax.axhline(0, color="0.5", lw=0.8)
+            ax.set_xticks(x, labels, rotation=30, ha="right", fontsize=9)
+            ax.grid(alpha=0.2)
+            ax.spines[["top", "right"]].set_visible(False)
+        grid[1][0].set_ylabel("Ganho B − A no F1-macro")
+        grid[1][0].legend(loc="upper left", fontsize=8)
     for ax, model in zip(axes, MODEL_NAMES):
         sub = curve[curve.modelo == model].set_index("cenario").loc[order]
         x = np.arange(len(order))
@@ -268,6 +380,10 @@ def generate_all_figures() -> None:
     plot_f1_comparison_bar(ma, mb, PLOTS_DIR / "comparacao_pipelines" / "f1_macro_comparison")
     plot_f1_delta_percent(ma, mb, PLOTS_DIR / "comparacao_pipelines" / "f1_delta_percentual")
     plot_roc_curves(PLOTS_DIR / "roc_curves")
+    plot_roc_pr_curves(PLOTS_DIR / "roc_pr" / "roc_pr_all_models")
+    boot_path = RESULTS_DIR / "bootstrap_teste.csv"
+    if boot_path.exists():
+        plot_gain_per_class(pd.read_csv(boot_path), PLOTS_DIR / "comparacao_pipelines" / "ganho_por_classe")
     classes = json.loads((RESULTS_DIR / "classes.json").read_text(encoding="utf-8"))
     for model in MODEL_NAMES:
         for key in ("a", "b"):

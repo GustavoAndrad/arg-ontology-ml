@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Teste t corrigido para validação cruzada repetida (Nadeau e Bengio), F1-macro, B vs. A, 50 estimativas pareadas, 49 graus de liberdade; correção de Holm sobre 4 comparações; $\alpha = 0{,}05$.}
+  \label{tab:teste_t}
+  \begin{tabular}{lcccccc}
+    \toprule
+    Modelo & $\bar{d}$ (B $-$ A) & IC 95\% & $t$ & valor-$p$ & $p$ (Holm) & Decisão \\
+    \midrule
+    Random Forest & +0,2361 & [0,169; 0,303] & 7,05 & 5,64e-09 & 1,69e-08 & Rejeita $H_0$ \\
+    XGBoost & +0,1817 & [0,102; 0,262] & 4,56 & 3,40e-05 & 3,40e-05 & Rejeita $H_0$ \\
+    Regressão Logística & +0,3629 & [0,269; 0,457] & 7,78 & 4,19e-10 & 1,68e-09 & Rejeita $H_0$ \\
+    SVM (RBF) & +0,2629 & [0,172; 0,354] & 5,81 & 4,65e-07 & 9,30e-07 & Rejeita $H_0$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}

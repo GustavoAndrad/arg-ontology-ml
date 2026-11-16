@@ -26,10 +26,10 @@ ou para o teste. Assim o teste não tem variantes quase idênticas de genes do t
   nunca pelo desempenho.
 * Validação cruzada: ``StratifiedGroupKFold`` com **5 folds** no treino. Com grupos,
   10 folds deixariam a substituição do alvo com cerca de 3 genes por fold, abaixo
-  do critério de entrada (antecipa a decisão 1 do ponto 5). A semente dos folds
-  também é escolhida só pela distribuição das classes (``choose_cv_seed``): com
-  grupos grandes, uma semente qualquer pode deixar uma classe pequena com 1 a 3
-  genes num fold (com a semente 42, a substituição do alvo ficava com 3).
+  do critério de entrada (decisão 1 do ponto 5). A validação cruzada é repetida 10
+  vezes (decisão 2 do ponto 5), e as 10 sementes também são escolhidas só pela
+  distribuição das classes (``choose_cv_seeds``): com grupos grandes, uma semente
+  qualquer pode deixar uma classe pequena com 1 a 4 genes num fold.
 * ``groups=None`` (ou ``random_groups``) reproduz a divisão aleatória como caso
   particular: cada gene é o seu próprio grupo.
 
@@ -82,7 +82,9 @@ __all__ = [
     "load_groups",
     "random_groups",
     "choose_test_partition",
-    "choose_cv_seed",
+    "choose_cv_seeds",
+    "repeated_cv_splits",
+    "N_CV_REPEATS",
     "MIN_GENES_PER_FOLD",
     "EFFECTIVE_CLASSES",
     "CASE_STUDY_CLASSES",
@@ -113,6 +115,10 @@ TEST_FRACTION_TARGET: float = 0.2
 # fold de validação. Abaixo disso o código avisa; com 0 genes o F1 da classe não
 # existe naquele fold, e o código para com erro.
 MIN_GENES_PER_FOLD: int = 5
+
+# Repetições da validação cruzada (ponto 5, decisão 2: 10 × 5 = 50 estimativas por
+# modelo, base do teste t corrigido). As sementes vêm de choose_cv_seeds.
+N_CV_REPEATS: int = 10
 
 # As 5 classes do experimento (6.033 genes). A lista mora em config.py, para
 # existir um lugar só; o nome antigo é mantido porque os demais módulos o usam.
@@ -232,45 +238,80 @@ def split_indices(y, groups: np.ndarray | None = None):
 def cv_splitter(random_state: int = RANDOM_STATE):
     """
     Validação cruzada por grupos: ``StratifiedGroupKFold(5, shuffle=True, random_state)``.
-    No experimento, ``random_state`` vem de ``choose_cv_seed``. Use ``.split(X, y, groups)``.  # SEED FIXA
+    No experimento, ``random_state`` vem de ``choose_cv_seeds``. Use ``.split(X, y, groups)``.  # SEED FIXA
     """
     from sklearn.model_selection import StratifiedGroupKFold
 
     return StratifiedGroupKFold(n_splits=N_CV_SPLITS, shuffle=True, random_state=random_state)
 
 
-def choose_cv_seed(y_train: np.ndarray, groups_train: np.ndarray, seeds=PARTITION_SEED_CANDIDATES):
+def choose_cv_seeds(
+    y_train: np.ndarray,
+    groups_train: np.ndarray,
+    n_repeats: int = None,
+    seeds=PARTITION_SEED_CANDIDATES,
+    min_genes: int = None,
+):
     """
-    Escolhe a semente dos folds da validação cruzada só pela distribuição das classes.
+    Escolhe as sementes das repetições da validação cruzada só pela distribuição das classes.
 
-    Critério, fixado antes de ver qualquer resultado: maior número mínimo de genes de
-    uma classe num fold (o critério de entrada das classes é cerca de 5 por fold);
-    empate pelo menor desvio máximo |fração da classe no fold − 1/5|; depois pela menor
-    semente. Retorna (semente, info).  # SEED FIXA
+    Regra (TCC2, ponto 5), fixada antes de ver qualquer resultado:
+        1. percorrer as sementes candidatas em ordem crescente (o mesmo conjunto usado
+           para escolher a partição de teste no ponto 3);
+        2. ficar com as ``n_repeats`` primeiras em que **todas** as classes têm pelo
+           menos ``min_genes`` genes em **todos** os folds (critério de entrada das
+           classes, ponto 2).
+    Por que não 10 sementes quaisquer: com grupos, a maioria das sementes deixa a
+    substituição do alvo com 1 a 4 genes num fold (no limiar de 70%, só 22 das 100
+    candidatas atendem o critério), o que contradiria o critério do ponto 2.
+    Por que não as 10 "melhores": a regra "as primeiras que atendem" respeita o critério
+    sem escolher as divisões mais favoráveis.
+
+    Se o conjunto tiver menos de ``n_repeats`` sementes válidas (cenário que já não
+    atende o critério, como o de 50% da curva por limiar), completa com as inválidas de
+    maior mínimo por fold (empate pela menor semente) e registra isso em ``info``.
+    Retorna (lista de sementes, info).  # SEED FIXA
     """
+    n_repeats = N_CV_REPEATS if n_repeats is None else n_repeats
+    min_genes = MIN_GENES_PER_FOLD if min_genes is None else min_genes
     y_train = np.asarray(y_train)
     n_classes = y_train.max() + 1
-    totals = np.bincount(y_train, minlength=n_classes)
-    best = None
+    minimum = {}
     for seed in seeds:
-        counts = np.array(
-            [
-                np.bincount(y_train[val], minlength=n_classes)
-                for _, val in cv_splitter(seed).split(np.zeros(len(y_train)), y_train, groups_train)
-            ]
-        )
-        key = (-int(counts.min()), float(np.abs(counts / totals - 1 / N_CV_SPLITS).max()), seed)
-        if best is None or key < best[0]:
-            best = (key, counts)
-    (neg_min, max_dev, seed), counts = best
+        counts = [
+            np.bincount(y_train[val], minlength=n_classes)
+            for _, val in cv_splitter(seed).split(np.zeros(len(y_train)), y_train, groups_train)
+        ]
+        minimum[seed] = int(np.min(counts))
+    valid = [s for s in seeds if minimum[s] >= min_genes]
+    chosen = valid[:n_repeats]
+    if len(chosen) < n_repeats:
+        rest = sorted((s for s in seeds if minimum[s] < min_genes), key=lambda s: (-minimum[s], s))
+        chosen += rest[: n_repeats - len(chosen)]
     info = {
-        "semente_cv": int(seed),
-        "sementes_cv_testadas": [min(seeds), max(seeds)],
-        "minimo_genes_classe_fold": int(-neg_min),
-        "minimo_por_classe": [int(c) for c in counts.min(axis=0)],
-        "desvio_maximo_fracao_fold": max_dev,
+        "sementes_cv": [int(s) for s in chosen],
+        "regra_sementes_cv": f"as {n_repeats} primeiras (em ordem crescente) com >= {min_genes} genes de cada classe em cada fold",
+        "sementes_cv_candidatas": [min(seeds), max(seeds)],
+        "sementes_validas_no_conjunto": len(valid),
+        "todas_atendem_o_criterio": all(minimum[s] >= min_genes for s in chosen),
+        "minimo_genes_classe_fold_por_semente": [minimum[s] for s in chosen],
     }
-    return int(seed), info
+    return [int(s) for s in chosen], info
+
+
+def repeated_cv_splits(y_train: np.ndarray, groups_train: np.ndarray, cv_seeds: list[int]) -> list[tuple]:
+    """
+    Divisões da validação cruzada repetida: lista de (repetição, fold, índices de ajuste,
+    índices de validação), com índices relativos ao conjunto de treino. As mesmas
+    divisões servem aos Pipelines A e B e a todos os modelos (comparação pareada).
+    """
+    out = []
+    for r, seed in enumerate(cv_seeds, start=1):
+        for f, (fit, val) in enumerate(
+            cv_splitter(seed).split(np.zeros(len(y_train)), y_train, groups_train), start=1
+        ):
+            out.append((r, f, fit, val))
+    return out
 
 
 def assign_split(mechanism: str) -> str:

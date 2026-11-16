@@ -32,8 +32,21 @@
     "modelos_random_state": 42,
     "particao_teste": 67,
     "particao_teste_fold": 2,
-    "validacao_cruzada": 97,
-    "candidatas_testadas": "0 a 99 (escolha pela distribuição das classes, sem olhar o desempenho)"
+    "validacao_cruzada_repeticoes": [
+      1,
+      4,
+      19,
+      21,
+      23,
+      24,
+      30,
+      35,
+      54,
+      55
+    ],
+    "regra_validacao_cruzada": "as 10 primeiras (em ordem crescente) com >= 5 genes de cada classe em cada fold",
+    "candidatas_testadas": "0 a 99 (escolha pela distribuição das classes, sem olhar o desempenho)",
+    "bootstrap_teste": 42
   },
   "limiar_similaridade": 70,
   "balanceamento": {
