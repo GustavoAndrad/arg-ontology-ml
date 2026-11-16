@@ -1,8 +1,8 @@
 {
   "n_reamostragens": 2000,
   "comparacao": "limites do IC 95% em duas metades independentes das reamostragens",
-  "maior_diferenca_f1_macro": 0.006904853968940694,
-  "mediana_diferenca_f1_macro": 0.005090550961559193,
+  "maior_diferenca_f1_macro": 0.0077824967886984675,
+  "mediana_diferenca_f1_macro": 0.0037262399542071292,
   "maior_diferenca_qualquer_metrica": 0.07179487179487176,
   "onde_maior_diferenca": [
     "xgboost",
@@ -10,5 +10,5 @@
     "revocacao",
     "antibiotic target replacement"
   ],
-  "mediana_diferenca_qualquer_metrica": 0.005265083232910889
+  "mediana_diferenca_qualquer_metrica": 0.0032704077072941394
 }

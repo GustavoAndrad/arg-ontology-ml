@@ -1,15 +1,19 @@
 \begin{table}[htbp]
   \centering
-  \caption{Teste t corrigido para validação cruzada repetida (Nadeau e Bengio), F1-macro, B vs. A, 50 estimativas pareadas, 49 graus de liberdade; correção de Holm sobre 4 comparações; $\alpha = 0{,}05$.}
+  \caption{Teste t corrigido para validação cruzada repetida (Nadeau e Bengio), F1-macro, B vs. A, 50 estimativas pareadas, 49 graus de liberdade; correção de Holm sobre 8 comparações (2 cenários $\times$ 4 modelos); $\alpha = 0{,}05$.}
   \label{tab:teste_t}
-  \begin{tabular}{lcccccc}
+  \begin{tabular}{lccccccc}
     \toprule
-    Modelo & $\bar{d}$ (B $-$ A) & IC 95\% & $t$ & valor-$p$ & $p$ (Holm) & Decisão \\
+    Cenário & Modelo & $\bar{d}$ (B $-$ A) & IC 95\% & $t$ & valor-$p$ & $p$ (Holm) & Decisão \\
     \midrule
-    Random Forest & +0,2361 & [0,169; 0,303] & 7,05 & 5,64e-09 & 1,69e-08 & Rejeita $H_0$ \\
-    XGBoost & +0,1817 & [0,102; 0,262] & 4,56 & 3,40e-05 & 3,40e-05 & Rejeita $H_0$ \\
-    Regressão Logística & +0,3629 & [0,269; 0,457] & 7,78 & 4,19e-10 & 1,68e-09 & Rejeita $H_0$ \\
-    SVM (RBF) & +0,2629 & [0,172; 0,354] & 5,81 & 4,65e-07 & 9,30e-07 & Rejeita $H_0$ \\
+    Anotação curada & Random Forest & +0,2361 & [0,169; 0,303] & 7,05 & 5,64e-09 & 3,95e-08 & Rejeita $H_0$ \\
+    Anotação curada & XGBoost & +0,1817 & [0,102; 0,262] & 4,56 & 3,40e-05 & 6,79e-05 & Rejeita $H_0$ \\
+    Anotação curada & Regressão Logística & +0,3629 & [0,269; 0,457] & 7,78 & 4,19e-10 & 3,35e-09 & Rejeita $H_0$ \\
+    Anotação curada & SVM (RBF) & +0,2629 & [0,172; 0,354] & 5,81 & 4,65e-07 & 1,86e-06 & Rejeita $H_0$ \\
+    Gene novo & Random Forest & +0,2266 & [0,157; 0,296] & 6,53 & 3,60e-08 & 2,16e-07 & Rejeita $H_0$ \\
+    Gene novo & XGBoost & +0,1313 & [0,058; 0,205] & 3,58 & 7,84e-04 & 7,84e-04 & Rejeita $H_0$ \\
+    Gene novo & Regressão Logística & +0,3043 & [0,203; 0,406] & 6,02 & 2,15e-07 & 1,07e-06 & Rejeita $H_0$ \\
+    Gene novo & SVM (RBF) & +0,2133 & [0,125; 0,302] & 4,84 & 1,34e-05 & 4,02e-05 & Rejeita $H_0$ \\
     \bottomrule
   \end{tabular}
 \end{table}

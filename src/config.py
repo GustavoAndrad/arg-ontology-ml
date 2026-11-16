@@ -36,7 +36,8 @@ VARIANCE_THRESHOLD: float = 0.0
 # ── Parâmetros de avaliação ────────────────────────────────────────────────────
 N_PERMUTATION_REPEATS: int = 10
 DPI_FIGURES: int = 300
-SPEARMAN_LEAKAGE_THRESHOLD: float = 0.95
+# O Spearman (|ρ| ≥ 0,95) e a regra de sanidade (F1 ≤ 0,85) saíram no TCC2 (ponto 4):
+# a dependência da anotação é medida por informação mútua e ablação (src/leakage_check.py).
 
 # ── Alvo de classificação ──────────────────────────────────────────────────────
 TARGET_COLUMN: str = "Resistance Mechanism"

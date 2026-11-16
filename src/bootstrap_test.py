@@ -30,8 +30,16 @@ Como (decisões registradas em TCC2_resultados_para_o_texto.md, pontos 5 e 10):
 Métricas: F1-macro, e precisão, revocação e F1 de cada classe; para cada pipeline e
 para a diferença B − A. O valor pontual é o do teste original.
 
+Cenários do ponto 4: além de A e B (anotação curada), entram o B "gene novo", a
+regra "ontologia zerada" (sensibilidade) e a referência por homologia, com as
+diferenças pareadas de ``DIFFERENCES``. Tudo descritivo (o teste confirmatório é o
+teste t corrigido da validação cruzada). Também é feito o recorte dos genes de teste
+sem nenhum parecido com identidade ≥ 40% no treino (``without_neighbor_subset``), e a
+sensibilidade ao piso da busca (``b_gene_novo_piso40`` e ``homologia_piso40``).
+
 Saídas:
     results/bootstrap_teste.csv           — valor, IC 95% (por modelo, pipeline/diferença, métrica, classe)
+    results/bootstrap_teste_sem_vizinho.csv — idem, só nos genes de teste sem parecido ≥ 40% no treino
     results/bootstrap_estabilidade.json   — conferência do número de reamostragens
 
 Uso (depois de ``src.train_evaluate``):
@@ -60,6 +68,19 @@ logger = logging.getLogger(__name__)
 PREDICTIONS_DIR = RESULTS_DIR / "predicoes"
 N_BOOTSTRAP: int = 2000  # decisão 5 do ponto 5; conferido em bootstrap_estabilidade.json
 PERCENTILES = (100 * ALPHA_STAT / 2, 100 * (1 - ALPHA_STAT / 2))  # 2,5 e 97,5
+# Cenários do ponto 4 (ver src.train_evaluate.scenario_predictions).
+PIPELINE_KEYS: list[str] = ["a", "b", "b_gene_novo", "b_gene_novo_zeros", "b_gene_novo_piso40"]
+HOMOLOGY_KEYS: list[str] = ["homologia", "homologia_piso40"]  # sem modelo
+# (nome, minuendo, subtraendo): diferenças pareadas calculadas para cada modelo.
+DIFFERENCES: list[tuple[str, str, str]] = [
+    ("b_menos_a", "b", "a"),                                    # ganho com anotação curada
+    ("b_gene_novo_menos_a", "b_gene_novo", "a"),                # ganho no cenário gene novo
+    ("b_gene_novo_menos_b", "b_gene_novo", "b"),                # quanto se perde sem a ficha do próprio gene
+    ("b_gene_novo_zeros_menos_b_gene_novo", "b_gene_novo_zeros", "b_gene_novo"),  # efeito da regra sem vizinho
+    ("homologia_menos_b", "homologia", "b"),                    # referência por homologia contra o B curado
+    ("homologia_menos_b_gene_novo", "homologia", "b_gene_novo"),
+    ("b_gene_novo_piso40_menos_b_gene_novo", "b_gene_novo_piso40", "b_gene_novo"),  # efeito do piso de 40% na busca
+]
 
 
 def class_metrics_from_predictions(y_true: np.ndarray, y_pred: np.ndarray, n_classes: int) -> np.ndarray:
@@ -133,15 +154,19 @@ def bootstrap_table(
             for k, c in enumerate(classes):
                 rows.append({"modelo": model, "comparacao": key, "metrica": name, "classe": c,
                              "valor": point[m, k], "boot": boot[:, m, k]})
-    # Diferença B − A, pareada (mesmas reamostragens).
+    # Diferenças pareadas (mesmas reamostragens). A referência por homologia não tem
+    # modelo: fica guardada com modelo = "homologia" e é comparada com o B de cada modelo.
     by_key = {(r["modelo"], r["comparacao"], r["metrica"], r["classe"]): r for r in rows}
-    for model in {r["modelo"] for r in rows}:
-        for (mdl, comp, metric, cls), r in list(by_key.items()):
-            if mdl != model or comp != "a":
-                continue
-            rb = by_key[(model, "b", metric, cls)]
-            rows.append({"modelo": model, "comparacao": "b_menos_a", "metrica": metric, "classe": cls,
-                         "valor": rb["valor"] - r["valor"], "boot": rb["boot"] - r["boot"]})
+    for model in sorted({r["modelo"] for r in rows} - {"homologia"}):
+        for name, minuend, subtrahend in DIFFERENCES:
+            for (mdl, comp, metric, cls), r in list(by_key.items()):
+                if mdl != model or comp != subtrahend:
+                    continue
+                rb = by_key.get((model, minuend, metric, cls)) or by_key.get(("homologia", minuend, metric, cls))
+                if rb is None:
+                    continue
+                rows.append({"modelo": model, "comparacao": name, "metrica": metric, "classe": cls,
+                             "valor": rb["valor"] - r["valor"], "boot": rb["boot"] - r["boot"]})
     table = []
     for r in rows:
         low, high = _percentile_interval(r["boot"])
@@ -171,22 +196,48 @@ def stability_check(boot: dict) -> dict:
     }
 
 
+def load_test_predictions() -> tuple[dict, np.ndarray]:
+    """Previsões no teste de todos os pipelines/cenários e da referência por homologia."""
+    predictions, y_ref = {}, None
+    files = [((key, model), f"pipeline_{key}_{model}.npz") for key in PIPELINE_KEYS for model in MODEL_NAMES]
+    files += [((key, "homologia"), f"referencia_{key}.npz") for key in HOMOLOGY_KEYS]
+    for key, fname in files:
+        d = np.load(PREDICTIONS_DIR / fname)
+        if y_ref is None:
+            y_ref = d["y_true"]
+        if not np.array_equal(d["y_true"], y_ref):
+            raise ValueError("Previsões fora de ordem: rode src.train_evaluate de novo.")
+        predictions[key] = (d["y_true"], d["y_pred"])
+    return predictions, y_ref
+
+
+def without_neighbor_subset(predictions: dict, groups: np.ndarray, has_neighbor: np.ndarray):
+    """
+    Recorte dos genes de teste **distantes do treino** (TCC2, ponto 4, P4-7): os que não
+    têm nenhum parecido com identidade ≥ 40% (busca do ponto 3). É onde a homologia
+    próxima não ajuda; mostra o que cada abordagem faz com genes pouco parecidos com
+    os conhecidos. Descritivo (poucos genes).
+    """
+    keep = ~has_neighbor
+    sub = {k: (yt[keep], yp[keep]) for k, (yt, yp) in predictions.items()}
+    return sub, groups[keep]
+
+
 def run(n_resamples: int = N_BOOTSTRAP) -> pd.DataFrame:
     classes = json.loads((RESULTS_DIR / "classes.json").read_text(encoding="utf-8"))
     test_idx = np.load(PROCESSED_DIR / "test_indices.npy")
     groups = load_groups()[test_idx]
-    predictions, y_ref = {}, None
-    for key in ("a", "b"):
-        for model in MODEL_NAMES:
-            d = np.load(PREDICTIONS_DIR / f"pipeline_{key}_{model}.npz")
-            if y_ref is None:
-                y_ref = d["y_true"]
-            if not np.array_equal(d["y_true"], y_ref):
-                raise ValueError("Previsões fora de ordem: rode src.train_evaluate de novo.")
-            predictions[(key, model)] = (d["y_true"], d["y_pred"])
+    predictions, y_ref = load_test_predictions()
     resamples = stratified_group_resamples(y_ref, groups, n_resamples)
     table, boot = bootstrap_table(predictions, classes, resamples)
     table.to_csv(RESULTS_DIR / "bootstrap_teste.csv", index=False)
+    # Recorte "distantes do treino" (mesma semente; reamostragens próprias do recorte).
+    neighbors = pd.read_csv(RESULTS_DIR / "vizinho_mais_parecido_teste.csv")
+    sub, sub_groups = without_neighbor_subset(predictions, groups, neighbors["tem_vizinho_piso40"].to_numpy(bool))
+    y_sub = next(iter(sub.values()))[0]
+    sub_table, _ = bootstrap_table(sub, classes, stratified_group_resamples(y_sub, sub_groups, n_resamples))
+    sub_table.insert(0, "n_genes", len(y_sub))
+    sub_table.to_csv(RESULTS_DIR / "bootstrap_teste_sem_vizinho.csv", index=False)
     stability = stability_check(boot)
     (RESULTS_DIR / "bootstrap_estabilidade.json").write_text(json.dumps(stability, indent=2, ensure_ascii=False), encoding="utf-8")
     macro = table[(table["metrica"] == "f1_macro")]

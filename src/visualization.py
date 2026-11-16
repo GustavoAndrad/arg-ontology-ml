@@ -48,13 +48,18 @@ logger = logging.getLogger(__name__)
 # Paleta ColorBrewer Set2 (segura para daltonismo)
 ACCESSIBLE_PALETTE = ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f"]
 COLOR_A, COLOR_B = ACCESSIBLE_PALETTE[0], ACCESSIBLE_PALETTE[1]
+COLOR_NEW_GENE = ACCESSIBLE_PALETTE[2]  # Pipeline B no cenário "gene novo" (ponto 4)
+COLOR_HOMOLOGY = "0.35"  # referência por homologia (sem ML)
 PREDICTIONS_DIR = RESULTS_DIR / "predicoes"
 
 
 def _save(fig, path: Path, dpi: int = DPI_FIGURES) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path.with_suffix(".png"), dpi=dpi, bbox_inches="tight")
-    fig.savefig(path.with_suffix(".pdf"), bbox_inches="tight")
+    # Sem data de criação no PDF: o matplotlib grava a data/hora em cada execução, e o
+    # arquivo mudava a cada rodada mesmo com o desenho igual (ruído no git). Assim, o PDF
+    # só muda quando a figura muda (o PNG já não guarda data).
+    fig.savefig(path.with_suffix(".pdf"), bbox_inches="tight", metadata={"CreationDate": None})
     plt.close(fig)
     logger.info("Figura salva: %s.png/.pdf", path)
 
@@ -328,6 +333,10 @@ def plot_threshold_curve(curve: pd.DataFrame, partitions: pd.DataFrame, output_p
     teste por cenário; o intervalo da CV mostra quanto o ganho varia entre divisões.
     Os intervalos de cenários diferentes não são uma comparação pareada (cada cenário
     tem outra partição): a leitura é descritiva, sem teste.
+
+    Ponto 4: entram o Pipeline B no cenário "gene novo" (tracejado) e a referência por
+    homologia (pontilhado) na linha de cima, e o ganho do B gene novo sobre o A, com o
+    intervalo corrigido, na linha de baixo.
     """
     order = ["aleatoria", "90", "70", "50"]
     labels = ["aleatória", "grupos 90%", "grupos 70%", "grupos 50%"]
@@ -346,6 +355,11 @@ def plot_threshold_curve(curve: pd.DataFrame, partitions: pd.DataFrame, output_p
             for xi, v, c in zip(x, g, order):
                 ax.plot(xi, v, "o", ms=7, color="0.25", mfc="0.25" if ok[str(c)] else "white", mew=2)
             ax.plot(x, sub["ganho_teste"].values, "D", ms=6, color=COLOR_B, label="teste")
+            if "ganho_cv_gene_novo" in sub:
+                gn = sub["ganho_cv_gene_novo"].values
+                err_n = np.vstack([gn - sub["ganho_cv_gene_novo_ic95_inf"].values, sub["ganho_cv_gene_novo_ic95_sup"].values - gn])
+                ax.errorbar(x + 0.12, gn, yerr=err_n, fmt="--", color=COLOR_NEW_GENE, lw=2, capsize=4,
+                            label="gene novo: CV 10 × 5 (IC 95%)")
             ax.axhline(0, color="0.5", lw=0.8)
             ax.set_xticks(x, labels, rotation=30, ha="right", fontsize=9)
             ax.grid(alpha=0.2)
@@ -355,9 +369,14 @@ def plot_threshold_curve(curve: pd.DataFrame, partitions: pd.DataFrame, output_p
     for ax, model in zip(axes, MODEL_NAMES):
         sub = curve[curve.modelo == model].set_index("cenario").loc[order]
         x = np.arange(len(order))
-        for key, color, label in (("a", COLOR_A, "Pipeline A"), ("b", COLOR_B, "Pipeline B")):
+        series = [("a", COLOR_A, "Pipeline A", "-"), ("b", COLOR_B, "Pipeline B (anotação curada)", "-"),
+                  ("b_gene_novo", COLOR_NEW_GENE, "Pipeline B (gene novo)", "--"),
+                  ("homologia", COLOR_HOMOLOGY, "Homologia (sem ML)", ":")]
+        for key, color, label, style in series:
+            if f"f1_teste_{key}" not in sub:
+                continue
             vals = sub[f"f1_teste_{key}"].values
-            ax.plot(x, vals, "-", color=color, lw=2, label=label)
+            ax.plot(x, vals, style, color=color, lw=2, label=label)
             for xi, v, c in zip(x, vals, order):
                 ax.plot(xi, v, "o", ms=7, color=color, mfc=color if ok[str(c)] else "white", mew=2)
         ax.set_xticks(x, labels, rotation=30, ha="right", fontsize=9)
@@ -366,8 +385,34 @@ def plot_threshold_curve(curve: pd.DataFrame, partitions: pd.DataFrame, output_p
         ax.grid(alpha=0.2)
         ax.spines[["top", "right"]].set_visible(False)
     axes[0].set_ylabel("F1-score macro (teste)")
-    axes[0].legend(loc="lower left", fontsize=9)
+    axes[0].legend(loc="lower left", fontsize=8)
     fig.suptitle("Desempenho por divisão treino/teste (marcador vazio: não atende o critério de genes por fold)", fontsize=11)
+    fig.tight_layout()
+    _save(fig, output_path)
+
+
+def plot_scenarios(table: pd.DataFrame, output_path: Path) -> None:
+    """
+    F1-macro no teste do A, do B (anotação curada e gene novo) e da referência por
+    homologia, com o IC 95% do bootstrap de grupos (``results/tabela_cenarios.csv``).
+    Descritivo (TCC2, ponto 4). A homologia é a mesma em todos os painéis (não tem modelo).
+    """
+    series = [("a", COLOR_A, "A"), ("b", COLOR_B, "B curado"), ("b_gene_novo", COLOR_NEW_GENE, "B gene novo"),
+              ("homologia", COLOR_HOMOLOGY, "Homologia")]
+    fig, ax = plt.subplots(figsize=(11, 4.5))
+    w = 0.2
+    x = np.arange(len(MODEL_NAMES))
+    t = table.set_index("modelo").loc[MODEL_NAMES]
+    for i, (key, color, label) in enumerate(series):
+        v = t[f"f1_teste_{key}"].values
+        err = np.vstack([v - t[f"ic95_inf_{key}"].values, t[f"ic95_sup_{key}"].values - v])
+        ax.bar(x + (i - 1.5) * w, v, w, color=color, label=label, yerr=err, capsize=3, edgecolor="white")
+    ax.set_xticks(x, [MODEL_LABELS[m] for m in MODEL_NAMES])
+    ax.set_ylabel("F1-score macro (teste, IC 95%)")
+    ax.set_ylim(0, 1.05)
+    ax.legend(ncol=4, loc="upper center", bbox_to_anchor=(0.5, 1.13), fontsize=9, frameon=False)
+    ax.grid(axis="y", alpha=0.2)
+    ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout()
     _save(fig, output_path)
 
@@ -384,6 +429,9 @@ def generate_all_figures() -> None:
     boot_path = RESULTS_DIR / "bootstrap_teste.csv"
     if boot_path.exists():
         plot_gain_per_class(pd.read_csv(boot_path), PLOTS_DIR / "comparacao_pipelines" / "ganho_por_classe")
+    scen_path = RESULTS_DIR / "tabela_cenarios.csv"
+    if scen_path.exists():
+        plot_scenarios(pd.read_csv(scen_path), PLOTS_DIR / "comparacao_pipelines" / "cenarios_gene_novo")
     classes = json.loads((RESULTS_DIR / "classes.json").read_text(encoding="utf-8"))
     for model in MODEL_NAMES:
         for key in ("a", "b"):

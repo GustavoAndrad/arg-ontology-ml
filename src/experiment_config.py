@@ -56,7 +56,6 @@ from src.config import (
     RANDOM_STATE,
     REPORTS_DIR,
     RESULTS_DIR,
-    SPEARMAN_LEAKAGE_THRESHOLD,
     TARGET_CLASSES,
     TEST_SIZE,
     VARIANCE_THRESHOLD,
@@ -73,7 +72,6 @@ __all__ = [
     "RANDOM_STATE",
     "REPORTS_DIR",
     "RESULTS_DIR",
-    "SPEARMAN_LEAKAGE_THRESHOLD",
     "TEST_SIZE",
     "VARIANCE_THRESHOLD",
     "N_CV_SPLITS",
@@ -94,7 +92,6 @@ __all__ = [
     "TARGET",
     "MODEL_NAMES",
     "PIPELINES",
-    "SANITY_LEAKAGE_F1_THRESHOLD",
     "N_PERMUTATION_REPEATS",
     "ROC_GRID_POINTS",
     "assign_split",
@@ -133,8 +130,6 @@ TARGET: str = "Resistance_Mechanism"
 MODEL_NAMES: list[str] = ["random_forest", "xgboost", "logistic_regression", "svm"]
 PIPELINES: dict[str, str] = {"a": "Pipeline A (sequência)", "b": "Pipeline B (sequência + ontologia)"}
 
-# Seção 4.6.1: regra de decisão do experimento de sanidade.
-SANITY_LEAKAGE_F1_THRESHOLD: float = 0.85
 N_PERMUTATION_REPEATS: int = 10
 # Seção 5.4: curvas ROC interpoladas em grade comum de 500 pontos de FPR.
 ROC_GRID_POINTS: int = 500

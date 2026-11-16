@@ -1,0 +1,1052 @@
+ARO_Accession,mecanismo,vizinho_treino,mecanismo_vizinho,identidade,tem_vizinho,mesmo_mecanismo,tem_vizinho_piso40
+ARO:3005099,antibiotic target alteration,ARO:3004094,antibiotic target alteration,0.595,True,True,True
+ARO:3004628,antibiotic inactivation,ARO:3003988,antibiotic inactivation,0.295,True,True,False
+ARO:3002542,antibiotic inactivation,ARO:3002541,antibiotic inactivation,0.69,True,True,True
+ARO:3002553,antibiotic inactivation,ARO:3002569,antibiotic inactivation,0.595,True,True,True
+ARO:3004635,antibiotic inactivation,ARO:3004638,antibiotic inactivation,0.442,True,True,True
+ARO:3004683,antibiotic inactivation,ARO:3002627,antibiotic inactivation,0.292,True,True,False
+ARO:3000768,antibiotic efflux,ARO:3005098,antibiotic efflux,0.548,True,True,True
+ARO:3004359,antibiotic inactivation,ARO:3005075,antibiotic inactivation,0.473,True,True,True
+ARO:3004573,antibiotic efflux,ARO:3001329,antibiotic efflux,0.259,True,True,False
+ARO:3000775,antibiotic efflux,ARO:3000801,antibiotic efflux,0.514,True,True,True
+ARO:3000781,antibiotic efflux,ARO:3000378,antibiotic efflux,0.585,True,True,True
+ARO:3006894,antibiotic inactivation,ARO:3007002,antibiotic inactivation,0.457,True,True,True
+ARO:3006895,antibiotic inactivation,ARO:3007002,antibiotic inactivation,0.43,True,True,True
+ARO:3007431,antibiotic target alteration,,,,False,False,False
+ARO:3002982,antibiotic efflux,ARO:3000800,antibiotic efflux,0.468,True,True,True
+ARO:3007401,antibiotic inactivation,ARO:3002631,antibiotic inactivation,0.474,True,True,True
+ARO:3002636,antibiotic inactivation,ARO:3002634,antibiotic inactivation,0.3,True,True,False
+ARO:3002645,antibiotic inactivation,ARO:3002644,antibiotic inactivation,0.527,True,True,True
+ARO:3002649,antibiotic inactivation,ARO:3004680,antibiotic inactivation,0.589,True,True,True
+ARO:3002650,antibiotic inactivation,ARO:3004680,antibiotic inactivation,0.574,True,True,True
+ARO:3002651,antibiotic inactivation,ARO:3004680,antibiotic inactivation,0.589,True,True,True
+ARO:3002662,antibiotic inactivation,ARO:3007539,antibiotic inactivation,0.337,True,True,False
+ARO:3002663,antibiotic inactivation,ARO:3007539,antibiotic inactivation,0.272,True,True,False
+ARO:3004734,antibiotic inactivation,ARO:3008823,antibiotic inactivation,0.48,True,True,True
+ARO:3004735,antibiotic inactivation,ARO:3008823,antibiotic inactivation,0.48,True,True,True
+ARO:3004736,antibiotic inactivation,ARO:3008823,antibiotic inactivation,0.48,True,True,True
+ARO:3004737,antibiotic inactivation,ARO:3008823,antibiotic inactivation,0.483,True,True,True
+ARO:3004738,antibiotic inactivation,ARO:3008823,antibiotic inactivation,0.492,True,True,True
+ARO:3004739,antibiotic inactivation,ARO:3008823,antibiotic inactivation,0.48,True,True,True
+ARO:3004143,antibiotic efflux,ARO:3000800,antibiotic efflux,0.473,True,True,True
+ARO:3002986,antibiotic target alteration,,,,False,False,False
+ARO:3003984,antibiotic inactivation,,,,False,False,False
+ARO:3004747,antibiotic inactivation,ARO:3007483,antibiotic inactivation,0.415,True,True,True
+ARO:3004749,antibiotic inactivation,ARO:3007101,antibiotic inactivation,0.59,True,True,True
+ARO:3000856,antibiotic inactivation,ARO:3000855,antibiotic inactivation,0.426,True,True,True
+ARO:3004759,antibiotic inactivation,ARO:3007483,antibiotic inactivation,0.39,True,True,True
+ARO:3004761,antibiotic inactivation,ARO:3002481,antibiotic inactivation,0.365,True,True,False
+ARO:3004762,antibiotic inactivation,ARO:3002481,antibiotic inactivation,0.365,True,True,False
+ARO:3001205,antibiotic inactivation,ARO:3005036,antibiotic inactivation,0.571,True,True,True
+ARO:3003772,antibiotic target alteration,ARO:3003324,antibiotic target alteration,0.282,True,True,False
+ARO:3006902,antibiotic inactivation,ARO:3007483,antibiotic inactivation,0.406,True,True,True
+ARO:3004764,antibiotic inactivation,ARO:3000090,antibiotic inactivation,0.506,True,True,True
+ARO:3006904,antibiotic inactivation,ARO:3000217,antibiotic inactivation,0.372,True,True,False
+ARO:3006905,antibiotic inactivation,ARO:3000217,antibiotic inactivation,0.385,True,True,False
+ARO:3004146,antibiotic target alteration,ARO:3005023,antibiotic target alteration,0.62,True,True,True
+ARO:3003001,antibiotic inactivation,ARO:3003559,antibiotic inactivation,0.395,True,True,False
+ARO:3003002,antibiotic inactivation,ARO:3003559,antibiotic inactivation,0.395,True,True,False
+ARO:3003003,antibiotic inactivation,ARO:3003559,antibiotic inactivation,0.399,True,True,False
+ARO:3003005,antibiotic inactivation,ARO:3003559,antibiotic inactivation,0.395,True,True,False
+ARO:3003096,antibiotic inactivation,ARO:3003559,antibiotic inactivation,0.395,True,True,False
+ARO:3003097,antibiotic inactivation,ARO:3003559,antibiotic inactivation,0.399,True,True,False
+ARO:3001302,antibiotic target alteration,ARO:3004592,antibiotic target alteration,0.588,True,True,True
+ARO:3007840,antibiotic inactivation,ARO:3008081,antibiotic inactivation,0.58,True,True,True
+ARO:3000785,antibiotic efflux,ARO:3000812,antibiotic efflux,0.295,True,True,False
+ARO:3003099,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.601,True,True,True
+ARO:3003093,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.61,True,True,True
+ARO:3003100,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.635,True,True,True
+ARO:3003101,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.627,True,True,True
+ARO:3003102,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.611,True,True,True
+ARO:3003103,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.61,True,True,True
+ARO:3003104,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.638,True,True,True
+ARO:3003716,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.573,True,True,True
+ARO:3000518,antibiotic efflux,,,,False,False,False
+ARO:3005354,antibiotic target replacement,ARO:3005351,antibiotic target replacement,0.63,True,True,True
+ARO:3003011,antibiotic target replacement,ARO:3004642,antibiotic target replacement,0.356,True,True,False
+ARO:3002858,antibiotic target replacement,ARO:3005351,antibiotic target replacement,0.66,True,True,True
+ARO:3003012,antibiotic target replacement,ARO:3005351,antibiotic target replacement,0.587,True,True,True
+ARO:3003017,antibiotic target replacement,ARO:3005351,antibiotic target replacement,0.624,True,True,True
+ARO:3003018,antibiotic target replacement,ARO:3005351,antibiotic target replacement,0.624,True,True,True
+ARO:3003019,antibiotic target replacement,ARO:3003015,antibiotic target replacement,0.644,True,True,True
+ARO:3003105,antibiotic target replacement,ARO:3002857,antibiotic target replacement,0.42,True,True,True
+ARO:3005346,antibiotic target replacement,ARO:3003015,antibiotic target replacement,0.264,True,True,False
+ARO:3005348,antibiotic target replacement,ARO:3005349,antibiotic target replacement,0.505,True,True,True
+ARO:3002866,antibiotic target replacement,ARO:3002865,antibiotic target replacement,0.409,True,True,True
+ARO:3002868,antibiotic target replacement,ARO:3002865,antibiotic target replacement,0.395,True,True,False
+ARO:3004645,antibiotic target replacement,ARO:3002857,antibiotic target replacement,0.398,True,True,True
+ARO:3002869,antibiotic target replacement,ARO:3002865,antibiotic target replacement,0.402,True,True,True
+ARO:3007456,antibiotic target replacement,ARO:3002875,antibiotic target replacement,0.456,True,True,True
+ARO:3007861,antibiotic inactivation,ARO:3006907,antibiotic inactivation,0.512,True,True,True
+ARO:3006873,antibiotic inactivation,ARO:3006886,antibiotic inactivation,0.536,True,True,True
+ARO:3003955,antibiotic efflux,ARO:3001313,antibiotic efflux,0.322,True,True,False
+ARO:3000074,antibiotic efflux,ARO:3000254,antibiotic efflux,0.625,True,True,True
+ARO:3000516,antibiotic efflux,,,,False,False,False
+ARO:3005047,antibiotic target alteration,ARO:3004505,antibiotic target alteration,0.259,True,True,False
+ARO:3000598,antibiotic target alteration,ARO:3001305,antibiotic target alteration,0.573,True,True,True
+ARO:3000599,antibiotic target alteration,ARO:3004094,antibiotic target alteration,0.588,True,True,True
+ARO:3000604,antibiotic target alteration,ARO:3000600,antibiotic target alteration,0.326,True,True,False
+ARO:3000601,antibiotic target alteration,ARO:3004596,antibiotic target alteration,0.598,True,True,True
+ARO:3000602,antibiotic target alteration,ARO:3004596,antibiotic target alteration,0.591,True,True,True
+ARO:3004606,antibiotic target alteration,ARO:3004596,antibiotic target alteration,0.586,True,True,True
+ARO:3000603,antibiotic target alteration,ARO:3000392,antibiotic target alteration,0.605,True,True,True
+ARO:3003908,antibiotic target alteration,ARO:3003205,antibiotic target alteration,0.465,True,True,True
+ARO:3000347,antibiotic target alteration,ARO:3004094,antibiotic target alteration,0.609,True,True,True
+ARO:3000250,antibiotic target alteration,ARO:3004094,antibiotic target alteration,0.555,True,True,True
+ARO:3000498,antibiotic target alteration,ARO:3000600,antibiotic target alteration,0.342,True,True,False
+ARO:3000522,antibiotic target alteration,ARO:3004094,antibiotic target alteration,0.563,True,True,True
+ARO:3001304,antibiotic target alteration,ARO:3002824,antibiotic target alteration,0.621,True,True,True
+ARO:3000595,antibiotic target alteration,ARO:3004094,antibiotic target alteration,0.588,True,True,True
+ARO:3002825,antibiotic target alteration,ARO:3004094,antibiotic target alteration,0.559,True,True,True
+ARO:3004039,antibiotic efflux,ARO:3005098,antibiotic efflux,0.49,True,True,True
+ARO:3001328,antibiotic efflux,ARO:3001214,antibiotic efflux,0.399,True,True,False
+ARO:3003717,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.622,True,True,True
+ARO:3003961,antibiotic efflux,ARO:3004588,antibiotic efflux,0.473,True,True,True
+ARO:3007019,antibiotic efflux,ARO:3002704,antibiotic efflux,0.584,True,True,True
+ARO:3000423,antibiotic inactivation,ARO:3000380,antibiotic inactivation,0.287,True,True,False
+ARO:3004674,antibiotic inactivation,ARO:3004670,antibiotic inactivation,0.688,True,True,True
+ARO:3003207,antibiotic inactivation,ARO:3002874,antibiotic inactivation,0.526,True,True,True
+ARO:3000198,antibiotic inactivation,ARO:3003208,antibiotic inactivation,0.633,True,True,True
+ARO:3007069,antibiotic inactivation,ARO:3004672,antibiotic inactivation,0.652,True,True,True
+ARO:3000850,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.593,True,True,True
+ARO:3004802,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.6,True,True,True
+ARO:3004803,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.611,True,True,True
+ARO:3004804,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.594,True,True,True
+ARO:3004805,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.615,True,True,True
+ARO:3004806,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.598,True,True,True
+ARO:3004807,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.611,True,True,True
+ARO:3004808,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.6,True,True,True
+ARO:3008195,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.603,True,True,True
+ARO:3004213,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.591,True,True,True
+ARO:3005668,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.611,True,True,True
+ARO:3004809,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.599,True,True,True
+ARO:3005669,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.6,True,True,True
+ARO:3005670,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.592,True,True,True
+ARO:3005671,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.604,True,True,True
+ARO:3005672,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.592,True,True,True
+ARO:3005673,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.593,True,True,True
+ARO:3005674,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.59,True,True,True
+ARO:3005675,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.617,True,True,True
+ARO:3005676,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.603,True,True,True
+ARO:3005677,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.593,True,True,True
+ARO:3005678,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.597,True,True,True
+ARO:3004810,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.609,True,True,True
+ARO:3005679,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.597,True,True,True
+ARO:3005680,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.583,True,True,True
+ARO:3005681,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.615,True,True,True
+ARO:3005682,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.589,True,True,True
+ARO:3005683,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.602,True,True,True
+ARO:3005684,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.605,True,True,True
+ARO:3005685,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.598,True,True,True
+ARO:3005686,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.605,True,True,True
+ARO:3005687,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.596,True,True,True
+ARO:3005688,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.592,True,True,True
+ARO:3004811,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.605,True,True,True
+ARO:3005689,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.593,True,True,True
+ARO:3005690,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.597,True,True,True
+ARO:3005691,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.592,True,True,True
+ARO:3005692,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.6,True,True,True
+ARO:3005693,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.603,True,True,True
+ARO:3005694,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.593,True,True,True
+ARO:3005695,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.603,True,True,True
+ARO:3008196,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.603,True,True,True
+ARO:3005696,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.596,True,True,True
+ARO:3005697,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.597,True,True,True
+ARO:3004812,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.605,True,True,True
+ARO:3005698,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.596,True,True,True
+ARO:3005699,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.605,True,True,True
+ARO:3008197,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.592,True,True,True
+ARO:3008198,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.6,True,True,True
+ARO:3004813,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.601,True,True,True
+ARO:3004814,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.615,True,True,True
+ARO:3004815,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.6,True,True,True
+ARO:3004816,antibiotic inactivation,ARO:3002511,antibiotic inactivation,0.6,True,True,True
+ARO:3000504,antibiotic efflux,,,,False,False,False
+ARO:3006925,antibiotic inactivation,ARO:3008228,antibiotic inactivation,0.581,True,True,True
+ARO:3004466,antibiotic target alteration,ARO:3004501,antibiotic target alteration,0.607,True,True,True
+ARO:3004569,antibiotic target alteration,ARO:3004501,antibiotic target alteration,0.654,True,True,True
+ARO:3001858,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.594,True,True,True
+ARO:3008208,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.594,True,True,True
+ARO:3006176,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.592,True,True,True
+ARO:3006177,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.587,True,True,True
+ARO:3006178,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.591,True,True,True
+ARO:3006179,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.594,True,True,True
+ARO:3006180,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.591,True,True,True
+ARO:3006181,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.635,True,True,True
+ARO:3006182,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.591,True,True,True
+ARO:3006183,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.591,True,True,True
+ARO:3001859,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.591,True,True,True
+ARO:3006184,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.591,True,True,True
+ARO:3006185,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.589,True,True,True
+ARO:3008209,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.578,True,True,True
+ARO:3008210,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.631,True,True,True
+ARO:3008211,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.632,True,True,True
+ARO:3008212,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.636,True,True,True
+ARO:3008213,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.591,True,True,True
+ARO:3008214,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.636,True,True,True
+ARO:3001860,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.635,True,True,True
+ARO:3001861,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.594,True,True,True
+ARO:3001862,antibiotic inactivation,ARO:3006985,antibiotic inactivation,0.609,True,True,True
+ARO:3001863,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.591,True,True,True
+ARO:3003177,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.594,True,True,True
+ARO:3003142,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.636,True,True,True
+ARO:3003143,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.592,True,True,True
+ARO:3003094,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.601,True,True,True
+ARO:3003095,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.599,True,True,True
+ARO:3003841,antibiotic efflux,ARO:3000838,antibiotic efflux,0.393,True,True,False
+ARO:3004597,antibiotic efflux,ARO:3000254,antibiotic efflux,0.625,True,True,True
+ARO:3002997,antibiotic inactivation,ARO:3001805,antibiotic inactivation,0.567,True,True,True
+ARO:3004651,antibiotic inactivation,ARO:3002829,antibiotic target protection,0.419,True,False,True
+ARO:3002879,antibiotic inactivation,ARO:3002836,antibiotic inactivation,0.349,True,True,False
+ARO:3002882,antibiotic efflux,ARO:3002522,antibiotic efflux,0.317,True,True,False
+ARO:3002837,antibiotic inactivation,ARO:3002838,antibiotic inactivation,0.53,True,True,True
+ARO:3002839,antibiotic inactivation,ARO:3002836,antibiotic inactivation,0.345,True,True,False
+ARO:3005059,antibiotic efflux,,,,False,False,False
+ARO:3002492,antibiotic inactivation,ARO:3002489,antibiotic inactivation,0.632,True,True,True
+ARO:3003206,antibiotic target protection,ARO:3003111,antibiotic target protection,0.613,True,True,True
+ARO:3004516,antibiotic target alteration,ARO:3007263,antibiotic target alteration,0.44,True,True,True
+ARO:3007229,antibiotic target alteration,ARO:3007263,antibiotic target alteration,0.442,True,True,True
+ARO:3007227,antibiotic target alteration,ARO:3007263,antibiotic target alteration,0.438,True,True,True
+ARO:3007228,antibiotic target alteration,ARO:3007263,antibiotic target alteration,0.44,True,True,True
+ARO:3007011,antibiotic efflux,ARO:3003046,antibiotic efflux,0.256,True,True,False
+ARO:3000791,antibiotic efflux,ARO:3000379,antibiotic efflux,0.51,True,True,True
+ARO:3000795,antibiotic efflux,ARO:3004042,antibiotic efflux,0.56,True,True,True
+ARO:3003549,antibiotic efflux,,,,False,False,False
+ARO:3000124,antibiotic target replacement,ARO:3005046,antibiotic target replacement,0.666,True,True,True
+ARO:3000614,antibiotic efflux,ARO:3007044,antibiotic efflux,0.247,True,True,False
+ARO:3000746,antibiotic efflux,,,,False,False,False
+ARO:3000807,antibiotic efflux,ARO:3000778,antibiotic efflux,0.281,True,True,False
+ARO:3003030,antibiotic efflux,ARO:3004073,antibiotic efflux,0.279,True,True,False
+ARO:3003031,antibiotic efflux,ARO:3000808,antibiotic efflux,0.505,True,True,True
+ARO:3003034,antibiotic efflux,ARO:3000800,antibiotic efflux,0.445,True,True,True
+ARO:3006952,antibiotic inactivation,ARO:3000840,antibiotic inactivation,0.465,True,True,True
+ARO:3003071,antibiotic inactivation,ARO:3000316,antibiotic inactivation,0.409,True,True,True
+ARO:3004539,antibiotic inactivation,ARO:3003991,antibiotic inactivation,0.402,True,True,True
+ARO:3003767,antibiotic inactivation,ARO:3000318,antibiotic inactivation,0.676,True,True,True
+ARO:3004543,antibiotic inactivation,ARO:3000316,antibiotic inactivation,0.421,True,True,True
+ARO:3007050,antibiotic efflux,,,,False,False,False
+ARO:3003109,antibiotic target protection,ARO:3002819,antibiotic target protection,0.364,True,True,False
+ARO:3005087,antibiotic target protection,ARO:3002819,antibiotic target protection,0.406,True,True,True
+ARO:3007042,antibiotic target protection,ARO:3002819,antibiotic target protection,0.415,True,True,True
+ARO:3005088,antibiotic target protection,ARO:3002819,antibiotic target protection,0.427,True,True,True
+ARO:3007043,antibiotic target protection,ARO:3002819,antibiotic target protection,0.433,True,True,True
+ARO:3000810,antibiotic efflux,ARO:3000780,antibiotic efflux,0.432,True,True,True
+ARO:3000843,antibiotic inactivation,ARO:3004559,antibiotic inactivation,0.478,True,True,True
+ARO:3003842,antibiotic inactivation,ARO:3004559,antibiotic inactivation,0.469,True,True,True
+ARO:3001300,antibiotic target alteration,ARO:3001299,antibiotic target alteration,0.505,True,True,True
+ARO:3003589,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.604,True,True,True
+ARO:3007210,antibiotic inactivation,ARO:3002884,antibiotic inactivation,0.637,True,True,True
+ARO:3004239,antibiotic inactivation,ARO:3001805,antibiotic inactivation,0.563,True,True,True
+ARO:3003748,antibiotic efflux,ARO:3002894,antibiotic efflux,0.615,True,True,True
+ARO:3000866,antibiotic inactivation,ARO:3000865,antibiotic inactivation,0.448,True,True,True
+ARO:3003700,antibiotic efflux,ARO:3000805,antibiotic efflux,0.352,True,True,False
+ARO:3003746,antibiotic target protection,ARO:3004470,antibiotic target protection,0.314,True,True,True
+ARO:3006963,antibiotic inactivation,ARO:3008081,antibiotic inactivation,0.493,True,True,True
+ARO:3008432,antibiotic inactivation,ARO:3005991,antibiotic inactivation,0.449,True,True,True
+ARO:3008438,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3008468,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3008500,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3008501,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3008502,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3008503,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3008507,antibiotic inactivation,ARO:3009042,antibiotic inactivation,0.483,True,True,True
+ARO:3008526,antibiotic inactivation,ARO:3008475,antibiotic inactivation,0.469,True,True,True
+ARO:3008554,antibiotic inactivation,ARO:3004362,antibiotic inactivation,0.423,True,True,True
+ARO:3008590,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.442,True,True,True
+ARO:3008591,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3001768,antibiotic inactivation,ARO:3005767,antibiotic inactivation,0.438,True,True,True
+ARO:3008599,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3008603,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.438,True,True,True
+ARO:3001775,antibiotic inactivation,ARO:3005767,antibiotic inactivation,0.442,True,True,True
+ARO:3008653,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.425,True,True,True
+ARO:3008668,antibiotic inactivation,ARO:3003116,antibiotic inactivation,0.666,True,True,True
+ARO:3008669,antibiotic inactivation,ARO:3003116,antibiotic inactivation,0.673,True,True,True
+ARO:3008670,antibiotic inactivation,ARO:3003116,antibiotic inactivation,0.67,True,True,True
+ARO:3008671,antibiotic inactivation,ARO:3003116,antibiotic inactivation,0.68,True,True,True
+ARO:3008672,antibiotic inactivation,ARO:3003116,antibiotic inactivation,0.684,True,True,True
+ARO:3008673,antibiotic inactivation,ARO:3001583,antibiotic inactivation,0.687,True,True,True
+ARO:3001802,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3001410,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3001799,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3001397,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.438,True,True,True
+ARO:3001415,antibiotic inactivation,ARO:3001783,antibiotic inactivation,0.425,True,True,True
+ARO:3001483,antibiotic inactivation,ARO:3005767,antibiotic inactivation,0.445,True,True,True
+ARO:3001416,antibiotic inactivation,ARO:3004362,antibiotic inactivation,0.426,True,True,True
+ARO:3001487,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.438,True,True,True
+ARO:3001800,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3001398,antibiotic inactivation,ARO:3004362,antibiotic inactivation,0.43,True,True,True
+ARO:3001426,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.442,True,True,True
+ARO:3001428,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.442,True,True,True
+ARO:3001430,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.442,True,True,True
+ARO:3001431,antibiotic inactivation,ARO:3001783,antibiotic inactivation,0.425,True,True,True
+ARO:3001606,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3001797,antibiotic inactivation,ARO:3005767,antibiotic inactivation,0.441,True,True,True
+ARO:3003620,antibiotic inactivation,ARO:3008475,antibiotic inactivation,0.469,True,True,True
+ARO:3005725,antibiotic inactivation,ARO:3008475,antibiotic inactivation,0.471,True,True,True
+ARO:3001810,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.429,True,True,True
+ARO:3005317,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.436,True,True,True
+ARO:3005314,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.435,True,True,True
+ARO:3005321,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3005318,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3005222,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3005319,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.438,True,True,True
+ARO:3005937,antibiotic inactivation,ARO:3005767,antibiotic inactivation,0.454,True,True,True
+ARO:3005320,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.438,True,True,True
+ARO:3005315,antibiotic inactivation,ARO:3005767,antibiotic inactivation,0.436,True,True,True
+ARO:3005322,antibiotic inactivation,ARO:3005767,antibiotic inactivation,0.441,True,True,True
+ARO:3005316,antibiotic inactivation,ARO:3001812,antibiotic inactivation,0.433,True,True,True
+ARO:3000025,antibiotic efflux,ARO:3002522,antibiotic efflux,0.338,True,True,False
+ARO:3002497,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3002509,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006480,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006481,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006482,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006483,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005305,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005277,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006484,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006485,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006486,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006487,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005132,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006488,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006489,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006490,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006491,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.595,True,True,True
+ARO:3006492,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006493,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006494,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005303,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005278,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005309,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006495,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006496,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006497,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006498,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006499,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006500,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006501,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.569,True,True,True
+ARO:3006502,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006503,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.612,True,True,True
+ARO:3006504,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006505,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006506,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006507,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006508,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3006509,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.579,True,True,True
+ARO:3006510,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006511,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006512,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006513,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006514,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3006515,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006516,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005127,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006517,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.569,True,True,True
+ARO:3006518,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006519,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006520,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006521,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006522,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006523,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006524,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006525,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006526,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006527,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006528,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006529,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.567,True,True,True
+ARO:3006530,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006531,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006532,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006533,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006534,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006535,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006536,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006537,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006538,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006539,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.567,True,True,True
+ARO:3006540,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006541,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006542,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3006543,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006544,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006545,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006546,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006547,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006548,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006549,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006550,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006551,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006552,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005306,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.585,True,True,True
+ARO:3006553,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006554,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006555,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006556,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006557,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006558,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006559,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.579,True,True,True
+ARO:3006560,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006561,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006562,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005299,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006563,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006564,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006565,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006566,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006567,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006568,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006569,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006570,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006571,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006572,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006573,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006574,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006575,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006576,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006577,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006578,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005295,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005292,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3002498,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006579,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006580,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005285,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006581,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006582,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006583,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006584,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006585,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005300,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006586,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006587,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006588,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006589,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005289,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006590,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006591,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3006592,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006593,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006594,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006595,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006596,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006597,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006598,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006599,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3006600,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006601,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006602,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006603,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.575,True,True,True
+ARO:3006604,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.595,True,True,True
+ARO:3005274,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006605,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3006606,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006607,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.589,True,True,True
+ARO:3006608,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005155,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006609,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005304,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.596,True,True,True
+ARO:3006610,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3006611,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006612,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.579,True,True,True
+ARO:3006613,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006614,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006615,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.579,True,True,True
+ARO:3006616,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006617,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006618,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005143,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006619,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.612,True,True,True
+ARO:3006620,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006621,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.587,True,True,True
+ARO:3006622,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006623,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006624,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006625,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3006626,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006627,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006628,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006629,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.567,True,True,True
+ARO:3006630,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006631,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006632,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006633,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3005297,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006634,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005311,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005281,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006635,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006636,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006637,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006638,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006639,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.574,True,True,True
+ARO:3006640,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005284,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006641,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006642,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006643,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006644,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006645,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006646,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005296,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.611,True,True,True
+ARO:3006647,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006648,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006649,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3006650,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006651,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006652,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006653,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005156,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3006654,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006655,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006656,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006657,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005276,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005287,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006658,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006659,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006660,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.611,True,True,True
+ARO:3006661,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006662,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006663,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.596,True,True,True
+ARO:3005307,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.593,True,True,True
+ARO:3005298,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006664,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006665,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3006666,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006667,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006668,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006669,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3002500,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006670,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006671,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3006672,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006673,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006674,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006675,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006676,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005301,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006677,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006678,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006679,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006680,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006681,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006682,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006683,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005310,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3006684,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006685,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006686,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006687,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006688,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3006689,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006690,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006691,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3006692,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006693,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005280,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005279,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006694,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006695,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006696,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006697,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006698,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006699,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.567,True,True,True
+ARO:3006700,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006701,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.595,True,True,True
+ARO:3006702,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.587,True,True,True
+ARO:3006703,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006704,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006705,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006706,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005288,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006707,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006708,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006709,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006710,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006711,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006712,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.567,True,True,True
+ARO:3006713,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.569,True,True,True
+ARO:3006714,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.567,True,True,True
+ARO:3006715,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.593,True,True,True
+ARO:3005286,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006716,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3006717,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006718,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.605,True,True,True
+ARO:3006719,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006720,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.596,True,True,True
+ARO:3006721,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.574,True,True,True
+ARO:3005290,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3006722,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006723,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006724,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006725,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006726,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.611,True,True,True
+ARO:3006727,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006728,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006729,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006730,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3006731,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006732,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006733,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006734,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3006735,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006736,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006737,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006738,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006739,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006740,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006741,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006742,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006743,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006744,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006745,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006746,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005302,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006747,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.605,True,True,True
+ARO:3006748,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.579,True,True,True
+ARO:3006749,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.593,True,True,True
+ARO:3006750,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.612,True,True,True
+ARO:3005293,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3006751,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006752,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006753,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005283,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006754,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006755,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006756,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006757,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006758,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006759,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006760,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006761,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006762,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.596,True,True,True
+ARO:3005308,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3006763,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006764,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006765,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006766,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006767,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006768,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3002501,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006769,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006770,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006771,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006772,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006773,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006774,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006775,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006776,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006777,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006778,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006779,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005157,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.569,True,True,True
+ARO:3006780,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006781,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006782,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005282,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006783,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006784,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006785,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006786,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006787,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.578,True,True,True
+ARO:3006788,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006789,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.567,True,True,True
+ARO:3006790,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006791,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006792,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006793,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006794,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006795,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006796,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006797,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006798,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005312,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005134,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006799,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006800,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006801,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006802,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006803,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006804,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.612,True,True,True
+ARO:3006805,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006806,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005275,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006807,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005142,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006808,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006809,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006810,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006811,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3006812,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006813,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006814,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006815,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006816,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005313,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005145,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006817,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006818,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006819,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006820,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006821,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006822,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.569,True,True,True
+ARO:3006823,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006824,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006825,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006826,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006827,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006828,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3005294,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006829,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.596,True,True,True
+ARO:3006830,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005291,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3006831,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006832,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.596,True,True,True
+ARO:3006833,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006834,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006835,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005128,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006836,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006837,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006838,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006839,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.596,True,True,True
+ARO:3006840,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006841,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006842,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008824,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008825,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008826,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005148,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.579,True,True,True
+ARO:3008827,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3008828,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008829,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008830,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008831,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008832,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008833,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008834,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3008835,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008836,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005146,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008837,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008838,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008839,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008840,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008841,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008842,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3008843,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008844,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008845,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008846,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3002502,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005147,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008847,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008848,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008849,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008850,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008851,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008852,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008853,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008854,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3008855,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.568,True,True,True
+ARO:3008856,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005129,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008857,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.574,True,True,True
+ARO:3008858,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008859,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008860,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008861,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008862,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008863,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008864,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008865,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.596,True,True,True
+ARO:3008866,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.605,True,True,True
+ARO:3005141,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008867,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008868,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3008869,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008870,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.578,True,True,True
+ARO:3008871,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008872,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3008873,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008874,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008875,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.578,True,True,True
+ARO:3008876,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005151,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008877,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3008878,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008879,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008880,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3008881,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008882,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008883,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.576,True,True,True
+ARO:3008884,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008885,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008886,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005135,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008887,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008888,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008889,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.612,True,True,True
+ARO:3008890,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008891,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.589,True,True,True
+ARO:3008892,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008893,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3008894,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008895,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3008896,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005039,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3008897,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008898,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008899,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008900,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008901,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008902,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008903,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008904,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.612,True,True,True
+ARO:3008905,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008906,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005140,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3008907,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008908,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008909,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008910,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008911,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008912,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008913,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3008914,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008915,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008916,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005125,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008917,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008918,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008919,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008920,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008921,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.592,True,True,True
+ARO:3008922,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.593,True,True,True
+ARO:3008923,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008924,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.593,True,True,True
+ARO:3008925,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008926,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006843,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008927,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008928,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.596,True,True,True
+ARO:3008929,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008930,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008931,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008932,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008933,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3008934,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008935,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3008936,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005137,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008937,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3008938,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008939,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008940,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008941,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008942,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.578,True,True,True
+ARO:3008943,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008944,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008945,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008946,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3002505,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006844,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008947,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008948,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008949,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008950,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008951,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008952,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008953,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008954,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008955,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008956,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3005144,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008957,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008958,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.574,True,True,True
+ARO:3008959,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3008960,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008961,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008962,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008963,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3008964,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3008965,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008966,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.603,True,True,True
+ARO:3005133,antibiotic inactivation,ARO:3009041,antibiotic inactivation,0.567,True,True,True
+ARO:3008967,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3008968,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3008969,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3008970,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008971,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3008972,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008973,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008974,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.598,True,True,True
+ARO:3008975,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008976,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005124,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.597,True,True,True
+ARO:3008977,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008978,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008979,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008980,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008981,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3008982,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008983,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008984,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3008985,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3008986,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006845,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3008987,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3005038,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005126,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.6,True,True,True
+ARO:3005139,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005122,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.612,True,True,True
+ARO:3005153,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3002506,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3005123,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.609,True,True,True
+ARO:3006846,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3005152,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3004336,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.606,True,True,True
+ARO:3004337,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3004338,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.606,True,True,True
+ARO:3004339,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.606,True,True,True
+ARO:3004340,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.603,True,True,True
+ARO:3004341,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.603,True,True,True
+ARO:3004342,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.603,True,True,True
+ARO:3002507,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3004343,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3004344,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.606,True,True,True
+ARO:3004345,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.603,True,True,True
+ARO:3004346,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.606,True,True,True
+ARO:3004347,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.603,True,True,True
+ARO:3004348,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.606,True,True,True
+ARO:3004349,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3004350,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3004351,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.611,True,True,True
+ARO:3004352,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3002508,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.611,True,True,True
+ARO:3004353,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3004354,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.606,True,True,True
+ARO:3004355,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.606,True,True,True
+ARO:3004356,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.608,True,True,True
+ARO:3006847,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006848,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006849,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3006850,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.604,True,True,True
+ARO:3006851,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.601,True,True,True
+ARO:3006852,antibiotic inactivation,ARO:3007085,antibiotic inactivation,0.607,True,True,True
+ARO:3003714,antibiotic inactivation,ARO:3003670,antibiotic inactivation,0.588,True,True,True
+ARO:3002363,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.445,True,True,True
+ARO:3006131,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.445,True,True,True
+ARO:3006132,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.445,True,True,True
+ARO:3006133,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.442,True,True,True
+ARO:3006134,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.442,True,True,True
+ARO:3006135,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.43,True,True,True
+ARO:3006136,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.442,True,True,True
+ARO:3006137,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.442,True,True,True
+ARO:3009027,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.442,True,True,True
+ARO:3009028,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.438,True,True,True
+ARO:3002364,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.433,True,True,True
+ARO:3002365,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.445,True,True,True
+ARO:3002366,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.442,True,True,True
+ARO:3002367,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.442,True,True,True
+ARO:3002368,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.445,True,True,True
+ARO:3002369,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.442,True,True,True
+ARO:3003184,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.442,True,True,True
+ARO:3006138,antibiotic inactivation,ARO:3006942,antibiotic inactivation,0.445,True,True,True
+ARO:3006965,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.531,True,True,True
+ARO:3006966,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.545,True,True,True
+ARO:3006967,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.563,True,True,True
+ARO:3007021,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.545,True,True,True
+ARO:3003920,antibiotic target alteration,,,,False,False,False
+ARO:3000822,antibiotic efflux,ARO:3001329,antibiotic efflux,0.452,True,True,True
+ARO:3006978,antibiotic inactivation,ARO:3007206,antibiotic inactivation,0.537,True,True,True
+ARO:3007648,antibiotic inactivation,ARO:3004290,antibiotic inactivation,0.639,True,True,True
+ARO:3000448,antibiotic efflux,ARO:3003967,antibiotic efflux,0.426,True,True,True
+ARO:3004103,antibiotic efflux,ARO:3003967,antibiotic efflux,0.431,True,True,True
+ARO:3004379,antibiotic efflux,ARO:3003967,antibiotic efflux,0.431,True,True,True
+ARO:3004668,antibiotic target protection,ARO:3002709,antibiotic target protection,0.668,True,True,True
+ARO:3002787,antibiotic target protection,ARO:3002710,antibiotic target protection,0.657,True,True,True
+ARO:3002790,antibiotic target protection,ARO:3002709,antibiotic target protection,0.6,True,True,True
+ARO:3004622,antibiotic target protection,ARO:3002709,antibiotic target protection,0.605,True,True,True
+ARO:3004624,antibiotic target protection,ARO:3002709,antibiotic target protection,0.596,True,True,True
+ARO:3004625,antibiotic target protection,ARO:3002709,antibiotic target protection,0.596,True,True,True
+ARO:3004627,antibiotic target protection,ARO:3002709,antibiotic target protection,0.596,True,True,True
+ARO:3002791,antibiotic target protection,ARO:3002709,antibiotic target protection,0.619,True,True,True
+ARO:3002792,antibiotic target protection,ARO:3002709,antibiotic target protection,0.616,True,True,True
+ARO:3002793,antibiotic target protection,ARO:3002709,antibiotic target protection,0.6,True,True,True
+ARO:3002794,antibiotic target protection,ARO:3002709,antibiotic target protection,0.587,True,True,True
+ARO:3002795,antibiotic target protection,ARO:3002709,antibiotic target protection,0.614,True,True,True
+ARO:3002796,antibiotic target protection,ARO:3002709,antibiotic target protection,0.596,True,True,True
+ARO:3002797,antibiotic target protection,ARO:3002709,antibiotic target protection,0.596,True,True,True
+ARO:3002798,antibiotic target protection,ARO:3002709,antibiotic target protection,0.596,True,True,True
+ARO:3002799,antibiotic target protection,ARO:3002709,antibiotic target protection,0.636,True,True,True
+ARO:3002800,antibiotic target protection,ARO:3002709,antibiotic target protection,0.627,True,True,True
+ARO:3002801,antibiotic target protection,ARO:3002709,antibiotic target protection,0.655,True,True,True
+ARO:3002802,antibiotic target protection,ARO:3002709,antibiotic target protection,0.66,True,True,True
+ARO:3002803,antibiotic target protection,ARO:3002709,antibiotic target protection,0.636,True,True,True
+ARO:3003193,antibiotic target protection,ARO:3002709,antibiotic target protection,0.655,True,True,True
+ARO:3003563,antibiotic inactivation,ARO:3007206,antibiotic inactivation,0.442,True,True,True
+ARO:3000861,antibiotic target alteration,ARO:3000862,antibiotic target alteration,0.282,True,True,False
+ARO:3002667,antibiotic target alteration,ARO:3002668,antibiotic target alteration,0.587,True,True,True
+ARO:3004677,antibiotic target alteration,ARO:3002668,antibiotic target alteration,0.573,True,True,True
+ARO:3003198,antibiotic target alteration,ARO:3000860,antibiotic target alteration,0.644,True,True,True
+ARO:3000444,antibiotic inactivation,ARO:3003992,antibiotic inactivation,0.554,True,True,True
+ARO:3006981,antibiotic inactivation,ARO:3007007,antibiotic inactivation,0.469,True,True,True
+ARO:3003749,antibiotic target protection,ARO:3007026,antibiotic target protection,0.676,True,True,True
+ARO:3007027,antibiotic target protection,ARO:3007026,antibiotic target protection,0.678,True,True,True
+ARO:3002898,antibiotic inactivation,ARO:3005045,antibiotic inactivation,0.372,True,True,False
+ARO:3003557,antibiotic inactivation,ARO:3003556,antibiotic inactivation,0.672,True,True,True
+ARO:3000849,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.556,True,True,True
+ARO:3007017,antibiotic inactivation,ARO:3004105,antibiotic inactivation,0.573,True,True,True
+ARO:3007846,antibiotic inactivation,ARO:3000851,antibiotic inactivation,0.457,True,True,True
+ARO:3002379,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.621,True,True,True
+ARO:3002380,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.628,True,True,True
+ARO:3002381,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.621,True,True,True
+ARO:3002382,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.625,True,True,True
+ARO:3002383,antibiotic inactivation,ARO:3009045,antibiotic inactivation,0.625,True,True,True
+ARO:3003056,antibiotic efflux,ARO:3000216,antibiotic efflux,0.639,True,True,True
+ARO:3003720,antibiotic inactivation,ARO:3000855,antibiotic inactivation,0.47,True,True,True
+ARO:3006996,antibiotic inactivation,ARO:3006872,antibiotic inactivation,0.364,True,True,True
+ARO:3007000,antibiotic inactivation,ARO:3006955,antibiotic inactivation,0.495,True,True,True
+ARO:3004661,antibiotic inactivation,ARO:3004672,antibiotic inactivation,0.673,True,True,True
+ARO:3007209,antibiotic inactivation,ARO:3002884,antibiotic inactivation,0.65,True,True,True
+ARO:3004361,antibiotic target replacement,ARO:3000413,antibiotic target replacement,0.307,True,True,False
+ARO:3000565,antibiotic efflux,ARO:3007493,antibiotic efflux,0.278,True,True,False
+ARO:3000573,antibiotic efflux,ARO:3003046,antibiotic efflux,0.297,True,True,False
+ARO:3007492,antibiotic efflux,ARO:3000174,antibiotic efflux,0.677,True,True,True
+ARO:3000180,antibiotic efflux,ARO:3000567,antibiotic efflux,0.434,True,True,True
+ARO:3004033,antibiotic efflux,ARO:3004036,antibiotic efflux,0.424,True,True,True
+ARO:3000195,antibiotic target protection,ARO:3000193,antibiotic target protection,0.457,True,True,True
+ARO:3000173,antibiotic efflux,ARO:3004441,antibiotic efflux,0.542,True,True,True
+ARO:3003203,antibiotic inactivation,ARO:3003202,antibiotic inactivation,0.555,True,True,True
+ARO:3003679,antibiotic efflux,ARO:3003692,antibiotic efflux,0.352,True,True,False
+ARO:3000844,antibiotic inactivation,ARO:3004559,antibiotic inactivation,0.46,True,True,True
+ARO:3003577,antibiotic target alteration,,,,False,False,False
+ARO:3002943,antibiotic target alteration,ARO:3002942,antibiotic target alteration,0.681,True,True,True
+ARO:3007188,antibiotic target alteration,ARO:3002944,antibiotic target alteration,0.469,True,True,True
+ARO:3003723,antibiotic target alteration,ARO:3000005,antibiotic target alteration,0.643,True,True,True
+ARO:3002912,antibiotic target alteration,ARO:3002910,antibiotic target alteration,0.65,True,True,True
+ARO:3002913,antibiotic target alteration,ARO:3002908,antibiotic target alteration,0.638,True,True,True
+ARO:3002922,antibiotic target alteration,ARO:3002926,antibiotic target alteration,0.625,True,True,True
+ARO:3003728,antibiotic target alteration,ARO:3002919,antibiotic target alteration,0.693,True,True,True
+ARO:3002927,antibiotic target alteration,ARO:3002926,antibiotic target alteration,0.6,True,True,True
+ARO:3002929,antibiotic target alteration,ARO:3002924,antibiotic target alteration,0.617,True,True,True
+ARO:3002934,antibiotic target alteration,ARO:3002937,antibiotic target alteration,0.504,True,True,True
+ARO:3002971,antibiotic target alteration,ARO:3002970,antibiotic target alteration,0.485,True,True,True
+ARO:3002973,antibiotic target alteration,ARO:3002975,antibiotic target alteration,0.506,True,True,True
+ARO:3004253,antibiotic target alteration,,,,False,False,False
+ARO:3002949,antibiotic target alteration,ARO:3003725,antibiotic target alteration,0.666,True,True,True
+ARO:3002950,antibiotic target alteration,ARO:3003725,antibiotic target alteration,0.658,True,True,True
+ARO:3003070,antibiotic target alteration,ARO:3003725,antibiotic target alteration,0.678,True,True,True
+ARO:3002952,antibiotic target alteration,ARO:3003725,antibiotic target alteration,0.696,True,True,True
+ARO:3002953,antibiotic target alteration,ARO:3003725,antibiotic target alteration,0.648,True,True,True
+ARO:3003069,antibiotic target alteration,ARO:3002967,antibiotic target alteration,0.444,True,True,True
+ARO:3002962,antibiotic target alteration,ARO:3002963,antibiotic target alteration,0.323,True,True,False
+ARO:3002841,antibiotic inactivation,ARO:3002844,antibiotic inactivation,0.614,True,True,True
+ARO:3003987,antibiotic inactivation,ARO:3002845,antibiotic inactivation,0.652,True,True,True
+ARO:3003713,antibiotic inactivation,ARO:3006985,antibiotic inactivation,0.637,True,True,True
+ARO:3002831,antibiotic target protection,ARO:3002829,antibiotic target protection,0.639,True,True,True
+ARO:3003990,antibiotic inactivation,ARO:3001307,antibiotic inactivation,0.595,True,True,True
+ARO:3007435,antibiotic inactivation,ARO:3004559,antibiotic inactivation,0.46,True,True,True
+ARO:3007005,antibiotic inactivation,ARO:3006924,antibiotic inactivation,0.536,True,True,True

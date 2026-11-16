@@ -1,0 +1,2801 @@
+config,cenario,modelo,repeticao,fold,f1_macro
+A,anotacao_curada,random_forest,1,1,0.5739015519939105
+A,gene_novo,random_forest,1,1,0.5739015519939105
+A + estruturais,anotacao_curada,random_forest,1,1,0.7428706350881121
+A + estruturais,gene_novo,random_forest,1,1,0.7392670314845086
+A + classes,anotacao_curada,random_forest,1,1,0.6671154758080553
+A + classes,gene_novo,random_forest,1,1,0.7836109355058319
+B,anotacao_curada,random_forest,1,1,0.7285759768633098
+B,gene_novo,random_forest,1,1,0.7688893734709075
+só estruturais,anotacao_curada,random_forest,1,1,0.4292560921712564
+só estruturais,gene_novo,random_forest,1,1,0.4490393671639269
+só classes,anotacao_curada,random_forest,1,1,0.7480264433973259
+só classes,gene_novo,random_forest,1,1,0.556689538533164
+só ontologia,anotacao_curada,random_forest,1,1,0.7791503552269102
+só ontologia,gene_novo,random_forest,1,1,0.8040405404647359
+A,anotacao_curada,random_forest,1,2,0.6037628331729714
+A,gene_novo,random_forest,1,2,0.6037628331729714
+A + estruturais,anotacao_curada,random_forest,1,2,0.6648580315713873
+A + estruturais,gene_novo,random_forest,1,2,0.6648580315713873
+A + classes,anotacao_curada,random_forest,1,2,0.7208305870374836
+A + classes,gene_novo,random_forest,1,2,0.7154952785044146
+B,anotacao_curada,random_forest,1,2,0.7714994402462916
+B,gene_novo,random_forest,1,2,0.7640547615421986
+só estruturais,anotacao_curada,random_forest,1,2,0.44895658030619856
+só estruturais,gene_novo,random_forest,1,2,0.3776413308053149
+só classes,anotacao_curada,random_forest,1,2,0.8278525351893062
+só classes,gene_novo,random_forest,1,2,0.6935357972081234
+só ontologia,anotacao_curada,random_forest,1,2,0.9103924162257495
+só ontologia,gene_novo,random_forest,1,2,0.7553429494692077
+A,anotacao_curada,random_forest,1,3,0.6050456144190406
+A,gene_novo,random_forest,1,3,0.6050456144190406
+A + estruturais,anotacao_curada,random_forest,1,3,0.7151701920880329
+A + estruturais,gene_novo,random_forest,1,3,0.7024964214407714
+A + classes,anotacao_curada,random_forest,1,3,0.758889682740705
+A + classes,gene_novo,random_forest,1,3,0.745249934561129
+B,anotacao_curada,random_forest,1,3,0.7901325011609807
+B,gene_novo,random_forest,1,3,0.7740397809815074
+só estruturais,anotacao_curada,random_forest,1,3,0.3989662386861906
+só estruturais,gene_novo,random_forest,1,3,0.4097824547475408
+só classes,anotacao_curada,random_forest,1,3,0.5205776163729962
+só classes,gene_novo,random_forest,1,3,0.7165119867221204
+só ontologia,anotacao_curada,random_forest,1,3,0.814756639378056
+só ontologia,gene_novo,random_forest,1,3,0.8139505148939111
+A,anotacao_curada,random_forest,1,4,0.3444299833699197
+A,gene_novo,random_forest,1,4,0.3444299833699197
+A + estruturais,anotacao_curada,random_forest,1,4,0.3644100596089541
+A + estruturais,gene_novo,random_forest,1,4,0.3602203529560773
+A + classes,anotacao_curada,random_forest,1,4,0.4006119579004527
+A + classes,gene_novo,random_forest,1,4,0.41439094803501586
+B,anotacao_curada,random_forest,1,4,0.628948867140173
+B,gene_novo,random_forest,1,4,0.6152960145984275
+só estruturais,anotacao_curada,random_forest,1,4,0.32163263866050246
+só estruturais,gene_novo,random_forest,1,4,0.3040552092437924
+só classes,anotacao_curada,random_forest,1,4,0.8607305343159126
+só classes,gene_novo,random_forest,1,4,0.832836549506756
+só ontologia,anotacao_curada,random_forest,1,4,0.904440780893983
+só ontologia,gene_novo,random_forest,1,4,0.8793514436136649
+A,anotacao_curada,random_forest,1,5,0.6385270635015398
+A,gene_novo,random_forest,1,5,0.6385270635015398
+A + estruturais,anotacao_curada,random_forest,1,5,0.8060833387354129
+A + estruturais,gene_novo,random_forest,1,5,0.8027199190563448
+A + classes,anotacao_curada,random_forest,1,5,0.8086554461516288
+A + classes,gene_novo,random_forest,1,5,0.8230971998886437
+B,anotacao_curada,random_forest,1,5,0.8732127889334645
+B,gene_novo,random_forest,1,5,0.9054796940461438
+só estruturais,anotacao_curada,random_forest,1,5,0.41178065227834815
+só estruturais,gene_novo,random_forest,1,5,0.3825473479698832
+só classes,anotacao_curada,random_forest,1,5,0.823984604963145
+só classes,gene_novo,random_forest,1,5,0.8179005588149384
+só ontologia,anotacao_curada,random_forest,1,5,0.9301005046792914
+só ontologia,gene_novo,random_forest,1,5,0.8784281039621945
+A,anotacao_curada,random_forest,2,1,0.6870011481495656
+A,gene_novo,random_forest,2,1,0.6870011481495656
+A + estruturais,anotacao_curada,random_forest,2,1,0.8663225317134557
+A + estruturais,gene_novo,random_forest,2,1,0.8611277265186505
+A + classes,anotacao_curada,random_forest,2,1,0.8547124462839673
+A + classes,gene_novo,random_forest,2,1,0.8387890992929595
+B,anotacao_curada,random_forest,2,1,0.9289403145630711
+B,gene_novo,random_forest,2,1,0.9087752622980917
+só estruturais,anotacao_curada,random_forest,2,1,0.40362308814549097
+só estruturais,gene_novo,random_forest,2,1,0.3988787426398518
+só classes,anotacao_curada,random_forest,2,1,0.7639778016076582
+só classes,gene_novo,random_forest,2,1,0.6636824214506752
+só ontologia,anotacao_curada,random_forest,2,1,0.8673401861208886
+só ontologia,gene_novo,random_forest,2,1,0.8567445683630777
+A,anotacao_curada,random_forest,2,2,0.6272148841796318
+A,gene_novo,random_forest,2,2,0.6272148841796318
+A + estruturais,anotacao_curada,random_forest,2,2,0.753790327410423
+A + estruturais,gene_novo,random_forest,2,2,0.7561103322095121
+A + classes,anotacao_curada,random_forest,2,2,0.7602957737838226
+A + classes,gene_novo,random_forest,2,2,0.7994216580939979
+B,anotacao_curada,random_forest,2,2,0.8229246775956653
+B,gene_novo,random_forest,2,2,0.8328965124921904
+só estruturais,anotacao_curada,random_forest,2,2,0.22717547662597512
+só estruturais,gene_novo,random_forest,2,2,0.21080191549887628
+só classes,anotacao_curada,random_forest,2,2,0.6153808619620382
+só classes,gene_novo,random_forest,2,2,0.8241453898528723
+só ontologia,anotacao_curada,random_forest,2,2,0.8573683124616582
+só ontologia,gene_novo,random_forest,2,2,0.8276658241799002
+A,anotacao_curada,random_forest,2,3,0.5315693325385074
+A,gene_novo,random_forest,2,3,0.5315693325385074
+A + estruturais,anotacao_curada,random_forest,2,3,0.6721107543305275
+A + estruturais,gene_novo,random_forest,2,3,0.6721107543305275
+A + classes,anotacao_curada,random_forest,2,3,0.6964237926385067
+A + classes,gene_novo,random_forest,2,3,0.7109229167125355
+B,anotacao_curada,random_forest,2,3,0.8348595415662748
+B,gene_novo,random_forest,2,3,0.8325579273811403
+só estruturais,anotacao_curada,random_forest,2,3,0.3469390798184892
+só estruturais,gene_novo,random_forest,2,3,0.31789740483075896
+só classes,anotacao_curada,random_forest,2,3,0.7975101173915342
+só classes,gene_novo,random_forest,2,3,0.7708186753528773
+só ontologia,anotacao_curada,random_forest,2,3,0.909928550231698
+só ontologia,gene_novo,random_forest,2,3,0.8166385542168675
+A,anotacao_curada,random_forest,2,4,0.5340358294028257
+A,gene_novo,random_forest,2,4,0.5340358294028257
+A + estruturais,anotacao_curada,random_forest,2,4,0.617531623931624
+A + estruturais,gene_novo,random_forest,2,4,0.6113422278250517
+A + classes,anotacao_curada,random_forest,2,4,0.6680964906893841
+A + classes,gene_novo,random_forest,2,4,0.6680964906893841
+B,anotacao_curada,random_forest,2,4,0.7696874449865203
+B,gene_novo,random_forest,2,4,0.7364728244367523
+só estruturais,anotacao_curada,random_forest,2,4,0.4348807006946542
+só estruturais,gene_novo,random_forest,2,4,0.39788909325514393
+só classes,anotacao_curada,random_forest,2,4,0.8081534257206784
+só classes,gene_novo,random_forest,2,4,0.6969729728690723
+só ontologia,anotacao_curada,random_forest,2,4,0.8057818182366685
+só ontologia,gene_novo,random_forest,2,4,0.7796540173639446
+A,anotacao_curada,random_forest,2,5,0.44029870419837575
+A,gene_novo,random_forest,2,5,0.44029870419837575
+A + estruturais,anotacao_curada,random_forest,2,5,0.5604537265434293
+A + estruturais,gene_novo,random_forest,2,5,0.54557936250114
+A + classes,anotacao_curada,random_forest,2,5,0.5311534946902751
+A + classes,gene_novo,random_forest,2,5,0.5325797654158687
+B,anotacao_curada,random_forest,2,5,0.6478179526847239
+B,gene_novo,random_forest,2,5,0.6337250981231211
+só estruturais,anotacao_curada,random_forest,2,5,0.40619667644689716
+só estruturais,gene_novo,random_forest,2,5,0.30060691750713076
+só classes,anotacao_curada,random_forest,2,5,0.8520493774641466
+só classes,gene_novo,random_forest,2,5,0.7261523815756871
+só ontologia,anotacao_curada,random_forest,2,5,0.8722258415079546
+só ontologia,gene_novo,random_forest,2,5,0.7257067524708294
+A,anotacao_curada,random_forest,3,1,0.6469333809608859
+A,gene_novo,random_forest,3,1,0.6469333809608859
+A + estruturais,anotacao_curada,random_forest,3,1,0.718771217138953
+A + estruturais,gene_novo,random_forest,3,1,0.709534556803673
+A + classes,anotacao_curada,random_forest,3,1,0.7209353128350993
+A + classes,gene_novo,random_forest,3,1,0.7209353128350993
+B,anotacao_curada,random_forest,3,1,0.8344439097763521
+B,gene_novo,random_forest,3,1,0.8075128059191805
+só estruturais,anotacao_curada,random_forest,3,1,0.3731933448363929
+só estruturais,gene_novo,random_forest,3,1,0.3723161897601249
+só classes,anotacao_curada,random_forest,3,1,0.8364405737323878
+só classes,gene_novo,random_forest,3,1,0.7741947563345392
+só ontologia,anotacao_curada,random_forest,3,1,0.8471045675859953
+só ontologia,gene_novo,random_forest,3,1,0.8042917317813583
+A,anotacao_curada,random_forest,3,2,0.6696507519808492
+A,gene_novo,random_forest,3,2,0.6696507519808492
+A + estruturais,anotacao_curada,random_forest,3,2,0.7578852534790105
+A + estruturais,gene_novo,random_forest,3,2,0.7554393206856795
+A + classes,anotacao_curada,random_forest,3,2,0.8399062395660855
+A + classes,gene_novo,random_forest,3,2,0.8437994354386363
+B,anotacao_curada,random_forest,3,2,0.8961129767018091
+B,gene_novo,random_forest,3,2,0.8907796433684758
+só estruturais,anotacao_curada,random_forest,3,2,0.2902507997976387
+só estruturais,gene_novo,random_forest,3,2,0.24306677442861496
+só classes,anotacao_curada,random_forest,3,2,0.7528962956610672
+só classes,gene_novo,random_forest,3,2,0.7608109215265245
+só ontologia,anotacao_curada,random_forest,3,2,0.8490124396280596
+só ontologia,gene_novo,random_forest,3,2,0.8220503909390058
+A,anotacao_curada,random_forest,3,3,0.42318273644156806
+A,gene_novo,random_forest,3,3,0.42318273644156806
+A + estruturais,anotacao_curada,random_forest,3,3,0.5784774645644211
+A + estruturais,gene_novo,random_forest,3,3,0.5724715140513055
+A + classes,anotacao_curada,random_forest,3,3,0.7039844197502576
+A + classes,gene_novo,random_forest,3,3,0.7041133347582674
+B,anotacao_curada,random_forest,3,3,0.8287558834241384
+B,gene_novo,random_forest,3,3,0.8205104862457805
+só estruturais,anotacao_curada,random_forest,3,3,0.3935968367997219
+só estruturais,gene_novo,random_forest,3,3,0.3732543630349635
+só classes,anotacao_curada,random_forest,3,3,0.703350378736088
+só classes,gene_novo,random_forest,3,3,0.742873959791253
+só ontologia,anotacao_curada,random_forest,3,3,0.809371890704725
+só ontologia,gene_novo,random_forest,3,3,0.8019657608473398
+A,anotacao_curada,random_forest,3,4,0.5056087725309043
+A,gene_novo,random_forest,3,4,0.5056087725309043
+A + estruturais,anotacao_curada,random_forest,3,4,0.5761764705882353
+A + estruturais,gene_novo,random_forest,3,4,0.5624702698056598
+A + classes,anotacao_curada,random_forest,3,4,0.5765614953330781
+A + classes,gene_novo,random_forest,3,4,0.5789043241873431
+B,anotacao_curada,random_forest,3,4,0.696726650299563
+B,gene_novo,random_forest,3,4,0.6863004982595716
+só estruturais,anotacao_curada,random_forest,3,4,0.48926971175521067
+só estruturais,gene_novo,random_forest,3,4,0.385694111176324
+só classes,anotacao_curada,random_forest,3,4,0.5053866479231268
+só classes,gene_novo,random_forest,3,4,0.6094544305646072
+só ontologia,anotacao_curada,random_forest,3,4,0.8173713293263674
+só ontologia,gene_novo,random_forest,3,4,0.7410369506654337
+A,anotacao_curada,random_forest,3,5,0.5445804101360655
+A,gene_novo,random_forest,3,5,0.5445804101360655
+A + estruturais,anotacao_curada,random_forest,3,5,0.5463745119651413
+A + estruturais,gene_novo,random_forest,3,5,0.5345884403521122
+A + classes,anotacao_curada,random_forest,3,5,0.7017546787498492
+A + classes,gene_novo,random_forest,3,5,0.7067902914440877
+B,anotacao_curada,random_forest,3,5,0.7153548136140652
+B,gene_novo,random_forest,3,5,0.7086943865370372
+só estruturais,anotacao_curada,random_forest,3,5,0.31248841437051234
+só estruturais,gene_novo,random_forest,3,5,0.24915080809313478
+só classes,anotacao_curada,random_forest,3,5,0.8870925824457714
+só classes,gene_novo,random_forest,3,5,0.8654537044432022
+só ontologia,anotacao_curada,random_forest,3,5,0.9306269543535718
+só ontologia,gene_novo,random_forest,3,5,0.9004257210540907
+A,anotacao_curada,random_forest,4,1,0.6517168672682325
+A,gene_novo,random_forest,4,1,0.6517168672682325
+A + estruturais,anotacao_curada,random_forest,4,1,0.790055675174539
+A + estruturais,gene_novo,random_forest,4,1,0.7911532792021444
+A + classes,anotacao_curada,random_forest,4,1,0.8701015105605492
+A + classes,gene_novo,random_forest,4,1,0.8604924770356449
+B,anotacao_curada,random_forest,4,1,0.9100511434467433
+B,gene_novo,random_forest,4,1,0.9093209841160661
+só estruturais,anotacao_curada,random_forest,4,1,0.4312252431815192
+só estruturais,gene_novo,random_forest,4,1,0.4325382615516899
+só classes,anotacao_curada,random_forest,4,1,0.8177290766063467
+só classes,gene_novo,random_forest,4,1,0.8014069695617577
+só ontologia,anotacao_curada,random_forest,4,1,0.911484593837535
+só ontologia,gene_novo,random_forest,4,1,0.8910850363364957
+A,anotacao_curada,random_forest,4,2,0.598217291879531
+A,gene_novo,random_forest,4,2,0.598217291879531
+A + estruturais,anotacao_curada,random_forest,4,2,0.7194507366054449
+A + estruturais,gene_novo,random_forest,4,2,0.7180136751576788
+A + classes,anotacao_curada,random_forest,4,2,0.6797546639407105
+A + classes,gene_novo,random_forest,4,2,0.6852337679525523
+B,anotacao_curada,random_forest,4,2,0.8772725772875205
+B,gene_novo,random_forest,4,2,0.7641216800058328
+só estruturais,anotacao_curada,random_forest,4,2,0.4450147635145399
+só estruturais,gene_novo,random_forest,4,2,0.3608993754337265
+só classes,anotacao_curada,random_forest,4,2,0.5527606246356246
+só classes,gene_novo,random_forest,4,2,0.6588226301818606
+só ontologia,anotacao_curada,random_forest,4,2,0.8327265722170593
+só ontologia,gene_novo,random_forest,4,2,0.7874791200163143
+A,anotacao_curada,random_forest,4,3,0.5496379725126739
+A,gene_novo,random_forest,4,3,0.5496379725126739
+A + estruturais,anotacao_curada,random_forest,4,3,0.6817465900672921
+A + estruturais,gene_novo,random_forest,4,3,0.6753360140456914
+A + classes,anotacao_curada,random_forest,4,3,0.6454950802127934
+A + classes,gene_novo,random_forest,4,3,0.643123743286416
+B,anotacao_curada,random_forest,4,3,0.8076183083438874
+B,gene_novo,random_forest,4,3,0.8062254167914545
+só estruturais,anotacao_curada,random_forest,4,3,0.46805403228368786
+só estruturais,gene_novo,random_forest,4,3,0.457993529564384
+só classes,anotacao_curada,random_forest,4,3,0.7572705989682907
+só classes,gene_novo,random_forest,4,3,0.6064147703220886
+só ontologia,anotacao_curada,random_forest,4,3,0.8130088618224212
+só ontologia,gene_novo,random_forest,4,3,0.7870810623533437
+A,anotacao_curada,random_forest,4,4,0.6392140155549559
+A,gene_novo,random_forest,4,4,0.6392140155549559
+A + estruturais,anotacao_curada,random_forest,4,4,0.7194099068411566
+A + estruturais,gene_novo,random_forest,4,4,0.7021047283476517
+A + classes,anotacao_curada,random_forest,4,4,0.7209069564539259
+A + classes,gene_novo,random_forest,4,4,0.7134080283291543
+B,anotacao_curada,random_forest,4,4,0.9035175097896004
+B,gene_novo,random_forest,4,4,0.8589490296937106
+só estruturais,anotacao_curada,random_forest,4,4,0.39969955891992365
+só estruturais,gene_novo,random_forest,4,4,0.38544679817940736
+só classes,anotacao_curada,random_forest,4,4,0.7980200962742808
+só classes,gene_novo,random_forest,4,4,0.8256514100785945
+só ontologia,anotacao_curada,random_forest,4,4,0.8711816474396091
+só ontologia,gene_novo,random_forest,4,4,0.8441342055235307
+A,anotacao_curada,random_forest,4,5,0.44042375533017364
+A,gene_novo,random_forest,4,5,0.44042375533017364
+A + estruturais,anotacao_curada,random_forest,4,5,0.5172069001903717
+A + estruturais,gene_novo,random_forest,4,5,0.5191201359619945
+A + classes,anotacao_curada,random_forest,4,5,0.5848635138608768
+A + classes,gene_novo,random_forest,4,5,0.5818481875852972
+B,anotacao_curada,random_forest,4,5,0.6134526413815242
+B,gene_novo,random_forest,4,5,0.6089422419788665
+só estruturais,anotacao_curada,random_forest,4,5,0.31525030419345507
+só estruturais,gene_novo,random_forest,4,5,0.30187839287691143
+só classes,anotacao_curada,random_forest,4,5,0.8486383511815129
+só classes,gene_novo,random_forest,4,5,0.8509599334595557
+só ontologia,anotacao_curada,random_forest,4,5,0.8885288381958372
+só ontologia,gene_novo,random_forest,4,5,0.8658453172687418
+A,anotacao_curada,random_forest,5,1,0.47718108162471473
+A,gene_novo,random_forest,5,1,0.47718108162471473
+A + estruturais,anotacao_curada,random_forest,5,1,0.5696244803458088
+A + estruturais,gene_novo,random_forest,5,1,0.563910194631523
+A + classes,anotacao_curada,random_forest,5,1,0.638810049801229
+A + classes,gene_novo,random_forest,5,1,0.6588159588159588
+B,anotacao_curada,random_forest,5,1,0.8467116669975514
+B,gene_novo,random_forest,5,1,0.8424860044201692
+só estruturais,anotacao_curada,random_forest,5,1,0.39362173663277567
+só estruturais,gene_novo,random_forest,5,1,0.38176849301867943
+só classes,anotacao_curada,random_forest,5,1,0.8222549019607843
+só classes,gene_novo,random_forest,5,1,0.6607226789114616
+só ontologia,anotacao_curada,random_forest,5,1,0.858757649036994
+só ontologia,gene_novo,random_forest,5,1,0.8090393163952128
+A,anotacao_curada,random_forest,5,2,0.6191292877691346
+A,gene_novo,random_forest,5,2,0.6191292877691346
+A + estruturais,anotacao_curada,random_forest,5,2,0.7509502572898799
+A + estruturais,gene_novo,random_forest,5,2,0.7555717748402851
+A + classes,anotacao_curada,random_forest,5,2,0.8348568139735045
+A + classes,gene_novo,random_forest,5,2,0.8429192804726109
+B,anotacao_curada,random_forest,5,2,0.8821887780646156
+B,gene_novo,random_forest,5,2,0.8889222115057228
+só estruturais,anotacao_curada,random_forest,5,2,0.4909703946208374
+só estruturais,gene_novo,random_forest,5,2,0.4672959312472937
+só classes,anotacao_curada,random_forest,5,2,0.765714668967264
+só classes,gene_novo,random_forest,5,2,0.7829609987850733
+só ontologia,anotacao_curada,random_forest,5,2,0.7903643527433644
+só ontologia,gene_novo,random_forest,5,2,0.7973680306181459
+A,anotacao_curada,random_forest,5,3,0.5293048980059974
+A,gene_novo,random_forest,5,3,0.5293048980059974
+A + estruturais,anotacao_curada,random_forest,5,3,0.628373116136934
+A + estruturais,gene_novo,random_forest,5,3,0.6208941101524222
+A + classes,anotacao_curada,random_forest,5,3,0.631731999942109
+A + classes,gene_novo,random_forest,5,3,0.620664306103288
+B,anotacao_curada,random_forest,5,3,0.7210914229681953
+B,gene_novo,random_forest,5,3,0.7001179816512652
+só estruturais,anotacao_curada,random_forest,5,3,0.34672890823305835
+só estruturais,gene_novo,random_forest,5,3,0.33506015672940537
+só classes,anotacao_curada,random_forest,5,3,0.7576701620726348
+só classes,gene_novo,random_forest,5,3,0.7721498591617911
+só ontologia,anotacao_curada,random_forest,5,3,0.9188198345025889
+só ontologia,gene_novo,random_forest,5,3,0.8891681896345839
+A,anotacao_curada,random_forest,5,4,0.5177596819751525
+A,gene_novo,random_forest,5,4,0.5177596819751525
+A + estruturais,anotacao_curada,random_forest,5,4,0.6916595578799192
+A + estruturais,gene_novo,random_forest,5,4,0.6824659657915902
+A + classes,anotacao_curada,random_forest,5,4,0.668446849278405
+A + classes,gene_novo,random_forest,5,4,0.6635464326607052
+B,anotacao_curada,random_forest,5,4,0.804242612994741
+B,gene_novo,random_forest,5,4,0.7866527236052396
+só estruturais,anotacao_curada,random_forest,5,4,0.3755133220161843
+só estruturais,gene_novo,random_forest,5,4,0.41161323266586425
+só classes,anotacao_curada,random_forest,5,4,0.5934063713804384
+só classes,gene_novo,random_forest,5,4,0.7772238929854824
+só ontologia,anotacao_curada,random_forest,5,4,0.8034284303270894
+só ontologia,gene_novo,random_forest,5,4,0.788622631382382
+A,anotacao_curada,random_forest,5,5,0.6471330060511439
+A,gene_novo,random_forest,5,5,0.6471330060511439
+A + estruturais,anotacao_curada,random_forest,5,5,0.7266445099925964
+A + estruturais,gene_novo,random_forest,5,5,0.7195595303042113
+A + classes,anotacao_curada,random_forest,5,5,0.6728076704851611
+A + classes,gene_novo,random_forest,5,5,0.6844566765096566
+B,anotacao_curada,random_forest,5,5,0.7924949172648139
+B,gene_novo,random_forest,5,5,0.7720301049712814
+só estruturais,anotacao_curada,random_forest,5,5,0.23080065268843758
+só estruturais,gene_novo,random_forest,5,5,0.08487909705821142
+só classes,anotacao_curada,random_forest,5,5,0.845390993096899
+só classes,gene_novo,random_forest,5,5,0.7249511087699421
+só ontologia,anotacao_curada,random_forest,5,5,0.882440968623871
+só ontologia,gene_novo,random_forest,5,5,0.7647989913445449
+A,anotacao_curada,random_forest,6,1,0.5402621335711713
+A,gene_novo,random_forest,6,1,0.5402621335711713
+A + estruturais,anotacao_curada,random_forest,6,1,0.6711305562606634
+A + estruturais,gene_novo,random_forest,6,1,0.6530923344947734
+A + classes,anotacao_curada,random_forest,6,1,0.8324489568976082
+A + classes,gene_novo,random_forest,6,1,0.8291555756071884
+B,anotacao_curada,random_forest,6,1,0.9178732506542268
+B,gene_novo,random_forest,6,1,0.9135228218947151
+só estruturais,anotacao_curada,random_forest,6,1,0.4740387207837589
+só estruturais,gene_novo,random_forest,6,1,0.4590279891906926
+só classes,anotacao_curada,random_forest,6,1,0.8925316567984952
+só classes,gene_novo,random_forest,6,1,0.8887900033601392
+só ontologia,anotacao_curada,random_forest,6,1,0.9282137893871069
+só ontologia,gene_novo,random_forest,6,1,0.8885035242345319
+A,anotacao_curada,random_forest,6,2,0.39833293715162793
+A,gene_novo,random_forest,6,2,0.39833293715162793
+A + estruturais,anotacao_curada,random_forest,6,2,0.5423655751135997
+A + estruturais,gene_novo,random_forest,6,2,0.5425013006196243
+A + classes,anotacao_curada,random_forest,6,2,0.533359699461231
+A + classes,gene_novo,random_forest,6,2,0.5421935354217547
+B,anotacao_curada,random_forest,6,2,0.60750990694985
+B,gene_novo,random_forest,6,2,0.60750990694985
+só estruturais,anotacao_curada,random_forest,6,2,0.3806852905029623
+só estruturais,gene_novo,random_forest,6,2,0.3204875342082013
+só classes,anotacao_curada,random_forest,6,2,0.786465633218967
+só classes,gene_novo,random_forest,6,2,0.6430471681026615
+só ontologia,anotacao_curada,random_forest,6,2,0.8560131052974171
+só ontologia,gene_novo,random_forest,6,2,0.7641101439485424
+A,anotacao_curada,random_forest,6,3,0.5746594053532474
+A,gene_novo,random_forest,6,3,0.5746594053532474
+A + estruturais,anotacao_curada,random_forest,6,3,0.8217151102865389
+A + estruturais,gene_novo,random_forest,6,3,0.8208578688392352
+A + classes,anotacao_curada,random_forest,6,3,0.804148495182978
+A + classes,gene_novo,random_forest,6,3,0.8308879955551198
+B,anotacao_curada,random_forest,6,3,0.8469433629146351
+B,gene_novo,random_forest,6,3,0.8679142126995396
+só estruturais,anotacao_curada,random_forest,6,3,0.4928708071324954
+só estruturais,gene_novo,random_forest,6,3,0.4974775805438269
+só classes,anotacao_curada,random_forest,6,3,0.5870718672221383
+só classes,gene_novo,random_forest,6,3,0.8250463650463649
+só ontologia,anotacao_curada,random_forest,6,3,0.8633507618711617
+só ontologia,gene_novo,random_forest,6,3,0.8827010463273138
+A,anotacao_curada,random_forest,6,4,0.6910741290223957
+A,gene_novo,random_forest,6,4,0.6910741290223957
+A + estruturais,anotacao_curada,random_forest,6,4,0.7493263461684515
+A + estruturais,gene_novo,random_forest,6,4,0.7413311852448544
+A + classes,anotacao_curada,random_forest,6,4,0.7980016792611251
+A + classes,gene_novo,random_forest,6,4,0.7821312482790337
+B,anotacao_curada,random_forest,6,4,0.9091130094267449
+B,gene_novo,random_forest,6,4,0.8970228446441724
+só estruturais,anotacao_curada,random_forest,6,4,0.3282078334229465
+só estruturais,gene_novo,random_forest,6,4,0.21152952840610273
+só classes,anotacao_curada,random_forest,6,4,0.785174618543878
+só classes,gene_novo,random_forest,6,4,0.7566896317390261
+só ontologia,anotacao_curada,random_forest,6,4,0.8701649757329066
+só ontologia,gene_novo,random_forest,6,4,0.7964255090201126
+A,anotacao_curada,random_forest,6,5,0.4531382659108516
+A,gene_novo,random_forest,6,5,0.4531382659108516
+A + estruturais,anotacao_curada,random_forest,6,5,0.6751351549069096
+A + estruturais,gene_novo,random_forest,6,5,0.6718338201882506
+A + classes,anotacao_curada,random_forest,6,5,0.589428556020988
+A + classes,gene_novo,random_forest,6,5,0.5789945013745539
+B,anotacao_curada,random_forest,6,5,0.6461049065829607
+B,gene_novo,random_forest,6,5,0.6271713191023536
+só estruturais,anotacao_curada,random_forest,6,5,0.3505104957935147
+só estruturais,gene_novo,random_forest,6,5,0.3291828179083081
+só classes,anotacao_curada,random_forest,6,5,0.7463818209475344
+só classes,gene_novo,random_forest,6,5,0.7279904592333908
+só ontologia,anotacao_curada,random_forest,6,5,0.7899661065007599
+só ontologia,gene_novo,random_forest,6,5,0.7654449426001951
+A,anotacao_curada,random_forest,7,1,0.4699813369920065
+A,gene_novo,random_forest,7,1,0.4699813369920065
+A + estruturais,anotacao_curada,random_forest,7,1,0.6761866796575081
+A + estruturais,gene_novo,random_forest,7,1,0.6650532313690208
+A + classes,anotacao_curada,random_forest,7,1,0.6252922609951609
+A + classes,gene_novo,random_forest,7,1,0.6280709468402084
+B,anotacao_curada,random_forest,7,1,0.729985161226561
+B,gene_novo,random_forest,7,1,0.7216964162973375
+só estruturais,anotacao_curada,random_forest,7,1,0.4222082803978977
+só estruturais,gene_novo,random_forest,7,1,0.4091185626269909
+só classes,anotacao_curada,random_forest,7,1,0.775458669155043
+só classes,gene_novo,random_forest,7,1,0.7601189559746452
+só ontologia,anotacao_curada,random_forest,7,1,0.8849452479023305
+só ontologia,gene_novo,random_forest,7,1,0.8815071709700867
+A,anotacao_curada,random_forest,7,2,0.6950208645720728
+A,gene_novo,random_forest,7,2,0.6950208645720728
+A + estruturais,anotacao_curada,random_forest,7,2,0.7572330909210626
+A + estruturais,gene_novo,random_forest,7,2,0.7566967643918426
+A + classes,anotacao_curada,random_forest,7,2,0.7247936965625775
+A + classes,gene_novo,random_forest,7,2,0.7335730416496669
+B,anotacao_curada,random_forest,7,2,0.8071083126020753
+B,gene_novo,random_forest,7,2,0.8019848858412107
+só estruturais,anotacao_curada,random_forest,7,2,0.3754386099654642
+só estruturais,gene_novo,random_forest,7,2,0.31026568021141426
+só classes,anotacao_curada,random_forest,7,2,0.8736626197558615
+só classes,gene_novo,random_forest,7,2,0.687465336022794
+só ontologia,anotacao_curada,random_forest,7,2,0.9042606379860271
+só ontologia,gene_novo,random_forest,7,2,0.7890755701631738
+A,anotacao_curada,random_forest,7,3,0.6437127113736741
+A,gene_novo,random_forest,7,3,0.6437127113736741
+A + estruturais,anotacao_curada,random_forest,7,3,0.7121759237345058
+A + estruturais,gene_novo,random_forest,7,3,0.7094246655501999
+A + classes,anotacao_curada,random_forest,7,3,0.747676843345731
+A + classes,gene_novo,random_forest,7,3,0.7510502283105023
+B,anotacao_curada,random_forest,7,3,0.8532770727145662
+B,gene_novo,random_forest,7,3,0.8360488849297514
+só estruturais,anotacao_curada,random_forest,7,3,0.44217625651346804
+só estruturais,gene_novo,random_forest,7,3,0.4022639272058468
+só classes,anotacao_curada,random_forest,7,3,0.7740414435345517
+só classes,gene_novo,random_forest,7,3,0.7692683612306139
+só ontologia,anotacao_curada,random_forest,7,3,0.8997615591955215
+só ontologia,gene_novo,random_forest,7,3,0.8444100711470878
+A,anotacao_curada,random_forest,7,4,0.5208726558318201
+A,gene_novo,random_forest,7,4,0.5208726558318201
+A + estruturais,anotacao_curada,random_forest,7,4,0.666303349129748
+A + estruturais,gene_novo,random_forest,7,4,0.6629762450172478
+A + classes,anotacao_curada,random_forest,7,4,0.5794059891022967
+A + classes,gene_novo,random_forest,7,4,0.5941062055127327
+B,anotacao_curada,random_forest,7,4,0.7455013114842757
+B,gene_novo,random_forest,7,4,0.7400247257929771
+só estruturais,anotacao_curada,random_forest,7,4,0.3805616031417084
+só estruturais,gene_novo,random_forest,7,4,0.3654497138359646
+só classes,anotacao_curada,random_forest,7,4,0.5775815046325377
+só classes,gene_novo,random_forest,7,4,0.8193342244033488
+só ontologia,anotacao_curada,random_forest,7,4,0.8420778770695858
+só ontologia,gene_novo,random_forest,7,4,0.8186404514419884
+A,anotacao_curada,random_forest,7,5,0.5205533483318174
+A,gene_novo,random_forest,7,5,0.5205533483318174
+A + estruturais,anotacao_curada,random_forest,7,5,0.7038344368565188
+A + estruturais,gene_novo,random_forest,7,5,0.7004310886278099
+A + classes,anotacao_curada,random_forest,7,5,0.6455234877734877
+A + classes,gene_novo,random_forest,7,5,0.6699345224001043
+B,anotacao_curada,random_forest,7,5,0.8056986002741041
+B,gene_novo,random_forest,7,5,0.7869746214645847
+só estruturais,anotacao_curada,random_forest,7,5,0.40936382688120004
+só estruturais,gene_novo,random_forest,7,5,0.41157916445403486
+só classes,anotacao_curada,random_forest,7,5,0.7569201234113515
+só classes,gene_novo,random_forest,7,5,0.7980150675710661
+só ontologia,anotacao_curada,random_forest,7,5,0.8025868202621208
+só ontologia,gene_novo,random_forest,7,5,0.8008930371906778
+A,anotacao_curada,random_forest,8,1,0.44751914989312225
+A,gene_novo,random_forest,8,1,0.44751914989312225
+A + estruturais,anotacao_curada,random_forest,8,1,0.6643101548993545
+A + estruturais,gene_novo,random_forest,8,1,0.6643101548993545
+A + classes,anotacao_curada,random_forest,8,1,0.7107596139943881
+A + classes,gene_novo,random_forest,8,1,0.7037069014601938
+B,anotacao_curada,random_forest,8,1,0.8264839825163417
+B,gene_novo,random_forest,8,1,0.824359033079028
+só estruturais,anotacao_curada,random_forest,8,1,0.38176986089384535
+só estruturais,gene_novo,random_forest,8,1,0.3861729925505206
+só classes,anotacao_curada,random_forest,8,1,0.7265445833796098
+só classes,gene_novo,random_forest,8,1,0.7312069878127925
+só ontologia,anotacao_curada,random_forest,8,1,0.8284309880467106
+só ontologia,gene_novo,random_forest,8,1,0.7890539421975981
+A,anotacao_curada,random_forest,8,2,0.6196676325568344
+A,gene_novo,random_forest,8,2,0.6196676325568344
+A + estruturais,anotacao_curada,random_forest,8,2,0.769455405894282
+A + estruturais,gene_novo,random_forest,8,2,0.7488033560960927
+A + classes,anotacao_curada,random_forest,8,2,0.7765001422967941
+A + classes,gene_novo,random_forest,8,2,0.7847425665392183
+B,anotacao_curada,random_forest,8,2,0.8819365864653502
+B,gene_novo,random_forest,8,2,0.8614728597648513
+só estruturais,anotacao_curada,random_forest,8,2,0.41945281457476574
+só estruturais,gene_novo,random_forest,8,2,0.40035958805592314
+só classes,anotacao_curada,random_forest,8,2,0.6931873173459989
+só classes,gene_novo,random_forest,8,2,0.7190237550562223
+só ontologia,anotacao_curada,random_forest,8,2,0.8056182269085979
+só ontologia,gene_novo,random_forest,8,2,0.8104430513719633
+A,anotacao_curada,random_forest,8,3,0.5311449322098061
+A,gene_novo,random_forest,8,3,0.5311449322098061
+A + estruturais,anotacao_curada,random_forest,8,3,0.6189259559286807
+A + estruturais,gene_novo,random_forest,8,3,0.620885579791464
+A + classes,anotacao_curada,random_forest,8,3,0.7049855465420709
+A + classes,gene_novo,random_forest,8,3,0.7022712704066393
+B,anotacao_curada,random_forest,8,3,0.7963057280157143
+B,gene_novo,random_forest,8,3,0.7911709354326928
+só estruturais,anotacao_curada,random_forest,8,3,0.35390948909854786
+só estruturais,gene_novo,random_forest,8,3,0.335792040429728
+só classes,anotacao_curada,random_forest,8,3,0.643903609598602
+só classes,gene_novo,random_forest,8,3,0.8258346154962697
+só ontologia,anotacao_curada,random_forest,8,3,0.8975260812424818
+só ontologia,gene_novo,random_forest,8,3,0.8760191134089229
+A,anotacao_curada,random_forest,8,4,0.43851146824777654
+A,gene_novo,random_forest,8,4,0.43851146824777654
+A + estruturais,anotacao_curada,random_forest,8,4,0.5330451748245302
+A + estruturais,gene_novo,random_forest,8,4,0.5328257562836634
+A + classes,anotacao_curada,random_forest,8,4,0.6119863328463275
+A + classes,gene_novo,random_forest,8,4,0.6158840191347288
+B,anotacao_curada,random_forest,8,4,0.646123116487568
+B,gene_novo,random_forest,8,4,0.6394575938008076
+só estruturais,anotacao_curada,random_forest,8,4,0.33204124930877127
+só estruturais,gene_novo,random_forest,8,4,0.31897350127526547
+só classes,anotacao_curada,random_forest,8,4,0.8766952181322093
+só classes,gene_novo,random_forest,8,4,0.8400532056397978
+só ontologia,anotacao_curada,random_forest,8,4,0.9203667789143612
+só ontologia,gene_novo,random_forest,8,4,0.905207380596497
+A,anotacao_curada,random_forest,8,5,0.6662010772505822
+A,gene_novo,random_forest,8,5,0.6662010772505822
+A + estruturais,anotacao_curada,random_forest,8,5,0.7949145258618943
+A + estruturais,gene_novo,random_forest,8,5,0.7916920123785113
+A + classes,anotacao_curada,random_forest,8,5,0.7834064285090065
+A + classes,gene_novo,random_forest,8,5,0.8015348884592963
+B,anotacao_curada,random_forest,8,5,0.851949835663951
+B,gene_novo,random_forest,8,5,0.8594982913194759
+só estruturais,anotacao_curada,random_forest,8,5,0.3812884314578246
+só estruturais,gene_novo,random_forest,8,5,0.34718149320140845
+só classes,anotacao_curada,random_forest,8,5,0.8269969704852217
+só classes,gene_novo,random_forest,8,5,0.7367787117551245
+só ontologia,anotacao_curada,random_forest,8,5,0.8488469663473348
+só ontologia,gene_novo,random_forest,8,5,0.8128750320613982
+A,anotacao_curada,random_forest,9,1,0.45652071862352867
+A,gene_novo,random_forest,9,1,0.45652071862352867
+A + estruturais,anotacao_curada,random_forest,9,1,0.5203715920415746
+A + estruturais,gene_novo,random_forest,9,1,0.5176778105331622
+A + classes,anotacao_curada,random_forest,9,1,0.5386961608664433
+A + classes,gene_novo,random_forest,9,1,0.5307529185148073
+B,anotacao_curada,random_forest,9,1,0.6149160478215412
+B,gene_novo,random_forest,9,1,0.6016625593291365
+só estruturais,anotacao_curada,random_forest,9,1,0.4179987404583302
+só estruturais,gene_novo,random_forest,9,1,0.341330418807199
+só classes,anotacao_curada,random_forest,9,1,0.657402337365152
+só classes,gene_novo,random_forest,9,1,0.5157356048738686
+só ontologia,anotacao_curada,random_forest,9,1,0.7487972474089464
+só ontologia,gene_novo,random_forest,9,1,0.6227752361808456
+A,anotacao_curada,random_forest,9,2,0.5926453231344972
+A,gene_novo,random_forest,9,2,0.5926453231344972
+A + estruturais,anotacao_curada,random_forest,9,2,0.6956935945902245
+A + estruturais,gene_novo,random_forest,9,2,0.6888722878879141
+A + classes,anotacao_curada,random_forest,9,2,0.7543395222225011
+A + classes,gene_novo,random_forest,9,2,0.7483759616230077
+B,anotacao_curada,random_forest,9,2,0.8573534691783214
+B,gene_novo,random_forest,9,2,0.8408881006255807
+só estruturais,anotacao_curada,random_forest,9,2,0.373383945683676
+só estruturais,gene_novo,random_forest,9,2,0.3659663406077104
+só classes,anotacao_curada,random_forest,9,2,0.5668132594019194
+só classes,gene_novo,random_forest,9,2,0.7456623356600229
+só ontologia,anotacao_curada,random_forest,9,2,0.8577877948236419
+só ontologia,gene_novo,random_forest,9,2,0.8109152829540063
+A,anotacao_curada,random_forest,9,3,0.48393249670314137
+A,gene_novo,random_forest,9,3,0.48393249670314137
+A + estruturais,anotacao_curada,random_forest,9,3,0.6260889173862718
+A + estruturais,gene_novo,random_forest,9,3,0.6260889173862718
+A + classes,anotacao_curada,random_forest,9,3,0.7034682466466728
+A + classes,gene_novo,random_forest,9,3,0.7084143520944695
+B,anotacao_curada,random_forest,9,3,0.7154788815539742
+B,gene_novo,random_forest,9,3,0.7133528040721245
+só estruturais,anotacao_curada,random_forest,9,3,0.2758624976877072
+só estruturais,gene_novo,random_forest,9,3,0.2535038379263585
+só classes,anotacao_curada,random_forest,9,3,0.8080103143541428
+só classes,gene_novo,random_forest,9,3,0.8240311973545698
+só ontologia,anotacao_curada,random_forest,9,3,0.8666818183637324
+só ontologia,gene_novo,random_forest,9,3,0.8723144485323878
+A,anotacao_curada,random_forest,9,4,0.36760342795458834
+A,gene_novo,random_forest,9,4,0.36760342795458834
+A + estruturais,anotacao_curada,random_forest,9,4,0.427288823407775
+A + estruturais,gene_novo,random_forest,9,4,0.42502141672359894
+A + classes,anotacao_curada,random_forest,9,4,0.4109806794679736
+A + classes,gene_novo,random_forest,9,4,0.41744239853982784
+B,anotacao_curada,random_forest,9,4,0.5828603814678599
+B,gene_novo,random_forest,9,4,0.5763188296346536
+só estruturais,anotacao_curada,random_forest,9,4,0.2203389207350129
+só estruturais,gene_novo,random_forest,9,4,0.20863368705592672
+só classes,anotacao_curada,random_forest,9,4,0.8459205191983225
+só classes,gene_novo,random_forest,9,4,0.837887538804258
+só ontologia,anotacao_curada,random_forest,9,4,0.9269542015108782
+só ontologia,gene_novo,random_forest,9,4,0.8870481236006451
+A,anotacao_curada,random_forest,9,5,0.7014242204225714
+A,gene_novo,random_forest,9,5,0.7014242204225714
+A + estruturais,anotacao_curada,random_forest,9,5,0.7814066740269834
+A + estruturais,gene_novo,random_forest,9,5,0.7814066740269834
+A + classes,anotacao_curada,random_forest,9,5,0.8382103675478287
+A + classes,gene_novo,random_forest,9,5,0.8382103675478287
+B,anotacao_curada,random_forest,9,5,0.9471926886448591
+B,gene_novo,random_forest,9,5,0.9362842974241788
+só estruturais,anotacao_curada,random_forest,9,5,0.37976986191109474
+só estruturais,gene_novo,random_forest,9,5,0.3686340066042242
+só classes,anotacao_curada,random_forest,9,5,0.832380717384727
+só classes,gene_novo,random_forest,9,5,0.779181172322039
+só ontologia,anotacao_curada,random_forest,9,5,0.8652838347482683
+só ontologia,gene_novo,random_forest,9,5,0.820724273674587
+A,anotacao_curada,random_forest,10,1,0.5780693509614772
+A,gene_novo,random_forest,10,1,0.5780693509614772
+A + estruturais,anotacao_curada,random_forest,10,1,0.6258555216830048
+A + estruturais,gene_novo,random_forest,10,1,0.6204091297067289
+A + classes,anotacao_curada,random_forest,10,1,0.66017763752407
+A + classes,gene_novo,random_forest,10,1,0.6737596449300102
+B,anotacao_curada,random_forest,10,1,0.7403723716824183
+B,gene_novo,random_forest,10,1,0.7245077970330593
+só estruturais,anotacao_curada,random_forest,10,1,0.3303398727848873
+só estruturais,gene_novo,random_forest,10,1,0.279859943402311
+só classes,anotacao_curada,random_forest,10,1,0.866135715234595
+só classes,gene_novo,random_forest,10,1,0.7514432833950729
+só ontologia,anotacao_curada,random_forest,10,1,0.8858577147180119
+só ontologia,gene_novo,random_forest,10,1,0.776206820191988
+A,anotacao_curada,random_forest,10,2,0.5210828407104329
+A,gene_novo,random_forest,10,2,0.5210828407104329
+A + estruturais,anotacao_curada,random_forest,10,2,0.802204375728417
+A + estruturais,gene_novo,random_forest,10,2,0.7955515262341969
+A + classes,anotacao_curada,random_forest,10,2,0.8061509573013094
+A + classes,gene_novo,random_forest,10,2,0.8012474869277254
+B,anotacao_curada,random_forest,10,2,0.8303985667375183
+B,gene_novo,random_forest,10,2,0.836964601640444
+só estruturais,anotacao_curada,random_forest,10,2,0.44768217440549546
+só estruturais,gene_novo,random_forest,10,2,0.4642561936104008
+só classes,anotacao_curada,random_forest,10,2,0.5241149112332593
+só classes,gene_novo,random_forest,10,2,0.7500762798967857
+só ontologia,anotacao_curada,random_forest,10,2,0.8353326014322203
+só ontologia,gene_novo,random_forest,10,2,0.9019791463358869
+A,anotacao_curada,random_forest,10,3,0.3941223606289337
+A,gene_novo,random_forest,10,3,0.3941223606289337
+A + estruturais,anotacao_curada,random_forest,10,3,0.491572673509512
+A + estruturais,gene_novo,random_forest,10,3,0.4877265196633581
+A + classes,anotacao_curada,random_forest,10,3,0.5345100869608752
+A + classes,gene_novo,random_forest,10,3,0.5392241639667039
+B,anotacao_curada,random_forest,10,3,0.6811555760581248
+B,gene_novo,random_forest,10,3,0.6795111746606695
+só estruturais,anotacao_curada,random_forest,10,3,0.4108897830444523
+só estruturais,gene_novo,random_forest,10,3,0.4163951415661402
+só classes,anotacao_curada,random_forest,10,3,0.7825568984966156
+só classes,gene_novo,random_forest,10,3,0.819986380517119
+só ontologia,anotacao_curada,random_forest,10,3,0.9098508833527221
+só ontologia,gene_novo,random_forest,10,3,0.879087823754307
+A,anotacao_curada,random_forest,10,4,0.6601017227889779
+A,gene_novo,random_forest,10,4,0.6601017227889779
+A + estruturais,anotacao_curada,random_forest,10,4,0.8405461480473013
+A + estruturais,gene_novo,random_forest,10,4,0.8443152116493259
+A + classes,anotacao_curada,random_forest,10,4,0.7860731028434185
+A + classes,gene_novo,random_forest,10,4,0.7908350076053232
+B,anotacao_curada,random_forest,10,4,0.8899266653172073
+B,gene_novo,random_forest,10,4,0.8876181274338281
+só estruturais,anotacao_curada,random_forest,10,4,0.37769476483506886
+só estruturais,gene_novo,random_forest,10,4,0.3543307731694828
+só classes,anotacao_curada,random_forest,10,4,0.8415623051728527
+só classes,gene_novo,random_forest,10,4,0.8263000716392837
+só ontologia,anotacao_curada,random_forest,10,4,0.8503152302197226
+só ontologia,gene_novo,random_forest,10,4,0.838556618235265
+A,anotacao_curada,random_forest,10,5,0.5505446791267923
+A,gene_novo,random_forest,10,5,0.5505446791267923
+A + estruturais,anotacao_curada,random_forest,10,5,0.6244445383346082
+A + estruturais,gene_novo,random_forest,10,5,0.6167608132412009
+A + classes,anotacao_curada,random_forest,10,5,0.657476951897469
+A + classes,gene_novo,random_forest,10,5,0.6833386837881219
+B,anotacao_curada,random_forest,10,5,0.7100975575117452
+B,gene_novo,random_forest,10,5,0.6976981148563688
+só estruturais,anotacao_curada,random_forest,10,5,0.411765902865342
+só estruturais,gene_novo,random_forest,10,5,0.3694084967694853
+só classes,anotacao_curada,random_forest,10,5,0.7025813463126896
+só classes,gene_novo,random_forest,10,5,0.5529452034828005
+só ontologia,anotacao_curada,random_forest,10,5,0.8005472553920207
+só ontologia,gene_novo,random_forest,10,5,0.7532002142750361
+A,anotacao_curada,xgboost,1,1,0.7434361009544593
+A,gene_novo,xgboost,1,1,0.7434361009544593
+A + estruturais,anotacao_curada,xgboost,1,1,0.7434991602204717
+A + estruturais,gene_novo,xgboost,1,1,0.7427670147388175
+A + classes,anotacao_curada,xgboost,1,1,0.8571171939277935
+A + classes,gene_novo,xgboost,1,1,0.843119576342842
+B,anotacao_curada,xgboost,1,1,0.8588676170052301
+B,gene_novo,xgboost,1,1,0.846907715939974
+só estruturais,anotacao_curada,xgboost,1,1,0.4292560921712564
+só estruturais,gene_novo,xgboost,1,1,0.4490393671639269
+só classes,anotacao_curada,xgboost,1,1,0.7385743996974854
+só classes,gene_novo,xgboost,1,1,0.5584610188161286
+só ontologia,anotacao_curada,xgboost,1,1,0.743042398954123
+só ontologia,gene_novo,xgboost,1,1,0.8071209849115986
+A,anotacao_curada,xgboost,1,2,0.7116260261680429
+A,gene_novo,xgboost,1,2,0.7116260261680429
+A + estruturais,anotacao_curada,xgboost,1,2,0.7840353575775338
+A + estruturais,gene_novo,xgboost,1,2,0.7461783547268561
+A + classes,anotacao_curada,xgboost,1,2,0.9687821220787697
+A + classes,gene_novo,xgboost,1,2,0.8227624608311395
+B,anotacao_curada,xgboost,1,2,0.9870357578179838
+B,gene_novo,xgboost,1,2,0.8310628796973335
+só estruturais,anotacao_curada,xgboost,1,2,0.44895658030619856
+só estruturais,gene_novo,xgboost,1,2,0.3776413308053149
+só classes,anotacao_curada,xgboost,1,2,0.7981350621056503
+só classes,gene_novo,xgboost,1,2,0.6918445164653891
+só ontologia,anotacao_curada,xgboost,1,2,0.8711765242235856
+só ontologia,gene_novo,xgboost,1,2,0.7198863401142844
+A,anotacao_curada,xgboost,1,3,0.7679304666210036
+A,gene_novo,xgboost,1,3,0.7679304666210036
+A + estruturais,anotacao_curada,xgboost,1,3,0.8481789734048999
+A + estruturais,gene_novo,xgboost,1,3,0.8078797708287737
+A + classes,anotacao_curada,xgboost,1,3,0.9089166421671783
+A + classes,gene_novo,xgboost,1,3,0.857143910131696
+B,anotacao_curada,xgboost,1,3,0.908009708737864
+B,gene_novo,xgboost,1,3,0.8590242828522994
+só estruturais,anotacao_curada,xgboost,1,3,0.3753272091295676
+só estruturais,gene_novo,xgboost,1,3,0.4097824547475408
+só classes,anotacao_curada,xgboost,1,3,0.514821491105309
+só classes,gene_novo,xgboost,1,3,0.7117065820232992
+só ontologia,anotacao_curada,xgboost,1,3,0.8101213047148674
+só ontologia,gene_novo,xgboost,1,3,0.8087917515138688
+A,anotacao_curada,xgboost,1,4,0.5158171469033428
+A,gene_novo,xgboost,1,4,0.5158171469033428
+A + estruturais,anotacao_curada,xgboost,1,4,0.6219823073440754
+A + estruturais,gene_novo,xgboost,1,4,0.5979259354588852
+A + classes,anotacao_curada,xgboost,1,4,0.7311875070238448
+A + classes,gene_novo,xgboost,1,4,0.7000358356922203
+B,anotacao_curada,xgboost,1,4,0.7373308469104332
+B,gene_novo,xgboost,1,4,0.6956039730493764
+só estruturais,anotacao_curada,xgboost,1,4,0.32163263866050246
+só estruturais,gene_novo,xgboost,1,4,0.3040552092437924
+só classes,anotacao_curada,xgboost,1,4,0.85950903320349
+só classes,gene_novo,xgboost,1,4,0.8315533848867183
+só ontologia,anotacao_curada,xgboost,1,4,0.8948105292241173
+só ontologia,gene_novo,xgboost,1,4,0.873093375065206
+A,anotacao_curada,xgboost,1,5,0.8456723963290325
+A,gene_novo,xgboost,1,5,0.8456723963290325
+A + estruturais,anotacao_curada,xgboost,1,5,0.8703252654812971
+A + estruturais,gene_novo,xgboost,1,5,0.871318447634237
+A + classes,anotacao_curada,xgboost,1,5,0.8894674470214039
+A + classes,gene_novo,xgboost,1,5,0.8772426963186426
+B,anotacao_curada,xgboost,1,5,0.8939765698088442
+B,gene_novo,xgboost,1,5,0.8901165757742533
+só estruturais,anotacao_curada,xgboost,1,5,0.41178065227834815
+só estruturais,gene_novo,xgboost,1,5,0.3825473479698832
+só classes,anotacao_curada,xgboost,1,5,0.8079156810177153
+só classes,gene_novo,xgboost,1,5,0.8002775140373565
+só ontologia,anotacao_curada,xgboost,1,5,0.8864645717185542
+só ontologia,gene_novo,xgboost,1,5,0.8593316346680415
+A,anotacao_curada,xgboost,2,1,0.7985273470700178
+A,gene_novo,xgboost,2,1,0.7985273470700178
+A + estruturais,anotacao_curada,xgboost,2,1,0.8568136253490273
+A + estruturais,gene_novo,xgboost,2,1,0.844600090650847
+A + classes,anotacao_curada,xgboost,2,1,0.9613060723511697
+A + classes,gene_novo,xgboost,2,1,0.9303080029677468
+B,anotacao_curada,xgboost,2,1,0.944911363775292
+B,gene_novo,xgboost,2,1,0.9234588573035876
+só estruturais,anotacao_curada,xgboost,2,1,0.40362308814549097
+só estruturais,gene_novo,xgboost,2,1,0.3988787426398518
+só classes,anotacao_curada,xgboost,2,1,0.7465632386760589
+só classes,gene_novo,xgboost,2,1,0.6445812477537746
+só ontologia,anotacao_curada,xgboost,2,1,0.8599961630349563
+só ontologia,gene_novo,xgboost,2,1,0.851487445887446
+A,anotacao_curada,xgboost,2,2,0.7620694580392728
+A,gene_novo,xgboost,2,2,0.7620694580392728
+A + estruturais,anotacao_curada,xgboost,2,2,0.8378096572538846
+A + estruturais,gene_novo,xgboost,2,2,0.8114493515808994
+A + classes,anotacao_curada,xgboost,2,2,0.9015768484518574
+A + classes,gene_novo,xgboost,2,2,0.8602192822208975
+B,anotacao_curada,xgboost,2,2,0.917537332174249
+B,gene_novo,xgboost,2,2,0.8814160720899672
+só estruturais,anotacao_curada,xgboost,2,2,0.22717547662597512
+só estruturais,gene_novo,xgboost,2,2,0.21080191549887628
+só classes,anotacao_curada,xgboost,2,2,0.6171100525690896
+só classes,gene_novo,xgboost,2,2,0.8194413036626191
+só ontologia,anotacao_curada,xgboost,2,2,0.8674574562705342
+só ontologia,gene_novo,xgboost,2,2,0.8462860345042476
+A,anotacao_curada,xgboost,2,3,0.7550688020923275
+A,gene_novo,xgboost,2,3,0.7550688020923275
+A + estruturais,anotacao_curada,xgboost,2,3,0.8177418006308669
+A + estruturais,gene_novo,xgboost,2,3,0.8039546568612874
+A + classes,anotacao_curada,xgboost,2,3,0.9113287235304155
+A + classes,gene_novo,xgboost,2,3,0.8785633354824844
+B,anotacao_curada,xgboost,2,3,0.9221293788128883
+B,gene_novo,xgboost,2,3,0.8933000737776517
+só estruturais,anotacao_curada,xgboost,2,3,0.3968448177518974
+só estruturais,gene_novo,xgboost,2,3,0.446961444239626
+só classes,anotacao_curada,xgboost,2,3,0.7836439028518237
+só classes,gene_novo,xgboost,2,3,0.7918490770806165
+só ontologia,anotacao_curada,xgboost,2,3,0.9043109782019112
+só ontologia,gene_novo,xgboost,2,3,0.8437873284907184
+A,anotacao_curada,xgboost,2,4,0.706617723522098
+A,gene_novo,xgboost,2,4,0.706617723522098
+A + estruturais,anotacao_curada,xgboost,2,4,0.7570768675699739
+A + estruturais,gene_novo,xgboost,2,4,0.7370942792147612
+A + classes,anotacao_curada,xgboost,2,4,0.913129097075211
+A + classes,gene_novo,xgboost,2,4,0.8856419769036018
+B,anotacao_curada,xgboost,2,4,0.9495848710679187
+B,gene_novo,xgboost,2,4,0.8683396734528662
+só estruturais,anotacao_curada,xgboost,2,4,0.4348807006946542
+só estruturais,gene_novo,xgboost,2,4,0.39788909325514393
+só classes,anotacao_curada,xgboost,2,4,0.7973147737593228
+só classes,gene_novo,xgboost,2,4,0.69301785358731
+só ontologia,anotacao_curada,xgboost,2,4,0.825018161715407
+só ontologia,gene_novo,xgboost,2,4,0.8103996970712961
+A,anotacao_curada,xgboost,2,5,0.5545990331545703
+A,gene_novo,xgboost,2,5,0.5545990331545703
+A + estruturais,anotacao_curada,xgboost,2,5,0.7973504714314561
+A + estruturais,gene_novo,xgboost,2,5,0.6930260266018028
+A + classes,anotacao_curada,xgboost,2,5,0.9274025797199485
+A + classes,gene_novo,xgboost,2,5,0.7715327181555459
+B,anotacao_curada,xgboost,2,5,0.8915418919750057
+B,gene_novo,xgboost,2,5,0.7385270491904532
+só estruturais,anotacao_curada,xgboost,2,5,0.4615101254429185
+só estruturais,gene_novo,xgboost,2,5,0.3632744133330298
+só classes,anotacao_curada,xgboost,2,5,0.841590606849454
+só classes,gene_novo,xgboost,2,5,0.7261523815756871
+só ontologia,anotacao_curada,xgboost,2,5,0.8633321241784777
+só ontologia,gene_novo,xgboost,2,5,0.7163845132700025
+A,anotacao_curada,xgboost,3,1,0.7216870848449795
+A,gene_novo,xgboost,3,1,0.7216870848449795
+A + estruturais,anotacao_curada,xgboost,3,1,0.8339633193519204
+A + estruturais,gene_novo,xgboost,3,1,0.8067821656876383
+A + classes,anotacao_curada,xgboost,3,1,0.9519163052832716
+A + classes,gene_novo,xgboost,3,1,0.9161778077752964
+B,anotacao_curada,xgboost,3,1,0.9303534185653455
+B,gene_novo,xgboost,3,1,0.904968087795031
+só estruturais,anotacao_curada,xgboost,3,1,0.3731933448363929
+só estruturais,gene_novo,xgboost,3,1,0.3723161897601249
+só classes,anotacao_curada,xgboost,3,1,0.7962746913313202
+só classes,gene_novo,xgboost,3,1,0.7626191764562134
+só ontologia,anotacao_curada,xgboost,3,1,0.8397033086802749
+só ontologia,gene_novo,xgboost,3,1,0.8029077475607952
+A,anotacao_curada,xgboost,3,2,0.7666130742418045
+A,gene_novo,xgboost,3,2,0.7666130742418045
+A + estruturais,anotacao_curada,xgboost,3,2,0.8767667755126475
+A + estruturais,gene_novo,xgboost,3,2,0.879823524967893
+A + classes,anotacao_curada,xgboost,3,2,0.9687050998256928
+A + classes,gene_novo,xgboost,3,2,0.9224568764461466
+B,anotacao_curada,xgboost,3,2,0.956726616641973
+B,gene_novo,xgboost,3,2,0.9388156854678839
+só estruturais,anotacao_curada,xgboost,3,2,0.29127181254329226
+só estruturais,gene_novo,xgboost,3,2,0.24306677442861496
+só classes,anotacao_curada,xgboost,3,2,0.7634391057077454
+só classes,gene_novo,xgboost,3,2,0.6602789847150871
+só ontologia,anotacao_curada,xgboost,3,2,0.8097698971172825
+só ontologia,gene_novo,xgboost,3,2,0.7762943050309816
+A,anotacao_curada,xgboost,3,3,0.8015802360987244
+A,gene_novo,xgboost,3,3,0.8015802360987244
+A + estruturais,anotacao_curada,xgboost,3,3,0.8962682570001264
+A + estruturais,gene_novo,xgboost,3,3,0.8778749957999127
+A + classes,anotacao_curada,xgboost,3,3,0.945883445556646
+A + classes,gene_novo,xgboost,3,3,0.9339664082687339
+B,anotacao_curada,xgboost,3,3,0.9461793937016999
+B,gene_novo,xgboost,3,3,0.9272131147540982
+só estruturais,anotacao_curada,xgboost,3,3,0.3935968367997219
+só estruturais,gene_novo,xgboost,3,3,0.3732543630349635
+só classes,anotacao_curada,xgboost,3,3,0.7013550886803166
+só classes,gene_novo,xgboost,3,3,0.7408804561974571
+só ontologia,anotacao_curada,xgboost,3,3,0.8096599210742053
+só ontologia,gene_novo,xgboost,3,3,0.8000372542802789
+A,anotacao_curada,xgboost,3,4,0.6721559837349311
+A,gene_novo,xgboost,3,4,0.6721559837349311
+A + estruturais,anotacao_curada,xgboost,3,4,0.7521814894884387
+A + estruturais,gene_novo,xgboost,3,4,0.6837481232218074
+A + classes,anotacao_curada,xgboost,3,4,0.9286159456462281
+A + classes,gene_novo,xgboost,3,4,0.7660386479624428
+B,anotacao_curada,xgboost,3,4,0.8693134463341472
+B,gene_novo,xgboost,3,4,0.7348210871827336
+só estruturais,anotacao_curada,xgboost,3,4,0.48926971175521067
+só estruturais,gene_novo,xgboost,3,4,0.385694111176324
+só classes,anotacao_curada,xgboost,3,4,0.5042128002764307
+só classes,gene_novo,xgboost,3,4,0.6067067540515122
+só ontologia,anotacao_curada,xgboost,3,4,0.8108584793427089
+só ontologia,gene_novo,xgboost,3,4,0.7371838027142268
+A,anotacao_curada,xgboost,3,5,0.7768363372992304
+A,gene_novo,xgboost,3,5,0.7768363372992304
+A + estruturais,anotacao_curada,xgboost,3,5,0.8970022303278397
+A + estruturais,gene_novo,xgboost,3,5,0.8821210516256297
+A + classes,anotacao_curada,xgboost,3,5,0.9298027748465554
+A + classes,gene_novo,xgboost,3,5,0.9096576837727974
+B,anotacao_curada,xgboost,3,5,0.9130038437312684
+B,gene_novo,xgboost,3,5,0.904593919374542
+só estruturais,anotacao_curada,xgboost,3,5,0.28692019495002835
+só estruturais,gene_novo,xgboost,3,5,0.24915080809313478
+só classes,anotacao_curada,xgboost,3,5,0.8802311334221546
+só classes,gene_novo,xgboost,3,5,0.8583433353662991
+só ontologia,anotacao_curada,xgboost,3,5,0.9273217078365779
+só ontologia,gene_novo,xgboost,3,5,0.8953531250835333
+A,anotacao_curada,xgboost,4,1,0.9039609921340025
+A,gene_novo,xgboost,4,1,0.9039609921340025
+A + estruturais,anotacao_curada,xgboost,4,1,0.936257512655653
+A + estruturais,gene_novo,xgboost,4,1,0.9004586984293885
+A + classes,anotacao_curada,xgboost,4,1,0.9631465422128074
+A + classes,gene_novo,xgboost,4,1,0.9412807172730588
+B,anotacao_curada,xgboost,4,1,0.965291461412151
+B,gene_novo,xgboost,4,1,0.9356149681006108
+só estruturais,anotacao_curada,xgboost,4,1,0.4312252431815192
+só estruturais,gene_novo,xgboost,4,1,0.4325382615516899
+só classes,anotacao_curada,xgboost,4,1,0.796579693510149
+só classes,gene_novo,xgboost,4,1,0.7822107767541121
+só ontologia,anotacao_curada,xgboost,4,1,0.8911075198591465
+só ontologia,gene_novo,xgboost,4,1,0.8893021509881975
+A,anotacao_curada,xgboost,4,2,0.6826597338887241
+A,gene_novo,xgboost,4,2,0.6826597338887241
+A + estruturais,anotacao_curada,xgboost,4,2,0.8288042376513551
+A + estruturais,gene_novo,xgboost,4,2,0.757460766658091
+A + classes,anotacao_curada,xgboost,4,2,0.9605851702159989
+A + classes,gene_novo,xgboost,4,2,0.7736806558485175
+B,anotacao_curada,xgboost,4,2,0.9385098178953555
+B,gene_novo,xgboost,4,2,0.7735543890495234
+só estruturais,anotacao_curada,xgboost,4,2,0.4450147635145399
+só estruturais,gene_novo,xgboost,4,2,0.3608993754337265
+só classes,anotacao_curada,xgboost,4,2,0.5408148721364852
+só classes,gene_novo,xgboost,4,2,0.6410048190465862
+só ontologia,anotacao_curada,xgboost,4,2,0.8327698939063526
+só ontologia,gene_novo,xgboost,4,2,0.7817650785959878
+A,anotacao_curada,xgboost,4,3,0.6561422713872804
+A,gene_novo,xgboost,4,3,0.6561422713872804
+A + estruturais,anotacao_curada,xgboost,4,3,0.8252964765071343
+A + estruturais,gene_novo,xgboost,4,3,0.78760624550926
+A + classes,anotacao_curada,xgboost,4,3,0.9367147071230025
+A + classes,gene_novo,xgboost,4,3,0.8912795076388317
+B,anotacao_curada,xgboost,4,3,0.9295919677878441
+B,gene_novo,xgboost,4,3,0.8848671597978403
+só estruturais,anotacao_curada,xgboost,4,3,0.46805403228368786
+só estruturais,gene_novo,xgboost,4,3,0.457993529564384
+só classes,anotacao_curada,xgboost,4,3,0.7541598915989159
+só classes,gene_novo,xgboost,4,3,0.6224832160062188
+só ontologia,anotacao_curada,xgboost,4,3,0.8035581481237889
+só ontologia,gene_novo,xgboost,4,3,0.7825455274108581
+A,anotacao_curada,xgboost,4,4,0.7179101205606148
+A,gene_novo,xgboost,4,4,0.7179101205606148
+A + estruturais,anotacao_curada,xgboost,4,4,0.7897682220920641
+A + estruturais,gene_novo,xgboost,4,4,0.763121764166246
+A + classes,anotacao_curada,xgboost,4,4,0.9022626712233318
+A + classes,gene_novo,xgboost,4,4,0.8541244470044239
+B,anotacao_curada,xgboost,4,4,0.8955823070183613
+B,gene_novo,xgboost,4,4,0.8414191137568267
+só estruturais,anotacao_curada,xgboost,4,4,0.3697402966917119
+só estruturais,gene_novo,xgboost,4,4,0.38544679817940736
+só classes,anotacao_curada,xgboost,4,4,0.7886301831030045
+só classes,gene_novo,xgboost,4,4,0.8194807068320312
+só ontologia,anotacao_curada,xgboost,4,4,0.8849605885294217
+só ontologia,gene_novo,xgboost,4,4,0.8413506349343056
+A,anotacao_curada,xgboost,4,5,0.6949320460304497
+A,gene_novo,xgboost,4,5,0.6949320460304497
+A + estruturais,anotacao_curada,xgboost,4,5,0.8222140154737249
+A + estruturais,gene_novo,xgboost,4,5,0.8128526508248062
+A + classes,anotacao_curada,xgboost,4,5,0.9539586217265184
+A + classes,gene_novo,xgboost,4,5,0.9266310892172962
+B,anotacao_curada,xgboost,4,5,0.9415450874517127
+B,gene_novo,xgboost,4,5,0.914104150868819
+só estruturais,anotacao_curada,xgboost,4,5,0.31525030419345507
+só estruturais,gene_novo,xgboost,4,5,0.30187839287691143
+só classes,anotacao_curada,xgboost,4,5,0.8389008560428561
+só classes,gene_novo,xgboost,4,5,0.8458620199215998
+só ontologia,anotacao_curada,xgboost,4,5,0.8731004394325771
+só ontologia,gene_novo,xgboost,4,5,0.862891507602555
+A,anotacao_curada,xgboost,5,1,0.64444861068543
+A,gene_novo,xgboost,5,1,0.64444861068543
+A + estruturais,anotacao_curada,xgboost,5,1,0.8152238558277531
+A + estruturais,gene_novo,xgboost,5,1,0.7998429607492361
+A + classes,anotacao_curada,xgboost,5,1,0.9235717115849565
+A + classes,gene_novo,xgboost,5,1,0.8881995713265063
+B,anotacao_curada,xgboost,5,1,0.9127338917457299
+B,gene_novo,xgboost,5,1,0.8842312126500607
+só estruturais,anotacao_curada,xgboost,5,1,0.39362173663277567
+só estruturais,gene_novo,xgboost,5,1,0.38176849301867943
+só classes,anotacao_curada,xgboost,5,1,0.7962353426347433
+só classes,gene_novo,xgboost,5,1,0.6556225665444563
+só ontologia,anotacao_curada,xgboost,5,1,0.8408286865661841
+só ontologia,gene_novo,xgboost,5,1,0.8066497898513034
+A,anotacao_curada,xgboost,5,2,0.8284922765808951
+A,gene_novo,xgboost,5,2,0.8284922765808951
+A + estruturais,anotacao_curada,xgboost,5,2,0.833056866766739
+A + estruturais,gene_novo,xgboost,5,2,0.8317313546865099
+A + classes,anotacao_curada,xgboost,5,2,0.9507309204556911
+A + classes,gene_novo,xgboost,5,2,0.9429038266812194
+B,anotacao_curada,xgboost,5,2,0.9083731416037046
+B,gene_novo,xgboost,5,2,0.8864747730522108
+só estruturais,anotacao_curada,xgboost,5,2,0.4909703946208374
+só estruturais,gene_novo,xgboost,5,2,0.4672959312472937
+só classes,anotacao_curada,xgboost,5,2,0.75819011900673
+só classes,gene_novo,xgboost,5,2,0.7825202796649819
+só ontologia,anotacao_curada,xgboost,5,2,0.7866655226211392
+só ontologia,gene_novo,xgboost,5,2,0.7970384182661319
+A,anotacao_curada,xgboost,5,3,0.7325847369744114
+A,gene_novo,xgboost,5,3,0.7325847369744114
+A + estruturais,anotacao_curada,xgboost,5,3,0.836890500752603
+A + estruturais,gene_novo,xgboost,5,3,0.8240577522278171
+A + classes,anotacao_curada,xgboost,5,3,0.8383767826859998
+A + classes,gene_novo,xgboost,5,3,0.8267259330121277
+B,anotacao_curada,xgboost,5,3,0.7097787137685765
+B,gene_novo,xgboost,5,3,0.7112701103357699
+só estruturais,anotacao_curada,xgboost,5,3,0.34672890823305835
+só estruturais,gene_novo,xgboost,5,3,0.33506015672940537
+só classes,anotacao_curada,xgboost,5,3,0.7464261576380291
+só classes,gene_novo,xgboost,5,3,0.7674776300252992
+só ontologia,anotacao_curada,xgboost,5,3,0.9081987577639751
+só ontologia,gene_novo,xgboost,5,3,0.8833096603858367
+A,anotacao_curada,xgboost,5,4,0.6955036800232922
+A,gene_novo,xgboost,5,4,0.6955036800232922
+A + estruturais,anotacao_curada,xgboost,5,4,0.7425642550531043
+A + estruturais,gene_novo,xgboost,5,4,0.74230685328744
+A + classes,anotacao_curada,xgboost,5,4,0.8998605731275479
+A + classes,gene_novo,xgboost,5,4,0.8820984547252806
+B,anotacao_curada,xgboost,5,4,0.858761094125299
+B,gene_novo,xgboost,5,4,0.8405533983208342
+só estruturais,anotacao_curada,xgboost,5,4,0.3755133220161843
+só estruturais,gene_novo,xgboost,5,4,0.41161323266586425
+só classes,anotacao_curada,xgboost,5,4,0.5767064374437374
+só classes,gene_novo,xgboost,5,4,0.767427661661213
+só ontologia,anotacao_curada,xgboost,5,4,0.791467171160581
+só ontologia,gene_novo,xgboost,5,4,0.7872692508584276
+A,anotacao_curada,xgboost,5,5,0.7381444465851074
+A,gene_novo,xgboost,5,5,0.7381444465851074
+A + estruturais,anotacao_curada,xgboost,5,5,0.8281736708357073
+A + estruturais,gene_novo,xgboost,5,5,0.7539913385957511
+A + classes,anotacao_curada,xgboost,5,5,0.9378393035535894
+A + classes,gene_novo,xgboost,5,5,0.7816757855147949
+B,anotacao_curada,xgboost,5,5,0.9510946582154757
+B,gene_novo,xgboost,5,5,0.797921822621425
+só estruturais,anotacao_curada,xgboost,5,5,0.17489751894611055
+só estruturais,gene_novo,xgboost,5,5,0.08487909705821142
+só classes,anotacao_curada,xgboost,5,5,0.8396583739546871
+só classes,gene_novo,xgboost,5,5,0.7223887283884709
+só ontologia,anotacao_curada,xgboost,5,5,0.8944905721329073
+só ontologia,gene_novo,xgboost,5,5,0.7535219953561874
+A,anotacao_curada,xgboost,6,1,0.7631028008945979
+A,gene_novo,xgboost,6,1,0.7631028008945979
+A + estruturais,anotacao_curada,xgboost,6,1,0.8354504504504504
+A + estruturais,gene_novo,xgboost,6,1,0.8176626557209081
+A + classes,anotacao_curada,xgboost,6,1,0.9377076110895768
+A + classes,gene_novo,xgboost,6,1,0.9070508461158691
+B,anotacao_curada,xgboost,6,1,0.9292454945082547
+B,gene_novo,xgboost,6,1,0.9052168867566281
+só estruturais,anotacao_curada,xgboost,6,1,0.4740387207837589
+só estruturais,gene_novo,xgboost,6,1,0.4590279891906926
+só classes,anotacao_curada,xgboost,6,1,0.8755404440280963
+só classes,gene_novo,xgboost,6,1,0.8783745414847832
+só ontologia,anotacao_curada,xgboost,6,1,0.9075133816014777
+só ontologia,gene_novo,xgboost,6,1,0.8782236183171399
+A,anotacao_curada,xgboost,6,2,0.5732818457985982
+A,gene_novo,xgboost,6,2,0.5732818457985982
+A + estruturais,anotacao_curada,xgboost,6,2,0.6443122665164973
+A + estruturais,gene_novo,xgboost,6,2,0.5550782604748955
+A + classes,anotacao_curada,xgboost,6,2,0.7483970927449188
+A + classes,gene_novo,xgboost,6,2,0.6379718966111949
+B,anotacao_curada,xgboost,6,2,0.7418866931707774
+B,gene_novo,xgboost,6,2,0.624986338025515
+só estruturais,anotacao_curada,xgboost,6,2,0.3806852905029623
+só estruturais,gene_novo,xgboost,6,2,0.3204875342082013
+só classes,anotacao_curada,xgboost,6,2,0.7818715768114126
+só classes,gene_novo,xgboost,6,2,0.6417134289771168
+só ontologia,anotacao_curada,xgboost,6,2,0.859242846099645
+só ontologia,gene_novo,xgboost,6,2,0.7626053984589436
+A,anotacao_curada,xgboost,6,3,0.8268425756115139
+A,gene_novo,xgboost,6,3,0.8268425756115139
+A + estruturais,anotacao_curada,xgboost,6,3,0.8371081278841409
+A + estruturais,gene_novo,xgboost,6,3,0.8378369016900293
+A + classes,anotacao_curada,xgboost,6,3,0.9414420456927269
+A + classes,gene_novo,xgboost,6,3,0.9346112143934284
+B,anotacao_curada,xgboost,6,3,0.9257553102828974
+B,gene_novo,xgboost,6,3,0.9063219013211
+só estruturais,anotacao_curada,xgboost,6,3,0.4928708071324954
+só estruturais,gene_novo,xgboost,6,3,0.4974775805438269
+só classes,anotacao_curada,xgboost,6,3,0.5314659919336098
+só classes,gene_novo,xgboost,6,3,0.7745956638842145
+só ontologia,anotacao_curada,xgboost,6,3,0.8692767476346482
+só ontologia,gene_novo,xgboost,6,3,0.876289945327971
+A,anotacao_curada,xgboost,6,4,0.841552381564202
+A,gene_novo,xgboost,6,4,0.841552381564202
+A + estruturais,anotacao_curada,xgboost,6,4,0.8676517547669853
+A + estruturais,gene_novo,xgboost,6,4,0.8599581199537816
+A + classes,anotacao_curada,xgboost,6,4,0.9390861849886709
+A + classes,gene_novo,xgboost,6,4,0.9109352357738745
+B,anotacao_curada,xgboost,6,4,0.9479428964568284
+B,gene_novo,xgboost,6,4,0.9218936129747313
+só estruturais,anotacao_curada,xgboost,6,4,0.30027411832833467
+só estruturais,gene_novo,xgboost,6,4,0.21152952840610273
+só classes,anotacao_curada,xgboost,6,4,0.7287878147291297
+só classes,gene_novo,xgboost,6,4,0.7272813419995938
+só ontologia,anotacao_curada,xgboost,6,4,0.844480566658318
+só ontologia,gene_novo,xgboost,6,4,0.7794216959716156
+A,anotacao_curada,xgboost,6,5,0.6042805076339985
+A,gene_novo,xgboost,6,5,0.6042805076339985
+A + estruturais,anotacao_curada,xgboost,6,5,0.828253237542597
+A + estruturais,gene_novo,xgboost,6,5,0.8104434005710601
+A + classes,anotacao_curada,xgboost,6,5,0.8965470360957871
+A + classes,gene_novo,xgboost,6,5,0.8288554392296712
+B,anotacao_curada,xgboost,6,5,0.8497160782409873
+B,gene_novo,xgboost,6,5,0.8082188955193651
+só estruturais,anotacao_curada,xgboost,6,5,0.3505104957935147
+só estruturais,gene_novo,xgboost,6,5,0.3291828179083081
+só classes,anotacao_curada,xgboost,6,5,0.7388219621333636
+só classes,gene_novo,xgboost,6,5,0.7184276960399669
+só ontologia,anotacao_curada,xgboost,6,5,0.7868333346171825
+só ontologia,gene_novo,xgboost,6,5,0.7747798456673998
+A,anotacao_curada,xgboost,7,1,0.6921261115374626
+A,gene_novo,xgboost,7,1,0.6921261115374626
+A + estruturais,anotacao_curada,xgboost,7,1,0.8645375881880877
+A + estruturais,gene_novo,xgboost,7,1,0.8767088132364413
+A + classes,anotacao_curada,xgboost,7,1,0.9440664330980194
+A + classes,gene_novo,xgboost,7,1,0.9380868715998771
+B,anotacao_curada,xgboost,7,1,0.9422765671378235
+B,gene_novo,xgboost,7,1,0.9314058200996312
+só estruturais,anotacao_curada,xgboost,7,1,0.4222082803978977
+só estruturais,gene_novo,xgboost,7,1,0.4091185626269909
+só classes,anotacao_curada,xgboost,7,1,0.775458669155043
+só classes,gene_novo,xgboost,7,1,0.7601189559746452
+só ontologia,anotacao_curada,xgboost,7,1,0.8839974755044466
+só ontologia,gene_novo,xgboost,7,1,0.8805157936050836
+A,anotacao_curada,xgboost,7,2,0.8075764041295652
+A,gene_novo,xgboost,7,2,0.8075764041295652
+A + estruturais,anotacao_curada,xgboost,7,2,0.8844617360406952
+A + estruturais,gene_novo,xgboost,7,2,0.7562852831041039
+A + classes,anotacao_curada,xgboost,7,2,0.9724830362899584
+A + classes,gene_novo,xgboost,7,2,0.83923603525381
+B,anotacao_curada,xgboost,7,2,0.9675157422271248
+B,gene_novo,xgboost,7,2,0.8303461747130253
+só estruturais,anotacao_curada,xgboost,7,2,0.3754386099654642
+só estruturais,gene_novo,xgboost,7,2,0.31026568021141426
+só classes,anotacao_curada,xgboost,7,2,0.8423788921368273
+só classes,gene_novo,xgboost,7,2,0.6754456555623909
+só ontologia,anotacao_curada,xgboost,7,2,0.9060750852767562
+só ontologia,gene_novo,xgboost,7,2,0.7869867512298953
+A,anotacao_curada,xgboost,7,3,0.740112528551775
+A,gene_novo,xgboost,7,3,0.740112528551775
+A + estruturais,anotacao_curada,xgboost,7,3,0.7758230590939782
+A + estruturais,gene_novo,xgboost,7,3,0.76655338594167
+A + classes,anotacao_curada,xgboost,7,3,0.9093940650124503
+A + classes,gene_novo,xgboost,7,3,0.8532512585453761
+B,anotacao_curada,xgboost,7,3,0.9206490025722663
+B,gene_novo,xgboost,7,3,0.844328411269537
+só estruturais,anotacao_curada,xgboost,7,3,0.44217625651346804
+só estruturais,gene_novo,xgboost,7,3,0.4022639272058468
+só classes,anotacao_curada,xgboost,7,3,0.7704420607280842
+só classes,gene_novo,xgboost,7,3,0.7639697483579548
+só ontologia,anotacao_curada,xgboost,7,3,0.8839081825761286
+só ontologia,gene_novo,xgboost,7,3,0.8355153161209096
+A,anotacao_curada,xgboost,7,4,0.5732767209291567
+A,gene_novo,xgboost,7,4,0.5732767209291567
+A + estruturais,anotacao_curada,xgboost,7,4,0.831789219473392
+A + estruturais,gene_novo,xgboost,7,4,0.8288636226584728
+A + classes,anotacao_curada,xgboost,7,4,0.8647410623415285
+A + classes,gene_novo,xgboost,7,4,0.8551678951678952
+B,anotacao_curada,xgboost,7,4,0.8933437706655193
+B,gene_novo,xgboost,7,4,0.8523326474641513
+só estruturais,anotacao_curada,xgboost,7,4,0.3805616031417084
+só estruturais,gene_novo,xgboost,7,4,0.3654497138359646
+só classes,anotacao_curada,xgboost,7,4,0.5777702272993049
+só classes,gene_novo,xgboost,7,4,0.814080113299714
+só ontologia,anotacao_curada,xgboost,7,4,0.8150209330406796
+só ontologia,gene_novo,xgboost,7,4,0.8202928069640999
+A,anotacao_curada,xgboost,7,5,0.7905066068678339
+A,gene_novo,xgboost,7,5,0.7905066068678339
+A + estruturais,anotacao_curada,xgboost,7,5,0.807520105006093
+A + estruturais,gene_novo,xgboost,7,5,0.8043718338399188
+A + classes,anotacao_curada,xgboost,7,5,0.9519019628613039
+A + classes,gene_novo,xgboost,7,5,0.9328073972063742
+B,anotacao_curada,xgboost,7,5,0.9332913061189512
+B,gene_novo,xgboost,7,5,0.9266414915935348
+só estruturais,anotacao_curada,xgboost,7,5,0.35906664806729105
+só estruturais,gene_novo,xgboost,7,5,0.41157916445403486
+só classes,anotacao_curada,xgboost,7,5,0.7550506612657955
+só classes,gene_novo,xgboost,7,5,0.7962355129269267
+só ontologia,anotacao_curada,xgboost,7,5,0.814268264259199
+só ontologia,gene_novo,xgboost,7,5,0.7955679278416348
+A,anotacao_curada,xgboost,8,1,0.6991523751868922
+A,gene_novo,xgboost,8,1,0.6991523751868922
+A + estruturais,anotacao_curada,xgboost,8,1,0.8175440880577582
+A + estruturais,gene_novo,xgboost,8,1,0.814210754724425
+A + classes,anotacao_curada,xgboost,8,1,0.8682693734095602
+A + classes,gene_novo,xgboost,8,1,0.8643473101010688
+B,anotacao_curada,xgboost,8,1,0.8634795025492412
+B,gene_novo,xgboost,8,1,0.8496301003090192
+só estruturais,anotacao_curada,xgboost,8,1,0.38062533290721207
+só estruturais,gene_novo,xgboost,8,1,0.3861729925505206
+só classes,anotacao_curada,xgboost,8,1,0.7156232567505805
+só classes,gene_novo,xgboost,8,1,0.7285293859085583
+só ontologia,anotacao_curada,xgboost,8,1,0.8185803592053592
+só ontologia,gene_novo,xgboost,8,1,0.7852388363184979
+A,anotacao_curada,xgboost,8,2,0.8090501568148628
+A,gene_novo,xgboost,8,2,0.8090501568148628
+A + estruturais,anotacao_curada,xgboost,8,2,0.8870078351919501
+A + estruturais,gene_novo,xgboost,8,2,0.8721373043047569
+A + classes,anotacao_curada,xgboost,8,2,0.9312089433986452
+A + classes,gene_novo,xgboost,8,2,0.9032735803314225
+B,anotacao_curada,xgboost,8,2,0.9345272269066964
+B,gene_novo,xgboost,8,2,0.9283857595263711
+só estruturais,anotacao_curada,xgboost,8,2,0.39843400154293823
+só estruturais,gene_novo,xgboost,8,2,0.40035958805592314
+só classes,anotacao_curada,xgboost,8,2,0.6906114946690776
+só classes,gene_novo,xgboost,8,2,0.7217511271141083
+só ontologia,anotacao_curada,xgboost,8,2,0.7990094739314246
+só ontologia,gene_novo,xgboost,8,2,0.8124696720852087
+A,anotacao_curada,xgboost,8,3,0.6417154235215122
+A,gene_novo,xgboost,8,3,0.6417154235215122
+A + estruturais,anotacao_curada,xgboost,8,3,0.8162940674906354
+A + estruturais,gene_novo,xgboost,8,3,0.8006264346985624
+A + classes,anotacao_curada,xgboost,8,3,0.8854550504867348
+A + classes,gene_novo,xgboost,8,3,0.8709744024149837
+B,anotacao_curada,xgboost,8,3,0.9205422087859949
+B,gene_novo,xgboost,8,3,0.9020581949335982
+só estruturais,anotacao_curada,xgboost,8,3,0.35390948909854786
+só estruturais,gene_novo,xgboost,8,3,0.335792040429728
+só classes,anotacao_curada,xgboost,8,3,0.6049337400395174
+só classes,gene_novo,xgboost,8,3,0.8137949589462489
+só ontologia,anotacao_curada,xgboost,8,3,0.8782381588999236
+só ontologia,gene_novo,xgboost,8,3,0.861479114137412
+A,anotacao_curada,xgboost,8,4,0.6740190727510511
+A,gene_novo,xgboost,8,4,0.6740190727510511
+A + estruturais,anotacao_curada,xgboost,8,4,0.7608557849690697
+A + estruturais,gene_novo,xgboost,8,4,0.7369422458343423
+A + classes,anotacao_curada,xgboost,8,4,0.8057848138801644
+A + classes,gene_novo,xgboost,8,4,0.7690346061830989
+B,anotacao_curada,xgboost,8,4,0.7148013295067839
+B,gene_novo,xgboost,8,4,0.6672248448274211
+só estruturais,anotacao_curada,xgboost,8,4,0.33204124930877127
+só estruturais,gene_novo,xgboost,8,4,0.31897350127526547
+só classes,anotacao_curada,xgboost,8,4,0.8731180576095223
+só classes,gene_novo,xgboost,8,4,0.8400532056397978
+só ontologia,anotacao_curada,xgboost,8,4,0.9155552230246583
+só ontologia,gene_novo,xgboost,8,4,0.9003664488901746
+A,anotacao_curada,xgboost,8,5,0.7201008874490312
+A,gene_novo,xgboost,8,5,0.7201008874490312
+A + estruturais,anotacao_curada,xgboost,8,5,0.8628207433652472
+A + estruturais,gene_novo,xgboost,8,5,0.8217076895938099
+A + classes,anotacao_curada,xgboost,8,5,0.9306431801232191
+A + classes,gene_novo,xgboost,8,5,0.8737222453993418
+B,anotacao_curada,xgboost,8,5,0.9243236016765428
+B,gene_novo,xgboost,8,5,0.8674403477499453
+só estruturais,anotacao_curada,xgboost,8,5,0.392520299934312
+só estruturais,gene_novo,xgboost,8,5,0.34718149320140845
+só classes,anotacao_curada,xgboost,8,5,0.8025422215194856
+só classes,gene_novo,xgboost,8,5,0.7025462093664943
+só ontologia,anotacao_curada,xgboost,8,5,0.8293849713798561
+só ontologia,gene_novo,xgboost,8,5,0.7718529257553648
+A,anotacao_curada,xgboost,9,1,0.5923176188627721
+A,gene_novo,xgboost,9,1,0.5923176188627721
+A + estruturais,anotacao_curada,xgboost,9,1,0.7563219259285507
+A + estruturais,gene_novo,xgboost,9,1,0.6806563419139484
+A + classes,anotacao_curada,xgboost,9,1,0.8697919277849249
+A + classes,gene_novo,xgboost,9,1,0.7206918542854381
+B,anotacao_curada,xgboost,9,1,0.8868309919114516
+B,gene_novo,xgboost,9,1,0.7309005996735816
+só estruturais,anotacao_curada,xgboost,9,1,0.4179987404583302
+só estruturais,gene_novo,xgboost,9,1,0.341330418807199
+só classes,anotacao_curada,xgboost,9,1,0.6588190535790805
+só classes,gene_novo,xgboost,9,1,0.5151573105093442
+só ontologia,anotacao_curada,xgboost,9,1,0.7675516008710856
+só ontologia,gene_novo,xgboost,9,1,0.6193772802215534
+A,anotacao_curada,xgboost,9,2,0.7302777080515943
+A,gene_novo,xgboost,9,2,0.7302777080515943
+A + estruturais,anotacao_curada,xgboost,9,2,0.8208744878921659
+A + estruturais,gene_novo,xgboost,9,2,0.8071230553219706
+A + classes,anotacao_curada,xgboost,9,2,0.9341816859154519
+A + classes,gene_novo,xgboost,9,2,0.917659781581509
+B,anotacao_curada,xgboost,9,2,0.8986304377926715
+B,gene_novo,xgboost,9,2,0.8773251503486202
+só estruturais,anotacao_curada,xgboost,9,2,0.3134412527168099
+só estruturais,gene_novo,xgboost,9,2,0.3659663406077104
+só classes,anotacao_curada,xgboost,9,2,0.5402964658440511
+só classes,gene_novo,xgboost,9,2,0.7282460928596844
+só ontologia,anotacao_curada,xgboost,9,2,0.8321765056648778
+só ontologia,gene_novo,xgboost,9,2,0.788060903825672
+A,anotacao_curada,xgboost,9,3,0.7326381936853141
+A,gene_novo,xgboost,9,3,0.7326381936853141
+A + estruturais,anotacao_curada,xgboost,9,3,0.843132229642855
+A + estruturais,gene_novo,xgboost,9,3,0.854729846246137
+A + classes,anotacao_curada,xgboost,9,3,0.962064894307234
+A + classes,gene_novo,xgboost,9,3,0.9599398727997647
+B,anotacao_curada,xgboost,9,3,0.9810785539276964
+B,gene_novo,xgboost,9,3,0.9748851148851149
+só estruturais,anotacao_curada,xgboost,9,3,0.4257067737819833
+só estruturais,gene_novo,xgboost,9,3,0.39657956001847405
+só classes,anotacao_curada,xgboost,9,3,0.8260277225238786
+só classes,gene_novo,xgboost,9,3,0.7214878706546782
+só ontologia,anotacao_curada,xgboost,9,3,0.8552647703492839
+só ontologia,gene_novo,xgboost,9,3,0.8677086984864978
+A,anotacao_curada,xgboost,9,4,0.7088944076304005
+A,gene_novo,xgboost,9,4,0.7088944076304005
+A + estruturais,anotacao_curada,xgboost,9,4,0.9049767532488915
+A + estruturais,gene_novo,xgboost,9,4,0.8858887248814851
+A + classes,anotacao_curada,xgboost,9,4,0.955135878906497
+A + classes,gene_novo,xgboost,9,4,0.9156154400445761
+B,anotacao_curada,xgboost,9,4,0.9608586462460386
+B,gene_novo,xgboost,9,4,0.9291035615470467
+só estruturais,anotacao_curada,xgboost,9,4,0.2203389207350129
+só estruturais,gene_novo,xgboost,9,4,0.20863368705592672
+só classes,anotacao_curada,xgboost,9,4,0.8335026114302766
+só classes,gene_novo,xgboost,9,4,0.8371810956955518
+só ontologia,anotacao_curada,xgboost,9,4,0.9269542015108782
+só ontologia,gene_novo,xgboost,9,4,0.8923343963776496
+A,anotacao_curada,xgboost,9,5,0.812818868487834
+A,gene_novo,xgboost,9,5,0.812818868487834
+A + estruturais,anotacao_curada,xgboost,9,5,0.8732540052121973
+A + estruturais,gene_novo,xgboost,9,5,0.8858996764821185
+A + classes,anotacao_curada,xgboost,9,5,0.9606454432240532
+A + classes,gene_novo,xgboost,9,5,0.9283664091804283
+B,anotacao_curada,xgboost,9,5,0.9255523590333716
+B,gene_novo,xgboost,9,5,0.9248672197563703
+só estruturais,anotacao_curada,xgboost,9,5,0.37976986191109474
+só estruturais,gene_novo,xgboost,9,5,0.3686340066042242
+só classes,anotacao_curada,xgboost,9,5,0.8365470085470085
+só classes,gene_novo,xgboost,9,5,0.7773975900183565
+só ontologia,anotacao_curada,xgboost,9,5,0.8430270557622397
+só ontologia,gene_novo,xgboost,9,5,0.806080715717246
+A,anotacao_curada,xgboost,10,1,0.7777772100733473
+A,gene_novo,xgboost,10,1,0.7777772100733473
+A + estruturais,anotacao_curada,xgboost,10,1,0.9136696152143706
+A + estruturais,gene_novo,xgboost,10,1,0.81923376169772
+A + classes,anotacao_curada,xgboost,10,1,0.9832077891533277
+A + classes,gene_novo,xgboost,10,1,0.8560680649209174
+B,anotacao_curada,xgboost,10,1,0.9730005590689705
+B,gene_novo,xgboost,10,1,0.8521053273585535
+só estruturais,anotacao_curada,xgboost,10,1,0.3303398727848873
+só estruturais,gene_novo,xgboost,10,1,0.279859943402311
+só classes,anotacao_curada,xgboost,10,1,0.8505154162227117
+só classes,gene_novo,xgboost,10,1,0.7542697943073067
+só ontologia,anotacao_curada,xgboost,10,1,0.882869926007549
+só ontologia,gene_novo,xgboost,10,1,0.7756478916814785
+A,anotacao_curada,xgboost,10,2,0.8476414734041853
+A,gene_novo,xgboost,10,2,0.8476414734041853
+A + estruturais,anotacao_curada,xgboost,10,2,0.8813297893203564
+A + estruturais,gene_novo,xgboost,10,2,0.8614589791385535
+A + classes,anotacao_curada,xgboost,10,2,0.9691120983905389
+A + classes,gene_novo,xgboost,10,2,0.9242500454033635
+B,anotacao_curada,xgboost,10,2,0.9566804903396029
+B,gene_novo,xgboost,10,2,0.9278409241795458
+só estruturais,anotacao_curada,xgboost,10,2,0.44777458706484197
+só estruturais,gene_novo,xgboost,10,2,0.4642561936104008
+só classes,anotacao_curada,xgboost,10,2,0.5175576092415872
+só classes,gene_novo,xgboost,10,2,0.7355946256615352
+só ontologia,anotacao_curada,xgboost,10,2,0.8252299306675969
+só ontologia,gene_novo,xgboost,10,2,0.8854123112659698
+A,anotacao_curada,xgboost,10,3,0.6770565240264073
+A,gene_novo,xgboost,10,3,0.6770565240264073
+A + estruturais,anotacao_curada,xgboost,10,3,0.8280377133701446
+A + estruturais,gene_novo,xgboost,10,3,0.803700480735819
+A + classes,anotacao_curada,xgboost,10,3,0.8296707791343193
+A + classes,gene_novo,xgboost,10,3,0.8032197232302855
+B,anotacao_curada,xgboost,10,3,0.9013287469394866
+B,gene_novo,xgboost,10,3,0.8766638360995381
+só estruturais,anotacao_curada,xgboost,10,3,0.3311641310057785
+só estruturais,gene_novo,xgboost,10,3,0.4163951415661402
+só classes,anotacao_curada,xgboost,10,3,0.7626179614592405
+só classes,gene_novo,xgboost,10,3,0.8008966850395144
+só ontologia,anotacao_curada,xgboost,10,3,0.9016397689159266
+só ontologia,gene_novo,xgboost,10,3,0.8789913950121839
+A,anotacao_curada,xgboost,10,4,0.7844514787758182
+A,gene_novo,xgboost,10,4,0.7844514787758182
+A + estruturais,anotacao_curada,xgboost,10,4,0.8246433010671325
+A + estruturais,gene_novo,xgboost,10,4,0.8186277079228402
+A + classes,anotacao_curada,xgboost,10,4,0.967792937227934
+A + classes,gene_novo,xgboost,10,4,0.8908542926471912
+B,anotacao_curada,xgboost,10,4,0.9439859894146172
+B,gene_novo,xgboost,10,4,0.8674687479591006
+só estruturais,anotacao_curada,xgboost,10,4,0.37769476483506886
+só estruturais,gene_novo,xgboost,10,4,0.3543307731694828
+só classes,anotacao_curada,xgboost,10,4,0.8091024745919292
+só classes,gene_novo,xgboost,10,4,0.803085831836988
+só ontologia,anotacao_curada,xgboost,10,4,0.8154238127196229
+só ontologia,gene_novo,xgboost,10,4,0.8177040244217728
+A,anotacao_curada,xgboost,10,5,0.6785276001733833
+A,gene_novo,xgboost,10,5,0.6785276001733833
+A + estruturais,anotacao_curada,xgboost,10,5,0.7812585866829899
+A + estruturais,gene_novo,xgboost,10,5,0.7407997535671809
+A + classes,anotacao_curada,xgboost,10,5,0.8837378488083051
+A + classes,gene_novo,xgboost,10,5,0.8360025356854003
+B,anotacao_curada,xgboost,10,5,0.9051874894299932
+B,gene_novo,xgboost,10,5,0.825713631628199
+só estruturais,anotacao_curada,xgboost,10,5,0.411765902865342
+só estruturais,gene_novo,xgboost,10,5,0.3694084967694853
+só classes,anotacao_curada,xgboost,10,5,0.6954937836068342
+só classes,gene_novo,xgboost,10,5,0.5502149106842875
+só ontologia,anotacao_curada,xgboost,10,5,0.7927710843373494
+só ontologia,gene_novo,xgboost,10,5,0.7510040741544322
+A,anotacao_curada,logistic_regression,1,1,0.5331019199669288
+A,gene_novo,logistic_regression,1,1,0.5331019199669288
+A + estruturais,anotacao_curada,logistic_regression,1,1,0.6891501967729271
+A + estruturais,gene_novo,logistic_regression,1,1,0.671465208185965
+A + classes,anotacao_curada,logistic_regression,1,1,0.891934662062525
+A + classes,gene_novo,logistic_regression,1,1,0.8710039415697622
+B,anotacao_curada,logistic_regression,1,1,0.9244339241096794
+B,gene_novo,logistic_regression,1,1,0.8791324736896555
+só estruturais,anotacao_curada,logistic_regression,1,1,0.39448404440556173
+só estruturais,gene_novo,logistic_regression,1,1,0.37894114284110914
+só classes,anotacao_curada,logistic_regression,1,1,0.6213780396655716
+só classes,gene_novo,logistic_regression,1,1,0.6258182753306311
+só ontologia,anotacao_curada,logistic_regression,1,1,0.7448073250196607
+só ontologia,gene_novo,logistic_regression,1,1,0.6974851822885515
+A,anotacao_curada,logistic_regression,1,2,0.5753768876051485
+A,gene_novo,logistic_regression,1,2,0.5753768876051485
+A + estruturais,anotacao_curada,logistic_regression,1,2,0.7188223634485624
+A + estruturais,gene_novo,logistic_regression,1,2,0.6557043114028277
+A + classes,anotacao_curada,logistic_regression,1,2,0.8961897792259375
+A + classes,gene_novo,logistic_regression,1,2,0.7385425068327551
+B,anotacao_curada,logistic_regression,1,2,0.9216954144146152
+B,gene_novo,logistic_regression,1,2,0.7391408906565397
+só estruturais,anotacao_curada,logistic_regression,1,2,0.42812903225806453
+só estruturais,gene_novo,logistic_regression,1,2,0.3588122856586513
+só classes,anotacao_curada,logistic_regression,1,2,0.829946982313384
+só classes,gene_novo,logistic_regression,1,2,0.7138599420856212
+só ontologia,anotacao_curada,logistic_regression,1,2,0.8801446282647968
+só ontologia,gene_novo,logistic_regression,1,2,0.7125936212076276
+A,anotacao_curada,logistic_regression,1,3,0.41919959847963684
+A,gene_novo,logistic_regression,1,3,0.41919959847963684
+A + estruturais,anotacao_curada,logistic_regression,1,3,0.6514464389693326
+A + estruturais,gene_novo,logistic_regression,1,3,0.6338256851612762
+A + classes,anotacao_curada,logistic_regression,1,3,0.8870041682185894
+A + classes,gene_novo,logistic_regression,1,3,0.8527336326021986
+B,anotacao_curada,logistic_regression,1,3,0.8879025164062281
+B,gene_novo,logistic_regression,1,3,0.8672319610333536
+só estruturais,anotacao_curada,logistic_regression,1,3,0.376629168920137
+só estruturais,gene_novo,logistic_regression,1,3,0.39008997587851546
+só classes,anotacao_curada,logistic_regression,1,3,0.5037902193219171
+só classes,gene_novo,logistic_regression,1,3,0.6958232546986091
+só ontologia,anotacao_curada,logistic_regression,1,3,0.7649018366969991
+só ontologia,gene_novo,logistic_regression,1,3,0.8092285710654185
+A,anotacao_curada,logistic_regression,1,4,0.5417671852454461
+A,gene_novo,logistic_regression,1,4,0.5417671852454461
+A + estruturais,anotacao_curada,logistic_regression,1,4,0.5274697213544385
+A + estruturais,gene_novo,logistic_regression,1,4,0.5125719953729829
+A + classes,anotacao_curada,logistic_regression,1,4,0.9524430853811291
+A + classes,gene_novo,logistic_regression,1,4,0.9398548826254821
+B,anotacao_curada,logistic_regression,1,4,0.9499493611586429
+B,gene_novo,logistic_regression,1,4,0.9325215729445533
+só estruturais,anotacao_curada,logistic_regression,1,4,0.3152859248628182
+só estruturais,gene_novo,logistic_regression,1,4,0.297716098809462
+só classes,anotacao_curada,logistic_regression,1,4,0.8479733757653797
+só classes,gene_novo,logistic_regression,1,4,0.8265043743913065
+só ontologia,anotacao_curada,logistic_regression,1,4,0.8966643831854337
+só ontologia,gene_novo,logistic_regression,1,4,0.8716580285570503
+A,anotacao_curada,logistic_regression,1,5,0.5872040872040871
+A,gene_novo,logistic_regression,1,5,0.5872040872040871
+A + estruturais,anotacao_curada,logistic_regression,1,5,0.7022272160147036
+A + estruturais,gene_novo,logistic_regression,1,5,0.696781463206341
+A + classes,anotacao_curada,logistic_regression,1,5,0.8943497442235726
+A + classes,gene_novo,logistic_regression,1,5,0.887013060321331
+B,anotacao_curada,logistic_regression,1,5,0.8825084825084824
+B,gene_novo,logistic_regression,1,5,0.8590921439757537
+só estruturais,anotacao_curada,logistic_regression,1,5,0.40584248656228095
+só estruturais,gene_novo,logistic_regression,1,5,0.3774489795918367
+só classes,anotacao_curada,logistic_regression,1,5,0.8496989517712711
+só classes,gene_novo,logistic_regression,1,5,0.7694540330715901
+só ontologia,anotacao_curada,logistic_regression,1,5,0.835228035046832
+só ontologia,gene_novo,logistic_regression,1,5,0.7869732591554107
+A,anotacao_curada,logistic_regression,2,1,0.5648066774222081
+A,gene_novo,logistic_regression,2,1,0.5648066774222081
+A + estruturais,anotacao_curada,logistic_regression,2,1,0.7633470221403893
+A + estruturais,gene_novo,logistic_regression,2,1,0.7551969919582009
+A + classes,anotacao_curada,logistic_regression,2,1,0.8988402316178128
+A + classes,gene_novo,logistic_regression,2,1,0.8694995312884748
+B,anotacao_curada,logistic_regression,2,1,0.9409760966346005
+B,gene_novo,logistic_regression,2,1,0.8938271212343857
+só estruturais,anotacao_curada,logistic_regression,2,1,0.41106480117820327
+só estruturais,gene_novo,logistic_regression,2,1,0.40688216782774295
+só classes,anotacao_curada,logistic_regression,2,1,0.7525178460191564
+só classes,gene_novo,logistic_regression,2,1,0.6552315819545903
+só ontologia,anotacao_curada,logistic_regression,2,1,0.7794685019160735
+só ontologia,gene_novo,logistic_regression,2,1,0.7572934284178088
+A,anotacao_curada,logistic_regression,2,2,0.637297628189674
+A,gene_novo,logistic_regression,2,2,0.637297628189674
+A + estruturais,anotacao_curada,logistic_regression,2,2,0.719925474421482
+A + estruturais,gene_novo,logistic_regression,2,2,0.7213956016063383
+A + classes,anotacao_curada,logistic_regression,2,2,0.9047133825127645
+A + classes,gene_novo,logistic_regression,2,2,0.8870434490525774
+B,anotacao_curada,logistic_regression,2,2,0.9382286911756321
+B,gene_novo,logistic_regression,2,2,0.8994813248766735
+só estruturais,anotacao_curada,logistic_regression,2,2,0.22717547662597512
+só estruturais,gene_novo,logistic_regression,2,2,0.21080191549887628
+só classes,anotacao_curada,logistic_regression,2,2,0.5801604364236455
+só classes,gene_novo,logistic_regression,2,2,0.7688091432897337
+só ontologia,anotacao_curada,logistic_regression,2,2,0.8179433025354225
+só ontologia,gene_novo,logistic_regression,2,2,0.8162386556730112
+A,anotacao_curada,logistic_regression,2,3,0.6206070996565807
+A,gene_novo,logistic_regression,2,3,0.6206070996565807
+A + estruturais,anotacao_curada,logistic_regression,2,3,0.7611563845050215
+A + estruturais,gene_novo,logistic_regression,2,3,0.7255751214092367
+A + classes,anotacao_curada,logistic_regression,2,3,0.903945146349218
+A + classes,gene_novo,logistic_regression,2,3,0.8919745316320539
+B,anotacao_curada,logistic_regression,2,3,0.9188979317526116
+B,gene_novo,logistic_regression,2,3,0.8734695234928026
+só estruturais,anotacao_curada,logistic_regression,2,3,0.4191373337440753
+só estruturais,gene_novo,logistic_regression,2,3,0.37549714285714286
+só classes,anotacao_curada,logistic_regression,2,3,0.7633660006623092
+só classes,gene_novo,logistic_regression,2,3,0.7195918541110511
+só ontologia,anotacao_curada,logistic_regression,2,3,0.8574976792643012
+só ontologia,gene_novo,logistic_regression,2,3,0.8067832900275947
+A,anotacao_curada,logistic_regression,2,4,0.5117039381920445
+A,gene_novo,logistic_regression,2,4,0.5117039381920445
+A + estruturais,anotacao_curada,logistic_regression,2,4,0.6667818392354041
+A + estruturais,gene_novo,logistic_regression,2,4,0.6321602456138667
+A + classes,anotacao_curada,logistic_regression,2,4,0.9244994145199064
+A + classes,gene_novo,logistic_regression,2,4,0.8405202980556759
+B,anotacao_curada,logistic_regression,2,4,0.9321184738955823
+B,gene_novo,logistic_regression,2,4,0.837863170950054
+só estruturais,anotacao_curada,logistic_regression,2,4,0.4316138360582805
+só estruturais,gene_novo,logistic_regression,2,4,0.38591049140947303
+só classes,anotacao_curada,logistic_regression,2,4,0.7251147320112838
+só classes,gene_novo,logistic_regression,2,4,0.6907328553940963
+só ontologia,anotacao_curada,logistic_regression,2,4,0.7870334258643237
+só ontologia,gene_novo,logistic_regression,2,4,0.7296734718604228
+A,anotacao_curada,logistic_regression,2,5,0.4761353767564497
+A,gene_novo,logistic_regression,2,5,0.4761353767564497
+A + estruturais,anotacao_curada,logistic_regression,2,5,0.6326700402650969
+A + estruturais,gene_novo,logistic_regression,2,5,0.600489008301474
+A + classes,anotacao_curada,logistic_regression,2,5,0.8889704282785191
+A + classes,gene_novo,logistic_regression,2,5,0.7776977948420658
+B,anotacao_curada,logistic_regression,2,5,0.9201807621798658
+B,gene_novo,logistic_regression,2,5,0.769675420002937
+só estruturais,anotacao_curada,logistic_regression,2,5,0.3904416906919115
+só estruturais,gene_novo,logistic_regression,2,5,0.30060691750713076
+só classes,anotacao_curada,logistic_regression,2,5,0.8363659634226837
+só classes,gene_novo,logistic_regression,2,5,0.7186387212730898
+só ontologia,anotacao_curada,logistic_regression,2,5,0.8519237463147448
+só ontologia,gene_novo,logistic_regression,2,5,0.7210120855081185
+A,anotacao_curada,logistic_regression,3,1,0.5033192130279838
+A,gene_novo,logistic_regression,3,1,0.5033192130279838
+A + estruturais,anotacao_curada,logistic_regression,3,1,0.6472377912377328
+A + estruturais,gene_novo,logistic_regression,3,1,0.6334366994382855
+A + classes,anotacao_curada,logistic_regression,3,1,0.9210259981024972
+A + classes,gene_novo,logistic_regression,3,1,0.9022397965082668
+B,anotacao_curada,logistic_regression,3,1,0.9392798328968984
+B,gene_novo,logistic_regression,3,1,0.9004926309059872
+só estruturais,anotacao_curada,logistic_regression,3,1,0.37902900030603187
+só estruturais,gene_novo,logistic_regression,3,1,0.3725336295341914
+só classes,anotacao_curada,logistic_regression,3,1,0.7909594455972583
+só classes,gene_novo,logistic_regression,3,1,0.7628552045470403
+só ontologia,anotacao_curada,logistic_regression,3,1,0.8244095560048343
+só ontologia,gene_novo,logistic_regression,3,1,0.7923250833359374
+A,anotacao_curada,logistic_regression,3,2,0.4503230188370534
+A,gene_novo,logistic_regression,3,2,0.4503230188370534
+A + estruturais,anotacao_curada,logistic_regression,3,2,0.6442270253153222
+A + estruturais,gene_novo,logistic_regression,3,2,0.6246779971435856
+A + classes,anotacao_curada,logistic_regression,3,2,0.877140327141027
+A + classes,gene_novo,logistic_regression,3,2,0.8681864729128831
+B,anotacao_curada,logistic_regression,3,2,0.8854585188254415
+B,gene_novo,logistic_regression,3,2,0.848745363591996
+só estruturais,anotacao_curada,logistic_regression,3,2,0.36785029284169146
+só estruturais,gene_novo,logistic_regression,3,2,0.37298221639959867
+só classes,anotacao_curada,logistic_regression,3,2,0.7260854700854701
+só classes,gene_novo,logistic_regression,3,2,0.7378467010789782
+só ontologia,anotacao_curada,logistic_regression,3,2,0.8021889635334707
+só ontologia,gene_novo,logistic_regression,3,2,0.7851770558899316
+A,anotacao_curada,logistic_regression,3,3,0.5588739631379498
+A,gene_novo,logistic_regression,3,3,0.5588739631379498
+A + estruturais,anotacao_curada,logistic_regression,3,3,0.6728928164959497
+A + estruturais,gene_novo,logistic_regression,3,3,0.6757358221327567
+A + classes,anotacao_curada,logistic_regression,3,3,0.873240310808369
+A + classes,gene_novo,logistic_regression,3,3,0.8836627076285428
+B,anotacao_curada,logistic_regression,3,3,0.8593061619075535
+B,gene_novo,logistic_regression,3,3,0.8512957676177695
+só estruturais,anotacao_curada,logistic_regression,3,3,0.3806215738091598
+só estruturais,gene_novo,logistic_regression,3,3,0.36074678010161876
+só classes,anotacao_curada,logistic_regression,3,3,0.6999109311740891
+só classes,gene_novo,logistic_regression,3,3,0.7130634991519718
+só ontologia,anotacao_curada,logistic_regression,3,3,0.7552341397273024
+só ontologia,gene_novo,logistic_regression,3,3,0.7828160647138749
+A,anotacao_curada,logistic_regression,3,4,0.5680938806720969
+A,gene_novo,logistic_regression,3,4,0.5680938806720969
+A + estruturais,anotacao_curada,logistic_regression,3,4,0.6149774248202846
+A + estruturais,gene_novo,logistic_regression,3,4,0.6138830977931784
+A + classes,anotacao_curada,logistic_regression,3,4,0.840985837014751
+A + classes,gene_novo,logistic_regression,3,4,0.7533985702566507
+B,anotacao_curada,logistic_regression,3,4,0.8868384622659
+B,gene_novo,logistic_regression,3,4,0.7490255523916114
+só estruturais,anotacao_curada,logistic_regression,3,4,0.47217065626430726
+só estruturais,gene_novo,logistic_regression,3,4,0.371638709048837
+só classes,anotacao_curada,logistic_regression,3,4,0.5689243964262921
+só classes,gene_novo,logistic_regression,3,4,0.6252892916802661
+só ontologia,anotacao_curada,logistic_regression,3,4,0.7700310724956089
+só ontologia,gene_novo,logistic_regression,3,4,0.6720178900084515
+A,anotacao_curada,logistic_regression,3,5,0.7595924855210097
+A,gene_novo,logistic_regression,3,5,0.7595924855210097
+A + estruturais,anotacao_curada,logistic_regression,3,5,0.7962003265084701
+A + estruturais,gene_novo,logistic_regression,3,5,0.7866013991900769
+A + classes,anotacao_curada,logistic_regression,3,5,0.95791397387163
+A + classes,gene_novo,logistic_regression,3,5,0.9453530476374986
+B,anotacao_curada,logistic_regression,3,5,0.985954593746073
+B,gene_novo,logistic_regression,3,5,0.9630517540113871
+só estruturais,anotacao_curada,logistic_regression,3,5,0.33255888170639697
+só estruturais,gene_novo,logistic_regression,3,5,0.32143255110915464
+só classes,anotacao_curada,logistic_regression,3,5,0.8819016501662574
+só classes,gene_novo,logistic_regression,3,5,0.8537892159849598
+só ontologia,anotacao_curada,logistic_regression,3,5,0.921874966287848
+só ontologia,gene_novo,logistic_regression,3,5,0.8953532266095674
+A,anotacao_curada,logistic_regression,4,1,0.5638723876260145
+A,gene_novo,logistic_regression,4,1,0.5638723876260145
+A + estruturais,anotacao_curada,logistic_regression,4,1,0.7782982948775883
+A + estruturais,gene_novo,logistic_regression,4,1,0.7658920065441804
+A + classes,anotacao_curada,logistic_regression,4,1,0.8704858745742337
+A + classes,gene_novo,logistic_regression,4,1,0.8797002864761614
+B,anotacao_curada,logistic_regression,4,1,0.8942508490972664
+B,gene_novo,logistic_regression,4,1,0.8860494928253677
+só estruturais,anotacao_curada,logistic_regression,4,1,0.42736491127878684
+só estruturais,gene_novo,logistic_regression,4,1,0.4178773577534341
+só classes,anotacao_curada,logistic_regression,4,1,0.7919684252056246
+só classes,gene_novo,logistic_regression,4,1,0.7732683184242818
+só ontologia,anotacao_curada,logistic_regression,4,1,0.8658020857260613
+só ontologia,gene_novo,logistic_regression,4,1,0.8226101866269231
+A,anotacao_curada,logistic_regression,4,2,0.37643270224020703
+A,gene_novo,logistic_regression,4,2,0.37643270224020703
+A + estruturais,anotacao_curada,logistic_regression,4,2,0.5999125543461794
+A + estruturais,gene_novo,logistic_regression,4,2,0.5791266575964931
+A + classes,anotacao_curada,logistic_regression,4,2,0.8426729821902235
+A + classes,gene_novo,logistic_regression,4,2,0.6845022544194638
+B,anotacao_curada,logistic_regression,4,2,0.8707719497479669
+B,gene_novo,logistic_regression,4,2,0.7092815972186924
+só estruturais,anotacao_curada,logistic_regression,4,2,0.4291055926812053
+só estruturais,gene_novo,logistic_regression,4,2,0.34623716153127915
+só classes,anotacao_curada,logistic_regression,4,2,0.5776490899003986
+só classes,gene_novo,logistic_regression,4,2,0.6688388815609
+só ontologia,anotacao_curada,logistic_regression,4,2,0.7839396526719584
+só ontologia,gene_novo,logistic_regression,4,2,0.7386151483911465
+A,anotacao_curada,logistic_regression,4,3,0.5561181026756805
+A,gene_novo,logistic_regression,4,3,0.5561181026756805
+A + estruturais,anotacao_curada,logistic_regression,4,3,0.6945218933101918
+A + estruturais,gene_novo,logistic_regression,4,3,0.6678118779974598
+A + classes,anotacao_curada,logistic_regression,4,3,0.9208038590914507
+A + classes,gene_novo,logistic_regression,4,3,0.8971530019729173
+B,anotacao_curada,logistic_regression,4,3,0.9373958333333332
+B,gene_novo,logistic_regression,4,3,0.8982594322923727
+só estruturais,anotacao_curada,logistic_regression,4,3,0.4190165275732286
+só estruturais,gene_novo,logistic_regression,4,3,0.4109841380072939
+só classes,anotacao_curada,logistic_regression,4,3,0.7134014788523407
+só classes,gene_novo,logistic_regression,4,3,0.732171876829411
+só ontologia,anotacao_curada,logistic_regression,4,3,0.7819847090029646
+só ontologia,gene_novo,logistic_regression,4,3,0.7877317029948608
+A,anotacao_curada,logistic_regression,4,4,0.5824102064087671
+A,gene_novo,logistic_regression,4,4,0.5824102064087671
+A + estruturais,anotacao_curada,logistic_regression,4,4,0.6542378915370031
+A + estruturais,gene_novo,logistic_regression,4,4,0.6354857084888055
+A + classes,anotacao_curada,logistic_regression,4,4,0.902898018384569
+A + classes,gene_novo,logistic_regression,4,4,0.8534764999896932
+B,anotacao_curada,logistic_regression,4,4,0.9188121810999619
+B,gene_novo,logistic_regression,4,4,0.8506770769744179
+só estruturais,anotacao_curada,logistic_regression,4,4,0.38026711468106783
+só estruturais,gene_novo,logistic_regression,4,4,0.3663247795480885
+só classes,anotacao_curada,logistic_regression,4,4,0.7807898088789286
+só classes,gene_novo,logistic_regression,4,4,0.7881048775785617
+só ontologia,anotacao_curada,logistic_regression,4,4,0.8388578246600563
+só ontologia,gene_novo,logistic_regression,4,4,0.8079970259130171
+A,anotacao_curada,logistic_regression,4,5,0.6080822051337982
+A,gene_novo,logistic_regression,4,5,0.6080822051337982
+A + estruturais,anotacao_curada,logistic_regression,4,5,0.7770868726605991
+A + estruturais,gene_novo,logistic_regression,4,5,0.7618628307294282
+A + classes,anotacao_curada,logistic_regression,4,5,0.9472875454175694
+A + classes,gene_novo,logistic_regression,4,5,0.9430817753911501
+B,anotacao_curada,logistic_regression,4,5,0.9655031263868585
+B,gene_novo,logistic_regression,4,5,0.9410680967876497
+só estruturais,anotacao_curada,logistic_regression,4,5,0.30967405585941515
+só estruturais,gene_novo,logistic_regression,4,5,0.29630291078024656
+só classes,anotacao_curada,logistic_regression,4,5,0.8293043129812221
+só classes,gene_novo,logistic_regression,4,5,0.8470286542163654
+só ontologia,anotacao_curada,logistic_regression,4,5,0.8726920358032217
+só ontologia,gene_novo,logistic_regression,4,5,0.8636153326227755
+A,anotacao_curada,logistic_regression,5,1,0.44067567854229095
+A,gene_novo,logistic_regression,5,1,0.44067567854229095
+A + estruturais,anotacao_curada,logistic_regression,5,1,0.588952118936285
+A + estruturais,gene_novo,logistic_regression,5,1,0.5779312435500517
+A + classes,anotacao_curada,logistic_regression,5,1,0.8934134258092928
+A + classes,gene_novo,logistic_regression,5,1,0.9048443197104419
+B,anotacao_curada,logistic_regression,5,1,0.9449592425831581
+B,gene_novo,logistic_regression,5,1,0.9029921001102128
+só estruturais,anotacao_curada,logistic_regression,5,1,0.3687469334681882
+só estruturais,gene_novo,logistic_regression,5,1,0.35689880952380953
+só classes,anotacao_curada,logistic_regression,5,1,0.7926171266008205
+só classes,gene_novo,logistic_regression,5,1,0.6186447963800904
+só ontologia,anotacao_curada,logistic_regression,5,1,0.8652851388882787
+só ontologia,gene_novo,logistic_regression,5,1,0.8099778738670536
+A,anotacao_curada,logistic_regression,5,2,0.5104344807942247
+A,gene_novo,logistic_regression,5,2,0.5104344807942247
+A + estruturais,anotacao_curada,logistic_regression,5,2,0.741813583045238
+A + estruturais,gene_novo,logistic_regression,5,2,0.7225679931070218
+A + classes,anotacao_curada,logistic_regression,5,2,0.8687367455906164
+A + classes,gene_novo,logistic_regression,5,2,0.8674088650264627
+B,anotacao_curada,logistic_regression,5,2,0.8760512193952172
+B,gene_novo,logistic_regression,5,2,0.8702504407039511
+só estruturais,anotacao_curada,logistic_regression,5,2,0.4525567458321868
+só estruturais,gene_novo,logistic_regression,5,2,0.4162796339569049
+só classes,anotacao_curada,logistic_regression,5,2,0.737629636989435
+só classes,gene_novo,logistic_regression,5,2,0.738882634980196
+só ontologia,anotacao_curada,logistic_regression,5,2,0.7629230796761567
+só ontologia,gene_novo,logistic_regression,5,2,0.768531751214264
+A,anotacao_curada,logistic_regression,5,3,0.7184482438622642
+A,gene_novo,logistic_regression,5,3,0.7184482438622642
+A + estruturais,anotacao_curada,logistic_regression,5,3,0.8074822202218638
+A + estruturais,gene_novo,logistic_regression,5,3,0.787616555878851
+A + classes,anotacao_curada,logistic_regression,5,3,0.9463773864412259
+A + classes,gene_novo,logistic_regression,5,3,0.9007488075727738
+B,anotacao_curada,logistic_regression,5,3,0.9688150139041696
+B,gene_novo,logistic_regression,5,3,0.912197315587146
+só estruturais,anotacao_curada,logistic_regression,5,3,0.355376250096215
+só estruturais,gene_novo,logistic_regression,5,3,0.33873717606594317
+só classes,anotacao_curada,logistic_regression,5,3,0.7509890620727372
+só classes,gene_novo,logistic_regression,5,3,0.7475452341419275
+só ontologia,anotacao_curada,logistic_regression,5,3,0.8247387386601946
+só ontologia,gene_novo,logistic_regression,5,3,0.7899749534270347
+A,anotacao_curada,logistic_regression,5,4,0.5607664748168181
+A,gene_novo,logistic_regression,5,4,0.5607664748168181
+A + estruturais,anotacao_curada,logistic_regression,5,4,0.6041910785411027
+A + estruturais,gene_novo,logistic_regression,5,4,0.6057187230478857
+A + classes,anotacao_curada,logistic_regression,5,4,0.835449700811956
+A + classes,gene_novo,logistic_regression,5,4,0.8509892907159247
+B,anotacao_curada,logistic_regression,5,4,0.8730743474347434
+B,gene_novo,logistic_regression,5,4,0.8229434266665638
+só estruturais,anotacao_curada,logistic_regression,5,4,0.35335265818236455
+só estruturais,gene_novo,logistic_regression,5,4,0.3638536270713587
+só classes,anotacao_curada,logistic_regression,5,4,0.5677085142554678
+só classes,gene_novo,logistic_regression,5,4,0.7531720573821616
+só ontologia,anotacao_curada,logistic_regression,5,4,0.8032326305158328
+só ontologia,gene_novo,logistic_regression,5,4,0.7711441825262964
+A,anotacao_curada,logistic_regression,5,5,0.7038054765320418
+A,gene_novo,logistic_regression,5,5,0.7038054765320418
+A + estruturais,anotacao_curada,logistic_regression,5,5,0.7728634790703757
+A + estruturais,gene_novo,logistic_regression,5,5,0.726648494179875
+A + classes,anotacao_curada,logistic_regression,5,5,0.9291644428630729
+A + classes,gene_novo,logistic_regression,5,5,0.8288665803527238
+B,anotacao_curada,logistic_regression,5,5,0.9371139737455527
+B,gene_novo,logistic_regression,5,5,0.822873244363141
+só estruturais,anotacao_curada,logistic_regression,5,5,0.4389118636057165
+só estruturais,gene_novo,logistic_regression,5,5,0.38446160908559796
+só classes,anotacao_curada,logistic_regression,5,5,0.816986977772627
+só classes,gene_novo,logistic_regression,5,5,0.6709589090192283
+só ontologia,anotacao_curada,logistic_regression,5,5,0.8446638309329095
+só ontologia,gene_novo,logistic_regression,5,5,0.7497835327502846
+A,anotacao_curada,logistic_regression,6,1,0.6164126649468484
+A,gene_novo,logistic_regression,6,1,0.6164126649468484
+A + estruturais,anotacao_curada,logistic_regression,6,1,0.7573177879385578
+A + estruturais,gene_novo,logistic_regression,6,1,0.7462146819197935
+A + classes,anotacao_curada,logistic_regression,6,1,0.9473978326854704
+A + classes,gene_novo,logistic_regression,6,1,0.9040654137945511
+B,anotacao_curada,logistic_regression,6,1,0.9442845123538504
+B,gene_novo,logistic_regression,6,1,0.8947509550233861
+só estruturais,anotacao_curada,logistic_regression,6,1,0.41285254769916246
+só estruturais,gene_novo,logistic_regression,6,1,0.39975169515805564
+só classes,anotacao_curada,logistic_regression,6,1,0.7996444285818584
+só classes,gene_novo,logistic_regression,6,1,0.8093042999472614
+só ontologia,anotacao_curada,logistic_regression,6,1,0.8751467048167783
+só ontologia,gene_novo,logistic_regression,6,1,0.863649373881932
+A,anotacao_curada,logistic_regression,6,2,0.6370122554735156
+A,gene_novo,logistic_regression,6,2,0.6370122554735156
+A + estruturais,anotacao_curada,logistic_regression,6,2,0.6941861227722607
+A + estruturais,gene_novo,logistic_regression,6,2,0.6869022731414811
+A + classes,anotacao_curada,logistic_regression,6,2,0.9324259623517805
+A + classes,gene_novo,logistic_regression,6,2,0.8270306432748538
+B,anotacao_curada,logistic_regression,6,2,0.9537334468958832
+B,gene_novo,logistic_regression,6,2,0.831504361308402
+só estruturais,anotacao_curada,logistic_regression,6,2,0.37389995238845686
+só estruturais,gene_novo,logistic_regression,6,2,0.3205696856906534
+só classes,anotacao_curada,logistic_regression,6,2,0.7854631732766216
+só classes,gene_novo,logistic_regression,6,2,0.6344972396947431
+só ontologia,anotacao_curada,logistic_regression,6,2,0.8404342803852092
+só ontologia,gene_novo,logistic_regression,6,2,0.7452859316153979
+A,anotacao_curada,logistic_regression,6,3,0.6750311768890855
+A,gene_novo,logistic_regression,6,3,0.6750311768890855
+A + estruturais,anotacao_curada,logistic_regression,6,3,0.7605882680361664
+A + estruturais,gene_novo,logistic_regression,6,3,0.7595806506283183
+A + classes,anotacao_curada,logistic_regression,6,3,0.8514067221770032
+A + classes,gene_novo,logistic_regression,6,3,0.8484989282250748
+B,anotacao_curada,logistic_regression,6,3,0.8767174320991821
+B,gene_novo,logistic_regression,6,3,0.8399015845988101
+só estruturais,anotacao_curada,logistic_regression,6,3,0.4552486890195455
+só estruturais,gene_novo,logistic_regression,6,3,0.45956456657883454
+só classes,anotacao_curada,logistic_regression,6,3,0.5268364698247889
+só classes,gene_novo,logistic_regression,6,3,0.753362339621431
+só ontologia,anotacao_curada,logistic_regression,6,3,0.823558341582752
+só ontologia,gene_novo,logistic_regression,6,3,0.8176326676326676
+A,anotacao_curada,logistic_regression,6,4,0.42213983455946946
+A,gene_novo,logistic_regression,6,4,0.42213983455946946
+A + estruturais,anotacao_curada,logistic_regression,6,4,0.6603384239547995
+A + estruturais,gene_novo,logistic_regression,6,4,0.6515534396695595
+A + classes,anotacao_curada,logistic_regression,6,4,0.8859472600329111
+A + classes,gene_novo,logistic_regression,6,4,0.9038844414005893
+B,anotacao_curada,logistic_regression,6,4,0.9308708338754492
+B,gene_novo,logistic_regression,6,4,0.9150870579806298
+só estruturais,anotacao_curada,logistic_regression,6,4,0.37527069319124606
+só estruturais,gene_novo,logistic_regression,6,4,0.3488661230142956
+só classes,anotacao_curada,logistic_regression,6,4,0.7388226336198735
+só classes,gene_novo,logistic_regression,6,4,0.7154318559693691
+só ontologia,anotacao_curada,logistic_regression,6,4,0.8324004990893258
+só ontologia,gene_novo,logistic_regression,6,4,0.778238357123446
+A,anotacao_curada,logistic_regression,6,5,0.4008913225141817
+A,gene_novo,logistic_regression,6,5,0.4008913225141817
+A + estruturais,anotacao_curada,logistic_regression,6,5,0.650193478043594
+A + estruturais,gene_novo,logistic_regression,6,5,0.6283035451319352
+A + classes,anotacao_curada,logistic_regression,6,5,0.8898905071804201
+A + classes,gene_novo,logistic_regression,6,5,0.8320283853208791
+B,anotacao_curada,logistic_regression,6,5,0.9077983420881697
+B,gene_novo,logistic_regression,6,5,0.842550393202567
+só estruturais,anotacao_curada,logistic_regression,6,5,0.3447011409188393
+só estruturais,gene_novo,logistic_regression,6,5,0.3238431833685546
+só classes,anotacao_curada,logistic_regression,6,5,0.7498880964645785
+só classes,gene_novo,logistic_regression,6,5,0.7292050979811583
+só ontologia,anotacao_curada,logistic_regression,6,5,0.771717734761213
+só ontologia,gene_novo,logistic_regression,6,5,0.7616944842852755
+A,anotacao_curada,logistic_regression,7,1,0.7083918445139975
+A,gene_novo,logistic_regression,7,1,0.7083918445139975
+A + estruturais,anotacao_curada,logistic_regression,7,1,0.8248252692472506
+A + estruturais,gene_novo,logistic_regression,7,1,0.8035354287095945
+A + classes,anotacao_curada,logistic_regression,7,1,0.941205768629391
+A + classes,gene_novo,logistic_regression,7,1,0.9487045166881242
+B,anotacao_curada,logistic_regression,7,1,0.97129857074335
+B,gene_novo,logistic_regression,7,1,0.9423033766912369
+só estruturais,anotacao_curada,logistic_regression,7,1,0.3776065361782167
+só estruturais,gene_novo,logistic_regression,7,1,0.36538607856581723
+só classes,anotacao_curada,logistic_regression,7,1,0.7568258337307958
+só classes,gene_novo,logistic_regression,7,1,0.7574053780423802
+só ontologia,anotacao_curada,logistic_regression,7,1,0.8055005475055186
+só ontologia,gene_novo,logistic_regression,7,1,0.7853464913279533
+A,anotacao_curada,logistic_regression,7,2,0.7047492092007415
+A,gene_novo,logistic_regression,7,2,0.7047492092007415
+A + estruturais,anotacao_curada,logistic_regression,7,2,0.8048359839143118
+A + estruturais,gene_novo,logistic_regression,7,2,0.7335477705510985
+A + classes,anotacao_curada,logistic_regression,7,2,0.9415944198235895
+A + classes,gene_novo,logistic_regression,7,2,0.8050607190847556
+B,anotacao_curada,logistic_regression,7,2,0.9465651397963135
+B,gene_novo,logistic_regression,7,2,0.8037791765449119
+só estruturais,anotacao_curada,logistic_regression,7,2,0.42175145924458735
+só estruturais,gene_novo,logistic_regression,7,2,0.37366419412339713
+só classes,anotacao_curada,logistic_regression,7,2,0.8229671924109108
+só classes,gene_novo,logistic_regression,7,2,0.6913196865254737
+só ontologia,anotacao_curada,logistic_regression,7,2,0.8656470892376268
+só ontologia,gene_novo,logistic_regression,7,2,0.7650628215214089
+A,anotacao_curada,logistic_regression,7,3,0.3579162254035907
+A,gene_novo,logistic_regression,7,3,0.3579162254035907
+A + estruturais,anotacao_curada,logistic_regression,7,3,0.5690417862357672
+A + estruturais,gene_novo,logistic_regression,7,3,0.5507981052646851
+A + classes,anotacao_curada,logistic_regression,7,3,0.8665092964850833
+A + classes,gene_novo,logistic_regression,7,3,0.8133274693838419
+B,anotacao_curada,logistic_regression,7,3,0.8801573816279294
+B,gene_novo,logistic_regression,7,3,0.8242279978015448
+só estruturais,anotacao_curada,logistic_regression,7,3,0.41885089766179345
+só estruturais,gene_novo,logistic_regression,7,3,0.4022639272058468
+só classes,anotacao_curada,logistic_regression,7,3,0.7714933383340574
+só classes,gene_novo,logistic_regression,7,3,0.75601841034029
+só ontologia,anotacao_curada,logistic_regression,7,3,0.8228678475253817
+só ontologia,gene_novo,logistic_regression,7,3,0.8151817843117332
+A,anotacao_curada,logistic_regression,7,4,0.6651409138315323
+A,gene_novo,logistic_regression,7,4,0.6651409138315323
+A + estruturais,anotacao_curada,logistic_regression,7,4,0.6999351645494075
+A + estruturais,gene_novo,logistic_regression,7,4,0.7110188292559421
+A + classes,anotacao_curada,logistic_regression,7,4,0.8721626486660238
+A + classes,gene_novo,logistic_regression,7,4,0.8436961755961991
+B,anotacao_curada,logistic_regression,7,4,0.9051635686465985
+B,gene_novo,logistic_regression,7,4,0.8429397596835028
+só estruturais,anotacao_curada,logistic_regression,7,4,0.3709047216008706
+só estruturais,gene_novo,logistic_regression,7,4,0.35579911707392775
+só classes,anotacao_curada,logistic_regression,7,4,0.5750955264832572
+só classes,gene_novo,logistic_regression,7,4,0.8177096160895244
+só ontologia,anotacao_curada,logistic_regression,7,4,0.8427097906208674
+só ontologia,gene_novo,logistic_regression,7,4,0.8326820113992748
+A,anotacao_curada,logistic_regression,7,5,0.6046391993126298
+A,gene_novo,logistic_regression,7,5,0.6046391993126298
+A + estruturais,anotacao_curada,logistic_regression,7,5,0.6462068651832571
+A + estruturais,gene_novo,logistic_regression,7,5,0.6349308878256246
+A + classes,anotacao_curada,logistic_regression,7,5,0.8532631332631333
+A + classes,gene_novo,logistic_regression,7,5,0.8742165301650833
+B,anotacao_curada,logistic_regression,7,5,0.8794780633078505
+B,gene_novo,logistic_regression,7,5,0.8632707521005394
+só estruturais,anotacao_curada,logistic_regression,7,5,0.3812262521588946
+só estruturais,gene_novo,logistic_regression,7,5,0.3828453143248359
+só classes,anotacao_curada,logistic_regression,7,5,0.5965541580529726
+só classes,gene_novo,logistic_regression,7,5,0.7622674335346241
+só ontologia,anotacao_curada,logistic_regression,7,5,0.7901358338536044
+só ontologia,gene_novo,logistic_regression,7,5,0.7883222375052624
+A,anotacao_curada,logistic_regression,8,1,0.5336762013569645
+A,gene_novo,logistic_regression,8,1,0.5336762013569645
+A + estruturais,anotacao_curada,logistic_regression,8,1,0.6502224001485095
+A + estruturais,gene_novo,logistic_regression,8,1,0.6396326341697941
+A + classes,anotacao_curada,logistic_regression,8,1,0.8726216106516681
+A + classes,gene_novo,logistic_regression,8,1,0.8409604138551506
+B,anotacao_curada,logistic_regression,8,1,0.9089786372322524
+B,gene_novo,logistic_regression,8,1,0.8533585500169405
+só estruturais,anotacao_curada,logistic_regression,8,1,0.39562418073868455
+só estruturais,gene_novo,logistic_regression,8,1,0.36460244492117
+só classes,anotacao_curada,logistic_regression,8,1,0.7055712550228951
+só classes,gene_novo,logistic_regression,8,1,0.6903999898736741
+só ontologia,anotacao_curada,logistic_regression,8,1,0.8346013130857516
+só ontologia,gene_novo,logistic_regression,8,1,0.7776420777644768
+A,anotacao_curada,logistic_regression,8,2,0.5383910882579399
+A,gene_novo,logistic_regression,8,2,0.5383910882579399
+A + estruturais,anotacao_curada,logistic_regression,8,2,0.7049701499820095
+A + estruturais,gene_novo,logistic_regression,8,2,0.6945609252821459
+A + classes,anotacao_curada,logistic_regression,8,2,0.8874389954712674
+A + classes,gene_novo,logistic_regression,8,2,0.8354390523763551
+B,anotacao_curada,logistic_regression,8,2,0.9364336987421444
+B,gene_novo,logistic_regression,8,2,0.8928459664940582
+só estruturais,anotacao_curada,logistic_regression,8,2,0.4128426483750386
+só estruturais,gene_novo,logistic_regression,8,2,0.3938791990160894
+só classes,anotacao_curada,logistic_regression,8,2,0.718452342176241
+só classes,gene_novo,logistic_regression,8,2,0.7212142365276112
+só ontologia,anotacao_curada,logistic_regression,8,2,0.7674667849924631
+só ontologia,gene_novo,logistic_regression,8,2,0.7931687983926297
+A,anotacao_curada,logistic_regression,8,3,0.5073740655257483
+A,gene_novo,logistic_regression,8,3,0.5073740655257483
+A + estruturais,anotacao_curada,logistic_regression,8,3,0.5764258142328995
+A + estruturais,gene_novo,logistic_regression,8,3,0.5687927873511678
+A + classes,anotacao_curada,logistic_regression,8,3,0.8705239536558699
+A + classes,gene_novo,logistic_regression,8,3,0.8763497203397973
+B,anotacao_curada,logistic_regression,8,3,0.905307508493339
+B,gene_novo,logistic_regression,8,3,0.8803533169076176
+só estruturais,anotacao_curada,logistic_regression,8,3,0.37357173627230006
+só estruturais,gene_novo,logistic_regression,8,3,0.36942406830506525
+só classes,anotacao_curada,logistic_regression,8,3,0.590668841527191
+só classes,gene_novo,logistic_regression,8,3,0.8131946079344392
+só ontologia,anotacao_curada,logistic_regression,8,3,0.8118096968551702
+só ontologia,gene_novo,logistic_regression,8,3,0.8169048715003161
+A,anotacao_curada,logistic_regression,8,4,0.4684867906880381
+A,gene_novo,logistic_regression,8,4,0.4684867906880381
+A + estruturais,anotacao_curada,logistic_regression,8,4,0.6741406327654175
+A + estruturais,gene_novo,logistic_regression,8,4,0.6508107544030454
+A + classes,anotacao_curada,logistic_regression,8,4,0.9037026851290337
+A + classes,gene_novo,logistic_regression,8,4,0.8946705477897743
+B,anotacao_curada,logistic_regression,8,4,0.9331348891959662
+B,gene_novo,logistic_regression,8,4,0.9004562069315865
+só estruturais,anotacao_curada,logistic_regression,8,4,0.31621841373686677
+só estruturais,gene_novo,logistic_regression,8,4,0.29040370976541185
+só classes,anotacao_curada,logistic_regression,8,4,0.8748842644270095
+só classes,gene_novo,logistic_regression,8,4,0.8530000041428366
+só ontologia,anotacao_curada,logistic_regression,8,4,0.9104367237038472
+só ontologia,gene_novo,logistic_regression,8,4,0.8930348546664663
+A,anotacao_curada,logistic_regression,8,5,0.6200919564319342
+A,gene_novo,logistic_regression,8,5,0.6200919564319342
+A + estruturais,anotacao_curada,logistic_regression,8,5,0.7509571716189208
+A + estruturais,gene_novo,logistic_regression,8,5,0.7500669094940217
+A + classes,anotacao_curada,logistic_regression,8,5,0.8780223013793502
+A + classes,gene_novo,logistic_regression,8,5,0.8559701743463306
+B,anotacao_curada,logistic_regression,8,5,0.8645059534220758
+B,gene_novo,logistic_regression,8,5,0.814521305746054
+só estruturais,anotacao_curada,logistic_regression,8,5,0.36829802288170665
+só estruturais,gene_novo,logistic_regression,8,5,0.33519201825992484
+só classes,anotacao_curada,logistic_regression,8,5,0.7834827692063718
+só classes,gene_novo,logistic_regression,8,5,0.6703656799065458
+só ontologia,anotacao_curada,logistic_regression,8,5,0.825691337433808
+só ontologia,gene_novo,logistic_regression,8,5,0.7537263413282987
+A,anotacao_curada,logistic_regression,9,1,0.4883771668622625
+A,gene_novo,logistic_regression,9,1,0.4883771668622625
+A + estruturais,anotacao_curada,logistic_regression,9,1,0.6170834944081602
+A + estruturais,gene_novo,logistic_regression,9,1,0.5754125647859983
+A + classes,anotacao_curada,logistic_regression,9,1,0.8745019428081043
+A + classes,gene_novo,logistic_regression,9,1,0.7655218388926786
+B,anotacao_curada,logistic_regression,9,1,0.9239787106843858
+B,gene_novo,logistic_regression,9,1,0.7855751144430321
+só estruturais,anotacao_curada,logistic_regression,9,1,0.4072420390067449
+só estruturais,gene_novo,logistic_regression,9,1,0.3193122328889534
+só classes,anotacao_curada,logistic_regression,9,1,0.6940770871881983
+só classes,gene_novo,logistic_regression,9,1,0.5443795834891478
+só ontologia,anotacao_curada,logistic_regression,9,1,0.7140846713560975
+só ontologia,gene_novo,logistic_regression,9,1,0.6044431734766025
+A,anotacao_curada,logistic_regression,9,2,0.5870590986426494
+A,gene_novo,logistic_regression,9,2,0.5870590986426494
+A + estruturais,anotacao_curada,logistic_regression,9,2,0.7033192889952772
+A + estruturais,gene_novo,logistic_regression,9,2,0.6858772264249262
+A + classes,anotacao_curada,logistic_regression,9,2,0.8688999603940342
+A + classes,gene_novo,logistic_regression,9,2,0.8237010439081155
+B,anotacao_curada,logistic_regression,9,2,0.8726247199436967
+B,gene_novo,logistic_regression,9,2,0.8363021488181704
+só estruturais,anotacao_curada,logistic_regression,9,2,0.4300283679888722
+só estruturais,gene_novo,logistic_regression,9,2,0.413312140681413
+só classes,anotacao_curada,logistic_regression,9,2,0.5526849221149777
+só classes,gene_novo,logistic_regression,9,2,0.6419508552764389
+só ontologia,anotacao_curada,logistic_regression,9,2,0.8123089161663211
+só ontologia,gene_novo,logistic_regression,9,2,0.7555834651337303
+A,anotacao_curada,logistic_regression,9,3,0.5428287151567422
+A,gene_novo,logistic_regression,9,3,0.5428287151567422
+A + estruturais,anotacao_curada,logistic_regression,9,3,0.7409730929178081
+A + estruturais,gene_novo,logistic_regression,9,3,0.7533300229182582
+A + classes,anotacao_curada,logistic_regression,9,3,0.9125243952389311
+A + classes,gene_novo,logistic_regression,9,3,0.9400190158290188
+B,anotacao_curada,logistic_regression,9,3,0.9285611375967553
+B,gene_novo,logistic_regression,9,3,0.9328429655575015
+só estruturais,anotacao_curada,logistic_regression,9,3,0.42559307719769846
+só estruturais,gene_novo,logistic_regression,9,3,0.39657956001847405
+só classes,anotacao_curada,logistic_regression,9,3,0.7523301335098753
+só classes,gene_novo,logistic_regression,9,3,0.8087065131755388
+só ontologia,anotacao_curada,logistic_regression,9,3,0.8261179267067049
+só ontologia,gene_novo,logistic_regression,9,3,0.8574858348831631
+A,anotacao_curada,logistic_regression,9,4,0.5644255717039732
+A,gene_novo,logistic_regression,9,4,0.5644255717039732
+A + estruturais,anotacao_curada,logistic_regression,9,4,0.7474680293870521
+A + estruturais,gene_novo,logistic_regression,9,4,0.7374687284602766
+A + classes,anotacao_curada,logistic_regression,9,4,0.9456174613202822
+A + classes,gene_novo,logistic_regression,9,4,0.9271037645043794
+B,anotacao_curada,logistic_regression,9,4,0.9777997803271798
+B,gene_novo,logistic_regression,9,4,0.9312093143963918
+só estruturais,anotacao_curada,logistic_regression,9,4,0.21887287138359396
+só estruturais,gene_novo,logistic_regression,9,4,0.20665718974823152
+só classes,anotacao_curada,logistic_regression,9,4,0.8402531413277192
+só classes,gene_novo,logistic_regression,9,4,0.8372746464178018
+só ontologia,anotacao_curada,logistic_regression,9,4,0.9188297283722132
+só ontologia,gene_novo,logistic_regression,9,4,0.8783674879364085
+A,anotacao_curada,logistic_regression,9,5,0.6341296423715371
+A,gene_novo,logistic_regression,9,5,0.6341296423715371
+A + estruturais,anotacao_curada,logistic_regression,9,5,0.7019419755610945
+A + estruturais,gene_novo,logistic_regression,9,5,0.6925430102626409
+A + classes,anotacao_curada,logistic_regression,9,5,0.9229589796156544
+A + classes,gene_novo,logistic_regression,9,5,0.8991643539042732
+B,anotacao_curada,logistic_regression,9,5,0.9392478199027657
+B,gene_novo,logistic_regression,9,5,0.897192067088152
+só estruturais,anotacao_curada,logistic_regression,9,5,0.356764109676731
+só estruturais,gene_novo,logistic_regression,9,5,0.3456390269458958
+só classes,anotacao_curada,logistic_regression,9,5,0.7811932677943576
+só classes,gene_novo,logistic_regression,9,5,0.7423284079502384
+só ontologia,anotacao_curada,logistic_regression,9,5,0.8420961102979007
+só ontologia,gene_novo,logistic_regression,9,5,0.7968733768746433
+A,anotacao_curada,logistic_regression,10,1,0.5646822177099412
+A,gene_novo,logistic_regression,10,1,0.5646822177099412
+A + estruturais,anotacao_curada,logistic_regression,10,1,0.7154640807607928
+A + estruturais,gene_novo,logistic_regression,10,1,0.6986367171087867
+A + classes,anotacao_curada,logistic_regression,10,1,0.7561034186739383
+A + classes,gene_novo,logistic_regression,10,1,0.7950958441734463
+B,anotacao_curada,logistic_regression,10,1,0.9260915985354202
+B,gene_novo,logistic_regression,10,1,0.8008402496534274
+só estruturais,anotacao_curada,logistic_regression,10,1,0.38309241094475993
+só estruturais,gene_novo,logistic_regression,10,1,0.33746434843199014
+só classes,anotacao_curada,logistic_regression,10,1,0.8640991516436903
+só classes,gene_novo,logistic_regression,10,1,0.7269523542071087
+só ontologia,anotacao_curada,logistic_regression,10,1,0.8740085553872203
+só ontologia,gene_novo,logistic_regression,10,1,0.7624287084752543
+A,anotacao_curada,logistic_regression,10,2,0.6447601626086611
+A,gene_novo,logistic_regression,10,2,0.6447601626086611
+A + estruturais,anotacao_curada,logistic_regression,10,2,0.7827150492451338
+A + estruturais,gene_novo,logistic_regression,10,2,0.7638826139088185
+A + classes,anotacao_curada,logistic_regression,10,2,0.9108207278195941
+A + classes,gene_novo,logistic_regression,10,2,0.8740784451376429
+B,anotacao_curada,logistic_regression,10,2,0.9474587456971119
+B,gene_novo,logistic_regression,10,2,0.8872447460659657
+só estruturais,anotacao_curada,logistic_regression,10,2,0.4520271398059859
+só estruturais,gene_novo,logistic_regression,10,2,0.4663094457369589
+só classes,anotacao_curada,logistic_regression,10,2,0.550291417837155
+só classes,gene_novo,logistic_regression,10,2,0.7580102220284266
+só ontologia,anotacao_curada,logistic_regression,10,2,0.7719276797087994
+só ontologia,gene_novo,logistic_regression,10,2,0.8215169577611607
+A,anotacao_curada,logistic_regression,10,3,0.6230758802488935
+A,gene_novo,logistic_regression,10,3,0.6230758802488935
+A + estruturais,anotacao_curada,logistic_regression,10,3,0.7336720405335402
+A + estruturais,gene_novo,logistic_regression,10,3,0.7044454639059647
+A + classes,anotacao_curada,logistic_regression,10,3,0.9566496863874455
+A + classes,gene_novo,logistic_regression,10,3,0.9576705513185162
+B,anotacao_curada,logistic_regression,10,3,0.9801992012032918
+B,gene_novo,logistic_regression,10,3,0.9627047201684146
+só estruturais,anotacao_curada,logistic_regression,10,3,0.34673448505615834
+só estruturais,gene_novo,logistic_regression,10,3,0.3403879217709005
+só classes,anotacao_curada,logistic_regression,10,3,0.7814280215039491
+só classes,gene_novo,logistic_regression,10,3,0.7837307475340891
+só ontologia,anotacao_curada,logistic_regression,10,3,0.8775821710250788
+só ontologia,gene_novo,logistic_regression,10,3,0.8785079454643061
+A,anotacao_curada,logistic_regression,10,4,0.38079486425163905
+A,gene_novo,logistic_regression,10,4,0.38079486425163905
+A + estruturais,anotacao_curada,logistic_regression,10,4,0.5874168953342676
+A + estruturais,gene_novo,logistic_regression,10,4,0.5860950693387098
+A + classes,anotacao_curada,logistic_regression,10,4,0.9444300585630282
+A + classes,gene_novo,logistic_regression,10,4,0.8583670319521298
+B,anotacao_curada,logistic_regression,10,4,0.9387269331116356
+B,gene_novo,logistic_regression,10,4,0.8304940308552432
+só estruturais,anotacao_curada,logistic_regression,10,4,0.3718960980022927
+só estruturais,gene_novo,logistic_regression,10,4,0.3485313697586669
+só classes,anotacao_curada,logistic_regression,10,4,0.8125542778737355
+só classes,gene_novo,logistic_regression,10,4,0.8095834547385478
+só ontologia,anotacao_curada,logistic_regression,10,4,0.8087939340879885
+só ontologia,gene_novo,logistic_regression,10,4,0.8025010886105873
+A,anotacao_curada,logistic_regression,10,5,0.44878018502425476
+A,gene_novo,logistic_regression,10,5,0.44878018502425476
+A + estruturais,anotacao_curada,logistic_regression,10,5,0.633110284754568
+A + estruturais,gene_novo,logistic_regression,10,5,0.6046785122367788
+A + classes,anotacao_curada,logistic_regression,10,5,0.8481087872807704
+A + classes,gene_novo,logistic_regression,10,5,0.7835526315789474
+B,anotacao_curada,logistic_regression,10,5,0.875037362037218
+B,gene_novo,logistic_regression,10,5,0.7959979830947572
+só estruturais,anotacao_curada,logistic_regression,10,5,0.3948789671866595
+só estruturais,gene_novo,logistic_regression,10,5,0.3539711391288891
+só classes,anotacao_curada,logistic_regression,10,5,0.7304167416546339
+só classes,gene_novo,logistic_regression,10,5,0.5785419668466447
+só ontologia,anotacao_curada,logistic_regression,10,5,0.7731597729476839
+só ontologia,gene_novo,logistic_regression,10,5,0.7346981013890863
+A,anotacao_curada,svm,1,1,0.7313311639365272
+A,gene_novo,svm,1,1,0.7313311639365272
+A + estruturais,anotacao_curada,svm,1,1,0.8293064549430337
+A + estruturais,gene_novo,svm,1,1,0.8194214244901085
+A + classes,anotacao_curada,svm,1,1,0.9010933852822969
+A + classes,gene_novo,svm,1,1,0.8603145388309322
+B,anotacao_curada,svm,1,1,0.9599581246135122
+B,gene_novo,svm,1,1,0.8586884778978018
+só estruturais,anotacao_curada,svm,1,1,0.4112532751747925
+só estruturais,gene_novo,svm,1,1,0.3956728501581823
+só classes,anotacao_curada,svm,1,1,0.7052435560479451
+só classes,gene_novo,svm,1,1,0.5584610188161286
+só ontologia,anotacao_curada,svm,1,1,0.7363071485329941
+só ontologia,gene_novo,svm,1,1,0.7018969889867696
+A,anotacao_curada,svm,1,2,0.6607829126762759
+A,gene_novo,svm,1,2,0.6607829126762759
+A + estruturais,anotacao_curada,svm,1,2,0.7164175506803492
+A + estruturais,gene_novo,svm,1,2,0.6822645402956284
+A + classes,anotacao_curada,svm,1,2,0.955447257804426
+A + classes,gene_novo,svm,1,2,0.7939957901919491
+B,anotacao_curada,svm,1,2,0.9422941573712412
+B,gene_novo,svm,1,2,0.7758794707653018
+só estruturais,anotacao_curada,svm,1,2,0.4278632991581229
+só estruturais,gene_novo,svm,1,2,0.3584121675426023
+só classes,anotacao_curada,svm,1,2,0.8135662375761387
+só classes,gene_novo,svm,1,2,0.6918445164653891
+só ontologia,anotacao_curada,svm,1,2,0.8440853565277529
+só ontologia,gene_novo,svm,1,2,0.7009135899040466
+A,anotacao_curada,svm,1,3,0.6457905407955101
+A,gene_novo,svm,1,3,0.6457905407955101
+A + estruturais,anotacao_curada,svm,1,3,0.77618752578308
+A + estruturais,gene_novo,svm,1,3,0.751737589407324
+A + classes,anotacao_curada,svm,1,3,0.9235747582170483
+A + classes,gene_novo,svm,1,3,0.9199248602909705
+B,anotacao_curada,svm,1,3,0.9439305147987012
+B,gene_novo,svm,1,3,0.912800220370783
+só estruturais,anotacao_curada,svm,1,3,0.3753272091295676
+só estruturais,gene_novo,svm,1,3,0.4097824547475408
+só classes,anotacao_curada,svm,1,3,0.5172796349404523
+só classes,gene_novo,svm,1,3,0.7117065820232992
+só ontologia,anotacao_curada,svm,1,3,0.5421624797021748
+só ontologia,gene_novo,svm,1,3,0.7319535250200749
+A,anotacao_curada,svm,1,4,0.42424128849578546
+A,gene_novo,svm,1,4,0.42424128849578546
+A + estruturais,anotacao_curada,svm,1,4,0.44126922340330654
+A + estruturais,gene_novo,svm,1,4,0.43668426458413573
+A + classes,anotacao_curada,svm,1,4,0.8448616565626896
+A + classes,gene_novo,svm,1,4,0.8284597223915806
+B,anotacao_curada,svm,1,4,0.8428083570271958
+B,gene_novo,svm,1,4,0.8286523516168218
+só estruturais,anotacao_curada,svm,1,4,0.32163263866050246
+só estruturais,gene_novo,svm,1,4,0.3040552092437924
+só classes,anotacao_curada,svm,1,4,0.8424715788428188
+só classes,gene_novo,svm,1,4,0.8214017777904628
+só ontologia,anotacao_curada,svm,1,4,0.8621838824415047
+só ontologia,gene_novo,svm,1,4,0.8254705772080995
+A,anotacao_curada,svm,1,5,0.7870077831361529
+A,gene_novo,svm,1,5,0.7870077831361529
+A + estruturais,anotacao_curada,svm,1,5,0.7784283319585984
+A + estruturais,gene_novo,svm,1,5,0.8091188955092358
+A + classes,anotacao_curada,svm,1,5,0.9379043290678457
+A + classes,gene_novo,svm,1,5,0.9290966876217288
+B,anotacao_curada,svm,1,5,0.9254695891710336
+B,gene_novo,svm,1,5,0.9142958224459299
+só estruturais,anotacao_curada,svm,1,5,0.41178065227834815
+só estruturais,gene_novo,svm,1,5,0.3825473479698832
+só classes,anotacao_curada,svm,1,5,0.8144768697245306
+só classes,gene_novo,svm,1,5,0.8002775140373565
+só ontologia,anotacao_curada,svm,1,5,0.8487281258109551
+só ontologia,gene_novo,svm,1,5,0.7869732591554107
+A,anotacao_curada,svm,2,1,0.6910852542712695
+A,gene_novo,svm,2,1,0.6910852542712695
+A + estruturais,anotacao_curada,svm,2,1,0.8012974572348668
+A + estruturais,gene_novo,svm,2,1,0.795112857609386
+A + classes,anotacao_curada,svm,2,1,0.9237065048603659
+A + classes,gene_novo,svm,2,1,0.9286181884682609
+B,anotacao_curada,svm,2,1,0.953102563046226
+B,gene_novo,svm,2,1,0.9265569066214956
+só estruturais,anotacao_curada,svm,2,1,0.40362308814549097
+só estruturais,gene_novo,svm,2,1,0.3988787426398518
+só classes,anotacao_curada,svm,2,1,0.7396315295042207
+só classes,gene_novo,svm,2,1,0.6379218864626743
+só ontologia,anotacao_curada,svm,2,1,0.7769326016364049
+só ontologia,gene_novo,svm,2,1,0.7431514269544829
+A,anotacao_curada,svm,2,2,0.6931875900654125
+A,gene_novo,svm,2,2,0.6931875900654125
+A + estruturais,anotacao_curada,svm,2,2,0.7129320623761439
+A + estruturais,gene_novo,svm,2,2,0.7105559923045688
+A + classes,anotacao_curada,svm,2,2,0.9431687257688717
+A + classes,gene_novo,svm,2,2,0.9031270890496383
+B,anotacao_curada,svm,2,2,0.945213548111892
+B,gene_novo,svm,2,2,0.905118704727444
+só estruturais,anotacao_curada,svm,2,2,0.22717547662597512
+só estruturais,gene_novo,svm,2,2,0.21080191549887628
+só classes,anotacao_curada,svm,2,2,0.6069870727418162
+só classes,gene_novo,svm,2,2,0.8194413036626191
+só ontologia,anotacao_curada,svm,2,2,0.6322547548755817
+só ontologia,gene_novo,svm,2,2,0.8314671358743526
+A,anotacao_curada,svm,2,3,0.7131042408636893
+A,gene_novo,svm,2,3,0.7131042408636893
+A + estruturais,anotacao_curada,svm,2,3,0.7937585862314682
+A + estruturais,gene_novo,svm,2,3,0.768790342448879
+A + classes,anotacao_curada,svm,2,3,0.9642753935884734
+A + classes,gene_novo,svm,2,3,0.9146800749285221
+B,anotacao_curada,svm,2,3,0.9751086281317793
+B,gene_novo,svm,2,3,0.9223521131219845
+só estruturais,anotacao_curada,svm,2,3,0.39656932706017195
+só estruturais,gene_novo,svm,2,3,0.446961444239626
+só classes,anotacao_curada,svm,2,3,0.7602034252612022
+só classes,gene_novo,svm,2,3,0.7739230933418368
+só ontologia,anotacao_curada,svm,2,3,0.8614721578936388
+só ontologia,gene_novo,svm,2,3,0.8341795931882799
+A,anotacao_curada,svm,2,4,0.7146136160844656
+A,gene_novo,svm,2,4,0.7146136160844656
+A + estruturais,anotacao_curada,svm,2,4,0.7964818279328495
+A + estruturais,gene_novo,svm,2,4,0.7569367423169109
+A + classes,anotacao_curada,svm,2,4,0.934166271472576
+A + classes,gene_novo,svm,2,4,0.8999731361310441
+B,anotacao_curada,svm,2,4,0.9277851289156818
+B,gene_novo,svm,2,4,0.880848527973782
+só estruturais,anotacao_curada,svm,2,4,0.4348807006946542
+só estruturais,gene_novo,svm,2,4,0.39788909325514393
+só classes,anotacao_curada,svm,2,4,0.7954272305633467
+só classes,gene_novo,svm,2,4,0.6862109118951224
+só ontologia,anotacao_curada,svm,2,4,0.7940086006508601
+só ontologia,gene_novo,svm,2,4,0.7579464733687186
+A,anotacao_curada,svm,2,5,0.5944037245285536
+A,gene_novo,svm,2,5,0.5944037245285536
+A + estruturais,anotacao_curada,svm,2,5,0.6675698610678401
+A + estruturais,gene_novo,svm,2,5,0.6666799858579492
+A + classes,anotacao_curada,svm,2,5,0.9476349182012184
+A + classes,gene_novo,svm,2,5,0.8043375104427737
+B,anotacao_curada,svm,2,5,0.9466104700877244
+B,gene_novo,svm,2,5,0.8033035131340682
+só estruturais,anotacao_curada,svm,2,5,0.40619667644689716
+só estruturais,gene_novo,svm,2,5,0.30060691750713076
+só classes,anotacao_curada,svm,2,5,0.8365455859833772
+só classes,gene_novo,svm,2,5,0.7261523815756871
+só ontologia,anotacao_curada,svm,2,5,0.8509142595334964
+só ontologia,gene_novo,svm,2,5,0.7264343756362909
+A,anotacao_curada,svm,3,1,0.6175764477487748
+A,gene_novo,svm,3,1,0.6175764477487748
+A + estruturais,anotacao_curada,svm,3,1,0.6652698455676862
+A + estruturais,gene_novo,svm,3,1,0.6256374676845657
+A + classes,anotacao_curada,svm,3,1,0.953329339459714
+A + classes,gene_novo,svm,3,1,0.9078869023003884
+B,anotacao_curada,svm,3,1,0.9669397135872568
+B,gene_novo,svm,3,1,0.9273895393179883
+só estruturais,anotacao_curada,svm,3,1,0.3731933448363929
+só estruturais,gene_novo,svm,3,1,0.3723161897601249
+só classes,anotacao_curada,svm,3,1,0.8218444292655516
+só classes,gene_novo,svm,3,1,0.7626191764562134
+só ontologia,anotacao_curada,svm,3,1,0.8267446593599678
+só ontologia,gene_novo,svm,3,1,0.7936132155234883
+A,anotacao_curada,svm,3,2,0.6443613379460897
+A,gene_novo,svm,3,2,0.6443613379460897
+A + estruturais,anotacao_curada,svm,3,2,0.7375055146802089
+A + estruturais,gene_novo,svm,3,2,0.7302363247252124
+A + classes,anotacao_curada,svm,3,2,0.9313423456339057
+A + classes,gene_novo,svm,3,2,0.8905746463345062
+B,anotacao_curada,svm,3,2,0.9102332764366414
+B,gene_novo,svm,3,2,0.8813004423973345
+só estruturais,anotacao_curada,svm,3,2,0.40410429580974583
+só estruturais,gene_novo,svm,3,2,0.3858022405403775
+só classes,anotacao_curada,svm,3,2,0.7673686323495739
+só classes,gene_novo,svm,3,2,0.6602789847150871
+só ontologia,anotacao_curada,svm,3,2,0.7606684427187697
+só ontologia,gene_novo,svm,3,2,0.7379924917842188
+A,anotacao_curada,svm,3,3,0.7701822457651905
+A,gene_novo,svm,3,3,0.7701822457651905
+A + estruturais,anotacao_curada,svm,3,3,0.8029354526070944
+A + estruturais,gene_novo,svm,3,3,0.823970818134445
+A + classes,anotacao_curada,svm,3,3,0.9073447876161274
+A + classes,gene_novo,svm,3,3,0.9321767360189476
+B,anotacao_curada,svm,3,3,0.9076952495260624
+B,gene_novo,svm,3,3,0.9221921272497371
+só estruturais,anotacao_curada,svm,3,3,0.3935968367997219
+só estruturais,gene_novo,svm,3,3,0.3732543630349635
+só classes,anotacao_curada,svm,3,3,0.7013550886803166
+só classes,gene_novo,svm,3,3,0.7408804561974571
+só ontologia,anotacao_curada,svm,3,3,0.7539271411196186
+só ontologia,gene_novo,svm,3,3,0.7828160647138749
+A,anotacao_curada,svm,3,4,0.6260853990621064
+A,gene_novo,svm,3,4,0.6260853990621064
+A + estruturais,anotacao_curada,svm,3,4,0.6749921796620487
+A + estruturais,gene_novo,svm,3,4,0.6770363574061041
+A + classes,anotacao_curada,svm,3,4,0.8921128801041636
+A + classes,gene_novo,svm,3,4,0.7815546368601031
+B,anotacao_curada,svm,3,4,0.9158609693785914
+B,gene_novo,svm,3,4,0.7790672681786626
+só estruturais,anotacao_curada,svm,3,4,0.48926971175521067
+só estruturais,gene_novo,svm,3,4,0.385694111176324
+só classes,anotacao_curada,svm,3,4,0.4933982284296258
+só classes,gene_novo,svm,3,4,0.6067067540515122
+só ontologia,anotacao_curada,svm,3,4,0.5310082563569338
+só ontologia,gene_novo,svm,3,4,0.6296971434655392
+A,anotacao_curada,svm,3,5,0.685132484967109
+A,gene_novo,svm,3,5,0.685132484967109
+A + estruturais,anotacao_curada,svm,3,5,0.7369243303693841
+A + estruturais,gene_novo,svm,3,5,0.7233631063264732
+A + classes,anotacao_curada,svm,3,5,0.8021466122059973
+A + classes,gene_novo,svm,3,5,0.7766344001829697
+B,anotacao_curada,svm,3,5,0.8295040885586925
+B,gene_novo,svm,3,5,0.8048215250425669
+só estruturais,anotacao_curada,svm,3,5,0.3075036433584826
+só estruturais,gene_novo,svm,3,5,0.24612200820948535
+só classes,anotacao_curada,svm,3,5,0.8724351713691444
+só classes,gene_novo,svm,3,5,0.8573375476825748
+só ontologia,anotacao_curada,svm,3,5,0.8991291581103358
+só ontologia,gene_novo,svm,3,5,0.8742687305591638
+A,anotacao_curada,svm,4,1,0.7261630556261722
+A,gene_novo,svm,4,1,0.7261630556261722
+A + estruturais,anotacao_curada,svm,4,1,0.8017426236169211
+A + estruturais,gene_novo,svm,4,1,0.7881583515831407
+A + classes,anotacao_curada,svm,4,1,0.9287342356113186
+A + classes,gene_novo,svm,4,1,0.9074169465238431
+B,anotacao_curada,svm,4,1,0.9305172465567597
+B,gene_novo,svm,4,1,0.9144749652304233
+só estruturais,anotacao_curada,svm,4,1,0.4312252431815192
+só estruturais,gene_novo,svm,4,1,0.4325382615516899
+só classes,anotacao_curada,svm,4,1,0.7979986648988252
+só classes,gene_novo,svm,4,1,0.7836397399038001
+só ontologia,anotacao_curada,svm,4,1,0.7951375583573222
+só ontologia,gene_novo,svm,4,1,0.7856228539926994
+A,anotacao_curada,svm,4,2,0.5713614368327136
+A,gene_novo,svm,4,2,0.5713614368327136
+A + estruturais,anotacao_curada,svm,4,2,0.6729107505813379
+A + estruturais,gene_novo,svm,4,2,0.6759057507935754
+A + classes,anotacao_curada,svm,4,2,0.919597213555116
+A + classes,gene_novo,svm,4,2,0.7713839699701655
+B,anotacao_curada,svm,4,2,0.9268327553290966
+B,gene_novo,svm,4,2,0.7668493276575289
+só estruturais,anotacao_curada,svm,4,2,0.4450147635145399
+só estruturais,gene_novo,svm,4,2,0.3608993754337265
+só classes,anotacao_curada,svm,4,2,0.5451873051231032
+só classes,gene_novo,svm,4,2,0.6410048190465862
+só ontologia,anotacao_curada,svm,4,2,0.5622029365806235
+só ontologia,gene_novo,svm,4,2,0.6746595462704508
+A,anotacao_curada,svm,4,3,0.7945094439601924
+A,gene_novo,svm,4,3,0.7945094439601924
+A + estruturais,anotacao_curada,svm,4,3,0.8361138160788034
+A + estruturais,gene_novo,svm,4,3,0.8052856767265834
+A + classes,anotacao_curada,svm,4,3,0.9414490816819405
+A + classes,gene_novo,svm,4,3,0.922454686130705
+B,anotacao_curada,svm,4,3,0.9486831511037941
+B,gene_novo,svm,4,3,0.9137147757356509
+só estruturais,anotacao_curada,svm,4,3,0.4188595638868532
+só estruturais,gene_novo,svm,4,3,0.4109841380072939
+só classes,anotacao_curada,svm,4,3,0.7545188900994566
+só classes,gene_novo,svm,4,3,0.6224832160062188
+só ontologia,anotacao_curada,svm,4,3,0.8032265604249668
+só ontologia,gene_novo,svm,4,3,0.8050725484190494
+A,anotacao_curada,svm,4,4,0.7078767541444503
+A,gene_novo,svm,4,4,0.7078767541444503
+A + estruturais,anotacao_curada,svm,4,4,0.801161984935918
+A + estruturais,gene_novo,svm,4,4,0.7790179947436197
+A + classes,anotacao_curada,svm,4,4,0.9358113595044417
+A + classes,gene_novo,svm,4,4,0.8991939456026582
+B,anotacao_curada,svm,4,4,0.915068068252413
+B,gene_novo,svm,4,4,0.8852629295697436
+só estruturais,anotacao_curada,svm,4,4,0.3697402966917119
+só estruturais,gene_novo,svm,4,4,0.38544679817940736
+só classes,anotacao_curada,svm,4,4,0.7776205801091665
+só classes,gene_novo,svm,4,4,0.8014058457814712
+só ontologia,anotacao_curada,svm,4,4,0.8192800689765555
+só ontologia,gene_novo,svm,4,4,0.8251403682017143
+A,anotacao_curada,svm,4,5,0.7352720340359616
+A,gene_novo,svm,4,5,0.7352720340359616
+A + estruturais,anotacao_curada,svm,4,5,0.7412292793009343
+A + estruturais,gene_novo,svm,4,5,0.7330231492116547
+A + classes,anotacao_curada,svm,4,5,0.9634319288658965
+A + classes,gene_novo,svm,4,5,0.9454528489495836
+B,anotacao_curada,svm,4,5,0.9695299293389998
+B,gene_novo,svm,4,5,0.9417556907177724
+só estruturais,anotacao_curada,svm,4,5,0.31525030419345507
+só estruturais,gene_novo,svm,4,5,0.30187839287691143
+só classes,anotacao_curada,svm,4,5,0.8333232037184404
+só classes,gene_novo,svm,4,5,0.8528561124723952
+só ontologia,anotacao_curada,svm,4,5,0.8609678730678132
+só ontologia,gene_novo,svm,4,5,0.8493364546077034
+A,anotacao_curada,svm,5,1,0.6453835931331369
+A,gene_novo,svm,5,1,0.6453835931331369
+A + estruturais,anotacao_curada,svm,5,1,0.7612348759779884
+A + estruturais,gene_novo,svm,5,1,0.7325978740535704
+A + classes,anotacao_curada,svm,5,1,0.9378669287362111
+A + classes,gene_novo,svm,5,1,0.9331912555066918
+B,anotacao_curada,svm,5,1,0.9586253924141834
+B,gene_novo,svm,5,1,0.9358841248179735
+só estruturais,anotacao_curada,svm,5,1,0.3687469334681882
+só estruturais,gene_novo,svm,5,1,0.35689880952380953
+só classes,anotacao_curada,svm,5,1,0.8202772252218118
+só classes,gene_novo,svm,5,1,0.6600803367840469
+só ontologia,anotacao_curada,svm,5,1,0.8286618283677107
+só ontologia,gene_novo,svm,5,1,0.790056387395017
+A,anotacao_curada,svm,5,2,0.7850109580762847
+A,gene_novo,svm,5,2,0.7850109580762847
+A + estruturais,anotacao_curada,svm,5,2,0.8345273425826469
+A + estruturais,gene_novo,svm,5,2,0.8096347979686465
+A + classes,anotacao_curada,svm,5,2,0.9118149530189272
+A + classes,gene_novo,svm,5,2,0.8965684368744716
+B,anotacao_curada,svm,5,2,0.9112621642606913
+B,gene_novo,svm,5,2,0.8990804881584934
+só estruturais,anotacao_curada,svm,5,2,0.4909703946208374
+só estruturais,gene_novo,svm,5,2,0.4672959312472937
+só classes,anotacao_curada,svm,5,2,0.76188396588928
+só classes,gene_novo,svm,5,2,0.7839173482259734
+só ontologia,anotacao_curada,svm,5,2,0.7700698705293584
+só ontologia,gene_novo,svm,5,2,0.7926704407803328
+A,anotacao_curada,svm,5,3,0.6593359531359443
+A,gene_novo,svm,5,3,0.6593359531359443
+A + estruturais,anotacao_curada,svm,5,3,0.863681160265952
+A + estruturais,gene_novo,svm,5,3,0.8790599629682381
+A + classes,anotacao_curada,svm,5,3,0.9638637691937252
+A + classes,gene_novo,svm,5,3,0.9378577600026615
+B,anotacao_curada,svm,5,3,0.9819092139572625
+B,gene_novo,svm,5,3,0.9515321582583273
+só estruturais,anotacao_curada,svm,5,3,0.34672890823305835
+só estruturais,gene_novo,svm,5,3,0.33506015672940537
+só classes,anotacao_curada,svm,5,3,0.7426357817128066
+só classes,gene_novo,svm,5,3,0.7674776300252992
+só ontologia,anotacao_curada,svm,5,3,0.8165205136235516
+só ontologia,gene_novo,svm,5,3,0.7923013503774428
+A,anotacao_curada,svm,5,4,0.4895688839237226
+A,gene_novo,svm,5,4,0.4895688839237226
+A + estruturais,anotacao_curada,svm,5,4,0.610289021878525
+A + estruturais,gene_novo,svm,5,4,0.5934129109272351
+A + classes,anotacao_curada,svm,5,4,0.9379416728687826
+A + classes,gene_novo,svm,5,4,0.898189218801042
+B,anotacao_curada,svm,5,4,0.9308874087188933
+B,gene_novo,svm,5,4,0.8879015307665379
+só estruturais,anotacao_curada,svm,5,4,0.3755133220161843
+só estruturais,gene_novo,svm,5,4,0.41161323266586425
+só classes,anotacao_curada,svm,5,4,0.5714058862682728
+só classes,gene_novo,svm,5,4,0.7594320364161287
+só ontologia,anotacao_curada,svm,5,4,0.5690914904560571
+só ontologia,gene_novo,svm,5,4,0.7572017799360362
+A,anotacao_curada,svm,5,5,0.7674690903738594
+A,gene_novo,svm,5,5,0.7674690903738594
+A + estruturais,anotacao_curada,svm,5,5,0.7747200508887178
+A + estruturais,gene_novo,svm,5,5,0.7681219481709627
+A + classes,anotacao_curada,svm,5,5,0.9526919312818372
+A + classes,gene_novo,svm,5,5,0.824212024542698
+B,anotacao_curada,svm,5,5,0.9489945720071071
+B,gene_novo,svm,5,5,0.8165802148624086
+só estruturais,anotacao_curada,svm,5,5,0.24394691199779825
+só estruturais,gene_novo,svm,5,5,0.21810213638800519
+só classes,anotacao_curada,svm,5,5,0.8475917435866087
+só classes,gene_novo,svm,5,5,0.7223887283884709
+só ontologia,anotacao_curada,svm,5,5,0.8764705238860995
+só ontologia,gene_novo,svm,5,5,0.7578619128644216
+A,anotacao_curada,svm,6,1,0.6521487480986695
+A,gene_novo,svm,6,1,0.6521487480986695
+A + estruturais,anotacao_curada,svm,6,1,0.7427662027539348
+A + estruturais,gene_novo,svm,6,1,0.7250659361761329
+A + classes,anotacao_curada,svm,6,1,0.9756184953068363
+A + classes,gene_novo,svm,6,1,0.930895300904003
+B,anotacao_curada,svm,6,1,0.9553512741708869
+B,gene_novo,svm,6,1,0.9183626444018378
+só estruturais,anotacao_curada,svm,6,1,0.41285254769916246
+só estruturais,gene_novo,svm,6,1,0.39975169515805564
+só classes,anotacao_curada,svm,6,1,0.880043902137395
+só classes,gene_novo,svm,6,1,0.8720211359067269
+só ontologia,anotacao_curada,svm,6,1,0.8950856494917725
+só ontologia,gene_novo,svm,6,1,0.8969378704491172
+A,anotacao_curada,svm,6,2,0.7405771967997397
+A,gene_novo,svm,6,2,0.7405771967997397
+A + estruturais,anotacao_curada,svm,6,2,0.7646854923239934
+A + estruturais,gene_novo,svm,6,2,0.7601692371459012
+A + classes,anotacao_curada,svm,6,2,0.9721925358048706
+A + classes,gene_novo,svm,6,2,0.8535987906083177
+B,anotacao_curada,svm,6,2,0.9667166994699515
+B,gene_novo,svm,6,2,0.8520955148639955
+só estruturais,anotacao_curada,svm,6,2,0.3806852905029623
+só estruturais,gene_novo,svm,6,2,0.3204875342082013
+só classes,anotacao_curada,svm,6,2,0.8430241099960355
+só classes,gene_novo,svm,6,2,0.6934164174270548
+só ontologia,anotacao_curada,svm,6,2,0.7981380495052713
+só ontologia,gene_novo,svm,6,2,0.7114391134278301
+A,anotacao_curada,svm,6,3,0.7693540297100098
+A,gene_novo,svm,6,3,0.7693540297100098
+A + estruturais,anotacao_curada,svm,6,3,0.8069733325558568
+A + estruturais,gene_novo,svm,6,3,0.803120651375189
+A + classes,anotacao_curada,svm,6,3,0.8951417316752917
+A + classes,gene_novo,svm,6,3,0.8809488641782218
+B,anotacao_curada,svm,6,3,0.9080626259785308
+B,gene_novo,svm,6,3,0.8774557795287624
+só estruturais,anotacao_curada,svm,6,3,0.45505789540654024
+só estruturais,gene_novo,svm,6,3,0.45937384852705143
+só classes,anotacao_curada,svm,6,3,0.5137949354240778
+só classes,gene_novo,svm,6,3,0.7745956638842145
+só ontologia,anotacao_curada,svm,6,3,0.5282105265404345
+só ontologia,gene_novo,svm,6,3,0.8009589620145476
+A,anotacao_curada,svm,6,4,0.5948107201840592
+A,gene_novo,svm,6,4,0.5948107201840592
+A + estruturais,anotacao_curada,svm,6,4,0.6790352082973616
+A + estruturais,gene_novo,svm,6,4,0.6951524123699294
+A + classes,anotacao_curada,svm,6,4,0.9364040287680393
+A + classes,gene_novo,svm,6,4,0.9381287710067518
+B,anotacao_curada,svm,6,4,0.9532066798011071
+B,gene_novo,svm,6,4,0.939339324794604
+só estruturais,anotacao_curada,svm,6,4,0.2990077212457197
+só estruturais,gene_novo,svm,6,4,0.21041597896053124
+só classes,anotacao_curada,svm,6,4,0.743385614182569
+só classes,gene_novo,svm,6,4,0.7376351159199065
+só ontologia,anotacao_curada,svm,6,4,0.8105690034481977
+só ontologia,gene_novo,svm,6,4,0.7497085891898547
+A,anotacao_curada,svm,6,5,0.6246738310615494
+A,gene_novo,svm,6,5,0.6246738310615494
+A + estruturais,anotacao_curada,svm,6,5,0.6711947034190352
+A + estruturais,gene_novo,svm,6,5,0.6560629157905405
+A + classes,anotacao_curada,svm,6,5,0.9443399423476219
+A + classes,gene_novo,svm,6,5,0.901203895406794
+B,anotacao_curada,svm,6,5,0.9401528197055813
+B,gene_novo,svm,6,5,0.9042774595708633
+só estruturais,anotacao_curada,svm,6,5,0.3505104957935147
+só estruturais,gene_novo,svm,6,5,0.3291828179083081
+só classes,anotacao_curada,svm,6,5,0.7388219621333636
+só classes,gene_novo,svm,6,5,0.7184276960399669
+só ontologia,anotacao_curada,svm,6,5,0.7639659739341607
+só ontologia,gene_novo,svm,6,5,0.7263060642370986
+A,anotacao_curada,svm,7,1,0.7894987996628091
+A,gene_novo,svm,7,1,0.7894987996628091
+A + estruturais,anotacao_curada,svm,7,1,0.852832795543358
+A + estruturais,gene_novo,svm,7,1,0.8509902674157994
+A + classes,anotacao_curada,svm,7,1,0.9692565568379393
+A + classes,gene_novo,svm,7,1,0.9687991050541083
+B,anotacao_curada,svm,7,1,0.9783804695422365
+B,gene_novo,svm,7,1,0.9744613273510797
+só estruturais,anotacao_curada,svm,7,1,0.3776065361782167
+só estruturais,gene_novo,svm,7,1,0.36538607856581723
+só classes,anotacao_curada,svm,7,1,0.7707288915990955
+só classes,gene_novo,svm,7,1,0.7561797764943476
+só ontologia,anotacao_curada,svm,7,1,0.8053048897399474
+só ontologia,gene_novo,svm,7,1,0.7769052535933428
+A,anotacao_curada,svm,7,2,0.7025577459698372
+A,gene_novo,svm,7,2,0.7025577459698372
+A + estruturais,anotacao_curada,svm,7,2,0.7306108406077806
+A + estruturais,gene_novo,svm,7,2,0.7119192747016339
+A + classes,anotacao_curada,svm,7,2,0.9310139582440706
+A + classes,gene_novo,svm,7,2,0.8188571797625903
+B,anotacao_curada,svm,7,2,0.9482630566298363
+B,gene_novo,svm,7,2,0.8247515946874835
+só estruturais,anotacao_curada,svm,7,2,0.42175145924458735
+só estruturais,gene_novo,svm,7,2,0.37366419412339713
+só classes,anotacao_curada,svm,7,2,0.8407840731621841
+só classes,gene_novo,svm,7,2,0.6673793733323256
+só ontologia,anotacao_curada,svm,7,2,0.8720880161939284
+só ontologia,gene_novo,svm,7,2,0.7668794227700589
+A,anotacao_curada,svm,7,3,0.6994209872750445
+A,gene_novo,svm,7,3,0.6994209872750445
+A + estruturais,anotacao_curada,svm,7,3,0.7590591825239179
+A + estruturais,gene_novo,svm,7,3,0.7439044915204255
+A + classes,anotacao_curada,svm,7,3,0.9613843689101682
+A + classes,gene_novo,svm,7,3,0.9146063096330217
+B,anotacao_curada,svm,7,3,0.9512334270939805
+B,gene_novo,svm,7,3,0.9097396395747847
+só estruturais,anotacao_curada,svm,7,3,0.44217625651346804
+só estruturais,gene_novo,svm,7,3,0.4022639272058468
+só classes,anotacao_curada,svm,7,3,0.7803870016805201
+só classes,gene_novo,svm,7,3,0.7639697483579548
+só ontologia,anotacao_curada,svm,7,3,0.7891805232731391
+só ontologia,gene_novo,svm,7,3,0.7686132394688857
+A,anotacao_curada,svm,7,4,0.5788881120476034
+A,gene_novo,svm,7,4,0.5788881120476034
+A + estruturais,anotacao_curada,svm,7,4,0.6897527059425489
+A + estruturais,gene_novo,svm,7,4,0.6159285350083734
+A + classes,anotacao_curada,svm,7,4,0.9293260651775249
+A + classes,gene_novo,svm,7,4,0.8610369072308396
+B,anotacao_curada,svm,7,4,0.9246035790112224
+B,gene_novo,svm,7,4,0.8452288630076481
+só estruturais,anotacao_curada,svm,7,4,0.3805616031417084
+só estruturais,gene_novo,svm,7,4,0.3654497138359646
+só classes,anotacao_curada,svm,7,4,0.582426473591684
+só classes,gene_novo,svm,7,4,0.8177096160895244
+só ontologia,anotacao_curada,svm,7,4,0.6178125086748802
+só ontologia,gene_novo,svm,7,4,0.8548225546863149
+A,anotacao_curada,svm,7,5,0.6821150978712603
+A,gene_novo,svm,7,5,0.6821150978712603
+A + estruturais,anotacao_curada,svm,7,5,0.7339939345849005
+A + estruturais,gene_novo,svm,7,5,0.7252122472294583
+A + classes,anotacao_curada,svm,7,5,0.9133070527961878
+A + classes,gene_novo,svm,7,5,0.9226926324449544
+B,anotacao_curada,svm,7,5,0.8955219043740881
+B,gene_novo,svm,7,5,0.9084386426710672
+só estruturais,anotacao_curada,svm,7,5,0.35906664806729105
+só estruturais,gene_novo,svm,7,5,0.41157916445403486
+só classes,anotacao_curada,svm,7,5,0.7547142094017094
+só classes,gene_novo,svm,7,5,0.7917747239840263
+só ontologia,anotacao_curada,svm,7,5,0.7839148475725514
+só ontologia,gene_novo,svm,7,5,0.8017180859632227
+A,anotacao_curada,svm,8,1,0.7272849382530898
+A,gene_novo,svm,8,1,0.7272849382530898
+A + estruturais,anotacao_curada,svm,8,1,0.7432317553813436
+A + estruturais,gene_novo,svm,8,1,0.7733848273483619
+A + classes,anotacao_curada,svm,8,1,0.8752529806189788
+A + classes,gene_novo,svm,8,1,0.8813437383872167
+B,anotacao_curada,svm,8,1,0.9042788631945943
+B,gene_novo,svm,8,1,0.8850698909339757
+só estruturais,anotacao_curada,svm,8,1,0.3303751803751804
+só estruturais,gene_novo,svm,8,1,0.3359275742238274
+só classes,anotacao_curada,svm,8,1,0.7300020251323225
+só classes,gene_novo,svm,8,1,0.7259507172672733
+só ontologia,anotacao_curada,svm,8,1,0.7524682414736028
+só ontologia,gene_novo,svm,8,1,0.7279607641244314
+A,anotacao_curada,svm,8,2,0.7682237196244368
+A,gene_novo,svm,8,2,0.7682237196244368
+A + estruturais,anotacao_curada,svm,8,2,0.7889391713899595
+A + estruturais,gene_novo,svm,8,2,0.7708330007147662
+A + classes,anotacao_curada,svm,8,2,0.9333949006804557
+A + classes,gene_novo,svm,8,2,0.9149643074372873
+B,anotacao_curada,svm,8,2,0.931175422570651
+B,gene_novo,svm,8,2,0.9149643074372873
+só estruturais,anotacao_curada,svm,8,2,0.39843400154293823
+só estruturais,gene_novo,svm,8,2,0.40035958805592314
+só classes,anotacao_curada,svm,8,2,0.695715542126585
+só classes,gene_novo,svm,8,2,0.7217511271141083
+só ontologia,anotacao_curada,svm,8,2,0.7338970622617292
+só ontologia,gene_novo,svm,8,2,0.7313916237642231
+A,anotacao_curada,svm,8,3,0.6882889420950568
+A,gene_novo,svm,8,3,0.6882889420950568
+A + estruturais,anotacao_curada,svm,8,3,0.7339488013521163
+A + estruturais,gene_novo,svm,8,3,0.7134247727045522
+A + classes,anotacao_curada,svm,8,3,0.9434558163001612
+A + classes,gene_novo,svm,8,3,0.9392945160163503
+B,anotacao_curada,svm,8,3,0.9424799507533026
+B,gene_novo,svm,8,3,0.947365672793009
+só estruturais,anotacao_curada,svm,8,3,0.39148551296208656
+só estruturais,gene_novo,svm,8,3,0.3871413919413919
+só classes,anotacao_curada,svm,8,3,0.6252335669941672
+só classes,gene_novo,svm,8,3,0.8047620408464444
+só ontologia,anotacao_curada,svm,8,3,0.6437234934573965
+só ontologia,gene_novo,svm,8,3,0.844279572582888
+A,anotacao_curada,svm,8,4,0.6642814148285923
+A,gene_novo,svm,8,4,0.6642814148285923
+A + estruturais,anotacao_curada,svm,8,4,0.7360075912220287
+A + estruturais,gene_novo,svm,8,4,0.7182253004758437
+A + classes,anotacao_curada,svm,8,4,0.9624824101867343
+A + classes,gene_novo,svm,8,4,0.9125083798556297
+B,anotacao_curada,svm,8,4,0.9633305688416808
+B,gene_novo,svm,8,4,0.9134195886104284
+só estruturais,anotacao_curada,svm,8,4,0.33204124930877127
+só estruturais,gene_novo,svm,8,4,0.31897350127526547
+só classes,anotacao_curada,svm,8,4,0.8732888252012657
+só classes,gene_novo,svm,8,4,0.8400532056397978
+só ontologia,anotacao_curada,svm,8,4,0.8781899941640454
+só ontologia,gene_novo,svm,8,4,0.8493219813784657
+A,anotacao_curada,svm,8,5,0.6963968537954653
+A,gene_novo,svm,8,5,0.6963968537954653
+A + estruturais,anotacao_curada,svm,8,5,0.7146531421868562
+A + estruturais,gene_novo,svm,8,5,0.6981822417196205
+A + classes,anotacao_curada,svm,8,5,0.8895186488501894
+A + classes,gene_novo,svm,8,5,0.8530733923862025
+B,anotacao_curada,svm,8,5,0.8906700161152716
+B,gene_novo,svm,8,5,0.8426950912117152
+só estruturais,anotacao_curada,svm,8,5,0.392520299934312
+só estruturais,gene_novo,svm,8,5,0.34718149320140845
+só classes,anotacao_curada,svm,8,5,0.8025422215194856
+só classes,gene_novo,svm,8,5,0.7025462093664943
+só ontologia,anotacao_curada,svm,8,5,0.823291449039272
+só ontologia,gene_novo,svm,8,5,0.7755359243808838
+A,anotacao_curada,svm,9,1,0.5164630886770584
+A,gene_novo,svm,9,1,0.5164630886770584
+A + estruturais,anotacao_curada,svm,9,1,0.6699308656080202
+A + estruturais,gene_novo,svm,9,1,0.6490023178819284
+A + classes,anotacao_curada,svm,9,1,0.9377382567999935
+A + classes,gene_novo,svm,9,1,0.816071435118622
+B,anotacao_curada,svm,9,1,0.9449900323851022
+B,gene_novo,svm,9,1,0.816071435118622
+só estruturais,anotacao_curada,svm,9,1,0.4179987404583302
+só estruturais,gene_novo,svm,9,1,0.341330418807199
+só classes,anotacao_curada,svm,9,1,0.6510030124310786
+só classes,gene_novo,svm,9,1,0.5101027300638952
+só ontologia,anotacao_curada,svm,9,1,0.6741328346471451
+só ontologia,gene_novo,svm,9,1,0.5501951448185858
+A,anotacao_curada,svm,9,2,0.6706285139690709
+A,gene_novo,svm,9,2,0.6706285139690709
+A + estruturais,anotacao_curada,svm,9,2,0.7423291468272881
+A + estruturais,gene_novo,svm,9,2,0.7323027748964821
+A + classes,anotacao_curada,svm,9,2,0.9185820049356366
+A + classes,gene_novo,svm,9,2,0.8839726929298071
+B,anotacao_curada,svm,9,2,0.8978730710327998
+B,gene_novo,svm,9,2,0.8683650238802487
+só estruturais,anotacao_curada,svm,9,2,0.4125742093876236
+só estruturais,gene_novo,svm,9,2,0.43006827495588273
+só classes,anotacao_curada,svm,9,2,0.5427616007454502
+só classes,gene_novo,svm,9,2,0.7282460928596844
+só ontologia,anotacao_curada,svm,9,2,0.6202111032337431
+só ontologia,gene_novo,svm,9,2,0.7567280817754386
+A,anotacao_curada,svm,9,3,0.791684552823543
+A,gene_novo,svm,9,3,0.791684552823543
+A + estruturais,anotacao_curada,svm,9,3,0.8525123804992989
+A + estruturais,gene_novo,svm,9,3,0.8343451461740792
+A + classes,anotacao_curada,svm,9,3,0.9717996915091771
+A + classes,gene_novo,svm,9,3,0.9597202797202797
+B,anotacao_curada,svm,9,3,0.9565010681790455
+B,gene_novo,svm,9,3,0.9369380244764793
+só estruturais,anotacao_curada,svm,9,3,0.4257067737819833
+só estruturais,gene_novo,svm,9,3,0.39657956001847405
+só classes,anotacao_curada,svm,9,3,0.8058593833467661
+só classes,gene_novo,svm,9,3,0.7214878706546782
+só ontologia,anotacao_curada,svm,9,3,0.8543089903724367
+só ontologia,gene_novo,svm,9,3,0.8708617975550087
+A,anotacao_curada,svm,9,4,0.47633013420330556
+A,gene_novo,svm,9,4,0.47633013420330556
+A + estruturais,anotacao_curada,svm,9,4,0.5701489801766064
+A + estruturais,gene_novo,svm,9,4,0.5609777437782615
+A + classes,anotacao_curada,svm,9,4,0.8663446910216408
+A + classes,gene_novo,svm,9,4,0.8179167163329983
+B,anotacao_curada,svm,9,4,0.8957775669606267
+B,gene_novo,svm,9,4,0.8499985780793196
+só estruturais,anotacao_curada,svm,9,4,0.22071899331725991
+só estruturais,gene_novo,svm,9,4,0.20938664135687185
+só classes,anotacao_curada,svm,9,4,0.8400132664504059
+só classes,gene_novo,svm,9,4,0.84048392869339
+só ontologia,anotacao_curada,svm,9,4,0.8904090085449811
+só ontologia,gene_novo,svm,9,4,0.8510508600377772
+A,anotacao_curada,svm,9,5,0.62963299700632
+A,gene_novo,svm,9,5,0.62963299700632
+A + estruturais,anotacao_curada,svm,9,5,0.6467711898877455
+A + estruturais,gene_novo,svm,9,5,0.6478079104608933
+A + classes,anotacao_curada,svm,9,5,0.9633001901527718
+A + classes,gene_novo,svm,9,5,0.925400893428862
+B,anotacao_curada,svm,9,5,0.9596443986804157
+B,gene_novo,svm,9,5,0.9141113352526153
+só estruturais,anotacao_curada,svm,9,5,0.356764109676731
+só estruturais,gene_novo,svm,9,5,0.3456390269458958
+só classes,anotacao_curada,svm,9,5,0.8215143710196184
+só classes,gene_novo,svm,9,5,0.765052965797999
+só ontologia,anotacao_curada,svm,9,5,0.8557353338057672
+só ontologia,gene_novo,svm,9,5,0.8034562023938573
+A,anotacao_curada,svm,10,1,0.5827184929842553
+A,gene_novo,svm,10,1,0.5827184929842553
+A + estruturais,anotacao_curada,svm,10,1,0.5929897632378331
+A + estruturais,gene_novo,svm,10,1,0.6011783488379233
+A + classes,anotacao_curada,svm,10,1,0.9539630495214781
+A + classes,gene_novo,svm,10,1,0.8332496158533355
+B,anotacao_curada,svm,10,1,0.9493665762131105
+B,gene_novo,svm,10,1,0.8273089779323385
+só estruturais,anotacao_curada,svm,10,1,0.3303398727848873
+só estruturais,gene_novo,svm,10,1,0.279859943402311
+só classes,anotacao_curada,svm,10,1,0.842850997026218
+só classes,gene_novo,svm,10,1,0.7328457498414769
+só ontologia,anotacao_curada,svm,10,1,0.8650638048757788
+só ontologia,gene_novo,svm,10,1,0.7624287084752543
+A,anotacao_curada,svm,10,2,0.7818289795874722
+A,gene_novo,svm,10,2,0.7818289795874722
+A + estruturais,anotacao_curada,svm,10,2,0.8347469197469197
+A + estruturais,gene_novo,svm,10,2,0.8395682836659658
+A + classes,anotacao_curada,svm,10,2,0.9241281604184831
+A + classes,gene_novo,svm,10,2,0.9106560866305736
+B,anotacao_curada,svm,10,2,0.9473570165370683
+B,gene_novo,svm,10,2,0.9106560866305736
+só estruturais,anotacao_curada,svm,10,2,0.44777458706484197
+só estruturais,gene_novo,svm,10,2,0.4642561936104008
+só classes,anotacao_curada,svm,10,2,0.5196038948568186
+só classes,gene_novo,svm,10,2,0.7355946256615352
+só ontologia,anotacao_curada,svm,10,2,0.5638685899341869
+só ontologia,gene_novo,svm,10,2,0.7654794712173569
+A,anotacao_curada,svm,10,3,0.5992461486512832
+A,gene_novo,svm,10,3,0.5992461486512832
+A + estruturais,anotacao_curada,svm,10,3,0.7829955663201035
+A + estruturais,gene_novo,svm,10,3,0.7550704006030016
+A + classes,anotacao_curada,svm,10,3,0.9903929403929403
+A + classes,gene_novo,svm,10,3,0.9682079699897894
+B,anotacao_curada,svm,10,3,0.9935600371306232
+B,gene_novo,svm,10,3,0.9682079699897894
+só estruturais,anotacao_curada,svm,10,3,0.3311641310057785
+só estruturais,gene_novo,svm,10,3,0.4163951415661402
+só classes,anotacao_curada,svm,10,3,0.7655227185493099
+só classes,gene_novo,svm,10,3,0.8008966850395144
+só ontologia,anotacao_curada,svm,10,3,0.8176792948941536
+só ontologia,gene_novo,svm,10,3,0.8012934412024816
+A,anotacao_curada,svm,10,4,0.6785775761046917
+A,gene_novo,svm,10,4,0.6785775761046917
+A + estruturais,anotacao_curada,svm,10,4,0.7200338074623789
+A + estruturais,gene_novo,svm,10,4,0.7348395186204935
+A + classes,anotacao_curada,svm,10,4,0.9543122287117628
+A + classes,gene_novo,svm,10,4,0.9244469441524579
+B,anotacao_curada,svm,10,4,0.9540802800652426
+B,gene_novo,svm,10,4,0.9313940460548414
+só estruturais,anotacao_curada,svm,10,4,0.37769476483506886
+só estruturais,gene_novo,svm,10,4,0.3543307731694828
+só classes,anotacao_curada,svm,10,4,0.8248540411921743
+só classes,gene_novo,svm,10,4,0.8214924266832672
+só ontologia,anotacao_curada,svm,10,4,0.838629919698622
+só ontologia,gene_novo,svm,10,4,0.8303643399715244
+A,anotacao_curada,svm,10,5,0.6710443797240135
+A,gene_novo,svm,10,5,0.6710443797240135
+A + estruturais,anotacao_curada,svm,10,5,0.7960575603379537
+A + estruturais,gene_novo,svm,10,5,0.7210448349521021
+A + classes,anotacao_curada,svm,10,5,0.9222297785981844
+A + classes,gene_novo,svm,10,5,0.8722694557820562
+B,anotacao_curada,svm,10,5,0.9343523433776351
+B,gene_novo,svm,10,5,0.884705301146307
+só estruturais,anotacao_curada,svm,10,5,0.411765902865342
+só estruturais,gene_novo,svm,10,5,0.3694084967694853
+só classes,anotacao_curada,svm,10,5,0.6955205178187635
+só classes,gene_novo,svm,10,5,0.5470867320549584
+só ontologia,anotacao_curada,svm,10,5,0.7141977088840823
+só ontologia,gene_novo,svm,10,5,0.6761974791582943

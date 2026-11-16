@@ -1,0 +1,11 @@
+{
+  "programa": "MMseqs2",
+  "versao_release": "18-8cc5c",
+  "comando": "mmseqs easy-search experimento.fasta experimento.fasta hits.m8 tmp --min-seq-id 0 -c 0 --cov-mode 0 -s 7.5 -e 0.001 --max-seqs 10000 --alignment-mode 3 --format-output query,target,fident,alnlen,qlen,tlen,qcov,tcov,evalue,bits --threads 11",
+  "uso": "gene mais parecido do treino (cenário gene novo e referência por homologia, ponto 4)",
+  "diferenca_para_a_busca_do_ponto_3": "sem piso de identidade (--min-seq-id 0); demais parâmetros iguais",
+  "genes_buscados": 6033,
+  "pares_encontrados_sem_autopares": 6548219,
+  "pares_com_identidade_abaixo_de_40": 2231912,
+  "tempo_s": 563.2
+}

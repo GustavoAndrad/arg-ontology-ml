@@ -10,6 +10,10 @@ Saídas:
     reports/tabelas_latex/tabela_cv.tex            — Tabela 5.5 (CV 10 × 5, IC corrigido)
     reports/tabelas_latex/tabela_teste_t.tex       — Tabela 5.6 (teste t corrigido + Holm)
     reports/tabelas_latex/tabela_por_classe.tex    — precisão, revocação e F1 por classe (teste)
+    results/tabela_cenarios.csv                    — A, B curado, B gene novo e homologia no teste (ponto 4)
+    results/cenarios_cv.csv                        — diferenças entre os cenários na CV, IC corrigido (descritivo)
+    reports/tabelas_latex/tabela_cenarios.tex      — idem, em LaTeX
+    reports/tabelas_latex/tabela_ablacao.tex       — ablação das features ontológicas (CV, IC corrigido)
     results/conclusoes_experimento.txt
 
 Intervalos (TCC2, ponto 5): no teste, IC 95% por bootstrap de grupos
@@ -161,7 +165,7 @@ def generate_latex_tables(ma: pd.DataFrame, mb: pd.DataFrame, comp: pd.DataFrame
             "tab:roc_auc",
         ),
     )
-    t = tests.set_index("modelo")
+    t = curated_tests(tests)
     rows = [
         [
             MODEL_LABELS[n],
@@ -182,27 +186,151 @@ def generate_latex_tables(ma: pd.DataFrame, mb: pd.DataFrame, comp: pd.DataFrame
     )
     rows = [
         [
-            MODEL_LABELS[n],
-            f"{t.loc[n, 'diferenca_media']:+.4f}".replace(".", ","),
-            _ic(t.loc[n, "ic95_inf"], t.loc[n, "ic95_sup"]),
-            _br(t.loc[n, "t"], 2),
-            f"{t.loc[n, 'p_value']:.2e}".replace(".", ","),
-            f"{t.loc[n, 'p_holm']:.2e}".replace(".", ","),
-            "Rejeita $H_0$" if t.loc[n, "decisao"] == "rejeita_H0" else "Não rejeita $H_0$",
+            SCENARIO_LABELS[r.cenario],
+            MODEL_LABELS[r.modelo],
+            f"{r.diferenca_media:+.4f}".replace(".", ","),
+            _ic(r.ic95_inf, r.ic95_sup),
+            _br(r.t, 2),
+            f"{r.p_value:.2e}".replace(".", ","),
+            f"{r.p_holm:.2e}".replace(".", ","),
+            "Rejeita $H_0$" if r.decisao == "rejeita_H0" else "Não rejeita $H_0$",
         ]
-        for n in MODEL_NAMES
+        for r in tests.itertuples()
     ]
     _write(
         "tabela_teste_t.tex",
         _latex_table(
-            ["Modelo", r"$\bar{d}$ (B $-$ A)", "IC 95\\%", "$t$", "valor-$p$", "$p$ (Holm)", "Decisão"],
+            ["Cenário", "Modelo", r"$\bar{d}$ (B $-$ A)", "IC 95\\%", "$t$", "valor-$p$", "$p$ (Holm)", "Decisão"],
             rows,
             f"Teste t corrigido para validação cruzada repetida (Nadeau e Bengio), F1-macro, B vs. A, "
             f"{n_est} estimativas pareadas, {n_est - 1} graus de liberdade; correção de Holm sobre "
-            f"{int(t['testes_na_familia'].iloc[0])} comparações; $\\alpha = 0{{,}}05$.",
+            f"{int(tests['testes_na_familia'].iloc[0])} comparações (2 cenários $\\times$ 4 modelos); $\\alpha = 0{{,}}05$.",
             "tab:teste_t",
         ),
     )
+
+
+SCENARIO_LABELS: dict[str, str] = {"anotacao_curada": "Anotação curada", "gene_novo": "Gene novo"}
+
+
+def curated_tests(tests: pd.DataFrame) -> pd.DataFrame:
+    """Linhas do cenário "anotação curada", indexadas pelo modelo (tabelas do experimento A × B)."""
+    return tests[tests["cenario"] == "anotacao_curada"].set_index("modelo")
+
+
+def generate_scenario_table(boot: pd.DataFrame) -> pd.DataFrame:
+    """
+    F1-macro no teste (IC 95% por bootstrap de grupos) do A, do B nos dois cenários e da
+    referência por homologia, e as diferenças pareadas (TCC2, ponto 4). Média da CV ao lado.
+    """
+    keys = ("a", "b", "b_gene_novo", "b_gene_novo_zeros", "b_gene_novo_piso40")
+    cv = {key: pd.read_csv(RESULTS_DIR / f"metrics_pipeline_{key}.csv").set_index(["modelo", "metrica"]) for key in keys}
+    cv_hom = {
+        k: pd.read_csv(RESULTS_DIR / f"metrics_pipeline_referencia_{k}.csv").set_index(["modelo", "metrica"])
+        for k in ("homologia", "homologia_piso40")
+    }
+    rows = []
+    for m in MODEL_NAMES:
+        row = {"modelo": m}
+        for key in keys:
+            r = boot.loc[(m, key, "f1_macro", "macro")]
+            row |= {f"f1_teste_{key}": r["valor"], f"ic95_inf_{key}": r["ic95_inf"], f"ic95_sup_{key}": r["ic95_sup"],
+                    f"f1_cv_{key}": cv[key].loc[(m, "f1_macro"), "media_cv"]}
+        for k in ("homologia", "homologia_piso40"):
+            hom = boot.loc[("homologia", k, "f1_macro", "macro")]
+            row |= {f"f1_teste_{k}": hom["valor"], f"ic95_inf_{k}": hom["ic95_inf"], f"ic95_sup_{k}": hom["ic95_sup"],
+                    f"f1_cv_{k}": cv_hom[k].loc[("homologia", "f1_macro"), "media_cv"]}
+        for comp in ("b_gene_novo_menos_a", "b_gene_novo_menos_b", "b_gene_novo_zeros_menos_b_gene_novo",
+                     "homologia_menos_b", "homologia_menos_b_gene_novo", "b_gene_novo_piso40_menos_b_gene_novo"):
+            r = boot.loc[(m, comp, "f1_macro", "macro")]
+            row |= {comp: r["valor"], f"{comp}_ic95_inf": r["ic95_inf"], f"{comp}_ic95_sup": r["ic95_sup"]}
+        rows.append(row)
+    df = pd.DataFrame(rows)
+    df.to_csv(RESULTS_DIR / "tabela_cenarios.csv", index=False)
+    body = [
+        [MODEL_LABELS[r["modelo"]]]
+        + [f"{_br(r[f'f1_teste_{k}'])} {_ic(r[f'ic95_inf_{k}'], r[f'ic95_sup_{k}'])}" for k in ("a", "b", "b_gene_novo", "homologia")]
+        for r in rows
+    ]
+    _write(
+        "tabela_cenarios.tex",
+        _latex_table(
+            ["Modelo", "A", "B (anotação curada)", "B (gene novo)", "Homologia (sem ML)"],
+            body,
+            "F1-macro no conjunto de teste nos cenários do Pipeline B e na referência por homologia (mecanismo do "
+            "gene mais parecido do treino, na busca do MMseqs2 sem piso de identidade), com intervalo de 95\\% por "
+            "bootstrap de grupos. A referência por homologia "
+            "não depende do modelo.",
+            "tab:cenarios",
+        ),
+    )
+    return df
+
+
+CV_COMPARISONS: list[tuple[str, str, str]] = [
+    # (nome, minuendo, subtraendo) — diferenças pareadas por fold, descritivas (sem teste).
+    ("b_gene_novo_menos_b", "b_gene_novo", "b"),
+    ("homologia_menos_b", "homologia", "b"),
+    ("homologia_menos_b_gene_novo", "homologia", "b_gene_novo"),
+    ("b_gene_novo_zeros_menos_b_gene_novo", "b_gene_novo_zeros", "b_gene_novo"),
+    ("b_gene_novo_piso40_menos_b_gene_novo", "b_gene_novo_piso40", "b_gene_novo"),
+    ("homologia_piso40_menos_homologia", "homologia_piso40", "homologia"),
+]
+
+
+def generate_scenario_cv_table(cv_folds: pd.DataFrame) -> pd.DataFrame:
+    """
+    Diferenças entre os cenários do ponto 4 na validação cruzada (mesmos 50 folds), com o
+    intervalo de 95% corrigido de Nadeau e Bengio (o mesmo do teste t), sem teste: são
+    comparações descritivas (decisão do ponto 5). A referência por homologia, que não
+    tem modelo, é pareada com cada modelo pelo fold.
+    """
+    from src.statistical_tests import corrected_interval, test_train_ratio
+
+    ratio = test_train_ratio(cv_folds)
+    f1 = cv_folds.pivot_table(index=["repeticao", "fold"], columns=["pipeline", "modelo"], values="f1_macro")
+    rows = []
+    for m in MODEL_NAMES:
+        for name, minuend, subtrahend in CV_COMPARISONS:
+            col = lambda key: f1[(key, "homologia" if key.startswith("homologia") else m)]
+            d = (col(minuend) - col(subtrahend)).to_numpy()
+            low, high = corrected_interval(d, ratio)
+            rows.append({"modelo": m, "comparacao": name, "media": d.mean(), "ic95_inf": low, "ic95_sup": high,
+                         "folds_minuendo_maior": int((d > 0).sum()), "folds_subtraendo_maior": int((d < 0).sum())})
+    out = pd.DataFrame(rows)
+    out.to_csv(RESULTS_DIR / "cenarios_cv.csv", index=False)
+    return out
+
+
+def generate_ablation_table() -> pd.DataFrame | None:
+    """Ablação por grupo de features ontológicas (``src.leakage_check``), média da CV com IC corrigido."""
+    path = RESULTS_DIR / "ablacao_ontologia.csv"
+    if not path.exists():
+        logger.warning("Sem %s: rode python -m src.leakage_check.", path)
+        return None
+    abl = pd.read_csv(path)
+    configs = list(dict.fromkeys(abl["config"]))
+    body = []
+    for scen in ("anotacao_curada", "gene_novo"):
+        for i, cfg in enumerate(configs):
+            sub = abl[(abl["config"] == cfg) & (abl["cenario"] == scen)].set_index("modelo")
+            body.append(
+                [SCENARIO_LABELS[scen] if i == 0 else "", cfg]
+                + [f"{_br(sub.loc[m, 'f1_cv_media'], 3)} {_ic(sub.loc[m, 'f1_cv_ic95_inf'], sub.loc[m, 'f1_cv_ic95_sup'])}"
+                   for m in MODEL_NAMES]
+            )
+    _write(
+        "tabela_ablacao.tex",
+        _latex_table(
+            ["Cenário", "Configuração"] + [MODEL_LABELS[m] for m in MODEL_NAMES],
+            body,
+            f"Ablação das features ontológicas: F1-macro médio na validação cruzada por grupos "
+            f"({N_CV_REPEATS} $\\times$ {N_CV_SPLITS}) com intervalo de 95\\% corrigido (Nadeau e Bengio). "
+            "Estruturais: profundidade, ancestrais e filhos na ARO; classes: 38 classes de antibiótico.",
+            "tab:ablacao",
+        ),
+    )
+    return abl
 
 
 def generate_per_class_table(per_class: pd.DataFrame) -> None:
@@ -231,13 +359,19 @@ def generate_per_class_table(per_class: pd.DataFrame) -> None:
 
 
 def generate_conclusions_text(
-    comp: pd.DataFrame, tests: pd.DataFrame, output_path: Path = RESULTS_DIR / "conclusoes_experimento.txt"
+    comp: pd.DataFrame,
+    tests: pd.DataFrame,
+    output_path: Path = RESULTS_DIR / "conclusoes_experimento.txt",
+    scenarios: pd.DataFrame | None = None,
 ) -> str:
-    t = tests.set_index("modelo")
+    t = curated_tests(tests)
     n_est = int(t["n_estimativas"].iloc[0])
     best = comp.loc[comp.f1_macro_b.idxmax()]
-    rejected = [MODEL_LABELS[m] for m in MODEL_NAMES if t.loc[m, "decisao"] == "rejeita_H0"]
-    not_rej = [MODEL_LABELS[m] for m in MODEL_NAMES if t.loc[m, "decisao"] != "rejeita_H0"]
+    def label(r):
+        return f"{MODEL_LABELS[r.modelo]} ({SCENARIO_LABELS[r.cenario].lower()})"
+
+    rejected = [label(r) for r in tests.itertuples() if r.decisao == "rejeita_H0"]
+    not_rej = [label(r) for r in tests.itertuples() if r.decisao != "rejeita_H0"]
     lines = [
         "CONCLUSÕES DO EXPERIMENTO — Pipeline A (sequência) vs Pipeline B (sequência + ontologia ARO)",
         "",
@@ -254,12 +388,11 @@ def generate_conclusions_text(
         f"Pipeline B superou o A no F1-macro de teste em {(comp.delta_absoluto > 0).sum()} de {len(comp)} modelos.",
         "",
         f"Teste t corrigido (validação cruzada {N_CV_REPEATS} × {N_CV_SPLITS}, {n_est} estimativas pareadas; Holm sobre "
-        f"{int(t['testes_na_familia'].iloc[0])} comparações; alfa = {ALPHA_STAT}):",
+        f"{int(t['testes_na_familia'].iloc[0])} comparações: 2 cenários × 4 modelos; alfa = {ALPHA_STAT}):",
     ]
-    for m in MODEL_NAMES:
-        r = t.loc[m]
+    for r in tests.itertuples():
         lines.append(
-            f"  - {MODEL_LABELS[m]}: B − A = {r.diferenca_media:+.4f} [{r.ic95_inf:+.4f}; {r.ic95_sup:+.4f}], "
+            f"  - {SCENARIO_LABELS[r.cenario]}, {MODEL_LABELS[r.modelo]}: B − A = {r.diferenca_media:+.4f} [{r.ic95_inf:+.4f}; {r.ic95_sup:+.4f}], "
             f"t = {r.t:.2f}, p = {r.p_value:.2e}, p_Holm = {r.p_holm:.2e}, "
             f"B > A em {r.estimativas_b_maior}/{n_est} -> "
             + ("rejeita H0" if r.decisao == "rejeita_H0" else "não rejeita H0")
@@ -268,8 +401,17 @@ def generate_conclusions_text(
         "",
         f"H0 rejeitada para: {', '.join(rejected) or 'nenhum modelo'}.",
         f"Sem significância estatística: {', '.join(not_rej) or 'nenhum'}.",
-        "Família confirmatória provisória: o cenário 'gene novo' (ponto 4) acrescentará 4 testes à correção de Holm.",
     ]
+    if scenarios is not None:
+        lines += ["", "Cenários do Pipeline B e referência por homologia (teste, IC 95% por bootstrap de grupos):"]
+        for r in scenarios.itertuples():
+            lines.append(
+                f"  - {MODEL_LABELS[r.modelo]}: B curado = {r.f1_teste_b:.4f}, B gene novo = {r.f1_teste_b_gene_novo:.4f} "
+                f"(gene novo − A = {r.b_gene_novo_menos_a:+.4f} [{r.b_gene_novo_menos_a_ic95_inf:+.4f}; "
+                f"{r.b_gene_novo_menos_a_ic95_sup:+.4f}]), homologia = {r.f1_teste_homologia:.4f} "
+                f"(homologia − B gene novo = {r.homologia_menos_b_gene_novo:+.4f} "
+                f"[{r.homologia_menos_b_gene_novo_ic95_inf:+.4f}; {r.homologia_menos_b_gene_novo_ic95_sup:+.4f}])"
+            )
     text = "\n".join(lines) + "\n"
     output_path.write_text(text, encoding="utf-8")
     return text
@@ -282,8 +424,12 @@ if __name__ == "__main__":
         handlers=[logging.StreamHandler(sys.stdout)],
     )
     ma, mb = load_metrics()
-    comp = generate_comparative_table(ma, mb, load_bootstrap())
+    boot = load_bootstrap()
+    comp = generate_comparative_table(ma, mb, boot)
     tests = pd.read_csv(RESULTS_DIR / "testes_estatisticos.csv")
     generate_latex_tables(ma, mb, comp, tests)
     generate_per_class_table(pd.read_csv(RESULTS_DIR / "metricas_por_classe_teste.csv"))
-    print(generate_conclusions_text(comp, tests))
+    scenarios = generate_scenario_table(boot)
+    generate_scenario_cv_table(pd.read_csv(RESULTS_DIR / "cv_folds.csv"))
+    generate_ablation_table()
+    print(generate_conclusions_text(comp, tests, scenarios=scenarios))

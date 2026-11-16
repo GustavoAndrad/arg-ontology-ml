@@ -31,7 +31,20 @@ from src.feature_extraction import (
     compute_sequence_features,
     count_ambiguous_residues,
 )
-from src.leakage_check import compute_spearman_correlations, identify_leaky_features
+from src.leakage_check import (
+    ABLATION_CONFIGS,
+    AblationConfig,
+    config_columns,
+    entropy_nats,
+    mutual_information_table,
+)
+from src.nearest_neighbor import (
+    NO_NEIGHBOR,
+    NeighborIndex,
+    homology_prediction,
+    new_gene_features,
+    predict_new_gene,
+)
 from src.ontology_features import (
     IsAGraph,
     compute_ancestor_count,
@@ -150,12 +163,140 @@ def test_drug_class_flags_with_fixed_vocabulary():
     assert flags.values.tolist() == [[1, 0], [0, 0]]
 
 
-def test_spearman_leakage_detection():
-    y = np.array([0, 0, 1, 1, 2, 2])
-    feats = pd.DataFrame({"leaky": y * 10, "noise": [1, 0, 0, 1, 1, 0], "const": [1] * 6})
-    corr = compute_spearman_correlations(feats, y)
-    assert identify_leaky_features(corr) == ["leaky"]
-    assert corr["const"] == 0.0
+# ── Ponto 4: gene mais parecido, cenário "gene novo", homologia, IM e ablação ──
+
+def _toy_hits():
+    """Acertos de brinquedo: g0..g5; os de teste são g0 e g1."""
+    rows = [
+        # g0: o melhor é g3 (menor e-value); g2 é pior.
+        ("g0", "g2", 0.80, 1e-50, 200.0),
+        ("g0", "g3", 0.70, 1e-90, 300.0),
+        # g1: dois com o mesmo e-value; desempata o maior bit score (g5).
+        ("g1", "g4", 0.60, 1e-20, 90.0),
+        ("g1", "g5", 0.55, 1e-20, 95.0),
+        # acerto de g0 com outro gene de teste (g1): nunca pode ser escolhido.
+        ("g0", "g1", 0.99, 1e-200, 900.0),
+    ]
+    df = pd.DataFrame(rows, columns=["query", "target", "fident", "evalue", "bits"])
+    return df
+
+
+def test_nearest_neighbor_lowest_evalue_then_bits_only_reference():
+    ids = [f"g{i}" for i in range(6)]
+    nn = NeighborIndex(_toy_hits(), ids)
+    nb, ident = nn.nearest([0, 1], [2, 3, 4, 5])
+    assert nb.tolist() == [3, 5]  # g1 (teste) nunca é vizinho, mesmo com e-value menor
+    assert ident.tolist() == [0.70, 0.55]
+    # Tirar o melhor do treino faz o próximo da lista ser escolhido (equivale a buscar só no treino).
+    nb2, _ = nn.nearest([0, 1], [2, 4])
+    assert nb2.tolist() == [2, 4]
+    # Sem nenhum acerto no treino: NO_NEIGHBOR e identidade 0.
+    nb3, ident3 = nn.nearest([0], [4, 5])
+    assert nb3.tolist() == [NO_NEIGHBOR] and ident3.tolist() == [0.0]
+
+
+def test_nearest_neighbor_rejects_overlap():
+    nn = NeighborIndex(_toy_hits(), [f"g{i}" for i in range(6)])
+    with pytest.raises(ValueError):
+        nn.nearest([0, 1], [1, 2])
+
+
+def test_new_gene_features_copy_ontology_keep_sequence():
+    # 2 colunas de sequência + 2 ontológicas; gene 0 consulta, vizinho = gene 2; gene 1 sem vizinho.
+    X_b = np.array([[1.0, 2.0, 10.0, 11.0], [3.0, 4.0, 12.0, 13.0], [5.0, 6.0, 20.0, 21.0]])
+    onto = np.array([2, 3])
+    X, has = new_gene_features(X_b, [0, 1], np.array([2, NO_NEIGHBOR]), onto)
+    assert X[0].tolist() == [1.0, 2.0, 20.0, 21.0]  # sequência própria, ontologia do vizinho
+    assert has.tolist() == [True, False] and np.isnan(X[1, 2:]).all()
+    Xz, _ = new_gene_features(X_b, [0, 1], np.array([2, NO_NEIGHBOR]), onto, zero_fallback=True)
+    assert Xz[1].tolist() == [3.0, 4.0, 0.0, 0.0]
+
+
+class _ConstModel:
+    """Modelo de brinquedo que sempre prevê a mesma classe (para testar quem prevê o quê)."""
+
+    def __init__(self, label, n_classes=3):
+        self.label, self.classes_ = label, np.arange(n_classes)
+
+    def predict(self, X):
+        assert not np.isnan(X).any(), "linha sem vizinho chegou ao modelo B"
+        return np.full(len(X), self.label)
+
+    def predict_proba(self, X):
+        return np.eye(len(self.classes_))[self.predict(X)]
+
+
+def test_predict_new_gene_uses_pipeline_a_without_neighbor():
+    X_a = np.zeros((4, 2))
+    X_b = np.zeros((4, 3))
+    out = predict_new_gene(_ConstModel(1), _ConstModel(2), X_a, X_b, np.array([0, 1]), np.array([3, NO_NEIGHBOR]), np.array([2]))
+    pred, proba = out["b_gene_novo"]
+    assert pred.tolist() == [1, 2]  # com vizinho: B; sem vizinho: A
+    assert proba.shape == (2, 3)
+    assert out["b_gene_novo_zeros"][0].tolist() == [1, 1]  # regra antiga: tudo pelo B
+
+
+def test_scenario_predictions_keys_and_floor_sensitivity():
+    from src.train_evaluate import scenario_predictions
+
+    X_a, X_b = np.zeros((6, 2)), np.zeros((6, 3))
+    y = np.array([0, 1, 2, 2, 2, 1])
+    out = scenario_predictions(_ConstModel(1), _ConstModel(2), X_a, X_b, y, np.array([2, 3, 4, 5]), np.array([0, 1]),
+                               np.array([5, 4]), np.array([2]), neighbors_floor40=np.array([5, NO_NEIGHBOR]))
+    assert set(out) == {"a", "b", "b_gene_novo", "b_gene_novo_zeros", "homologia", "b_gene_novo_piso40", "homologia_piso40"}
+    assert out["homologia"][0].tolist() == [1, 2]
+    assert out["homologia_piso40"][0].tolist() == [1, 2]  # sem vizinho no piso: classe mais comum (2)
+    assert out["b_gene_novo_piso40"][0].tolist() == [2, 1]  # com vizinho: B (prevê 2); sem vizinho no piso: A (prevê 1)
+
+
+def test_homology_prediction_copies_neighbor_or_majority():
+    y = np.array([0, 1, 2, 2, 2, 1])
+    pred, proba = homology_prediction(y, reference_idx=[2, 3, 4, 5], neighbors=np.array([5, NO_NEIGHBOR]), n_classes=3)
+    assert pred.tolist() == [1, 2]  # mecanismo do vizinho; sem vizinho, a classe mais comum do treino
+    assert proba.tolist() == [[0, 1, 0], [0, 0, 1]]
+
+
+def test_mutual_information_matches_hand_calculation():
+    # f determina y por completo -> IM = H(y); g é independente de y -> IM = 0.
+    y = np.array([0, 0, 1, 1])
+    feats = pd.DataFrame({"depth_isa": [3, 3, 5, 5], "drug_class_x": [0, 1, 0, 1]})
+    mi = mutual_information_table(feats, y).set_index("feature")
+    assert mi.loc["depth_isa", "informacao_mutua_nats"] == pytest.approx(np.log(2))
+    assert mi.loc["depth_isa", "fracao_da_entropia_do_rotulo"] == pytest.approx(1.0)
+    assert mi.loc["drug_class_x", "informacao_mutua_nats"] == pytest.approx(0.0)
+    assert mi.loc["depth_isa", "grupo"] == "estrutural"
+    assert entropy_nats(np.array([0, 1, 2, 3])) == pytest.approx(np.log(4))
+
+
+def test_ablation_configs_columns():
+    onto = ["depth_isa", "ancestor_count", "children_count", "drug_class_a", "drug_class_b"]
+    cols = {c.name: config_columns(c, 2, onto).tolist() for c in ABLATION_CONFIGS}
+    assert cols["A"] == [0, 1]
+    assert cols["A + estruturais"] == [0, 1, 2, 3, 4]
+    assert cols["A + classes"] == [0, 1, 5, 6]
+    assert cols["B"] == [0, 1, 2, 3, 4, 5, 6]
+    assert cols["só estruturais"] == [2, 3, 4]
+    assert cols["só classes"] == [5, 6]
+    assert cols["só ontologia"] == [2, 3, 4, 5, 6]
+    assert config_columns(AblationConfig("x", False, "todas"), 2, onto).tolist() == [2, 3, 4, 5, 6]
+
+
+def test_holm_family_has_eight_confirmatory_tests():
+    from src.statistical_tests import run_all_tests
+
+    rng = np.random.default_rng(0)
+    rows = []
+    for model in MODEL_NAMES:
+        for rep in range(10):
+            for fold in range(5):
+                base = rng.uniform(0.5, 0.6)
+                for key, gain in (("a", 0.0), ("b", 0.2), ("b_gene_novo", 0.15), ("b_gene_novo_zeros", 0.1)):
+                    rows.append({"pipeline": key, "modelo": model, "repeticao": rep, "fold": fold,
+                                 "n_ajuste": 400, "n_validacao": 100, "f1_macro": base + gain + rng.normal(0, 0.01)})
+    out = run_all_tests(pd.DataFrame(rows))
+    assert len(out) == 8 and (out["testes_na_familia"] == 8).all()
+    assert set(out["cenario"]) == {"anotacao_curada", "gene_novo"}
+    assert (out["p_holm"] >= out["p_value"]).all()
 
 
 def test_split_disjoint_and_stratified():

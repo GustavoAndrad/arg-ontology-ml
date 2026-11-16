@@ -25,13 +25,14 @@ O mesmo intervalo, aplicado ao F1 de cada pipeline, dá o intervalo da média da
 
 Quais comparações são testadas (decisões 3 e 4 do ponto 5; decisão 3 do ponto 10):
     * só o **F1-macro** (uma métrica, definida antes, para não multiplicar testes);
-    * B × A para os 4 classificadores no cenário "anotação curada" (o experimento
-      atual). O cenário "gene novo" (ponto 4) acrescenta mais 4: a família
-      confirmatória final tem 8 testes.
-    * correção de Holm sobre a família (referência a adicionar): controla a chance
-      de pelo menos um falso positivo entre os testes, sem ser tão conservadora
-      quanto Bonferroni. **Por enquanto a família tem 4 testes**; os p corrigidos
-      mudam quando o ponto 4 acrescentar os outros 4.
+    * B × A para os 4 classificadores em dois cenários (ponto 4): "anotação curada"
+      (pipeline ``b``) e "gene novo" (pipeline ``b_gene_novo``, ontologia do gene mais
+      parecido do treino). A família confirmatória tem **8 testes**.
+    * correção de Holm sobre os 8 (referência a adicionar): controla a chance de
+      pelo menos um falso positivo entre os testes, sem ser tão conservadora
+      quanto Bonferroni.
+    * A regra "ontologia zerada" (``b_gene_novo_zeros``) e a referência por
+      homologia ficam fora da família: são descritivas (decisão do ponto 5).
     * Hipóteses: H0: média(d) = 0; H1: média(d) ≠ 0 (bilateral); α = 0,05, aplicado ao
       p corrigido por Holm.
 Todas as outras comparações (por classe, ablação, curva por limiar, sensibilidades)
@@ -48,6 +49,7 @@ from __future__ import annotations
 
 import logging
 import sys
+from itertools import product
 
 import numpy as np
 import pandas as pd
@@ -130,21 +132,27 @@ def test_train_ratio(cv_folds: pd.DataFrame) -> float:
     return float((folds["n_validacao"] / folds["n_ajuste"]).mean())
 
 
+CONFIRMATORY_SCENARIOS: dict[str, str] = {"anotacao_curada": "b", "gene_novo": "b_gene_novo"}
+
+
 def run_all_tests(cv_folds: pd.DataFrame, alpha: float = ALPHA_STAT, metric: str = TESTED_METRIC) -> pd.DataFrame:
-    """B × A para cada modelo, com Holm sobre a família de comparações deste cenário."""
+    """B × A para cada modelo e cada cenário confirmatório, com Holm sobre a família toda."""
     ratio = test_train_ratio(cv_folds)
     rows = []
-    for model in MODEL_NAMES:
+    for scenario, model in product(CONFIRMATORY_SCENARIOS, MODEL_NAMES):
+        key_b = CONFIRMATORY_SCENARIOS[scenario]
         sub = cv_folds[cv_folds["modelo"] == model]
         a = sub[sub["pipeline"] == "a"].sort_values(["repeticao", "fold"])
-        b = sub[sub["pipeline"] == "b"].sort_values(["repeticao", "fold"])
+        b = sub[sub["pipeline"] == key_b].sort_values(["repeticao", "fold"])
+        if len(b) == 0:
+            raise ValueError(f"{model}: sem resultados do pipeline {key_b}; rode src.train_evaluate de novo.")
         if not (a[["repeticao", "fold"]].to_numpy() == b[["repeticao", "fold"]].to_numpy()).all():
             raise ValueError(f"{model}: folds de A e B não estão pareados.")
         res = corrected_resampled_ttest(a[metric].to_numpy(), b[metric].to_numpy(), ratio)
         ic_a, ic_b = corrected_interval(a[metric], ratio), corrected_interval(b[metric], ratio)
         rows.append(
             {
-                "cenario": "anotacao_curada",
+                "cenario": scenario,
                 "modelo": model,
                 "metrica": metric,
                 **res,
@@ -171,7 +179,7 @@ if __name__ == "__main__":
     result.to_csv(RESULTS_DIR / "testes_estatisticos.csv", index=False)
     for _, r in result.iterrows():
         logger.info(
-            "%-20s B−A = %+.4f [%.4f; %.4f] | t=%.2f (gl %d) p=%.2e p_Holm=%.2e -> %s (B>A em %d/%d)",
-            r["modelo"], r["diferenca_media"], r["ic95_inf"], r["ic95_sup"], r["t"], r["graus_liberdade"],
+            "%-15s %-20s B−A = %+.4f [%.4f; %.4f] | t=%.2f (gl %d) p=%.2e p_Holm=%.2e -> %s (B>A em %d/%d)",
+            r["cenario"], r["modelo"], r["diferenca_media"], r["ic95_inf"], r["ic95_sup"], r["t"], r["graus_liberdade"],
             r["p_value"], r["p_holm"], r["decisao"], r["estimativas_b_maior"], r["n_estimativas"],
         )
