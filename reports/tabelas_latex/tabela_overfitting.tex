@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+  \centering
+  \caption{F1-macro no treino (o modelo avaliado nos próprios genes de ajuste, média dos 50 folds), na validação cruzada e no teste. Por classe: \texttt{results/overfitting.csv}.}
+  \label{tab:overfitting}
+  \begin{tabular}{lccccc}
+    \toprule
+    Modelo & Pipeline & Treino (folds) & Validação (CV) & Teste & Queda treino $\to$ validação \\
+    \midrule
+    Random Forest & A & 1,000 & 0,551 & 0,641 & 0,449 \\
+     & B & 1,000 & 0,787 & 0,888 & 0,213 \\
+    XGBoost & A & 1,000 & 0,726 & 0,865 & 0,274 \\
+     & B & 1,000 & 0,908 & 0,965 & 0,092 \\
+    Regressão Logística & A & 0,789 & 0,557 & 0,611 & 0,232 \\
+     & B & 0,968 & 0,920 & 0,961 & 0,048 \\
+    SVM (RBF) & A & 0,962 & 0,673 & 0,680 & 0,288 \\
+     & B & 0,981 & 0,936 & 0,973 & 0,045 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

@@ -78,6 +78,10 @@ Cenário "gene novo" (F1-macro no teste com IC 95% e média da validação cruza
 
 A referência por homologia tem F1-macro de 0,970 [0,945; 0,984] no teste e 0,923 na validação cruzada: fica à frente do B no cenário gene novo e empata com o B com anotação curada no XGBoost, na Regressão Logística e no SVM. Ablação: `results/ablacao_ontologia.csv`; informação mútua: `results/informacao_mutua_ontologia.csv`.
 
+Importância por permutação (queda do F1-macro ao embaralhar um grupo de atributos, média dos 50 folds; `results/importancia_grupos.csv`, figuras em `plots/interpretabilidade/`): no Pipeline B, as classes de antibiótico são o grupo de maior peso na Regressão Logística (0,469) e no SVM (0,540), e as 3 estruturais no Random Forest (0,433); no XGBoost os dois grupos ficam empatados (0,31). No Pipeline A, os grupos de sequência pesam de 0,05 a 0,34. Nenhum atributo isolado explica o desempenho: a maioria tem intervalo que inclui zero quando embaralhada sozinha, por redundância entre atributos.
+
+Overfitting e curva de aprendizado (`results/overfitting.csv`, `results/curva_aprendizado.csv`): o F1-macro cai do treino para a validação 0,23 a 0,45 no Pipeline A e 0,05 a 0,21 no B. Com 80% e com 100% do treino de cada fold, o B passa de 0,913 para 0,920 (Regressão Logística) e de 0,921 para 0,936 (SVM), e o A sobe 0,02 a 0,03 em todos os modelos.
+
 O desempenho por divisão (aleatória e grupos de 90, 70 e 50%), com o Pipeline B nos dois cenários e a referência por homologia, está em `results/curva_limiar.csv` e na figura `plots/comparacao_pipelines/curva_limiar`.
 
 Análises de sensibilidade (descritivas): à representação da sequência (`results/sensibilidade_representacao.csv`), à estratégia de balanceamento (`results/sensibilidade_balanceamento.csv`; o Pipeline B supera o A nas 7 estratégias e nos 4 modelos) e ao ajuste de hiperparâmetros (`results/sensibilidade_ajuste.csv`).
@@ -122,30 +126,33 @@ Os arquivos do CARD e da ARO não são distribuídos neste repositório. O uso �
 
 ## Execução
 
-Execute os comandos **na raiz do repositório**, com o ambiente virtual ativo. As etapas 1 a 12 levam entre 10 e 20 minutos em um computador pessoal (a interpretabilidade é a mais demorada); as análises das etapas 13 a 16 levam de 20 a 25 minutos cada.
+Execute os comandos **na raiz do repositório**, com o ambiente virtual ativo. Os tempos nos comentários foram medidos em um notebook; as etapas sem tempo indicado levam poucos minutos. A execução completa, em sequência, passa de 10 horas.
 
 ```bash
 python -m src.data_loader          # 1. integra CARD e sequências
 python -m src.eda                  # 2. análise exploratória
 python -m src.homology_groups      # 2b. grupos de similaridade (MMseqs2, ~12 min)
-python -m src.nearest_neighbor     # 2c. busca sem piso de identidade, para o gene mais parecido (MMseqs2)
+python -m src.nearest_neighbor     # 2c. busca sem piso de identidade, para o gene mais parecido (MMseqs2, ~10 min)
 python -m src.feature_extraction   # 3. atributos de sequência (Pipeline A)
 python -m src.ontology_features    # 4. atributos ontológicos (Pipeline B)
 python -m src.pipeline_builder     # 6. registra a configuração dos pipelines
-python -m src.train_evaluate       # 7. treino, validação cruzada e teste
+python -m src.train_evaluate       # 7. treino, validação cruzada e teste (~20 min)
 python -m src.experiment_record    # 7b. hiperparâmetros completos, versões, dados e sementes
 python -m src.statistical_tests    # 8. teste t corrigido (validação cruzada repetida) com Holm
 python -m src.bootstrap_test       # 8b. intervalos de 95% no teste por bootstrap de grupos
 python -m src.leakage_check        # 8c. dependência da anotação: informação mútua e ablação (~40 min)
-python -m src.interpretability     # 9. importância de atributos
+python -m src.interpretability     # 9. importância de atributos: permutação e SHAP (~4 h; ver abaixo)
+python -m src.learning_curve       # 9b. curva de aprendizado e overfitting (~45 min)
 python -m src.visualization        # 10. figuras
 python -m src.report_generator     # 11. tabelas comparativas, LaTeX e conclusões
 python -m src.case_study           # 12. estudo de caso dos mecanismos raros
-python -m src.sensitivity_representation  # 13. sensibilidade à representação da sequência (~20 min)
+python -m src.sensitivity_representation  # 13. sensibilidade à representação da sequência (~1 h 10 min)
 python -m src.threshold_curve      # 14. desempenho por limiar de similaridade (~1 h)
-python -m src.sensitivity_balancing  # 15. sensibilidade à estratégia de balanceamento (~25 min)
+python -m src.sensitivity_balancing  # 15. sensibilidade à estratégia de balanceamento (~2 h 45 min)
 python -m src.sensitivity_tuning   # 16. sensibilidade ao ajuste de hiperparâmetros (~20 min)
 ```
+
+A etapa 9 roda os 4 modelos em sequência (Random Forest ~27 min, XGBoost ~33 min, Regressão Logística ~45 min, SVM ~2 h). Para rodá-los em paralelo, use um processo por modelo (`python -m src.interpretability --modelo svm`, e assim por diante) e depois `python -m src.interpretability --juntar`.
 
 Ao final, `results/metrics_pipeline_a.csv`, `results/metrics_pipeline_b.csv`, `results/cv_folds.csv` e `results/testes_estatisticos.csv` contêm os valores no formato das Tabelas 5.1 a 5.6 do artigo.
 
@@ -165,16 +172,17 @@ Ao final, `results/metrics_pipeline_a.csv`, `results/metrics_pipeline_b.csv`, `r
 | 8 | `statistical_tests` | Teste t corrigido de Nadeau e Bengio (B − A no F1-macro, 50 estimativas pareadas, correção da variância pela sobreposição dos treinos), com intervalo de 95% da diferença e correção de Holm sobre as 8 comparações confirmatórias (B × A nos dois cenários, 4 modelos) | `results/testes_estatisticos.csv` | 4.12, 5.5.1 |
 | 8b | `bootstrap_test` | Bootstrap do conjunto de teste por grupos inteiros, estratificado por classe e pareado entre pipelines e cenários: IC 95% do F1-macro, de precisão, revocação e F1 de cada classe e das diferenças; recorte dos genes de teste sem parecido com identidade ≥ 40% no treino; confere a estabilidade com duas metades das reamostragens | `results/bootstrap_teste.csv`, `results/bootstrap_teste_sem_vizinho.csv`, `results/bootstrap_estabilidade.json` | 5.3, 5.5 |
 | 8c | `leakage_check` | Informação mútua (só no treino) de cada atributo ontológico com o mecanismo e ablação por grupo de atributos ontológicos nos dois cenários, com os mesmos folds e o mesmo teste; descritiva | `results/informacao_mutua_ontologia.csv`, `results/ablacao_ontologia.csv`, `results/ablacao_ontologia_folds.csv` | 4.6 |
-| 9 | `interpretability` | Importância Gini (Random Forest) e permutation importance de todos os modelos | `results/feature_importance_*.csv`, `results/permutation_importance.csv` | — |
-| 10 | `visualization` | Curvas ROC e de precisão-revocação macro lado a lado, curvas ROC com detalhe ampliado, mapa de calor do ganho B − A por classe (precisão, revocação e F1, com IC 95%), matrizes de confusão, F1 A vs B, ganho percentual e F1 dos cenários no teste (PNG 300 DPI e PDF) | `plots/` | 5.3, 5.4 |
-| 11 | `report_generator` | Tabela comparativa, tabelas dos cenários e da ablação, tabelas LaTeX e texto com a decisão sobre H0/H1 | `results/tabela_comparativa.csv`, `results/tabela_cenarios.csv`, `reports/tabelas_latex/`, `results/conclusoes_experimento.txt` | 5.3, 5.6 |
+| 9 | `interpretability` | Importância por permutação (queda do F1 ao embaralhar um atributo ou um grupo de atributos), macro e por mecanismo, nos 4 modelos, nos 50 folds e no teste, nos cenários anotação curada e gene novo; SHAP por mecanismo no Random Forest e no XGBoost; dicionário de todos os atributos | `results/importancia_grupos.csv`, `results/importancia_atributos.csv` (e `_folds.csv`), `results/importancia_estabilidade_repeticoes.json`, `results/shap_por_classe.csv`, `results/dicionario_atributos.csv` | 4.11 |
+| 9b | `learning_curve` | Curva de aprendizado (20 a 100% do treino de cada fold, por grupos inteiros) e F1 no treino, na validação e no teste, macro e por classe | `results/curva_aprendizado.csv` (e `_folds.csv`), `results/overfitting.csv` | — |
+| 10 | `visualization` | Curvas ROC e de precisão-revocação macro lado a lado, curvas ROC com detalhe ampliado, mapa de calor do ganho B − A por classe (precisão, revocação e F1, com IC 95%), matrizes de confusão, F1 A vs B, ganho percentual, F1 dos cenários no teste, importância por grupo e por mecanismo, top-15 atributos, SHAP, curva de aprendizado e overfitting (PNG 300 DPI e PDF) | `plots/` | 5.3, 5.4 |
+| 11 | `report_generator` | Tabela comparativa, tabelas dos cenários, da ablação, da importância, de overfitting e da curva de aprendizado, dicionário de atributos, tabelas LaTeX e texto com a decisão sobre H0/H1 | `results/tabela_comparativa.csv`, `results/tabela_cenarios.csv`, `reports/tabelas_latex/`, `results/conclusoes_experimento.txt` | 5.3, 5.6 |
 | 12 | `case_study` | Aplica os 8 modelos finais aos 9 genes dos mecanismos raros: classe prevista e probabilidade de cada uma das 5 classes (qualitativo, sem F1) | `results/estudo_caso_predicoes.csv`, `results/estudo_caso_resumo.csv` | — |
 | 13 | `sensitivity_representation` | Repete treino, validação cruzada e teste com representações alternativas da sequência (426 atributos com e sem SelectKBest, k = 20/50/100, só as 26 básicas), com a mesma partição e os mesmos modelos; descritiva | `results/sensibilidade_representacao.csv`, `results/sensibilidade_representacao_folds.csv` | — |
 | 14 | `threshold_curve` | Repete treino, validação cruzada e teste com quatro divisões (aleatória e grupos de 90, 70 e 50%) e mede, em cada uma, a identidade de cada gene do teste com o mais parecido do treino. Validação cruzada repetida 10 × 5 em cada cenário (mesma regra de sementes), com o IC 95% corrigido do ganho B − A. Inclui o cenário gene novo e a referência por homologia; descritiva, sem teste | `results/curva_limiar.csv`, `results/curva_limiar_particoes.csv`, `results/curva_limiar_folds.csv` | — |
 | 15 | `sensitivity_balancing` | Compara o peso por classe com: nenhum balanceamento, undersampling da classe majoritária (até a segunda maior), oversampling, SMOTE (SMOTENC no Pipeline B, com os atributos ontológicos como categóricos), SMOTE + ENN e abordagem hierárquica (inativação × resto, depois as outras 4). Reamostragem só no treino de cada fold; mesma partição, os mesmos 10 × 5 folds e os mesmos modelos; IC 95% corrigido do ganho B − A; descritiva | `results/sensibilidade_balanceamento.csv`, `_folds.csv`, `_por_classe.csv` | — |
 | 16 | `sensitivity_tuning` | Validação cruzada aninhada: busca em grade pequena (sempre com o valor padrão) com 3 folds internos por grupos dentro de cada um dos 5 folds externos (a 1ª repetição da validação cruzada repetida), e busca no treino inteiro para o teste; mesmo espaço para A e B; descritiva | `results/sensibilidade_ajuste.csv`, `results/sensibilidade_ajuste_folds.csv` | — |
 
-A sensibilidade à representação (`sensitivity_representation`) também usa os 10 × 5 folds e informa o IC 95% corrigido do ganho. Arquivos de versões anteriores que continuam no repositório, mas não são mais gerados: `reports/tabelas_latex/tabela_wilcoxon.tex` (substituído por `tabela_teste_t.tex`), `results/f1_por_classe_teste.csv` (substituído por `metricas_por_classe_teste.csv`) e `results/spearman_features_ontologicas.csv`, `results/sanidade_leakage.json` e `results/leakage_check.log` (substituídos pela informação mútua e pela ablação).
+A sensibilidade à representação (`sensitivity_representation`) também usa os 10 × 5 folds e informa o IC 95% corrigido do ganho. Arquivos de versões anteriores que continuam no repositório, mas não são mais gerados: `reports/tabelas_latex/tabela_wilcoxon.tex` (substituído por `tabela_teste_t.tex`), `results/f1_por_classe_teste.csv` (substituído por `metricas_por_classe_teste.csv`) e `results/spearman_features_ontologicas.csv`, `results/sanidade_leakage.json` e `results/leakage_check.log` (substituídos pela informação mútua e pela ablação), `results/feature_importance_gini_rf_*.csv`, `results/permutation_importance.csv` e `plots/interpretabilidade/feature_importance_rf_b` (substituídos pela importância por permutação nos folds).
 
 O módulo `provenance` (`python -m src.provenance`) gera `results/data_provenance.json` com a versão do CARD e, para cada arquivo de dados brutos, os hashes MD5 e SHA-256, o caminho relativo à raiz e a data de modificação. O `aro.owl` não traz número de versão; ele é identificado pela data de acesso e pelo SHA-256. Reexecutar o módulo mantém a data de acesso já registrada (14/06/2026).
 
@@ -213,7 +221,8 @@ O módulo `provenance` (`python -m src.provenance`) gera `results/data_provenanc
 │   ├── train_evaluate.py              # Partição, validação cruzada e avaliação
 │   ├── statistical_tests.py           # Teste t corrigido (validação cruzada repetida) e Holm
 │   ├── bootstrap_test.py              # IC 95% no teste por bootstrap de grupos
-│   ├── interpretability.py            # Gini e permutation importance
+│   ├── interpretability.py            # Importância por permutação, SHAP e dicionário de atributos
+│   ├── learning_curve.py              # Curva de aprendizado e overfitting
 │   ├── visualization.py               # Figuras
 │   ├── report_generator.py            # Tabelas comparativas, LaTeX e conclusões
 │   ├── case_study.py                  # Estudo de caso dos mecanismos raros (9 genes)
@@ -239,13 +248,13 @@ Os arquivos versionados em `results/`, `plots/` e `reports/` são regenerados pe
 pytest tests/ -v
 ```
 
-A suíte (174 testes) cobre a separação dos genes por classe, a integração dos dados, a EDA, a extração de atributos de sequência e ontológicos, o gene mais parecido, o cenário "gene novo", a referência por homologia, a informação mútua, a ablação, os pipelines (inclusive o peso por classe do XGBoost e o registro dos hiperparâmetros), a partição treino/teste, as estratégias de balanceamento, o ajuste aninhado, a escolha das sementes da validação cruzada repetida, o teste t corrigido (conferido com um cálculo à mão), a correção de Holm, o bootstrap por grupos, as métricas por classe e a curva de precisão-revocação, além de testes de propriedade (`hypothesis`) para a integridade do dataset final.
+A suíte (181 testes) cobre a separação dos genes por classe, a integração dos dados, a EDA, a extração de atributos de sequência e ontológicos, o gene mais parecido, o cenário "gene novo", a referência por homologia, a informação mútua, a ablação, os pipelines (inclusive o peso por classe do XGBoost e o registro dos hiperparâmetros), a partição treino/teste, as estratégias de balanceamento, o ajuste aninhado, a escolha das sementes da validação cruzada repetida, o teste t corrigido (conferido com um cálculo à mão), a correção de Holm, o bootstrap por grupos, as métricas por classe, a curva de precisão-revocação, os grupos de atributos e a importância por permutação, o dicionário de atributos, o SHAP por mecanismo, os subconjuntos da curva de aprendizado (grupos inteiros, aninhados) e o cache do índice de vizinhos, além de testes de propriedade (`hypothesis`) para a integridade do dataset final.
 
 ---
 
 ## Reprodutibilidade e Controle de Leakage
 
-- `random_state=42` é fixado em todos os pontos de aleatoriedade (marcados com `# SEED FIXA`), e a execução é determinística.
+- Todas as fontes de aleatoriedade têm semente fixa (pontos marcados com `# SEED FIXA`): 42 nos modelos, nos amostradores, nas permutações, nas frações da curva de aprendizado e no bootstrap; 67 na partição de teste; 1, 4, 19, 21, 23, 24, 30, 35, 54 e 55 nas repetições da validação cruzada. A execução é determinística.
 - Os dados de entrada são identificados por versão e hashes (MD5 e SHA-256) em `results/data_provenance.json`.
 - Versões das bibliotecas, do Python e do MMseqs2, os dados e as sementes (modelos, partição de teste e validação cruzada) ficam em `results/ambiente.json`; todos os hiperparâmetros, em `results/hiperparametros.csv`.
 - A partição treino/teste é feita por grupos de similaridade, é determinística e seus índices são salvos em `data/processed/train_indices.npy` e `test_indices.npy`; a semente escolhida e a fração de cada classe no teste ficam em `results/particao_teste.json`. Nenhum grupo aparece no treino e no teste.

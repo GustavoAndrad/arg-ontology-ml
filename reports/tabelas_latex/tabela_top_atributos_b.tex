@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Os 15 atributos mais importantes no Pipeline B (queda média do F1-macro ao embaralhar o atributo, 50 folds da validação cruzada). $^\dagger$: IC 95\% corrigido inclui zero (não consistente).}
+  \label{tab:top_atributos_b}
+  \begin{tabular}{lcccc}
+    \toprule
+    \# & Random Forest & XGBoost & Regressão Logística & SVM (RBF) \\
+    \midrule
+    1 & \texttt{ancestor\_count} (0,160) & \texttt{depth\_isa} (0,196) & \texttt{drug\_class\_diaminopyrimidine\_antibiotic} (0,164) & \texttt{drug\_class\_diaminopyrimidine\_antibiotic} (0,163) \\
+    2 & \texttt{depth\_isa} (0,156) & \texttt{drug\_class\_diaminopyrimidine\_antibiotic} (0,121) & \texttt{drug\_class\_glycopeptide\_antibiotic} (0,051) & \texttt{drug\_class\_glycopeptide\_antibiotic} (0,041) \\
+    3 & \texttt{drug\_class\_diaminopyrimidine\_antibiotic} (0,111) & \texttt{drug\_class\_glycopeptide\_antibiotic} (0,063) & \texttt{drug\_class\_peptide\_antibiotic} (0,035)$^\dagger$ & \texttt{drug\_class\_peptide\_antibiotic} (0,022)$^\dagger$ \\
+    4 & \texttt{length} (0,083) & \texttt{length} (0,061) & \texttt{depth\_isa} (0,022)$^\dagger$ & \texttt{drug\_class\_penicillin\_beta\_lactam} (0,019)$^\dagger$ \\
+    5 & \texttt{drug\_class\_penicillin\_beta\_lactam} (0,040) & \texttt{drug\_class\_lincosamide\_antibiotic} (0,054) & \texttt{drug\_class\_monobactam} (0,019)$^\dagger$ & \texttt{isoelectric\_point} (0,013)$^\dagger$ \\
+    6 & \texttt{aa\_comp\_W} (0,024)$^\dagger$ & \texttt{ancestor\_count} (0,041)$^\dagger$ & \texttt{drug\_class\_fluoroquinolone\_antibiotic} (0,016) & \texttt{drug\_class\_carbapenem} (0,011)$^\dagger$ \\
+    7 & \texttt{drug\_class\_cephalosporin} (0,023) & \texttt{drug\_class\_monobactam} (0,027) & \texttt{length} (0,010)$^\dagger$ & \texttt{drug\_class\_cephalosporin} (0,009)$^\dagger$ \\
+    8 & \texttt{pair\_ILFP\_AGV} (0,019)$^\dagger$ & \texttt{drug\_class\_peptide\_antibiotic} (0,021)$^\dagger$ & \texttt{drug\_class\_phenicol\_antibiotic} (0,010)$^\dagger$ & \texttt{pair\_DE\_RK} (0,009)$^\dagger$ \\
+    9 & \texttt{drug\_class\_glycopeptide\_antibiotic} (0,018) & \texttt{pair\_C\_HNQW} (0,018)$^\dagger$ & \texttt{drug\_class\_carbapenem} (0,009)$^\dagger$ & \texttt{length} (0,007)$^\dagger$ \\
+    10 & \texttt{aa\_comp\_Y} (0,017)$^\dagger$ & \texttt{aa\_comp\_P} (0,011)$^\dagger$ & \texttt{drug\_class\_penicillin\_beta\_lactam} (0,007)$^\dagger$ & \texttt{aa\_comp\_Q} (0,006)$^\dagger$ \\
+    11 & \texttt{drug\_class\_carbapenem} (0,013)$^\dagger$ & \texttt{aa\_comp\_A} (0,010)$^\dagger$ & \texttt{isoelectric\_point} (0,007)$^\dagger$ & \texttt{aa\_comp\_C} (0,006)$^\dagger$ \\
+    12 & \texttt{aa\_comp\_L} (0,012)$^\dagger$ & \texttt{charge\_at\_pH7} (0,009)$^\dagger$ & \texttt{drug\_class\_aminoglycoside\_antibiotic} (0,007)$^\dagger$ & \texttt{aa\_comp\_D} (0,006)$^\dagger$ \\
+    13 & \texttt{pair\_ILFP\_DE} (0,010)$^\dagger$ & \texttt{aa\_comp\_D} (0,008)$^\dagger$ & \texttt{pair\_DE\_RK} (0,005)$^\dagger$ & \texttt{drug\_class\_aminoglycoside\_antibiotic} (0,006)$^\dagger$ \\
+    14 & \texttt{aa\_comp\_I} (0,010)$^\dagger$ & \texttt{drug\_class\_sulfonamide\_antibiotic} (0,007)$^\dagger$ & \texttt{drug\_class\_pleuromutilin\_antibiotic} (0,005)$^\dagger$ & \texttt{pair\_DE\_ILFP} (0,006)$^\dagger$ \\
+    15 & \texttt{pair\_ILFP\_YMTS} (0,010)$^\dagger$ & \texttt{isoelectric\_point} (0,006)$^\dagger$ & \texttt{aa\_comp\_L} (0,005)$^\dagger$ & \texttt{pair\_C\_DE} (0,005)$^\dagger$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}

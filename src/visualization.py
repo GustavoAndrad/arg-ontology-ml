@@ -8,7 +8,13 @@ Saídas (PNG e PDF, 300 DPI):
     plots/roc_curves/roc_all_models_grid            — ROC macro OvR, 2x2 (Fig. 5.3)
     plots/roc_curves/roc_{modelo}                   — ROC por modelo
     plots/confusion_matrices/cm_{modelo}_{a|b}      — matrizes normalizadas por linha
-    plots/interpretabilidade/feature_importance_rf_b — top-20 Gini (se existir o CSV)
+    plots/interpretabilidade/importancia_grupos     — queda do F1 ao embaralhar cada grupo (CV, IC 95%; ponto 8)
+    plots/interpretabilidade/importancia_por_classe — idem, por mecanismo (Pipeline B, anotação curada)
+    plots/interpretabilidade/top_atributos          — 15 atributos mais importantes por modelo e pipeline
+    plots/interpretabilidade/shap_xgboost_b         — SHAP por mecanismo (XGBoost, Pipeline B; direção)
+    plots/comparacao_pipelines/curva_aprendizado    — F1 por fração do treino (por grupos; ponto 9)
+    plots/comparacao_pipelines/overfitting          — F1 no treino, na validação e no teste (ponto 9)
+    (A figura antiga do Gini, ``interpretabilidade/feature_importance_rf_b``, não é mais gerada.)
     plots/comparacao_pipelines/curva_limiar        — F1 por divisão (aleatória e grupos 90/70/50%)
     plots/roc_pr/roc_pr_all_models                 — ROC e precisão-revocação lado a lado (ponto 10)
     plots/comparacao_pipelines/ganho_por_classe    — B − A por classe e modelo, com IC 95% (precisão, revocação, F1)
@@ -417,6 +423,197 @@ def plot_scenarios(table: pd.DataFrame, output_path: Path) -> None:
     _save(fig, output_path)
 
 
+# ── Interpretação e overfitting (TCC2, pontos 8 e 9) ───────────────────────────
+GROUP_LABELS: dict[str, str] = {
+    "fisico_quimicas": "Físico-químicas (4)",
+    "aminoacidos": "Aminoácidos (20)",
+    "pares_de_grupos": "Pares de grupos (49)",
+    "estruturais": "ARO: estruturais (3)",
+    "classes_de_antibiotico": "ARO: classes de antibiótico (38)",
+}
+GROUP_COLORS: dict[str, str] = {
+    "fisico_quimicas": ACCESSIBLE_PALETTE[0], "aminoacidos": ACCESSIBLE_PALETTE[4], "pares_de_grupos": ACCESSIBLE_PALETTE[5],
+    "estruturais": ACCESSIBLE_PALETTE[2], "classes_de_antibiotico": ACCESSIBLE_PALETTE[1],
+}
+CONTEXT_STYLE: dict[str, tuple[str, str]] = {
+    "a": (COLOR_A, "Pipeline A"), "b": (COLOR_B, "Pipeline B (curado)"), "b_gene_novo": (COLOR_NEW_GENE, "Pipeline B (gene novo)"),
+}
+
+
+def _short(c: str) -> str:
+    return c.replace("antibiotic ", "")
+
+
+def plot_group_importance(summary: pd.DataFrame, output_path: Path) -> None:
+    """
+    Queda do F1-macro ao embaralhar cada grupo de atributos (média nos 50 folds, IC 95%
+    corrigido), por modelo, nos contextos A, B curado e B gene novo. Descritivo (ponto 8).
+    """
+    groups = list(GROUP_LABELS)
+    fig, axes = plt.subplots(1, 4, figsize=(18, 4.8), sharex=True, sharey=True)
+    for ax, model in zip(axes, MODEL_NAMES):
+        sub = summary[summary["modelo"] == model]
+        h = 0.26
+        for i, (ctx, (color, label)) in enumerate(CONTEXT_STYLE.items()):
+            s_ctx = sub[sub["contexto"] == ctx].set_index("conjunto")
+            for j, g in enumerate(groups):
+                if g not in s_ctx.index:
+                    continue
+                r = s_ctx.loc[g]
+                y = j + (i - 1) * h
+                ax.barh(y, r["cv_media_macro"], h, color=color, label=label if j == 0 else None)
+                ax.errorbar(r["cv_media_macro"], y, xerr=[[r["cv_media_macro"] - r["cv_ic95_inf_macro"]],
+                            [r["cv_ic95_sup_macro"] - r["cv_media_macro"]]], fmt="none", ecolor="0.2", capsize=2, lw=1)
+        ax.axvline(0, color="0.5", lw=0.8)
+        ax.set_yticks(range(len(groups)), [GROUP_LABELS[g] for g in groups], fontsize=9)
+        ax.invert_yaxis()
+        ax.set_title(MODEL_LABELS[model], fontweight="bold")
+        ax.set_xlabel("Queda do F1-macro (CV, IC 95%)")
+        ax.grid(axis="x", alpha=0.2)
+        ax.spines[["top", "right"]].set_visible(False)
+    axes[0].legend(loc="lower right", fontsize=8)
+    fig.tight_layout()
+    _save(fig, output_path)
+
+
+def plot_group_importance_per_class(summary: pd.DataFrame, classes: list[str], output_path: Path, context: str = "b") -> None:
+    """Mapa de calor grupo × mecanismo da queda do F1 de cada classe (média da CV), por modelo."""
+    groups = list(GROUP_LABELS)
+    sub_all = summary[summary["contexto"] == context]
+    vmax = max(0.05, float(np.nanmax([sub_all[f"cv_media_{c}"].max() for c in classes])))
+    fig, axes = plt.subplots(1, 4, figsize=(20, 4.6), sharey=True)
+    for ax, model in zip(axes, MODEL_NAMES):
+        sub = sub_all[sub_all["modelo"] == model].set_index("conjunto").reindex(groups)
+        values = sub[[f"cv_media_{c}" for c in classes]].to_numpy(dtype=float)
+        im = ax.imshow(values, cmap="Oranges", vmin=0, vmax=vmax, aspect="auto")
+        for i in range(len(groups)):
+            for j in range(len(classes)):
+                v = values[i, j]
+                ax.text(j, i, f"{v:.2f}".replace("-0.00", "0.00"), ha="center", va="center", fontsize=8, color="white" if v > 0.6 * vmax else "black")
+        ax.set_xticks(range(len(classes)), [_short(c) for c in classes], rotation=30, ha="right", fontsize=8)
+        ax.set_title(MODEL_LABELS[model], fontweight="bold")
+    axes[0].set_yticks(range(len(groups)), [GROUP_LABELS[g] for g in groups], fontsize=9)
+    fig.colorbar(im, ax=axes, fraction=0.015, pad=0.01, label="Queda do F1 da classe (CV)")
+    _save(fig, output_path)
+
+
+def plot_top_features(summary: pd.DataFrame, output_path: Path, top_n: int = 15) -> None:
+    """
+    Os ``top_n`` atributos com maior queda média do F1-macro na CV, por modelo (colunas)
+    e pipeline (linhas), com IC 95%; cor = grupo; barra clara = IC inclui zero (não consistente).
+    """
+    from matplotlib.patches import Patch
+
+    from src.interpretability import feature_group
+
+    fig, grid = plt.subplots(2, 4, figsize=(22, 10))
+    for row, ctx in enumerate(("a", "b")):
+        for ax, model in zip(grid[row], MODEL_NAMES):
+            sub = summary[(summary["contexto"] == ctx) & (summary["modelo"] == model)].nsmallest(top_n, "posicao_cv")
+            y = np.arange(len(sub))
+            for yi, (_, r) in zip(y, sub.iterrows()):
+                color = GROUP_COLORS[feature_group(r["conjunto"])]
+                ax.barh(yi, r["cv_media_macro"], color=color, alpha=1.0 if r["consistente"] else 0.35)
+                ax.errorbar(r["cv_media_macro"], yi, xerr=[[r["cv_media_macro"] - r["cv_ic95_inf_macro"]],
+                            [r["cv_ic95_sup_macro"] - r["cv_media_macro"]]], fmt="none", ecolor="0.2", capsize=2, lw=1)
+            ax.set_yticks(y, sub["conjunto"], fontsize=8)
+            ax.invert_yaxis()
+            ax.axvline(0, color="0.5", lw=0.8)
+            ax.set_title(f"{MODEL_LABELS[model]} — Pipeline {ctx.upper()}", fontweight="bold", fontsize=10)
+            ax.grid(axis="x", alpha=0.2)
+            ax.spines[["top", "right"]].set_visible(False)
+        grid[row][0].set_xlabel("Queda do F1-macro (CV, IC 95%)")
+    fig.legend(handles=[Patch(color=c, label=GROUP_LABELS[g]) for g, c in GROUP_COLORS.items()],
+               loc="lower center", ncol=5, fontsize=9, frameon=False)
+    fig.tight_layout(rect=(0, 0.04, 1, 1))
+    _save(fig, output_path)
+
+
+def plot_shap_per_class(shap: pd.DataFrame, classes: list[str], output_path: Path, model: str = "xgboost",
+                        pipeline: str = "b", top_n: int = 10) -> None:
+    """
+    Para os genes de cada mecanismo (teste), os ``top_n`` atributos com maior |SHAP| médio
+    na saída daquele mecanismo. Barra = SHAP médio com sinal (à direita: empurra para o
+    mecanismo); marcador = |SHAP| médio; cor = grupo do atributo.
+    """
+    from matplotlib.lines import Line2D
+    from matplotlib.patches import Patch
+
+    sub = shap[(shap["modelo"] == model) & (shap["pipeline"] == pipeline) & (shap["nivel"] == "atributo")]
+    unit = "margem do XGBoost, log-odds" if model == "xgboost" else "probabilidade"
+    fig, grid = plt.subplots(2, 3, figsize=(19, 9.5))
+    axes = grid.ravel()
+    for ax, c in zip(axes, classes):
+        s = sub[sub["classe"] == c].nlargest(top_n, "media_abs_shap")
+        y = np.arange(len(s))
+        ax.barh(y, s["media_shap"], color=[GROUP_COLORS[g] for g in s["grupo"]])
+        ax.plot(s["media_abs_shap"], y, "|", color="0.15", ms=12, mew=1.5)
+        ax.set_yticks(y, s["nome"], fontsize=8.5)
+        ax.invert_yaxis()
+        ax.axvline(0, color="0.5", lw=0.8)
+        ax.set_title(_short(c), fontweight="bold", fontsize=11)
+        ax.set_xlabel("SHAP médio nos genes da classe")
+        ax.grid(axis="x", alpha=0.2)
+        ax.spines[["top", "right"]].set_visible(False)
+    for ax in axes[len(classes):]:
+        ax.axis("off")
+    handles = [Patch(color=c, label=GROUP_LABELS[g]) for g, c in GROUP_COLORS.items()]
+    handles.append(Line2D([], [], color="0.15", marker="|", ls="none", ms=12, mew=1.5, label="|SHAP| médio"))
+    axes[-1].legend(handles=handles, loc="center", fontsize=10, frameon=False,
+                    title="Barra: SHAP médio com sinal" + chr(10) + "(> 0 empurra para o mecanismo)")
+    fig.suptitle(f"SHAP por mecanismo — {MODEL_LABELS[model]}, Pipeline {pipeline.upper()} "
+                 f"(conjunto de teste; {top_n} atributos com maior |SHAP| médio; unidade: {unit})", fontsize=12)
+    fig.tight_layout()
+    _save(fig, output_path)
+
+
+def plot_learning_curve(curve: pd.DataFrame, output_path: Path) -> None:
+    """F1-macro médio na validação (50 folds, IC 95%) por fração do treino, A e B; marcador vazio = não atende o critério."""
+    fig, axes = plt.subplots(1, 4, figsize=(17, 4.2), sharey=True)
+    for ax, model in zip(axes, MODEL_NAMES):
+        for key, color in (("a", COLOR_A), ("b", COLOR_B)):
+            sub = curve[(curve["modelo"] == model) & (curve["pipeline"] == key)].sort_values("fracao")
+            x = 100 * sub["fracao"].to_numpy()
+            ax.fill_between(x, sub["ic95_inf_macro"], sub["ic95_sup_macro"], color=color, alpha=0.2)
+            ax.plot(x, sub["media_macro"], "-", color=color, lw=2, label=f"Pipeline {key.upper()}")
+            for xi, v, ok in zip(x, sub["media_macro"], sub["atende_criterio"]):
+                ax.plot(xi, v, "o", ms=7, color=color, mfc=color if ok else "white", mew=2)
+        ax.set_title(MODEL_LABELS[model], fontweight="bold")
+        ax.set_xlabel("Fração do treino (grupos inteiros, %)")
+        ax.set_xticks([20, 40, 60, 80, 100])
+        ax.set_ylim(0, 1.02)
+        ax.grid(alpha=0.2)
+        ax.spines[["top", "right"]].set_visible(False)
+    axes[0].set_ylabel("F1-macro na validação (CV, IC 95%)")
+    axes[0].legend(loc="lower right", fontsize=9)
+    fig.suptitle("Curva de aprendizado (marcador vazio: alguma classe com menos de 5 genes no treino em algum fold)", fontsize=11)
+    fig.tight_layout()
+    _save(fig, output_path)
+
+
+def plot_overfitting(ov: pd.DataFrame, output_path: Path) -> None:
+    """F1-macro no treino (folds), na validação (folds) e no teste, por modelo e pipeline."""
+    sub = ov[ov["classe"] == "macro"]
+    cols = [("f1_treino_cv", "Treino (folds)"), ("f1_validacao_cv", "Validação (CV)"), ("f1_teste", "Teste")]
+    fig, axes = plt.subplots(1, 4, figsize=(17, 4.2), sharey=True)
+    for ax, model in zip(axes, MODEL_NAMES):
+        for i, key in enumerate(("a", "b")):
+            r = sub[(sub["modelo"] == model) & (sub["pipeline"] == key)].iloc[0]
+            for j, (col, label) in enumerate(cols):
+                x = i * 4 + j
+                ax.bar(x, r[col], color=(COLOR_A if key == "a" else COLOR_B), alpha=[1.0, 0.7, 0.45][j], edgecolor="0.3")
+                ax.text(x, r[col] + 0.01, f"{r[col]:.2f}", ha="center", fontsize=7)
+        ax.set_xticks([0, 1, 2, 4, 5, 6], ["treino", "valid.", "teste"] * 2, fontsize=8)
+        ax.text(1, -0.14, "Pipeline A", ha="center", transform=ax.get_xaxis_transform(), fontsize=9)
+        ax.text(5, -0.14, "Pipeline B", ha="center", transform=ax.get_xaxis_transform(), fontsize=9)
+        ax.set_ylim(0, 1.08)
+        ax.set_title(MODEL_LABELS[model], fontweight="bold")
+        ax.spines[["top", "right"]].set_visible(False)
+    axes[0].set_ylabel("F1-macro")
+    fig.tight_layout()
+    _save(fig, output_path)
+
+
 def generate_all_figures() -> None:
     data = load_experiment_dataset()
     plot_class_distribution(data[TARGET].value_counts(), PLOTS_DIR / "eda" / "class_distribution_experimento")
@@ -449,9 +646,19 @@ def generate_all_figures() -> None:
             pd.read_csv(RESULTS_DIR / "curva_limiar_particoes.csv", dtype={"cenario": str}),
             PLOTS_DIR / "comparacao_pipelines" / "curva_limiar",
         )
-    imp_path = RESULTS_DIR / "feature_importance_gini_rf_b.csv"
-    if imp_path.exists():
-        plot_feature_importance(pd.read_csv(imp_path), PLOTS_DIR / "interpretabilidade" / "feature_importance_rf_b")
+    interp = PLOTS_DIR / "interpretabilidade"
+    if (RESULTS_DIR / "importancia_grupos.csv").exists():
+        groups = pd.read_csv(RESULTS_DIR / "importancia_grupos.csv")
+        plot_group_importance(groups, interp / "importancia_grupos")
+        plot_group_importance_per_class(groups, classes, interp / "importancia_por_classe")
+        plot_top_features(pd.read_csv(RESULTS_DIR / "importancia_atributos.csv"), interp / "top_atributos")
+    if (RESULTS_DIR / "shap_por_classe.csv").exists():
+        shap = pd.read_csv(RESULTS_DIR / "shap_por_classe.csv")
+        for model in ("xgboost", "random_forest"):
+            plot_shap_per_class(shap, classes, interp / f"shap_{model}_b", model=model)
+    if (RESULTS_DIR / "curva_aprendizado.csv").exists():
+        plot_learning_curve(pd.read_csv(RESULTS_DIR / "curva_aprendizado.csv"), PLOTS_DIR / "comparacao_pipelines" / "curva_aprendizado")
+        plot_overfitting(pd.read_csv(RESULTS_DIR / "overfitting.csv"), PLOTS_DIR / "comparacao_pipelines" / "overfitting")
 
 
 if __name__ == "__main__":

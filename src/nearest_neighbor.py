@@ -67,6 +67,27 @@ from src.homology_groups import WORK_DIR, load_hits
 NO_NEIGHBOR: int = -1
 
 
+def _read_hits_lean(path: Path, ids) -> tuple[np.ndarray, ...]:
+    """
+    Lê a busca com pouca memória: só as colunas usadas, identificadores como categorias
+    (convertidos para ``ARO:xxxxxxx`` e para posições no dataset uma vez por categoria).
+    Devolve (posição da consulta, posição do alvo, e-value, bit score, identidade);
+    posição −1 = gene fora do experimento.
+    """
+    from src.homology_groups import HIT_COLUMNS
+
+    cols = ["query", "target", "fident", "evalue", "bits"]
+    h = pd.read_csv(path, sep="\t", header=None, names=HIT_COLUMNS, usecols=cols,
+                    dtype={"query": "category", "target": "category"})
+    index = pd.Index(np.asarray(ids))
+    pos = []
+    for c in ("query", "target"):
+        cats = pd.Index(h[c].cat.categories).str.replace("_", ":", n=1, regex=False)
+        lookup = index.get_indexer(cats)
+        pos.append(lookup[h[c].cat.codes.to_numpy()])
+    return pos[0], pos[1], h["evalue"].to_numpy(), h["bits"].to_numpy(), h["fident"].to_numpy()
+
+
 class NeighborIndex:
     """
     Acertos da busca em índices inteiros (posições no dataset do experimento), já
@@ -78,15 +99,14 @@ class NeighborIndex:
         if not ids.is_unique:
             raise ValueError("Identificadores repetidos no dataset.")
         q_all, t_all = ids.get_indexer(hits["query"]), ids.get_indexer(hits["target"])
-        inside = (q_all >= 0) & (t_all >= 0)  # só genes do experimento
-        h = hits[inside]
-        q, t = q_all[inside], t_all[inside]
-        keep = q != t
+        self._build(len(ids), q_all, t_all, hits["evalue"].to_numpy(), hits["bits"].to_numpy(), hits["fident"].to_numpy())
+
+    def _build(self, n, q_all, t_all, evalue, bits, fident) -> None:
+        inside = (q_all >= 0) & (t_all >= 0) & (q_all != t_all)  # só genes do experimento, sem autopares
         frame = pd.DataFrame(
-            {"q": q[keep], "t": t[keep], "evalue": h["evalue"].to_numpy()[keep],
-             "bits": h["bits"].to_numpy()[keep], "fident": h["fident"].to_numpy()[keep]}
+            {"q": q_all[inside], "t": t_all[inside], "evalue": evalue[inside], "bits": bits[inside], "fident": fident[inside]}
         ).sort_values(["q", "evalue", "bits", "t"], ascending=[True, True, False, True], kind="mergesort")
-        self.n = len(ids)
+        self.n = n
         self.q = frame["q"].to_numpy()
         self.t = frame["t"].to_numpy()
         self.evalue = frame["evalue"].to_numpy()
@@ -95,8 +115,34 @@ class NeighborIndex:
 
     @classmethod
     def from_files(cls, ids, path: Path | None = None) -> "NeighborIndex":
-        """Padrão: a busca sem piso (``NEIGHBOR_HITS``); ``FLOOR_40_HITS`` para a sensibilidade."""
-        return cls(load_hits(path or NEIGHBOR_HITS), ids)
+        """
+        Padrão: a busca sem piso (``NEIGHBOR_HITS``); ``FLOOR_40_HITS`` para a sensibilidade.
+
+        Memória: a busca tem milhões de pares; lida como texto pelo pandas, ocupa 1 a 2 GB
+        por processo. Por isso os identificadores são lidos como categorias, e o índice
+        pronto (só números) fica num cache ``.npz`` ao lado da busca, reaproveitado
+        enquanto a busca e a lista de genes forem as mesmas (chave: SHA-256 dos
+        identificadores, tamanho e data do arquivo da busca). O conteúdo é o mesmo do
+        construtor a partir da tabela de acertos.
+        """
+        import hashlib
+
+        path = path or NEIGHBOR_HITS
+        ids = np.asarray(ids)
+        stat = path.stat()
+        key = hashlib.sha256(("\n".join(map(str, ids)) + f"|{stat.st_size}|{stat.st_mtime_ns}").encode()).hexdigest()
+        cache = path.with_name(path.stem + "_indice.npz")
+        obj = cls.__new__(cls)
+        if cache.exists():
+            d = np.load(cache)
+            if str(d["chave"]) == key:
+                obj.n, obj.q, obj.t = len(ids), d["q"], d["t"]
+                obj.evalue, obj.bits, obj.fident = d["evalue"], d["bits"], d["fident"]
+                return obj
+        q_all, t_all, evalue, bits, fident = _read_hits_lean(path, ids)
+        obj._build(len(ids), q_all, t_all, evalue, bits, fident)
+        np.savez(cache, chave=key, q=obj.q, t=obj.t, evalue=obj.evalue, bits=obj.bits, fident=obj.fident)
+        return obj
 
     def nearest(self, query_idx, reference_idx) -> tuple[np.ndarray, np.ndarray]:
         """

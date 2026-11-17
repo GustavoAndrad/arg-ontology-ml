@@ -1,0 +1,13 @@
+{
+  "comparacao": "média nos 50 folds da queda do F1-macro por atributo: 1 × 30 permutações por fold",
+  "logistic_regression_b": {
+    "correlacao_de_postos": 0.9157206628692791,
+    "top15_em_comum": 14,
+    "maior_diferenca_absoluta": 0.0017086361026792257
+  },
+  "xgboost_b": {
+    "correlacao_de_postos": 0.9259684145619813,
+    "top15_em_comum": 14,
+    "maior_diferenca_absoluta": 0.0034737575592100126
+  }
+}

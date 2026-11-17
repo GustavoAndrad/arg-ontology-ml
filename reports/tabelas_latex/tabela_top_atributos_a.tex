@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Os 15 atributos mais importantes no Pipeline A (queda média do F1-macro ao embaralhar o atributo, 50 folds da validação cruzada). $^\dagger$: IC 95\% corrigido inclui zero (não consistente).}
+  \label{tab:top_atributos_a}
+  \begin{tabular}{lcccc}
+    \toprule
+    \# & Random Forest & XGBoost & Regressão Logística & SVM (RBF) \\
+    \midrule
+    1 & \texttt{length} (0,132) & \texttt{length} (0,252) & \texttt{aa\_comp\_P} (0,044) & \texttt{aa\_comp\_V} (0,035) \\
+    2 & \texttt{aa\_comp\_W} (0,051) & \texttt{aa\_comp\_E} (0,036)$^\dagger$ & \texttt{length} (0,040) & \texttt{pair\_DE\_RK} (0,032)$^\dagger$ \\
+    3 & \texttt{pair\_ILFP\_DE} (0,044) & \texttt{aa\_comp\_Y} (0,034)$^\dagger$ & \texttt{aa\_comp\_W} (0,028)$^\dagger$ & \texttt{aa\_comp\_A} (0,031)$^\dagger$ \\
+    4 & \texttt{aa\_comp\_C} (0,039)$^\dagger$ & \texttt{aa\_comp\_V} (0,025)$^\dagger$ & \texttt{aa\_comp\_K} (0,025)$^\dagger$ & \texttt{length} (0,030)$^\dagger$ \\
+    5 & \texttt{pair\_ILFP\_AGV} (0,034) & \texttt{aa\_comp\_L} (0,019)$^\dagger$ & \texttt{aa\_comp\_V} (0,025)$^\dagger$ & \texttt{aa\_comp\_P} (0,029)$^\dagger$ \\
+    6 & \texttt{aa\_comp\_L} (0,025)$^\dagger$ & \texttt{aa\_comp\_W} (0,018)$^\dagger$ & \texttt{aa\_comp\_Y} (0,023)$^\dagger$ & \texttt{aa\_comp\_W} (0,026)$^\dagger$ \\
+    7 & \texttt{aa\_comp\_A} (0,025)$^\dagger$ & \texttt{aa\_comp\_R} (0,017)$^\dagger$ & \texttt{pair\_DE\_RK} (0,019)$^\dagger$ & \texttt{isoelectric\_point} (0,021)$^\dagger$ \\
+    8 & \texttt{aa\_comp\_Y} (0,023)$^\dagger$ & \texttt{aa\_comp\_P} (0,013)$^\dagger$ & \texttt{aa\_comp\_R} (0,017)$^\dagger$ & \texttt{pair\_C\_DE} (0,021)$^\dagger$ \\
+    9 & \texttt{aa\_comp\_E} (0,021)$^\dagger$ & \texttt{pair\_ILFP\_AGV} (0,012)$^\dagger$ & \texttt{aa\_comp\_Q} (0,017)$^\dagger$ & \texttt{pair\_DE\_ILFP} (0,020)$^\dagger$ \\
+    10 & \texttt{pair\_AGV\_ILFP} (0,020)$^\dagger$ & \texttt{pair\_C\_HNQW} (0,011)$^\dagger$ & \texttt{pair\_HNQW\_DE} (0,016)$^\dagger$ & \texttt{aa\_comp\_Y} (0,018)$^\dagger$ \\
+    11 & \texttt{pair\_DE\_RK} (0,019)$^\dagger$ & \texttt{aa\_comp\_H} (0,009)$^\dagger$ & \texttt{aa\_comp\_I} (0,015)$^\dagger$ & \texttt{aa\_comp\_I} (0,017)$^\dagger$ \\
+    12 & \texttt{pair\_DE\_ILFP} (0,019)$^\dagger$ & \texttt{pair\_AGV\_C} (0,007)$^\dagger$ & \texttt{pair\_AGV\_AGV} (0,014)$^\dagger$ & \texttt{pair\_ILFP\_DE} (0,015)$^\dagger$ \\
+    13 & \texttt{aa\_comp\_G} (0,017)$^\dagger$ & \texttt{aa\_comp\_I} (0,007)$^\dagger$ & \texttt{pair\_YMTS\_YMTS} (0,013)$^\dagger$ & \texttt{aa\_comp\_Q} (0,015)$^\dagger$ \\
+    14 & \texttt{aa\_comp\_R} (0,016)$^\dagger$ & \texttt{pair\_RK\_HNQW} (0,006)$^\dagger$ & \texttt{aa\_comp\_H} (0,013)$^\dagger$ & \texttt{aa\_comp\_K} (0,013)$^\dagger$ \\
+    15 & \texttt{aa\_comp\_P} (0,016)$^\dagger$ & \texttt{pair\_DE\_RK} (0,006)$^\dagger$ & \texttt{pair\_C\_HNQW} (0,012)$^\dagger$ & \texttt{aa\_comp\_D} (0,013)$^\dagger$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}

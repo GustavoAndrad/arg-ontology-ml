@@ -14,6 +14,11 @@ Saídas:
     results/cenarios_cv.csv                        — diferenças entre os cenários na CV, IC corrigido (descritivo)
     reports/tabelas_latex/tabela_cenarios.tex      — idem, em LaTeX
     reports/tabelas_latex/tabela_ablacao.tex       — ablação das features ontológicas (CV, IC corrigido)
+    reports/tabelas_latex/tabela_importancia_grupos.tex — queda do F1 ao embaralhar cada grupo (CV; ponto 8)
+    reports/tabelas_latex/tabela_top_atributos_{a,b}.tex — 15 atributos mais importantes por modelo
+    reports/tabelas_latex/tabela_dicionario_atributos.tex — todos os atributos e o significado (apêndice; longtable)
+    reports/tabelas_latex/tabela_overfitting.tex   — F1 no treino, na validação e no teste (ponto 9)
+    reports/tabelas_latex/tabela_curva_aprendizado.tex — F1 na validação por fração do treino (ponto 9)
     results/conclusoes_experimento.txt
 
 Intervalos (TCC2, ponto 5): no teste, IC 95% por bootstrap de grupos
@@ -333,6 +338,98 @@ def generate_ablation_table() -> pd.DataFrame | None:
     return abl
 
 
+GROUP_NAMES: dict[str, str] = {
+    "fisico_quimicas": "Físico-químicas (4)", "aminoacidos": "Aminoácidos (20)", "pares_de_grupos": "Pares de grupos (49)",
+    "estruturais": "ARO: estruturais (3)", "classes_de_antibiotico": "ARO: classes de antibiótico (38)",
+}
+CONTEXT_NAMES: dict[str, str] = {"a": "Pipeline A", "b": "Pipeline B (curado)", "b_gene_novo": "Pipeline B (gene novo)"}
+
+
+def _tex(text: str) -> str:
+    return str(text).replace("_", "\\_").replace("%", "\\%").replace("&", "\\&")
+
+
+def generate_interpretation_tables() -> None:
+    """Tabelas do ponto 8 (importância por grupo, top-15 e dicionário), se os resultados existirem."""
+    path = RESULTS_DIR / "importancia_grupos.csv"
+    if not path.exists():
+        logger.warning("Sem %s: rode python -m src.interpretability.", path)
+        return
+    g = pd.read_csv(path)
+    body = []
+    for ctx, ctx_label in CONTEXT_NAMES.items():
+        sub = g[g["contexto"] == ctx]
+        for i, grp in enumerate([x for x in GROUP_NAMES if x in set(sub["conjunto"])]):
+            row = sub[sub["conjunto"] == grp].set_index("modelo")
+            body.append([ctx_label if i == 0 else "", GROUP_NAMES[grp]] + [
+                f"{_br(row.loc[m, 'cv_media_macro'], 3)} {_ic(row.loc[m, 'cv_ic95_inf_macro'], row.loc[m, 'cv_ic95_sup_macro'])}"
+                for m in MODEL_NAMES])
+    _write("tabela_importancia_grupos.tex", _latex_table(
+        ["Contexto", "Grupo de atributos"] + [MODEL_LABELS[m] for m in MODEL_NAMES], body,
+        f"Importância por permutação de cada grupo de atributos: queda do F1-macro ao embaralhar o grupo inteiro, "
+        f"média nos {N_CV_REPEATS * N_CV_SPLITS} folds da validação cruzada, com IC 95\\% corrigido (Nadeau e Bengio). "
+        "No cenário gene novo, entre os genes de validação com vizinho no treino.",
+        "tab:importancia_grupos"))
+    f = pd.read_csv(RESULTS_DIR / "importancia_atributos.csv")
+    for ctx in ("a", "b"):
+        body = []
+        for pos in range(1, 16):
+            cells = []
+            for m in MODEL_NAMES:
+                r = f[(f["contexto"] == ctx) & (f["modelo"] == m) & (f["posicao_cv"] == pos)].iloc[0]
+                mark = "" if r["consistente"] else "$^\\dagger$"
+                cells.append(f"\\texttt{{{_tex(r['conjunto'])}}} ({_br(r['cv_media_macro'], 3)}){mark}")
+            body.append([str(pos)] + cells)
+        _write(f"tabela_top_atributos_{ctx}.tex", _latex_table(
+            ["\\#"] + [MODEL_LABELS[m] for m in MODEL_NAMES], body,
+            f"Os 15 atributos mais importantes no Pipeline {ctx.upper()} (queda média do F1-macro ao embaralhar o atributo, "
+            "50 folds da validação cruzada). $^\\dagger$: IC 95\\% corrigido inclui zero (não consistente).",
+            f"tab:top_atributos_{ctx}"))
+    d = pd.read_csv(RESULTS_DIR / "dicionario_atributos.csv")
+    lines = ["\\begin{longtable}{p{4.2cm}p{2.6cm}p{8cm}}",
+             "  \\caption{Atributos usados pelos pipelines e o que cada um significa.}\\label{tab:dicionario_atributos} \\\\",
+             "  \\toprule", "  Atributo & Grupo & Significado \\\\", "  \\midrule", "  \\endhead"]
+    for r in d.itertuples():
+        lines.append(f"  \\texttt{{{_tex(r.atributo)}}} & {GROUP_NAMES[r.grupo]} & {_tex(r.significado)} \\\\")
+    lines += ["  \\bottomrule", "\\end{longtable}"]
+    _write("tabela_dicionario_atributos.tex", "% requer \\usepackage{longtable} e \\usepackage{booktabs}\n" + "\n".join(lines) + "\n")
+
+
+def generate_overfitting_tables() -> None:
+    """Tabelas do ponto 9 (overfitting e curva de aprendizado), se os resultados existirem."""
+    path = RESULTS_DIR / "overfitting.csv"
+    if not path.exists():
+        logger.warning("Sem %s: rode python -m src.learning_curve.", path)
+        return
+    ov = pd.read_csv(path)
+    macro = ov[ov["classe"] == "macro"]
+    body = []
+    for m in MODEL_NAMES:
+        for key in ("a", "b"):
+            r = macro[(macro["modelo"] == m) & (macro["pipeline"] == key)].iloc[0]
+            body.append([MODEL_LABELS[m] if key == "a" else "", key.upper(), _br(r["f1_treino_cv"], 3),
+                         _br(r["f1_validacao_cv"], 3), _br(r["f1_teste"], 3), _br(r["queda_treino_validacao"], 3)])
+    _write("tabela_overfitting.tex", _latex_table(
+        ["Modelo", "Pipeline", "Treino (folds)", "Validação (CV)", "Teste", "Queda treino $\\to$ validação"], body,
+        "F1-macro no treino (o modelo avaliado nos próprios genes de ajuste, média dos 50 folds), na validação cruzada "
+        "e no teste. Por classe: \\texttt{results/overfitting.csv}.",
+        "tab:overfitting"))
+    curve = pd.read_csv(RESULTS_DIR / "curva_aprendizado.csv")
+    fracs = sorted(curve["fracao"].unique())
+    body = []
+    for m in MODEL_NAMES:
+        for key in ("a", "b"):
+            sub = curve[(curve["modelo"] == m) & (curve["pipeline"] == key)].set_index("fracao")
+            body.append([MODEL_LABELS[m] if key == "a" else "", key.upper()] + [
+                _br(sub.loc[f, "media_macro"], 3) + ("" if sub.loc[f, "atende_criterio"] else "$^\\dagger$") for f in fracs])
+    _write("tabela_curva_aprendizado.tex", _latex_table(
+        ["Modelo", "Pipeline"] + [f"{int(round(100 * f))}\\%" for f in fracs], body,
+        "Curva de aprendizado: F1-macro médio na validação cruzada (50 folds) com o modelo treinado em frações do "
+        "conjunto de ajuste, por grupos de similaridade inteiros e estratificado por classe. $^\\dagger$: alguma classe "
+        "com menos de 5 genes no treino em algum fold. Intervalos em \\texttt{results/curva\\_aprendizado.csv}.",
+        "tab:curva_aprendizado"))
+
+
 def generate_per_class_table(per_class: pd.DataFrame) -> None:
     """Precisão, revocação e F1 de cada classe no teste, A e B (ponto 10, decisão 1)."""
     rows = []
@@ -432,4 +529,6 @@ if __name__ == "__main__":
     scenarios = generate_scenario_table(boot)
     generate_scenario_cv_table(pd.read_csv(RESULTS_DIR / "cv_folds.csv"))
     generate_ablation_table()
+    generate_interpretation_tables()
+    generate_overfitting_tables()
     print(generate_conclusions_text(comp, tests, scenarios=scenarios))

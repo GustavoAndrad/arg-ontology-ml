@@ -760,3 +760,114 @@ def test_macro_pr_curve_shapes():
     noise = rng.random(len(y))
     _, prec, _ = macro_pr_curve(y, np.c_[1 - noise, noise])
     assert prec[-1] < 0.8  # revocação 1: média das prevalências (0,9 e 0,1) = 0,5
+
+
+# ── Pontos 8 e 9: interpretação, curva de aprendizado e overfitting ───────────
+
+def test_feature_groups_partition_all_columns():
+    from src.feature_extraction import SEQUENCE_FEATURE_COLUMNS
+    from src.interpretability import group_columns
+
+    onto = ["depth_isa", "ancestor_count", "children_count", "drug_class_a", "drug_class_b"]
+    cols = list(SEQUENCE_FEATURE_COLUMNS) + onto
+    groups = group_columns(cols)
+    sizes = {g: len(v) for g, v in groups.items()}
+    assert sizes == {"fisico_quimicas": 4, "aminoacidos": 20, "pares_de_grupos": 49, "estruturais": 3, "classes_de_antibiotico": 2}
+    allpos = np.concatenate(list(groups.values()))
+    assert sorted(allpos.tolist()) == list(range(len(cols)))  # cada coluna em exatamente um grupo
+
+
+def test_permutation_detects_used_feature_and_ignores_unused():
+    from src.interpretability import permutation_drops
+
+    rng = np.random.default_rng(0)
+    y = np.repeat([0, 1, 2], 50)
+    X = np.column_stack([y.astype(float), rng.normal(size=len(y))])
+    predict = lambda M: M[:, 0].round().astype(int)
+    rows = {r["conjunto"]: r for r in permutation_drops(predict, X, y, {"usado": np.array([0]), "ruido": np.array([1])}, 3, 10, rng)}
+    assert rows["usado"]["queda_f1_macro"] > 0.4
+    assert rows["ruido"]["queda_f1_macro"] == 0.0
+    assert {"queda_f1_classe_0", "queda_f1_classe_2"} <= set(rows["usado"])
+
+
+def test_group_permutation_moves_columns_together():
+    from src.interpretability import permutation_drops
+
+    rng = np.random.default_rng(1)
+    base = rng.normal(size=120)
+    y = np.repeat([0, 1], 60)
+    X = np.column_stack([base, base + y])  # a classe está na diferença entre as duas colunas
+    predict = lambda M: (M[:, 1] - M[:, 0] > 0.5).astype(int)
+    joint = permutation_drops(predict, X, y, {"grupo": np.array([0, 1])}, 2, 5, rng)[0]
+    alone = permutation_drops(predict, X, y, {"so_0": np.array([0])}, 2, 5, rng)[0]
+    assert joint["queda_f1_macro"] > 0.3  # embaralhar as linhas juntas quebra a relação com y
+    assert alone["queda_f1_macro"] > 0.3
+    # a diferença dentro de cada linha é preservada quando o grupo é embaralhado junto
+    perm = np.random.default_rng(2).permutation(len(X))
+    Xp = X.copy()
+    Xp[:, [0, 1]] = X[perm][:, [0, 1]]
+    assert np.allclose(Xp[:, 1] - Xp[:, 0], (X[:, 1] - X[:, 0])[perm])
+
+
+def test_feature_dictionary_describes_every_feature():
+    from src.interpretability import feature_dictionary
+
+    seq = ["length", "aa_comp_A", "pair_AGV_RK"]
+    onto = ["depth_isa", "drug_class_peptide_antibiotic"]
+    drug = pd.Series(["peptide antibiotic; tetracycline antibiotic", "tetracycline antibiotic"])
+    d = feature_dictionary(seq, onto, drug).set_index("atributo")
+    assert len(d) == 5 and d["significado"].str.len().gt(10).all()
+    assert d.loc["aa_comp_A", "significado"].startswith("fração do aminoácido A (alanina)")
+    assert '"peptide antibiotic"' in d.loc["drug_class_peptide_antibiotic", "significado"]
+    assert d.loc["drug_class_peptide_antibiotic", "genes_com_valor_1"] == 1
+    assert d.loc["length", "pipelines"] == "A e B" and d.loc["depth_isa", "pipelines"] == "B"
+
+
+def test_nested_group_subsets_whole_groups_per_class():
+    from src.learning_curve import nested_group_subsets
+
+    y = np.array([0] * 10 + [1] * 6)
+    groups = np.array([0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7])  # 5 grupos na classe 0, 3 na classe 1
+    sub = nested_group_subsets(y, groups, (0.2, 0.6, 1.0), np.random.default_rng(0))
+    assert len(sub[1.0]) == len(y)
+    assert set(sub[0.2]) <= set(sub[0.6]) <= set(sub[1.0])  # encaixadas
+    for idx in sub.values():  # grupos inteiros
+        kept = set(groups[idx])
+        assert all(set(np.flatnonzero(groups == g)) <= set(idx) for g in kept)
+    # ceil(0,2 × 5) = 1 grupo da classe 0 e ceil(0,2 × 3) = 1 da classe 1
+    assert len(set(groups[sub[0.2]])) == 2 and set(y[sub[0.2]]) == {0, 1}
+    with pytest.raises(ValueError):
+        nested_group_subsets(np.array([0, 1]), np.array([9, 9]), (0.5,), np.random.default_rng(0))
+
+
+def test_shap_per_class_sums_groups():
+    from src.interpretability import shap_per_class
+
+    values = np.zeros((4, 3, 2))  # 4 genes, 3 atributos, 2 classes
+    values[:, 0, 0] = 1.0
+    values[:, 1, 0] = -0.5
+    y = np.array([0, 0, 1, 1])
+    out = shap_per_class(values, y, ["aa_comp_A", "aa_comp_C", "length"], ["c0", "c1"])
+    g = out[(out["classe"] == "c0") & (out["nivel"] == "grupo") & (out["nome"] == "aminoacidos")].iloc[0]
+    assert g["media_shap"] == pytest.approx(0.5) and g["media_abs_shap"] == pytest.approx(0.5)
+    a = out[(out["classe"] == "c0") & (out["nome"] == "aa_comp_C")].iloc[0]
+    assert a["media_shap"] == pytest.approx(-0.5) and a["media_abs_shap"] == pytest.approx(0.5)
+
+
+def test_neighbor_index_from_files_cache_matches_constructor(tmp_path):
+    from src.homology_groups import HIT_COLUMNS
+
+    ids = [f"ARO:{i}" for i in range(6)]
+    hits = _toy_hits().assign(alnlen=100, qlen=100, tlen=100, qcov=1.0, tcov=1.0)
+    raw = hits.assign(query=hits["query"].str.replace("g", "ARO_"), target=hits["target"].str.replace("g", "ARO_"))
+    path = tmp_path / "hits.m8"
+    raw[HIT_COLUMNS].to_csv(path, sep="\t", header=False, index=False)
+    from src.homology_groups import load_hits
+
+    ref = NeighborIndex(load_hits(path), ids)  # caminho antigo (tabela de acertos lida do mesmo arquivo)
+    first = NeighborIndex.from_files(ids, path)  # monta e grava o cache
+    second = NeighborIndex.from_files(ids, path)  # lê do cache
+    assert (tmp_path / "hits_indice.npz").exists()
+    for idx in (first, second):
+        assert np.array_equal(idx.q, ref.q) and np.array_equal(idx.t, ref.t) and np.array_equal(idx.evalue, ref.evalue)
+        assert idx.nearest([0, 1], [2, 3, 4, 5])[0].tolist() == [3, 5]

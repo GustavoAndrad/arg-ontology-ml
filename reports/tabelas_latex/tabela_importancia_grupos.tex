@@ -1,0 +1,24 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Importância por permutação de cada grupo de atributos: queda do F1-macro ao embaralhar o grupo inteiro, média nos 50 folds da validação cruzada, com IC 95\% corrigido (Nadeau e Bengio). No cenário gene novo, entre os genes de validação com vizinho no treino.}
+  \label{tab:importancia_grupos}
+  \begin{tabular}{lccccc}
+    \toprule
+    Contexto & Grupo de atributos & Random Forest & XGBoost & Regressão Logística & SVM (RBF) \\
+    \midrule
+    Pipeline A & Físico-químicas (4) & 0,145 [0,075; 0,214] & 0,259 [0,185; 0,332] & 0,048 [0,012; 0,083] & 0,059 [0,027; 0,091] \\
+     & Aminoácidos (20) & 0,248 [0,162; 0,334] & 0,246 [0,180; 0,312] & 0,174 [0,104; 0,244] & 0,272 [0,204; 0,340] \\
+     & Pares de grupos (49) & 0,322 [0,231; 0,412] & 0,187 [0,115; 0,258] & 0,213 [0,143; 0,283] & 0,342 [0,261; 0,423] \\
+    Pipeline B (curado) & Físico-químicas (4) & 0,094 [0,042; 0,146] & 0,067 [0,030; 0,103] & 0,019 [-0,003; 0,040] & 0,021 [-0,006; 0,047] \\
+     & Aminoácidos (20) & 0,152 [0,095; 0,208] & 0,077 [0,026; 0,129] & 0,019 [0,002; 0,035] & 0,030 [0,003; 0,058] \\
+     & Pares de grupos (49) & 0,217 [0,143; 0,290] & 0,070 [0,003; 0,137] & 0,093 [0,009; 0,177] & 0,100 [0,024; 0,175] \\
+     & ARO: estruturais (3) & 0,433 [0,355; 0,510] & 0,310 [0,235; 0,386] & 0,156 [0,094; 0,218] & 0,049 [0,023; 0,075] \\
+     & ARO: classes de antibiótico (38) & 0,256 [0,193; 0,320] & 0,312 [0,246; 0,377] & 0,469 [0,422; 0,516] & 0,540 [0,502; 0,579] \\
+    Pipeline B (gene novo) & Físico-químicas (4) & 0,103 [0,047; 0,158] & 0,072 [0,032; 0,112] & 0,018 [-0,005; 0,042] & 0,018 [-0,010; 0,046] \\
+     & Aminoácidos (20) & 0,164 [0,112; 0,216] & 0,077 [0,025; 0,128] & 0,017 [-0,007; 0,041] & 0,023 [0,000; 0,045] \\
+     & Pares de grupos (49) & 0,236 [0,163; 0,309] & 0,076 [0,013; 0,140] & 0,087 [0,004; 0,170] & 0,091 [0,009; 0,173] \\
+     & ARO: estruturais (3) & 0,450 [0,377; 0,524] & 0,294 [0,214; 0,375] & 0,105 [0,034; 0,175] & 0,025 [-0,004; 0,053] \\
+     & ARO: classes de antibiótico (38) & 0,275 [0,212; 0,338] & 0,308 [0,240; 0,375] & 0,449 [0,401; 0,496] & 0,540 [0,498; 0,581] \\
+    \bottomrule
+  \end{tabular}
+\end{table}

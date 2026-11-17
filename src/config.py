@@ -34,7 +34,8 @@ K_FEATURES: int = 100
 VARIANCE_THRESHOLD: float = 0.0
 
 # ── Parâmetros de avaliação ────────────────────────────────────────────────────
-N_PERMUTATION_REPEATS: int = 10
+# Ponto 8, decisão 1: 30 permutações (Hastie et al. 2009, seção 15.3.2).
+N_PERMUTATION_REPEATS: int = 30
 DPI_FIGURES: int = 300
 # O Spearman (|ρ| ≥ 0,95) e a regra de sanidade (F1 ≤ 0,85) saíram no TCC2 (ponto 4):
 # a dependência da anotação é medida por informação mútua e ablação (src/leakage_check.py).

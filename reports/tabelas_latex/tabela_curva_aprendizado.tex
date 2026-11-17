@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Curva de aprendizado: F1-macro médio na validação cruzada (50 folds) com o modelo treinado em frações do conjunto de ajuste, por grupos de similaridade inteiros e estratificado por classe. $^\dagger$: alguma classe com menos de 5 genes no treino em algum fold. Intervalos em \texttt{results/curva\_aprendizado.csv}.}
+  \label{tab:curva_aprendizado}
+  \begin{tabular}{lcccccc}
+    \toprule
+    Modelo & Pipeline & 20\% & 40\% & 60\% & 80\% & 100\% \\
+    \midrule
+    Random Forest & A & 0,386$^\dagger$ & 0,438 & 0,484 & 0,531 & 0,551 \\
+     & B & 0,470$^\dagger$ & 0,573 & 0,661 & 0,742 & 0,787 \\
+    XGBoost & A & 0,469$^\dagger$ & 0,584 & 0,667 & 0,704 & 0,726 \\
+     & B & 0,647$^\dagger$ & 0,781 & 0,837 & 0,885 & 0,908 \\
+    Regressão Logística & A & 0,401$^\dagger$ & 0,459 & 0,514 & 0,540 & 0,557 \\
+     & B & 0,748$^\dagger$ & 0,844 & 0,888 & 0,913 & 0,920 \\
+    SVM (RBF) & A & 0,458$^\dagger$ & 0,539 & 0,590 & 0,642 & 0,673 \\
+     & B & 0,738$^\dagger$ & 0,850 & 0,898 & 0,921 & 0,936 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

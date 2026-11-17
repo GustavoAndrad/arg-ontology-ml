@@ -130,7 +130,8 @@ TARGET: str = "Resistance_Mechanism"
 MODEL_NAMES: list[str] = ["random_forest", "xgboost", "logistic_regression", "svm"]
 PIPELINES: dict[str, str] = {"a": "Pipeline A (sequência)", "b": "Pipeline B (sequência + ontologia)"}
 
-N_PERMUTATION_REPEATS: int = 10
+# Ponto 8, decisão 1: 30 permutações (Hastie et al. 2009, seção 15.3.2).
+N_PERMUTATION_REPEATS: int = 30
 # Seção 5.4: curvas ROC interpoladas em grade comum de 500 pontos de FPR.
 ROC_GRID_POINTS: int = 500
 

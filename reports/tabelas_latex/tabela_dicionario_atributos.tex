@@ -1,0 +1,123 @@
+% requer \usepackage{longtable} e \usepackage{booktabs}
+\begin{longtable}{p{4.2cm}p{2.6cm}p{8cm}}
+  \caption{Atributos usados pelos pipelines e o que cada um significa.}\label{tab:dicionario_atributos} \\
+  \toprule
+  Atributo & Grupo & Significado \\
+  \midrule
+  \endhead
+  \texttt{length} & Físico-químicas (4) & comprimento da proteína (número de resíduos) \\
+  \texttt{isoelectric\_point} & Físico-químicas (4) & ponto isoelétrico (pH em que a carga líquida da proteína é zero; Biopython ProtParam) \\
+  \texttt{instability\_index} & Físico-químicas (4) & índice de instabilidade da proteína (Biopython ProtParam; referência a adicionar) \\
+  \texttt{charge\_at\_pH7} & Físico-químicas (4) & carga líquida estimada em pH 7 (Biopython ProtParam) \\
+  \texttt{aa\_comp\_A} & Aminoácidos (20) & fração do aminoácido A (alanina) na sequência \\
+  \texttt{aa\_comp\_C} & Aminoácidos (20) & fração do aminoácido C (cisteína) na sequência \\
+  \texttt{aa\_comp\_D} & Aminoácidos (20) & fração do aminoácido D (aspartato) na sequência \\
+  \texttt{aa\_comp\_E} & Aminoácidos (20) & fração do aminoácido E (glutamato) na sequência \\
+  \texttt{aa\_comp\_F} & Aminoácidos (20) & fração do aminoácido F (fenilalanina) na sequência \\
+  \texttt{aa\_comp\_G} & Aminoácidos (20) & fração do aminoácido G (glicina) na sequência \\
+  \texttt{aa\_comp\_H} & Aminoácidos (20) & fração do aminoácido H (histidina) na sequência \\
+  \texttt{aa\_comp\_I} & Aminoácidos (20) & fração do aminoácido I (isoleucina) na sequência \\
+  \texttt{aa\_comp\_K} & Aminoácidos (20) & fração do aminoácido K (lisina) na sequência \\
+  \texttt{aa\_comp\_L} & Aminoácidos (20) & fração do aminoácido L (leucina) na sequência \\
+  \texttt{aa\_comp\_M} & Aminoácidos (20) & fração do aminoácido M (metionina) na sequência \\
+  \texttt{aa\_comp\_N} & Aminoácidos (20) & fração do aminoácido N (asparagina) na sequência \\
+  \texttt{aa\_comp\_P} & Aminoácidos (20) & fração do aminoácido P (prolina) na sequência \\
+  \texttt{aa\_comp\_Q} & Aminoácidos (20) & fração do aminoácido Q (glutamina) na sequência \\
+  \texttt{aa\_comp\_R} & Aminoácidos (20) & fração do aminoácido R (arginina) na sequência \\
+  \texttt{aa\_comp\_S} & Aminoácidos (20) & fração do aminoácido S (serina) na sequência \\
+  \texttt{aa\_comp\_T} & Aminoácidos (20) & fração do aminoácido T (treonina) na sequência \\
+  \texttt{aa\_comp\_V} & Aminoácidos (20) & fração do aminoácido V (valina) na sequência \\
+  \texttt{aa\_comp\_W} & Aminoácidos (20) & fração do aminoácido W (triptofano) na sequência \\
+  \texttt{aa\_comp\_Y} & Aminoácidos (20) & fração do aminoácido Y (tirosina) na sequência \\
+  \texttt{pair\_AGV\_AGV} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {AGV} é seguido por um do grupo {AGV} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_AGV\_ILFP} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {AGV} é seguido por um do grupo {ILFP} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_AGV\_YMTS} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {AGV} é seguido por um do grupo {YMTS} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_AGV\_HNQW} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {AGV} é seguido por um do grupo {HNQW} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_AGV\_RK} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {AGV} é seguido por um do grupo {RK} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_AGV\_DE} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {AGV} é seguido por um do grupo {DE} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_AGV\_C} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {AGV} é seguido por um do grupo {C} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_ILFP\_AGV} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {ILFP} é seguido por um do grupo {AGV} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_ILFP\_ILFP} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {ILFP} é seguido por um do grupo {ILFP} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_ILFP\_YMTS} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {ILFP} é seguido por um do grupo {YMTS} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_ILFP\_HNQW} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {ILFP} é seguido por um do grupo {HNQW} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_ILFP\_RK} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {ILFP} é seguido por um do grupo {RK} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_ILFP\_DE} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {ILFP} é seguido por um do grupo {DE} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_ILFP\_C} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {ILFP} é seguido por um do grupo {C} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_YMTS\_AGV} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {YMTS} é seguido por um do grupo {AGV} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_YMTS\_ILFP} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {YMTS} é seguido por um do grupo {ILFP} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_YMTS\_YMTS} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {YMTS} é seguido por um do grupo {YMTS} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_YMTS\_HNQW} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {YMTS} é seguido por um do grupo {HNQW} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_YMTS\_RK} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {YMTS} é seguido por um do grupo {RK} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_YMTS\_DE} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {YMTS} é seguido por um do grupo {DE} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_YMTS\_C} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {YMTS} é seguido por um do grupo {C} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_HNQW\_AGV} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {HNQW} é seguido por um do grupo {AGV} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_HNQW\_ILFP} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {HNQW} é seguido por um do grupo {ILFP} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_HNQW\_YMTS} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {HNQW} é seguido por um do grupo {YMTS} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_HNQW\_HNQW} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {HNQW} é seguido por um do grupo {HNQW} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_HNQW\_RK} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {HNQW} é seguido por um do grupo {RK} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_HNQW\_DE} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {HNQW} é seguido por um do grupo {DE} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_HNQW\_C} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {HNQW} é seguido por um do grupo {C} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_RK\_AGV} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {RK} é seguido por um do grupo {AGV} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_RK\_ILFP} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {RK} é seguido por um do grupo {ILFP} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_RK\_YMTS} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {RK} é seguido por um do grupo {YMTS} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_RK\_HNQW} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {RK} é seguido por um do grupo {HNQW} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_RK\_RK} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {RK} é seguido por um do grupo {RK} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_RK\_DE} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {RK} é seguido por um do grupo {DE} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_RK\_C} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {RK} é seguido por um do grupo {C} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_DE\_AGV} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {DE} é seguido por um do grupo {AGV} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_DE\_ILFP} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {DE} é seguido por um do grupo {ILFP} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_DE\_YMTS} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {DE} é seguido por um do grupo {YMTS} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_DE\_HNQW} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {DE} é seguido por um do grupo {HNQW} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_DE\_RK} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {DE} é seguido por um do grupo {RK} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_DE\_DE} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {DE} é seguido por um do grupo {DE} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_DE\_C} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {DE} é seguido por um do grupo {C} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_C\_AGV} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {C} é seguido por um do grupo {AGV} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_C\_ILFP} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {C} é seguido por um do grupo {ILFP} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_C\_YMTS} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {C} é seguido por um do grupo {YMTS} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_C\_HNQW} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {C} é seguido por um do grupo {HNQW} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_C\_RK} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {C} é seguido por um do grupo {RK} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_C\_DE} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {C} é seguido por um do grupo {DE} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{pair\_C\_C} & Pares de grupos (49) & frequência de pares de resíduos vizinhos em que um resíduo do grupo {C} é seguido por um do grupo {C} (alfabeto reduzido de 7 grupos, Shen et al. 2007) \\
+  \texttt{depth\_isa} & ARO: estruturais (3) & profundidade do termo do gene na hierarquia is-a da ARO (menor caminho até a raiz) \\
+  \texttt{ancestor\_count} & ARO: estruturais (3) & número de termos ancestrais do gene na hierarquia is-a da ARO \\
+  \texttt{children\_count} & ARO: estruturais (3) & número de subclasses diretas do termo do gene na ARO (quase sempre 0: os genes são folhas) \\
+  \texttt{drug\_class\_aminocoumarin\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "aminocoumarin antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_aminoglycoside\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "aminoglycoside antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_antibacterial\_free\_fatty\_acids} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "antibacterial free fatty acids" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_antibiotic\_without\_defined\_classification} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "antibiotic without defined classification" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_bicyclomycin\_like\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "bicyclomycin-like antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_carbapenem} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "carbapenem" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_cephalosporin} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "cephalosporin" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_diaminopyrimidine\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "diaminopyrimidine antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_disinfecting\_agents\_and\_antiseptics} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "disinfecting agents and antiseptics" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_elfamycin\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "elfamycin antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_fluoroquinolone\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "fluoroquinolone antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_fusidane\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "fusidane antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_glycopeptide\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "glycopeptide antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_glycylcycline} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "glycylcycline" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_isoniazid\_like\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "isoniazid-like antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_lincosamide\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "lincosamide antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_macrolide\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "macrolide antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_moenomycin\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "moenomycin antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_monobactam} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "monobactam" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_mupirocin\_like\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "mupirocin-like antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_nitrofuran\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "nitrofuran antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_nitroimidazole\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "nitroimidazole antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_nucleoside\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "nucleoside antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_orthosomycin\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "orthosomycin antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_oxazolidinone\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "oxazolidinone antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_penicillin\_beta\_lactam} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "penicillin beta-lactam" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_peptide\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "peptide antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_phenicol\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "phenicol antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_phosphonic\_acid\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "phosphonic acid antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_pleuromutilin\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "pleuromutilin antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_polyamine\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "polyamine antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_rifamycin\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "rifamycin antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_streptogramin\_a\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "streptogramin A antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_streptogramin\_b\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "streptogramin B antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_streptogramin\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "streptogramin antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_sulfonamide\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "sulfonamide antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_sulfone\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "sulfone antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \texttt{drug\_class\_tetracycline\_antibiotic} & ARO: classes de antibiótico (38) & 1 se o CARD registra resistência à classe "tetracycline antibiotic" (coluna Drug Class); 0 caso contrário \\
+  \bottomrule
+\end{longtable}
