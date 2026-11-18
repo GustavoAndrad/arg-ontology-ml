@@ -2,28 +2,32 @@
 sensitivity_representation.py — Sensibilidade do resultado à representação da sequência.
 
 Pergunta: a conclusão "B > A" depende de como a sequência é representada ou do
-filtro de atributos? Responde ao apontamento J2/J8 (TCC2, ponto 7) e mede quanto do
-ganho do Pipeline B no TCC1 vinha da seleção conjunta de atributos.
+filtro de atributos? Mede também quanto do ganho do Pipeline B na primeira versão
+do experimento vinha da seleção conjunta de atributos.
 
 Configurações (todas com as mesmas 5 classes, a mesma partição treino/teste, os
 mesmos folds e os mesmos hiperparâmetros do experimento; só muda a representação):
 
     reduzida_73       experimento: 73 atributos de sequência, sem seleção (B = 73 + 41)
-    tcc1_k100_todos   TCC1: 426 atributos, SelectKBest k=100 sobre todos (no B, a seleção
+    tcc1_k100_todos   primeira versão: 426 atributos, SelectKBest k=100 sobre todos (no B, a seleção
                       escolhe entre sequência e ontologia juntas)
     k100_sequencia    426 atributos, k=100 só na sequência; as 41 ontológicas passam inteiras
     completa_426      426 atributos, sem seleção (B = 426 + 41)
-    basicas_26        26 básicas do TCC1 (6 físico-químicas + 20 aminoácidos), sem seleção
+    basicas_26        26 básicas da primeira versão (6 físico-químicas + 20 aminoácidos), sem seleção
     k50_sequencia     426 atributos, k=50 só na sequência
     k20_sequencia     426 atributos, k=20 só na sequência
 
 Leituras previstas:
-    * tcc1_k100_todos reproduz os números do experimento antes do ponto 7 (controle);
+    * reduzida_73 é o controle: reproduz exatamente o experimento principal (mesmos
+      folds e teste). tcc1_k100_todos não reproduz a primeira versão, que usava
+      divisão aleatória e 4 classes: é a mesma seleção aplicada ao desenho atual
+      (no B, ela deixa entrar 21 dos 41 atributos ontológicos; 18 na divisão
+      aleatória estratificada da primeira versão);
     * tcc1_k100_todos vs k100_sequencia: efeito da seleção conjunta sobre a ontologia;
     * reduzida_73 vs completa_426 vs basicas_26: efeito dos dipeptídeos;
     * k20 / k50 / k100: efeito do k.
 
-É uma análise **descritiva** (sem teste estatístico), como definido no ponto 5.
+É uma análise **descritiva** (sem teste estatístico).
 Usa a mesma partição por grupos de similaridade do experimento (``load_groups``) e a
 mesma validação cruzada por grupos repetida 10 × 5 do experimento (mesmas divisões).
 O ganho do B na CV vem com o intervalo de 95% corrigido (Nadeau e Bengio), sem teste.

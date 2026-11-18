@@ -1,0 +1,14 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Acurácia no teste por recorte, segundo o parentesco com o treino (busca do MMseqs2). Usa-se a acurácia porque os recortes pequenos têm classes com 1 gene.}
+  \label{tab:recortes_teste}
+  \begin{tabular}{lccc}
+    \toprule
+    Recorte do teste (genes) & Homologia & A (4 modelos) & B gene novo (4 modelos) \\
+    \midrule
+    Com parente no treino (1038) & 1,00 & 0,87--0,97 & 0,98--0,99 \\
+    Distantes (sem parente $\geq$ 40\%) (58) & 0,79 & 0,52--0,64 & 0,71--0,83 \\
+    Sem nenhum parente (13) & 0,08 & 0,08--0,31 & 0,08--0,31 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

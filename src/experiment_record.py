@@ -1,8 +1,7 @@
 """
 experiment_record.py — Configuração experimental: hiperparâmetros, versões, dados e sementes.
 
-Por que (TCC2, ponto 13; apontamentos D9 do Diego e J14 da Jéssica): para o
-experimento ser reproduzível, o texto precisa informar todos os hiperparâmetros,
+Por que: para o experimento ser reproduzível, o texto precisa informar todos os hiperparâmetros,
 as versões das bibliotecas, a versão dos dados e as sementes. Tudo aqui é lido do
 código, dos modelos treinados e dos arquivos de resultado, para evitar erro de
 transcrição.

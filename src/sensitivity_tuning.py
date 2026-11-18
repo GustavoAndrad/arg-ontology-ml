@@ -2,16 +2,17 @@
 sensitivity_tuning.py — Sensibilidade do resultado ao ajuste de hiperparâmetros.
 
 Pergunta: a conclusão "B > A" depende de os modelos usarem os hiperparâmetros
-padrão? Responde ao apontamento D9 (Diego) e completa o ponto 13: o experimento
+padrão? O experimento
 principal usa hiperparâmetros fixos e iguais para A e B (o objetivo é comparar
 conjuntos de atributos nas mesmas condições, não achar o melhor modelo), e o
 ajuste entra só aqui, de forma descritiva.
 
-Desenho (decisão 2 do ponto 13; Hastie et al. 2009, seção 7.10 — a escolha de
+Desenho (Hastie et al. 2009, seção 7.10 — a escolha de
 hiperparâmetros por validação cruzada, feita só dentro do treino):
     * Validação cruzada aninhada. Folds externos = os 5 folds da 1ª repetição da
-      validação cruzada repetida do experimento (a decisão do ponto 13 pede uma
-      repetição de 5 folds; a busca dentro de cada fold é o que custa). Em cada fold externo, busca em grade (``GridSearchCV``) com 3
+      validação cruzada repetida do experimento (uma repetição só, porque a busca
+      dentro de cada fold é o que custa). Em cada fold externo, busca em grade
+      (``GridSearchCV``) com 3
       folds internos por grupos (``StratifiedGroupKFold``), só no treino do fold;
       o melhor conjunto é avaliado no fold externo de validação.
     * Teste: a mesma busca no treino inteiro (3 folds internos por grupos); o
@@ -32,7 +33,9 @@ Espaço de busca (``PARAM_GRIDS``): escolhido por nós, pequeno por custo, sempr
 Não há referência da literatura para esses valores; o texto deve dizer que foram
 definidos pelos autores em torno do padrão.
 
-É uma análise **descritiva** (sem teste estatístico), como definido no ponto 5.
+É uma análise **descritiva** (sem teste estatístico). O "padrão" reproduz
+exatamente a 1ª repetição da CV e o teste do experimento principal. Nos folds
+internos de 3, a menor classe fica com 3 a 24 genes (todas presentes).
 
 Saídas:
     results/sensibilidade_ajuste.csv          — modelo × pipeline: padrão vs ajustado

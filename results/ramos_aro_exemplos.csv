@@ -1,0 +1,31 @@
+mecanismo,familia,gene,nivel,termo,rotulo,categoria_de_mecanismo,mecanismo_ligado
+antibiotic inactivation,TEM beta-lactamase,ARO:3000873,0,ARO:1000001,process or component of antibiotic biology or chemistry,False,
+antibiotic inactivation,TEM beta-lactamase,ARO:3000873,1,ARO:3000000,determinant of antibiotic resistance,False,
+antibiotic inactivation,TEM beta-lactamase,ARO:3000873,2,ARO:3000557,antibiotic inactivation enzyme,True,antibiotic inactivation
+antibiotic inactivation,TEM beta-lactamase,ARO:3000873,3,ARO:3000001,beta-lactamase,False,
+antibiotic inactivation,TEM beta-lactamase,ARO:3000873,4,ARO:3000078,class A beta-lactamase,False,
+antibiotic inactivation,TEM beta-lactamase,ARO:3000873,5,ARO:3000014,TEM beta-lactamase,False,
+antibiotic inactivation,TEM beta-lactamase,ARO:3000873,6,ARO:3000873,TEM-1,False,
+antibiotic target alteration,glycopeptide resistance gene cluster,ARO:3000010,0,ARO:1000001,process or component of antibiotic biology or chemistry,False,
+antibiotic target alteration,glycopeptide resistance gene cluster,ARO:3000010,1,ARO:3000000,determinant of antibiotic resistance,False,
+antibiotic target alteration,glycopeptide resistance gene cluster,ARO:3000010,2,ARO:3000012,protein(s) conferring antibiotic resistance via molecular bypass,False,
+antibiotic target alteration,glycopeptide resistance gene cluster,ARO:3000010,3,ARO:3002976,gene(s) or protein(s) associated with a glycopeptide resistance cluster,False,
+antibiotic target alteration,glycopeptide resistance gene cluster,ARO:3000010,4,ARO:3002906,Van ligase,False,
+antibiotic target alteration,glycopeptide resistance gene cluster,ARO:3000010,5,ARO:3002978,D-Ala-D-Lac ligase,False,
+antibiotic target alteration,glycopeptide resistance gene cluster,ARO:3000010,6,ARO:3000010,vanA,False,
+antibiotic efflux,resistance-nodulation-cell division (RND) antibiotic efflux pump,ARO:3000216,0,ARO:1000001,process or component of antibiotic biology or chemistry,False,
+antibiotic efflux,resistance-nodulation-cell division (RND) antibiotic efflux pump,ARO:3000216,1,ARO:3000000,determinant of antibiotic resistance,False,
+antibiotic efflux,resistance-nodulation-cell division (RND) antibiotic efflux pump,ARO:3000216,2,ARO:3000159,efflux pump complex or subunit conferring antibiotic resistance,True,antibiotic efflux
+antibiotic efflux,resistance-nodulation-cell division (RND) antibiotic efflux pump,ARO:3000216,3,ARO:3000748,subunit of efflux pump conferring antibiotic resistance,False,
+antibiotic efflux,resistance-nodulation-cell division (RND) antibiotic efflux pump,ARO:3000216,4,ARO:3000216,acrB,False,
+antibiotic target protection,quinolone resistance protein (qnr),ARO:3002707,0,ARO:1000001,process or component of antibiotic biology or chemistry,False,
+antibiotic target protection,quinolone resistance protein (qnr),ARO:3002707,1,ARO:3000000,determinant of antibiotic resistance,False,
+antibiotic target protection,quinolone resistance protein (qnr),ARO:3002707,2,ARO:3000185,antibiotic target protection protein,True,antibiotic target protection
+antibiotic target protection,quinolone resistance protein (qnr),ARO:3002707,3,ARO:3000419,quinolone resistance protein (qnr),False,
+antibiotic target protection,quinolone resistance protein (qnr),ARO:3002707,4,ARO:3002707,QnrA1,False,
+antibiotic target replacement,trimethoprim resistant dihydrofolate reductase dfr,ARO:3002854,0,ARO:1000001,process or component of antibiotic biology or chemistry,False,
+antibiotic target replacement,trimethoprim resistant dihydrofolate reductase dfr,ARO:3002854,1,ARO:3000000,determinant of antibiotic resistance,False,
+antibiotic target replacement,trimethoprim resistant dihydrofolate reductase dfr,ARO:3002854,2,ARO:3000381,antibiotic target replacement protein,True,antibiotic target replacement
+antibiotic target replacement,trimethoprim resistant dihydrofolate reductase dfr,ARO:3002854,3,ARO:3003425,antibiotic resistant dihydrofolate reductase,False,
+antibiotic target replacement,trimethoprim resistant dihydrofolate reductase dfr,ARO:3002854,4,ARO:3001218,trimethoprim resistant dihydrofolate reductase dfr,False,
+antibiotic target replacement,trimethoprim resistant dihydrofolate reductase dfr,ARO:3002854,5,ARO:3002854,dfrA1,False,

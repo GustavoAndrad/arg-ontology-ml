@@ -6,23 +6,24 @@ Para cada modelo e cada pipeline (A: 73 features de sequência; B: A + 41 ontol�
       50 estimativas por modelo, pareadas entre A e B (mesmas divisões);
     * treino final no treino (~80%) e avaliação no teste (~20%).
 
-Cenários de avaliação do Pipeline B (TCC2, ponto 4; ver ``src.nearest_neighbor``):
+Cenários de avaliação do Pipeline B (ver ``src.nearest_neighbor``):
 o modelo B é treinado uma vez, como sempre; o que muda é a origem das 41 features
 ontológicas na hora de prever.
     * ``b`` (anotação curada): da ficha do próprio gene — o melhor caso;
     * ``b_gene_novo``: da ficha do gene mais parecido do treino daquela divisão
       (fold ou teste final), como seria com um gene ainda não anotado; gene sem
-      nenhum parecido recebe a predição do Pipeline A (regra P4-1);
+      nenhum parecido recebe a predição do Pipeline A;
     * ``b_gene_novo_zeros``: igual, mas sem parecido = ontologia zerada (regra
-      original de 11/11; só sensibilidade descritiva);
+      anterior; só sensibilidade descritiva);
     * ``homologia``: referência sem ML, o mecanismo do gene mais parecido;
     * ``b_gene_novo_piso40`` e ``homologia_piso40``: os mesmos, com o vizinho achado na
-      busca do ponto 3 (piso de 40% de identidade) — sensibilidade ao piso da busca.
-Os modelos A e B, seus dados e sementes não mudam: as linhas ``a`` e ``b`` são as do
-experimento anterior (controle). O gene mais parecido de cada gene de teste fica em
+      busca dos grupos de similaridade (piso de 40% de identidade) — sensibilidade ao
+      piso da busca.
+Os modelos A e B são treinados uma vez por divisão; os cenários só mudam a entrada
+na hora de prever, então as linhas ``a`` e ``b`` são a comparação principal. O gene mais parecido de cada gene de teste fica em
 ``results/vizinho_mais_parecido_teste.csv``.
 
-Validação cruzada repetida (TCC2, ponto 5, decisão 2): base do teste t corrigido
+Validação cruzada repetida: base do teste t corrigido
 (``src.statistical_tests``). As 10 sementes vêm de ``choose_cv_seeds`` (as
 primeiras que deixam >= 5 genes de cada classe em cada fold) e ficam em
 ``results/particao_teste.json``.
@@ -33,7 +34,7 @@ A escolha da partição de teste (semente e proporções) fica em
 ``results/particao_teste.json``.
 
 Métricas: acurácia, precisão/revocação/F1 macro, acurácia balanceada, ROC-AUC
-macro One-vs-Rest e PR-AUC macro (TCC2, ponto 10). Também por classe: precisão,
+macro One-vs-Rest e PR-AUC macro. Também por classe: precisão,
 revocação, F1, ROC-AUC e PR-AUC (uma classe contra as outras), no teste e em cada
 fold da validação cruzada.
 
@@ -43,10 +44,10 @@ padrão do scikit-learn. Ao lado da ROC-AUC, mostra o desempenho nas classes
 pequenas: com uma classe muito grande, a taxa de falsos positivos da ROC fica baixa
 mesmo quando muitos alarmes são falsos.
 
-Classes declaradas (TCC2, ponto 2): precisão, revocação e F1 macro recebem
-``labels`` com todas as classes. Sem isso, o scikit-learn faz a média só sobre as
-classes que aparecem no fold, e uma classe ausente simplesmente some da média (era
-o que acontecia no TCC1, ao contrário do que diz a Seção 5.5). Para que a média
+Classes declaradas: precisão, revocação e F1 macro recebem ``labels`` com todas as
+classes. Sem isso, o scikit-learn faz a média só sobre as classes que aparecem no
+fold, e uma classe ausente simplesmente some da média (era o que acontecia na
+primeira versão do experimento). Para que a média
 seja sempre sobre as 5 classes, o código também confere, antes de treinar, que
 cada fold de validação tem genes de todas elas (``check_class_counts_per_fold``) e
 salva essas contagens em ``results/cv_contagem_classes.csv``.
@@ -200,7 +201,7 @@ def per_class_metrics(y_true, y_pred, proba, classes: list[str]) -> list[dict]:
 
 def check_class_counts_per_fold(y_train: np.ndarray, classes: list[str], splits: list[tuple]) -> pd.DataFrame:
     """
-    Conta os genes de cada classe em cada fold de validação e aplica o critério do ponto 2.
+    Conta os genes de cada classe em cada fold de validação e aplica o critério de entrada das classes.
 
     ``splits`` vem de ``repeated_cv_splits``: as mesmas divisões valem para todos os
     modelos e para os Pipelines A e B. Erro se alguma classe faltar num fold (o F1 dela
@@ -250,17 +251,17 @@ def scenario_predictions(
     neighbors_floor40: np.ndarray | None = None,
 ) -> dict[str, tuple[np.ndarray, np.ndarray]]:
     """
-    Predições de uma divisão (fold ou teste final) em todos os cenários (TCC2, ponto 4).
+    Predições de uma divisão (fold ou teste final) em todos os cenários.
 
     Índices globais (posições no dataset). ``neighbors[i]`` = gene mais parecido de
     ``eval_idx[i]`` entre ``fit_idx`` (ver ``src.nearest_neighbor``). Chaves:
         a                   Pipeline A
         b                   Pipeline B, anotação curada (ficha do próprio gene)
         b_gene_novo         Pipeline B, ontologia do gene mais parecido do treino;
-                            sem vizinho, predição do A (regra adotada, P4-1)
+                            sem vizinho, predição do A (regra adotada)
         b_gene_novo_zeros   idem, mas sem vizinho = ontologia zerada (sensibilidade)
         homologia           mecanismo do gene mais parecido, sem ML (referência)
-    Com ``neighbors_floor40`` (vizinho achado na busca do ponto 3, com piso de 40% de
+    Com ``neighbors_floor40`` (vizinho achado na busca dos grupos, com piso de 40% de
     identidade), também ``b_gene_novo_piso40`` e ``homologia_piso40`` (sensibilidade ao
     piso da busca; mesmos modelos).
     Os modelos ``pipe_a`` e ``pipe_b`` são os mesmos nos cenários: muda só a origem
@@ -292,13 +293,12 @@ def run_cross_validation_scenarios(
     nn_floor40: NeighborIndex | None = None,
 ) -> tuple[list[dict], list[dict]]:
     """
-    CV por grupos repetida com os Pipelines A e B e os cenários do ponto 4.  # ANTI-LEAKAGE  # SEED FIXA
+    CV por grupos repetida com os Pipelines A e B e os cenários de dependência da anotação.  # ANTI-LEAKAGE  # SEED FIXA
 
     ``splits`` indexa ``train_idx`` (como em ``run_cross_validation``). Em cada fold, A e B
     são treinados só com os genes de ajuste; o gene mais parecido de cada gene de
     validação é procurado só entre esses genes de ajuste. O treino de A e B é idêntico
-    ao de ``run_cross_validation`` (mesmos dados e semente), então as linhas ``a`` e ``b``
-    reproduzem o experimento anterior. Retorna (métricas por fold, métricas por classe
+    ao de ``run_cross_validation`` (mesmos dados e semente). Retorna (métricas por fold, métricas por classe
     por fold), com a coluna ``pipeline`` e o número de genes sem vizinho no fold.
     """
     n_classes = len(classes)
@@ -385,7 +385,7 @@ def save_test_neighbors(
     )
     table["mesmo_mecanismo"] = table["tem_vizinho"] & (table["mecanismo"] == table["mecanismo_vizinho"])
     if neighbors_floor40 is not None:
-        # Tinha vizinho também na busca do ponto 3 (identidade ≥ 40%)? Define o recorte
+        # Tinha vizinho também na busca dos grupos (identidade ≥ 40%)? Define o recorte
         # "genes distantes do treino" do bootstrap.
         table["tem_vizinho_piso40"] = neighbors_floor40 != NO_NEIGHBOR
     table.to_csv(RESULTS_DIR / "vizinho_mais_parecido_teste.csv", index=False)
@@ -418,10 +418,10 @@ def run_experiment(model_names: list[str] = MODEL_NAMES) -> None:
     # Tabela 4.1 / Seção 4.3.3: todos os mecanismos do dataset integrado e o destino de cada um.
     dataset_composition(load_integrated_dataset()).to_csv(RESULTS_DIR / "composicao_dataset.csv", index=False)
 
-    # Ponto 4: gene mais parecido de cada gene do teste, procurado só no treino.  # ANTI-LEAKAGE
+    # Gene mais parecido de cada gene do teste, procurado só no treino.  # ANTI-LEAKAGE
     ids = data["ARO_Accession"].to_numpy()
     nn = NeighborIndex.from_files(ids)  # busca sem piso de identidade (principal)
-    nn_floor40 = NeighborIndex.from_files(ids, FLOOR_40_HITS)  # busca do ponto 3 (sensibilidade)
+    nn_floor40 = NeighborIndex.from_files(ids, FLOOR_40_HITS)  # busca dos grupos, piso de 40% (sensibilidade)
     test_neighbors, test_identity = nn.nearest(test_idx, train_idx)
     test_floor40, _ = nn_floor40.nearest(test_idx, train_idx)
     nb_table = save_test_neighbors(data, y, classes, test_idx, test_neighbors, test_identity, test_floor40)

@@ -1,0 +1,14 @@
+pipeline,modelo,erros_totais,erros_inativacao_alteracao_dois_sentidos,maior_erro,genes_no_maior_erro
+a,random_forest,71,31,antibiotic target alteration -> antibiotic inactivation,31
+a,xgboost,38,17,antibiotic target alteration -> antibiotic inactivation,10
+a,logistic_regression,142,59,antibiotic inactivation -> antibiotic target alteration,58
+a,svm,92,31,antibiotic inactivation -> antibiotic target alteration,30
+b,random_forest,34,16,antibiotic target alteration -> antibiotic inactivation,16
+b,xgboost,11,4,antibiotic target alteration -> antibiotic inactivation,3
+b,logistic_regression,14,7,antibiotic inactivation -> antibiotic target alteration,6
+b,svm,9,2,antibiotic inactivation -> antibiotic target protection,5
+b_gene_novo,random_forest,34,16,antibiotic target alteration -> antibiotic inactivation,16
+b_gene_novo,xgboost,16,4,antibiotic efflux -> antibiotic inactivation,4
+b_gene_novo,logistic_regression,21,6,antibiotic inactivation -> antibiotic target alteration,5
+b_gene_novo,svm,16,2,antibiotic inactivation -> antibiotic target protection,5
+homologia,homologia,13,5,antibiotic efflux -> antibiotic inactivation,7

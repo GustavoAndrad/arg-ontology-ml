@@ -21,40 +21,43 @@ PLOTS_DIR: Path = _PROJECT_ROOT / "plots"
 REPORTS_DIR: Path = _PROJECT_ROOT / "reports"
 
 # ── Parâmetros do experimento ──────────────────────────────────────────────────
-RANDOM_STATE: int = 42          # SEED FIXA — divisão treino/teste e modelos
-TEST_SIZE: float = 0.2
+# SEED FIXA — modelos, amostradores, permutações, frações da curva de aprendizado e
+# bootstrap. A partição de teste e as repetições da validação cruzada têm sementes
+# próprias, escolhidas em src/experiment_config.py.
+RANDOM_STATE: int = 42
+TEST_SIZE: float = 0.2          # fração-alvo de cada classe no conjunto de teste
 N_CV_SPLITS: int = 5
 ALPHA_STAT: float = 0.05
 
 # ── Seleção de features ────────────────────────────────────────────────────────
-# O experimento não usa seleção de atributos (TCC2, ponto 7). Estes valores são os
-# do TCC1 (SelectKBest k=100 após VarianceThreshold 0.0) e só são usados pela
-# análise de sensibilidade à representação (src/sensitivity_representation.py).
+# O experimento não usa seleção de atributos. Estes valores (SelectKBest k=100 após
+# VarianceThreshold 0.0, a configuração da primeira versão do experimento) só são
+# usados pela análise de sensibilidade à representação (src/sensitivity_representation.py).
 K_FEATURES: int = 100
 VARIANCE_THRESHOLD: float = 0.0
 
 # ── Parâmetros de avaliação ────────────────────────────────────────────────────
-# Ponto 8, decisão 1: 30 permutações (Hastie et al. 2009, seção 15.3.2).
+# 30 permutações por atributo ou grupo (Hastie et al. 2009, seção 15.3.2).
 N_PERMUTATION_REPEATS: int = 30
 DPI_FIGURES: int = 300
-# O Spearman (|ρ| ≥ 0,95) e a regra de sanidade (F1 ≤ 0,85) saíram no TCC2 (ponto 4):
-# a dependência da anotação é medida por informação mútua e ablação (src/leakage_check.py).
+# A dependência da anotação é medida por informação mútua e ablação (src/leakage_check.py).
 
 # ── Alvo de classificação ──────────────────────────────────────────────────────
+# Nome da coluna no aro_index.tsv original; depois da integração ela se chama
+# "Resistance_Mechanism" (src.experiment_config.TARGET).
 TARGET_COLUMN: str = "Resistance Mechanism"
 
-# Classes do experimento (TCC2, ponto 2 de docs/TCC2_decisoes_banca.md).
+# Classes do experimento.
 #
 # Por que estas 5: são os mecanismos de rótulo único do dataset integrado
 # (CARD 4.0.1, protein homolog model, 6.052 genes) com genes suficientes para
 # ter cerca de 5 por fold de validação. São filhos diretos de "mechanism of
 # antibiotic resistance" na ARO; nenhum é subtipo de outro, então não se juntam.
 #
-# Histórico do erro corrigido aqui: a lista anterior (copiada da especificação
-# do planejamento, .kiro/specs/.../requirements.md) tinha "reduced permeability"
-# e "resistance by absence", mas não "target protection" (170 genes) nem
-# "target replacement" (70 genes), que existem nos dados. O TCC1 acabou usando
-# 4 classes por causa disso, e não por escolha de método.
+# Na primeira versão do experimento, a lista tinha "reduced permeability" e
+# "resistance by absence", mas não "target protection" (170 genes) nem
+# "target replacement" (70 genes), que existem nos dados; por isso aquela versão
+# usou 4 classes. A lista é conferida contra os dados em src.experiment_config.
 TARGET_CLASSES: list[str] = [
     "antibiotic inactivation",       # 5.239 genes
     "antibiotic target alteration",  # 285

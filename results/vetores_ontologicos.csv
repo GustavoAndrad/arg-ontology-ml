@@ -1,0 +1,175 @@
+id_vetor,genes,classe_majoritaria,genes_na_majoritaria,n_classes,pureza,genes_efflux,genes_inactivation,genes_target_alteration,genes_target_protection,genes_target_replacement
+0,819,antibiotic inactivation,819,1,1.0,0,819,0,0,0
+1,637,antibiotic inactivation,637,1,1.0,0,637,0,0,0
+2,420,antibiotic inactivation,420,1,1.0,0,420,0,0,0
+3,345,antibiotic inactivation,345,1,1.0,0,345,0,0,0
+4,339,antibiotic inactivation,339,1,1.0,0,339,0,0,0
+5,337,antibiotic inactivation,337,1,1.0,0,337,0,0,0
+6,328,antibiotic inactivation,328,1,1.0,0,328,0,0,0
+7,307,antibiotic inactivation,307,1,1.0,0,307,0,0,0
+8,251,antibiotic inactivation,251,1,1.0,0,251,0,0,0
+9,242,antibiotic inactivation,242,1,1.0,0,242,0,0,0
+10,239,antibiotic inactivation,239,1,1.0,0,239,0,0,0
+11,192,antibiotic inactivation,192,1,1.0,0,192,0,0,0
+12,125,antibiotic target protection,108,2,0.864,17,0,0,108,0
+13,113,antibiotic inactivation,113,1,1.0,0,113,0,0,0
+14,113,antibiotic target alteration,113,1,1.0,0,0,113,0,0
+15,111,antibiotic inactivation,111,1,1.0,0,111,0,0,0
+16,88,antibiotic inactivation,88,1,1.0,0,88,0,0,0
+17,77,antibiotic efflux,44,3,0.5714285714285714,44,14,0,19,0
+18,74,antibiotic inactivation,74,1,1.0,0,74,0,0,0
+19,72,antibiotic inactivation,72,1,1.0,0,72,0,0,0
+20,58,antibiotic target replacement,58,1,1.0,0,0,0,0,58
+21,48,antibiotic inactivation,32,2,0.6666666666666666,16,32,0,0,0
+22,41,antibiotic target alteration,41,1,1.0,0,0,41,0,0
+23,39,antibiotic inactivation,25,2,0.6410256410256411,0,25,14,0,0
+24,38,antibiotic target alteration,38,1,1.0,0,0,38,0,0
+25,37,antibiotic inactivation,37,1,1.0,0,37,0,0,0
+26,29,antibiotic inactivation,20,3,0.6896551724137931,6,20,0,3,0
+27,29,antibiotic inactivation,29,1,1.0,0,29,0,0,0
+28,25,antibiotic inactivation,25,1,1.0,0,25,0,0,0
+29,25,antibiotic inactivation,25,1,1.0,0,25,0,0,0
+30,20,antibiotic target alteration,20,1,1.0,0,0,20,0,0
+31,19,antibiotic target alteration,19,1,1.0,0,0,19,0,0
+32,15,antibiotic inactivation,13,2,0.8666666666666667,0,13,0,2,0
+33,13,antibiotic inactivation,12,2,0.9230769230769231,1,12,0,0,0
+34,12,antibiotic inactivation,11,2,0.9166666666666666,1,11,0,0,0
+35,12,antibiotic inactivation,12,1,1.0,0,12,0,0,0
+36,12,antibiotic efflux,12,1,1.0,12,0,0,0,0
+37,12,antibiotic target protection,12,1,1.0,0,0,0,12,0
+38,10,antibiotic efflux,10,1,1.0,10,0,0,0,0
+39,10,antibiotic inactivation,10,1,1.0,0,10,0,0,0
+40,10,antibiotic efflux,5,3,0.5,5,2,3,0,0
+41,9,antibiotic efflux,9,1,1.0,9,0,0,0,0
+42,8,antibiotic target alteration,8,1,1.0,0,0,8,0,0
+43,8,antibiotic inactivation,8,1,1.0,0,8,0,0,0
+44,7,antibiotic efflux,6,2,0.8571428571428571,6,1,0,0,0
+45,7,antibiotic efflux,4,2,0.5714285714285714,4,3,0,0,0
+46,5,antibiotic target protection,5,1,1.0,0,0,0,5,0
+47,5,antibiotic efflux,5,1,1.0,5,0,0,0,0
+48,5,antibiotic target alteration,5,1,1.0,0,0,5,0,0
+49,5,antibiotic target replacement,5,1,1.0,0,0,0,0,5
+50,5,antibiotic inactivation,4,2,0.8,1,4,0,0,0
+51,5,antibiotic target protection,4,2,0.8,0,1,0,4,0
+52,5,antibiotic target alteration,5,1,1.0,0,0,5,0,0
+53,5,antibiotic inactivation,5,1,1.0,0,5,0,0,0
+54,4,antibiotic inactivation,4,1,1.0,0,4,0,0,0
+55,4,antibiotic efflux,4,1,1.0,4,0,0,0,0
+56,4,antibiotic efflux,4,1,1.0,4,0,0,0,0
+57,4,antibiotic target alteration,4,1,1.0,0,0,4,0,0
+58,4,antibiotic inactivation,4,1,1.0,0,4,0,0,0
+59,4,antibiotic inactivation,4,1,1.0,0,4,0,0,0
+60,4,antibiotic inactivation,4,1,1.0,0,4,0,0,0
+61,4,antibiotic efflux,4,1,1.0,4,0,0,0,0
+62,4,antibiotic efflux,4,1,1.0,4,0,0,0,0
+63,3,antibiotic inactivation,3,1,1.0,0,3,0,0,0
+64,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+65,3,antibiotic target protection,3,1,1.0,0,0,0,3,0
+66,3,antibiotic target alteration,3,1,1.0,0,0,3,0,0
+67,3,antibiotic target replacement,3,1,1.0,0,0,0,0,3
+68,3,antibiotic efflux,2,2,0.6666666666666666,2,0,1,0,0
+69,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+70,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+71,3,antibiotic target alteration,3,1,1.0,0,0,3,0,0
+72,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+73,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+74,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+75,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+76,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+77,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+78,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+79,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+80,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+81,3,antibiotic efflux,3,1,1.0,3,0,0,0,0
+82,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+83,2,antibiotic target protection,2,1,1.0,0,0,0,2,0
+84,2,antibiotic inactivation,2,1,1.0,0,2,0,0,0
+85,2,antibiotic target replacement,2,1,1.0,0,0,0,0,2
+86,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+87,2,antibiotic target alteration,2,1,1.0,0,0,2,0,0
+88,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+89,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+90,2,antibiotic efflux,1,2,0.5,1,0,0,1,0
+91,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+92,2,antibiotic target protection,2,1,1.0,0,0,0,2,0
+93,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+94,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+95,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+96,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+97,2,antibiotic inactivation,2,1,1.0,0,2,0,0,0
+98,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+99,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+100,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+101,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+102,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+103,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+104,2,antibiotic inactivation,2,1,1.0,0,2,0,0,0
+105,2,antibiotic inactivation,2,1,1.0,0,2,0,0,0
+106,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+107,2,antibiotic efflux,2,1,1.0,2,0,0,0,0
+108,1,antibiotic inactivation,1,1,1.0,0,1,0,0,0
+109,1,antibiotic inactivation,1,1,1.0,0,1,0,0,0
+110,1,antibiotic target replacement,1,1,1.0,0,0,0,0,1
+111,1,antibiotic target alteration,1,1,1.0,0,0,1,0,0
+112,1,antibiotic inactivation,1,1,1.0,0,1,0,0,0
+113,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+114,1,antibiotic inactivation,1,1,1.0,0,1,0,0,0
+115,1,antibiotic target alteration,1,1,1.0,0,0,1,0,0
+116,1,antibiotic target alteration,1,1,1.0,0,0,1,0,0
+117,1,antibiotic target alteration,1,1,1.0,0,0,1,0,0
+118,1,antibiotic target alteration,1,1,1.0,0,0,1,0,0
+119,1,antibiotic target protection,1,1,1.0,0,0,0,1,0
+120,1,antibiotic inactivation,1,1,1.0,0,1,0,0,0
+121,1,antibiotic target alteration,1,1,1.0,0,0,1,0,0
+122,1,antibiotic inactivation,1,1,1.0,0,1,0,0,0
+123,1,antibiotic target protection,1,1,1.0,0,0,0,1,0
+124,1,antibiotic inactivation,1,1,1.0,0,1,0,0,0
+125,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+126,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+127,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+128,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+129,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+130,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+131,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+132,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+133,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+134,1,antibiotic target replacement,1,1,1.0,0,0,0,0,1
+135,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+136,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+137,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+138,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+139,1,antibiotic inactivation,1,1,1.0,0,1,0,0,0
+140,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+141,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+142,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+143,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+144,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+145,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+146,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+147,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+148,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+149,1,antibiotic target protection,1,1,1.0,0,0,0,1,0
+150,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+151,1,antibiotic target protection,1,1,1.0,0,0,0,1,0
+152,1,antibiotic target protection,1,1,1.0,0,0,0,1,0
+153,1,antibiotic target protection,1,1,1.0,0,0,0,1,0
+154,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+155,1,antibiotic target protection,1,1,1.0,0,0,0,1,0
+156,1,antibiotic target protection,1,1,1.0,0,0,0,1,0
+157,1,antibiotic target protection,1,1,1.0,0,0,0,1,0
+158,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+159,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+160,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+161,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+162,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+163,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+164,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+165,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+166,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+167,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+168,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+169,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+170,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+171,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+172,1,antibiotic efflux,1,1,1.0,1,0,0,0,0
+173,1,antibiotic inactivation,1,1,1.0,0,1,0,0,0

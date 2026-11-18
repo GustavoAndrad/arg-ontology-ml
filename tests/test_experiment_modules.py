@@ -65,7 +65,7 @@ def test_sequence_features_count_and_order():
     assert len(SEQUENCE_FEATURE_COLUMNS) == 73
     assert list(feats) == SEQUENCE_FEATURE_COLUMNS
     assert "molecular_weight" not in feats and "aromaticity" not in feats
-    # Representação do TCC1, mantida para a análise de sensibilidade: 6 + 20 + 400 = 426.
+    # Representação da primeira versão do experimento, mantida para a análise de sensibilidade: 6 + 20 + 400 = 426.
     legacy = compute_sequence_features(SEQ, representation="completa_426")
     assert list(legacy) == REPRESENTATIONS["completa_426"] and len(legacy) == 426
     # As 24 colunas em comum têm os mesmos valores nas duas representações.
@@ -163,7 +163,27 @@ def test_drug_class_flags_with_fixed_vocabulary():
     assert flags.values.tolist() == [[1, 0], [0, 0]]
 
 
-# ── Ponto 4: gene mais parecido, cenário "gene novo", homologia, IM e ablação ──
+# ── Gene mais parecido, cenário "gene novo", homologia, IM e ablação ─────────
+
+def test_ontological_features_from_owl_xml_ignore_restrictions(tmp_path):
+    # Leitor de OWL/XML dos atributos: só SubClassOf entre classes nomeadas. A ontologia
+    # mínima (a mesma da EDA) tem ARO_3000001 sob ARO_0001004 por is-a e também uma
+    # restrição apontando para ARO_0010000, que não pode virar ancestral.  # ANTI-LEAKAGE
+    from src.ontology_features import extract_ontological_features
+    from tests.test_eda import _owl_xml
+
+    owl = _owl_xml(tmp_path / "aro.owl")
+    df = pd.DataFrame({
+        "ARO_Accession": ["ARO:3000001", "ARO:0010000", "ARO:9999999"],
+        "Drug_Class": ["peptide antibiotic", "tetracycline antibiotic; peptide antibiotic", "peptide antibiotic"],
+    })
+    f = extract_ontological_features(df, owl).set_index("ARO_Accession")
+    assert f.loc["ARO:3000001", ["depth_isa", "ancestor_count", "children_count"]].tolist() == [3, 3, 0]
+    assert f.loc["ARO:0010000", ["depth_isa", "ancestor_count", "children_count"]].tolist() == [2, 2, 0]
+    # Accession fora da ontologia: estruturais = 0 (com aviso), flags normais.
+    assert f.loc["ARO:9999999", ["depth_isa", "ancestor_count", "children_count"]].tolist() == [0, 0, 0]
+    assert f.loc["ARO:0010000", "drug_class_tetracycline_antibiotic"] == 1
+
 
 def _toy_hits():
     """Acertos de brinquedo: g0..g5; os de teste são g0 e g1."""
@@ -324,7 +344,7 @@ def _min_per_fold(y, groups, seed, n_classes=3):
 
 
 def test_cv_seeds_rule_first_valid_in_order():
-    # Ponto 5: as primeiras sementes (em ordem) com >= min_genes de cada classe em cada fold.
+    # As primeiras sementes (em ordem) com >= min_genes de cada classe em cada fold.
     from src.experiment_config import choose_cv_seeds
 
     rng = np.random.default_rng(1)
@@ -367,7 +387,8 @@ def test_repeated_splits_pair_every_fold():
 
 
 def test_cv_has_five_group_folds():
-    # 5 folds por grupos (com 10, a substituição do alvo ficaria com ~3 genes por fold).
+    # 5 folds por grupos (com 10, a substituição do alvo teria 5,3 genes por fold em média,
+    # mas 0 a 2 no pior fold, conforme a semente).
     assert cv_splitter().get_n_splits() == N_CV_SPLITS == 5
     groups = np.repeat(np.arange(40), 3)
     y = np.repeat(np.arange(40) % 2, 3)
@@ -396,7 +417,7 @@ def test_connected_components_single_linkage():
     assert count_cross_group_pairs(table, hits, 70) == 0
 
 
-# ── Classes do experimento (TCC2, ponto 2) ─────────────────────────────────────
+# ── Classes do experimento ─────────────────────────────────────────────────────
 
 
 def test_five_experiment_classes():
@@ -420,7 +441,7 @@ def test_assign_split_destinations():
 
 
 def test_unknown_mechanism_raises_instead_of_being_dropped():
-    # No TCC1, classes fora da lista sumiam em silêncio; agora exigem decisão.
+    # Na primeira versão do experimento, classes fora da lista sumiam em silêncio; agora geram erro.
     with pytest.raises(ValueError, match="Mecanismo desconhecido"):
         assign_split("resistance by absence")
 
@@ -462,7 +483,7 @@ def test_macro_metrics_average_over_all_declared_classes():
     proba = np.eye(3)[y_pred]
     m = compute_metrics(y_true, y_pred, proba, n_classes=3)
     # Com labels declarados, a classe ausente entra na média com F1 = 0: (1 + 1 + 0) / 3.
-    # Sem labels (TCC1), daria 1,0, como se a classe não existisse.
+    # Sem labels (como na primeira versão), daria 1,0, como se a classe não existisse.
     assert m["f1_macro"] == pytest.approx(2 / 3)
 
 
@@ -496,6 +517,26 @@ def test_per_class_metrics_and_pr_auc():
     assert rows[0]["precisao"] == pytest.approx(0.5) and rows[0]["revocacao"] == pytest.approx(0.5)
 
 
+def test_case_study_uses_predict_not_highest_probability(monkeypatch):
+    # No SVM, a probabilidade (calibração de Platt) pode discordar da classe prevista; o
+    # estudo de caso deve mostrar a classe prevista, como o resto do experimento.
+    import src.case_study as cs
+
+    class _Disagree:
+        def predict(self, X):
+            return np.zeros(len(X), dtype=int)  # prevê a classe 0...
+
+        def predict_proba(self, X):
+            return np.tile([0.3, 0.7], (len(X), 1))  # ...mas a maior probabilidade é a da classe 1
+
+    monkeypatch.setattr(cs.joblib, "load", lambda path: _Disagree())
+    info = pd.DataFrame({"ARO_Accession": ["ARO:1"], TARGET: ["reduced permeability to antibiotic"]})
+    X = pd.DataFrame({"x": [0.0]})
+    out = cs.predict_case_study(info, X, X, ["antibiotic efflux", "antibiotic inactivation"])
+    assert (out["classe_prevista"] == "antibiotic efflux").all()
+    assert out["prob_prevista"].tolist() == pytest.approx([0.3] * len(out))
+
+
 def test_case_study_summary_one_row_per_gene():
     from src.case_study import short_name, summarize
     from src.experiment_config import MODEL_NAMES
@@ -525,7 +566,7 @@ def test_pipeline_structure_and_fit(model):
 
 
 def test_xgboost_uses_balanced_sample_weight():
-    # Ponto 6: o XGBoost usa a mesma regra de peso dos outros modelos, calculada em cada fit.
+    # O XGBoost usa a mesma regra de peso dos outros modelos, calculada em cada fit.
     from sklearn.base import clone
     from sklearn.utils.class_weight import compute_sample_weight
     from xgboost import XGBClassifier
@@ -552,7 +593,7 @@ def test_all_models_balance_classes():
 
 
 def test_hyperparameters_record_is_complete(tmp_path):
-    # Ponto 13: o registro vem do get_params(), não de uma lista escrita à mão.
+    # O registro vem do get_params(), não de uma lista escrita à mão.
     import json
 
     from src.pipeline_builder import build_classifier, save_hyperparameters
@@ -568,7 +609,7 @@ def test_hyperparameters_record_is_complete(tmp_path):
 
 
 def test_xgboost_effective_params_from_trained_model(tmp_path):
-    # Ponto 13: os padrão do XGBoost (None no get_params) são lidos do modelo treinado.
+    # Os valores padrão do XGBoost (None no get_params) são lidos do modelo treinado.
     import joblib
 
     from src.experiment_record import MAIN_PARAMS, xgboost_effective_params
@@ -589,7 +630,7 @@ def test_sensitivity_selection_variants():
 
     rng = np.random.default_rng(0)
     X, y = rng.random((60, 10)), np.repeat([0, 1, 2], 20)
-    # "todos": exatamente o pipeline do TCC1.
+    # "todos": exatamente o pipeline da primeira versão do experimento.
     joint = build_full_pipeline("random_forest", FeatureSelection(k=4)).fit(X, y)
     assert [s for s, _ in joint.steps] == ["scaler", "variance", "select", "clf"]
     assert joint.named_steps["clf"].n_features_in_ == 4
@@ -603,7 +644,7 @@ def test_sensitivity_selection_variants():
 
 
 def test_corrected_ttest_matches_hand_calculation():
-    # Ponto 5: t = média(d) / sqrt((1/J + n_val/n_ajuste) · s²), gl = J − 1.
+    # t = média(d) / sqrt((1/J + n_val/n_ajuste) · s²), gl = J − 1.
     from scipy import stats
 
     rng = np.random.default_rng(0)
@@ -647,7 +688,7 @@ def test_stratified_group_bootstrap_keeps_groups_and_classes():
     assert class_metrics_from_predictions(y, y_pred, 3) == pytest.approx(np.vstack([p, r, f]))
 
 
-# ── Ponto 6: sensibilidade ao balanceamento ──────────────────────────────────
+# ── Sensibilidade ao balanceamento ───────────────────────────────────────────
 
 
 def test_undersampling_reduces_only_majority_to_second_largest():
@@ -712,7 +753,7 @@ def test_weight_strategy_equals_main_pipeline():
         np.testing.assert_allclose(a, b)
 
 
-# ── Ponto 13: sensibilidade ao ajuste de hiperparâmetros ─────────────────────
+# ── Sensibilidade ao ajuste de hiperparâmetros ───────────────────────────────
 
 
 @pytest.mark.parametrize("model", ["random_forest", "xgboost", "logistic_regression", "svm"])
@@ -748,7 +789,7 @@ def test_nested_tuning_runs_with_groups():
 
 
 def test_macro_pr_curve_shapes():
-    # Ponto 10: classificador perfeito -> precisão 1 em toda a curva; sem informação ->
+    # Classificador perfeito -> precisão 1 em toda a curva; sem informação ->
     # precisão perto da prevalência da classe em revocação alta.
     from src.visualization import macro_pr_curve
 
@@ -762,7 +803,7 @@ def test_macro_pr_curve_shapes():
     assert prec[-1] < 0.8  # revocação 1: média das prevalências (0,9 e 0,1) = 0,5
 
 
-# ── Pontos 8 e 9: interpretação, curva de aprendizado e overfitting ───────────
+# ── Interpretação, curva de aprendizado e overfitting ─────────────────────────
 
 def test_feature_groups_partition_all_columns():
     from src.feature_extraction import SEQUENCE_FEATURE_COLUMNS
@@ -871,3 +912,147 @@ def test_neighbor_index_from_files_cache_matches_constructor(tmp_path):
     for idx in (first, second):
         assert np.array_equal(idx.q, ref.q) and np.array_equal(idx.t, ref.t) and np.array_equal(idx.evalue, ref.evalue)
         assert idx.nearest([0, 1], [2, 3, 4, 5])[0].tolist() == [3, 5]
+
+
+# ── Caracterização dos dados e dos resultados (src.data_characterization) ─────────
+
+def _toy_char():
+    data = pd.DataFrame({
+        "ARO_Accession": [f"ARO:{i}" for i in range(6)],
+        "AMR_Gene_Family": ["fam1", "fam1", "fam2; fam3", "fam2", "fam4", "fam4"],
+        TARGET: ["inat", "inat", "efl", "efl", "alt", "alt"],
+    })
+    return data
+
+
+def test_family_table_and_overlap():
+    from src.data_characterization import family_overlap_by_class, family_table, split_families
+
+    assert split_families("a; b ;") == {"a", "b"} and split_families(None) == set()
+    data = _toy_char()
+    t = family_table(data, groups=np.array([0, 1, 2, 2, 3, 3])).set_index("familia")
+    assert t.loc["fam1", "genes"] == 2 and t.loc["fam1", "n_grupos_70"] == 2  # fam1 em dois grupos
+    assert (t["n_mecanismos"] == 1).all() and t.loc["fam2", "genes"] == 2
+    # teste = genes 1, 3, 5; treino = 0, 2, 4. Gene 3 (fam2) tem fam2 no treino (gene 2, "fam2; fam3").
+    ov = family_overlap_by_class(data, np.array([0, 2, 4]), np.array([1, 3, 5])).set_index("mecanismo")
+    assert ov["genes_teste_familia_no_treino"].to_dict() == {"alt": 1, "efl": 1, "inat": 1}
+
+
+def test_families_mixing_only_by_multilabel():
+    from src.data_characterization import families_mixing_mechanisms
+
+    d = pd.DataFrame({"AMR_Gene_Family": ["f", "f", "g", "g"], TARGET: ["x", "x;y", "x", "y"]})
+    r = families_mixing_mechanisms(d)
+    assert r["familias_com_mais_de_um_rotulo"] == 2
+    assert r["familias_com_mais_de_um_mecanismo_entre_genes_de_rotulo_unico"] == 1  # só g mistura de verdade
+    assert r["familias_que_misturam_so_por_genes_multirrotulo"] == ["f"]
+
+
+def test_ontology_vectors_purity():
+    from src.data_characterization import ontology_vectors
+
+    onto = pd.DataFrame({"depth_isa": [6, 6, 6, 4], "drug_class_x": [1, 1, 1, 0]})
+    y = np.array(["inat", "inat", "efl", "efl"])
+    table, s = ontology_vectors(onto, y)
+    assert s["vetores_distintos"] == 2 and s["pureza_global"] == pytest.approx(3 / 4)
+    assert s["vetores_com_mais_de_uma_classe"] == 1 and s["genes_em_vetores_com_mais_de_uma_classe"] == 3
+
+
+def test_lookup_rule_uses_only_training():
+    from src.data_characterization import lookup_rule
+
+    onto = pd.DataFrame({"depth_isa": [6, 6, 4, 4, 6, 9]})
+    y = np.array(["inat", "inat", "efl", "efl", "inat", "efl"])
+    r = lookup_rule(onto, y, np.arange(4), np.array([4, 5]), ["depth_isa"])
+    # 6 visto no treino -> inat (certo); 9 nunca visto -> classe mais comum do treino (empate resolvido pelo value_counts)
+    assert r["combinacoes_no_treino"] == 2 and r["genes_teste_com_combinacao_nao_vista"] == 1
+    assert 0.5 <= r["acuracia_teste"] <= 1.0
+
+
+def test_gain_per_class_cv_pairs_folds_and_uses_corrected_interval():
+    from src.data_characterization import gain_per_class_cv
+    from src.statistical_tests import corrected_interval
+
+    rows = []
+    rng = np.random.default_rng(0)
+    for model in MODEL_NAMES:
+        for rep in range(1, 3):
+            for fold in range(1, 6):
+                for c in ("x", "y"):
+                    base = rng.uniform(0.3, 0.6)
+                    for key, gain in (("a", 0.0), ("b", 0.2), ("b_gene_novo", 0.1)):
+                        rows.append({"pipeline": key, "modelo": model, "repeticao": rep, "fold": fold, "classe": c, "f1": base + gain})
+    out = gain_per_class_cv(pd.DataFrame(rows), 0.25)
+    r = out[(out.cenario == "anotacao_curada") & (out.modelo == "svm") & (out.classe == "x")].iloc[0]
+    assert r.dif_cv == pytest.approx(0.2) and r.folds_b_maior == 10 and r.ic_acima_de_zero
+    g = out[(out.cenario == "gene_novo") & (out.modelo == "svm") & (out.classe == "x")].iloc[0]
+    assert g.dif_cv == pytest.approx(0.1)
+
+
+def test_main_errors_counts_both_directions():
+    from src.data_characterization import ALTERATION, INACTIVATION, confusion_long, main_errors
+
+    classes = [INACTIVATION, ALTERATION, "antibiotic efflux"]
+    cm = np.array([[10, 3, 0], [2, 5, 1], [0, 0, 4]])
+    conf = confusion_long({("a", "svm"): {"confusion_matrix": cm}}, classes)
+    e = main_errors(conf).iloc[0]
+    assert e.erros_inativacao_alteracao_dois_sentidos == 5 and e.erros_totais == 6
+    assert e.maior_erro == f"{INACTIVATION} -> {ALTERATION}" and e.genes_no_maior_erro == 3
+
+
+def test_mechanism_category_from_participates_in(tmp_path):
+    # ARO_10 (categoria) participates_in ARO_20 (mecanismo, filho de ARO:1000002); o gene ARO_30 está sob ARO_10.
+    from src.data_characterization import isa_category_by_mechanism
+
+    obo = "http://purl.obolibrary.org/obo/"
+    cls = lambda n: f'<Class IRI="{obo}ARO_{n}"/>'
+    lab = lambda n, t: (f'<AnnotationAssertion><AnnotationProperty abbreviatedIRI="rdfs:label"/><IRI>{obo}ARO_{n}</IRI>'
+                        f"<Literal>{t}</Literal></AnnotationAssertion>")
+    body = "".join(f"<SubClassOf>{cls(c)}{cls(p)}</SubClassOf>" for c, p in [("1000002", "1000001"), ("20", "1000002"), ("10", "1000001"), ("30", "10"), ("31", "1000001")])
+    body += (f'<SubClassOf>{cls("10")}<ObjectSomeValuesFrom><ObjectProperty IRI="{obo}RO_0000056"/>{cls("20")}'
+             "</ObjectSomeValuesFrom></SubClassOf>")
+    body += lab("20", "antibiotic efflux") + lab("10", "efflux pump")
+    owl = tmp_path / "aro.owl"
+    owl.write_text(f'<?xml version="1.0"?>\n<Ontology xmlns="http://www.w3.org/2002/07/owl#">{body}</Ontology>', encoding="utf-8")
+    data = pd.DataFrame({"ARO_Accession": ["ARO:30", "ARO:31"], TARGET: ["antibiotic efflux", "antibiotic efflux"]})
+    table, s = isa_category_by_mechanism(data, owl)
+    assert s["genes_com_categoria_entre_os_ancestrais"] == 1
+    assert s["genes_em_que_a_categoria_coincide_com_o_rotulo"] == 1
+    assert s["termos_ligados_a_mecanismo_por_participates_in"] == {"efflux pump": "antibiotic efflux"}
+
+
+def test_figure_catalog_entries_are_complete_and_unique():
+    # Toda figura gerada precisa dizer o que mostra, de onde vêm os números e por que existe.
+    from src.figure_catalog import CATALOG
+
+    files = [e["arquivo"] for e in CATALOG]
+    assert len(files) == len(set(files))
+    for e in CATALOG:
+        assert {"arquivo", "secao", "fonte", "o_que_mostra", "por_que", "legenda"} <= set(e)
+        assert all(str(e[k]).strip() for k in ("o_que_mostra", "por_que", "legenda", "fonte"))
+
+
+def test_figure_number_format():
+    from src.visualization_analyses import _fmt
+
+    assert _fmt(0.2361) == "0,236" and _fmt(-0.05, 2) == "-0,05" and _fmt(0.13, 2, sign=True) == "+0,13"
+
+
+def test_axis_decimal_comma():
+    """Os eixos numéricos saem com vírgula decimal; eixos com rótulos fixos não são tocados."""
+    import matplotlib.pyplot as plt
+
+    from src.plot_style import decimal_comma
+
+    fig, (ax, bx) = plt.subplots(1, 2)
+    ax.plot([0, 0.5, 1], [0, 0.25, 1])
+    inset = ax.inset_axes([0.5, 0.5, 0.4, 0.4])  # detalhe ampliado: não está em fig.axes
+    inset.plot([0, 0.05, 0.1], [0.8, 0.9, 1.0])
+    bx.set_xticks([0, 1], ["um", "dois"])
+    decimal_comma(fig)
+    fig.canvas.draw()
+    for axes in (ax, inset):
+        labels = [t.get_text() for t in axes.get_xticklabels() if t.get_text()]
+        assert any("," in s for s in labels) and not any("." in s for s in labels)
+    assert [t.get_text() for t in bx.get_xticklabels()] == ["um", "dois"]
+    plt.close(fig)

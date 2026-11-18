@@ -1,7 +1,7 @@
 """
-interpretability.py — O que cada modelo usa para decidir (Seção 4.11 e capítulo 5; TCC2, ponto 8).
+interpretability.py — O que cada modelo usa para decidir (Seção 4.11 e capítulo 5).
 
-Pergunta (apontamentos J3 e J4 da Jéssica): quais atributos mais pesam nos dois
+Pergunta: quais atributos mais pesam nos dois
 pipelines, e por quê? Este módulo não muda o experimento: analisa os mesmos modelos,
 com as mesmas divisões.
 
@@ -9,8 +9,8 @@ com as mesmas divisões.
 atributo (ou de um grupo de atributos, juntos) são embaralhados entre os genes
 avaliados, e mede-se quanto o F1 cai. Se cai muito, o modelo dependia daquele
 atributo; se não muda, não o usava. Funciona com qualquer modelo, então é aplicada
-aos **4 classificadores** (a decisão de 11/11 previa só RF e XGBoost, "os melhores";
-hoje os melhores no B são SVM, XGBoost e Regressão Logística, P6-C1).
+aos **4 classificadores** (não só às árvores: no Pipeline B, os melhores modelos são
+SVM, XGBoost e Regressão Logística).
 
 * **Por grupo (resultado principal):** atributos parecidos entre si (profundidade e
   número de ancestrais, por exemplo) dividem a importância quando embaralhados um a
@@ -25,27 +25,26 @@ hoje os melhores no B são SVM, XGBoost e Regressão Logística, P6-C1).
 
 **Onde é medida:** nos **50 folds da validação cruzada** (resultado principal, com o
 intervalo de 95% corrigido de Nadeau e Bengio sobre os folds) e no teste final
-(complemento). O teste sozinho é dominado pela família PDC (61% do teste; P5-D6),
+(complemento). O teste sozinho é dominado pela família PDC (61% do teste),
 que distorceria a importância.
 
-**Repetições:** por grupo, 30 permutações em cada fold e no teste (decisão 1 do ponto
-8). Por atributo, 30 no teste; nos folds, **1 permutação por fold**: cada fold já
+**Repetições:** por grupo, 30 permutações em cada fold e no teste. Por atributo, 30 no teste; nos folds, **1 permutação por fold**: cada fold já
 traz outros dados, e a média dos 50 folds equivale a 50 repetições. Fazer 30 em cada
 fold custaria ~17 h só para o SVM. A equivalência é **conferida nos dados**
 (``check_repeat_stability``: com a Regressão Logística e o XGBoost, que são rápidos,
 1 e 30 permutações por fold são comparadas nos 50 folds; resultado em
 ``results/importancia_estabilidade_repeticoes.json``).
 
-**Estabilidade (decisão 2):** em vez de "aparece no top em X folds" (um X
+**Estabilidade:** em vez de "aparece no top em X folds" (um X
 arbitrário), cada atributo tem a média nos 50 folds com o IC corrigido; é
 **consistente** quando o limite inferior do IC é maior que zero.
 
-**Cenário "gene novo" (decisão 4):** a importância por grupo também é medida com os
+**Cenário "gene novo":** a importância por grupo também é medida com os
 atributos ontológicos do gene mais parecido do treino (``src.nearest_neighbor``),
 entre os genes que têm vizinho (os sem vizinho são classificados pelo Pipeline A e
 não usam a ontologia).
 
-**SHAP por mecanismo (decisão 1), como complemento:** só para os modelos de árvore,
+**SHAP por mecanismo, como complemento:** só para os modelos de árvore,
 onde o cálculo é exato e rápido: Random Forest (``shap.TreeExplainer``; Lundberg e
 Lee 2017, referência a adicionar) e XGBoost (cálculo nativo do próprio XGBoost,
 ``pred_contribs=True``, o mesmo algoritmo TreeSHAP; o ``shap`` 0.45 não lê modelos do
@@ -54,11 +53,13 @@ a permutação por classe cobre esses modelos. O que o SHAP acrescenta à permut
 a **direção**: para os genes de cada mecanismo, quais atributos empurram o modelo
 para esse mecanismo (valor médio positivo) ou para longe dele. Calculado no teste.
 
-**Dicionário de atributos (decisão 3, J4):** os 73 de sequência e os 41 da ontologia,
+**Dicionário de atributos:** os 73 de sequência e os 41 da ontologia,
 com grupo e significado (``results/dicionario_atributos.csv``).
 
-**Cuidado no texto (decisão 5):** importância indica associação dentro do CARD, não
-causa (Orcales et al. 2024).
+**Cuidado no texto:** importância indica associação dentro do CARD, não causa
+(Orcales et al. 2024). A importância da profundidade e do número de ancestrais
+reflete, em parte, a organização da ARO por categoria de mecanismo (ver
+``src.ontology_features``).
 
 A importância Gini do Random Forest deixou de ser calculada: favorece atributos com
 muitos valores distintos e foi substituída pela permutação. Os arquivos antigos
@@ -149,7 +150,7 @@ def feature_type(name: str) -> str:
 def get_feature_names_after_pipeline(pipeline, feature_names_in: list[str]) -> list[str]:
     """
     Nomes dos atributos que chegam ao classificador. No experimento não há seleção, então
-    são todos; com a seleção do TCC1 (etapas "variance" e "select", usada só na
+    são todos; com a seleção da primeira versão do experimento (etapas "variance" e "select", usada só na
     sensibilidade à representação), aplica as máscaras dela.
     """
     names = np.asarray(feature_names_in)

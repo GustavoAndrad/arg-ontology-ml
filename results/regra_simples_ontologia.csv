@@ -1,0 +1,5 @@
+atributos,f1_macro_teste,acuracia_teste,combinacoes_no_treino,genes_teste_com_combinacao_nao_vista
+profundidade,0.4022662370997656,0.8972407231208372,6,0
+3 estruturais,0.4087268697022206,0.8972407231208372,14,0
+38 classes de antibiotico,0.8704934685049619,0.966698382492864,108,648
+41 atributos da ARO,0.8798398455208926,0.9686013320647003,159,652

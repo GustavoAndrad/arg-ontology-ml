@@ -1,0 +1,6 @@
+mecanismo,genes_teste,genes_teste_familia_no_treino,fracao_familia_no_treino,familias_no_teste,familias_no_teste_ausentes_do_treino
+antibiotic efflux,47,47,1.0,6,0
+antibiotic inactivation,900,120,0.13333333333333333,73,46
+antibiotic target alteration,55,52,0.9454545454545454,22,4
+antibiotic target protection,32,32,1.0,7,0
+antibiotic target replacement,17,17,1.0,3,0

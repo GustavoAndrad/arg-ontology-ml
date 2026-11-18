@@ -4,8 +4,8 @@ experiment_config.py — Parâmetros e dados do experimento.
 Concentra o carregamento do dataset do experimento, para que todos os módulos
 usem exatamente as mesmas instâncias, na mesma ordem.
 
-Classes (TCC2, ponto 2): cada gene do ``dataset_integrado.csv`` (6.052) cai em
-exatamente um de três destinos, e a soma é conferida ao carregar:
+Classes: cada gene do ``dataset_integrado.csv`` (6.052) cai em exatamente um de
+três destinos, e a soma é conferida ao carregar:
 
 * **experimento** — as 5 classes de ``config.TARGET_CLASSES`` (6.033 genes);
 * **estudo de caso** — ``config.CASE_STUDY_CLASSES`` (9 genes), só para análise
@@ -13,27 +13,28 @@ exatamente um de três destinos, e a soma é conferida ao carregar:
 * **multirrótulo** — genes com dois mecanismos (10 genes), fora do trabalho.
 
 Um mecanismo que não esteja em nenhuma lista gera erro, em vez de ser descartado
-em silêncio como acontecia no TCC1 (foi assim que duas classes sumiram sem
-ninguém perceber).
+em silêncio: uma classe nova exige uma decisão explícita.
 
-Divisão treino/teste e validação cruzada **por grupos de similaridade** (TCC2,
-ponto 3): genes com identidade ≥ ``SIMILARITY_THRESHOLD`` (70%) e cobertura ≥ 50%
-ficam no mesmo grupo (``src.homology_groups``), e o grupo inteiro vai para o treino
-ou para o teste. Assim o teste não tem variantes quase idênticas de genes do treino.
+Divisão treino/teste e validação cruzada **por grupos de similaridade**: genes com
+identidade ≥ ``SIMILARITY_THRESHOLD`` (70%) e cobertura ≥ 50% ficam no mesmo grupo
+(``src.homology_groups``), e o grupo inteiro vai para o treino ou para o teste.
+Assim o teste não tem variantes quase idênticas de genes do treino.
 
 * Teste: um dos 5 folds de um ``StratifiedGroupKFold`` (~20%), escolhido **só pela
   proporção das classes** entre sementes candidatas (``choose_test_partition``),
   nunca pelo desempenho.
 * Validação cruzada: ``StratifiedGroupKFold`` com **5 folds** no treino. Com grupos,
-  10 folds deixariam a substituição do alvo com cerca de 3 genes por fold, abaixo
-  do critério de entrada (decisão 1 do ponto 5). A validação cruzada é repetida 10
-  vezes (decisão 2 do ponto 5), e as 10 sementes também são escolhidas só pela
-  distribuição das classes (``choose_cv_seeds``): com grupos grandes, uma semente
-  qualquer pode deixar uma classe pequena com 1 a 4 genes num fold.
+  10 folds deixariam a substituição do alvo com 0 a 2 genes no pior fold (média de
+  5,3 por fold), abaixo do critério de entrada de 5 genes. A validação cruzada é
+  repetida 10 vezes (50 estimativas pareadas por modelo, base do teste t corrigido),
+  e as 10 sementes também são escolhidas só pela distribuição das classes
+  (``choose_cv_seeds``): com grupos grandes, uma semente qualquer pode deixar uma
+  classe pequena com 1 a 4 genes num fold.
 * ``groups=None`` (ou ``random_groups``) reproduz a divisão aleatória como caso
   particular: cada gene é o seu próprio grupo.
 
-O TCC1 (4 classes, 5.801 genes) é reproduzido pelo commit ``2b0247f``.
+A primeira versão do experimento (4 classes, 5.801 genes) é reproduzida pelo commit
+``2b0247f``.
 """
 
 from __future__ import annotations
@@ -51,6 +52,7 @@ from src.config import (
     MULTI_LABEL_SEPARATOR,
     MODELS_DIR,
     N_CV_SPLITS,
+    N_PERMUTATION_REPEATS,
     PLOTS_DIR,
     PROCESSED_DIR,
     RANDOM_STATE,
@@ -102,19 +104,19 @@ __all__ = [
     "load_case_study_dataset",
 ]
 
-# Limiar de identidade (%) dos grupos da avaliação principal (ponto 3).
+# Limiar de identidade (%) dos grupos da avaliação principal.
 SIMILARITY_THRESHOLD: int = 70
 # Sementes testadas para escolher a partição de teste pela proporção das classes.  # SEED FIXA
 PARTITION_SEED_CANDIDATES: range = range(100)
-TEST_FRACTION_TARGET: float = 0.2
+TEST_FRACTION_TARGET: float = TEST_SIZE
 
-# Critério de entrada das classes (ponto 2): cerca de 5 genes de cada classe em cada
-# fold de validação. Abaixo disso o código avisa; com 0 genes o F1 da classe não
-# existe naquele fold, e o código para com erro.
+# Critério de entrada das classes: cerca de 5 genes de cada classe em cada fold de
+# validação. Abaixo disso o código avisa; com 0 genes o F1 da classe não existe
+# naquele fold, e o código para com erro.
 MIN_GENES_PER_FOLD: int = 5
 
-# Repetições da validação cruzada (ponto 5, decisão 2: 10 × 5 = 50 estimativas por
-# modelo, base do teste t corrigido). As sementes vêm de choose_cv_seeds.
+# Repetições da validação cruzada (10 × 5 = 50 estimativas por modelo, base do teste
+# t corrigido). As sementes vêm de choose_cv_seeds.
 N_CV_REPEATS: int = 10
 
 # As 5 classes do experimento (6.033 genes). A lista mora em config.py, para
@@ -130,9 +132,7 @@ TARGET: str = "Resistance_Mechanism"
 MODEL_NAMES: list[str] = ["random_forest", "xgboost", "logistic_regression", "svm"]
 PIPELINES: dict[str, str] = {"a": "Pipeline A (sequência)", "b": "Pipeline B (sequência + ontologia)"}
 
-# Ponto 8, decisão 1: 30 permutações (Hastie et al. 2009, seção 15.3.2).
-N_PERMUTATION_REPEATS: int = 30
-# Seção 5.4: curvas ROC interpoladas em grade comum de 500 pontos de FPR.
+# Curvas ROC interpoladas em grade comum de 500 pontos de FPR.
 ROC_GRID_POINTS: int = 500
 
 
@@ -251,15 +251,15 @@ def choose_cv_seeds(
     """
     Escolhe as sementes das repetições da validação cruzada só pela distribuição das classes.
 
-    Regra (TCC2, ponto 5), fixada antes de ver qualquer resultado:
+    Regra, fixada antes de ver qualquer resultado:
         1. percorrer as sementes candidatas em ordem crescente (o mesmo conjunto usado
-           para escolher a partição de teste no ponto 3);
+           para escolher a partição de teste);
         2. ficar com as ``n_repeats`` primeiras em que **todas** as classes têm pelo
            menos ``min_genes`` genes em **todos** os folds (critério de entrada das
-           classes, ponto 2).
+           classes).
     Por que não 10 sementes quaisquer: com grupos, a maioria das sementes deixa a
     substituição do alvo com 1 a 4 genes num fold (no limiar de 70%, só 22 das 100
-    candidatas atendem o critério), o que contradiria o critério do ponto 2.
+    candidatas atendem o critério), o que contradiria o critério de entrada.
     Por que não as 10 "melhores": a regra "as primeiras que atendem" respeita o critério
     sem escolher as divisões mais favoráveis.
 

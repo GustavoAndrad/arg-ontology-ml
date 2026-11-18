@@ -1,12 +1,14 @@
 """
-leakage_check.py — Dependência do Pipeline B em relação à anotação do CARD (Seção 4.6; TCC2, ponto 4).
+leakage_check.py — Dependência do Pipeline B em relação à anotação do CARD (Seção 4.6).
 
-Problema (apontamentos D2, D3 e D4 do Diego; K2 e K3 da Kele): o rótulo (mecanismo) e
-as 41 features ontológicas de um gene vêm da mesma ficha do CARD. Nenhuma feature
-determina o mecanismo (não há vazamento direto), mas o Pipeline B depende da
-anotação curada do próprio gene, que um gene novo não teria.
+Problema: o rótulo (mecanismo) e os 41 atributos ontológicos de um gene vêm da mesma
+ficha do CARD. Nenhum atributo é construído a partir do mecanismo nem o determina
+sozinho (não há vazamento direto), mas o Pipeline B depende da anotação curada do
+próprio gene, que um gene novo não teria. Além disso, a hierarquia is-a da ARO
+coloca os genes sob categorias com nome de mecanismo, e as contagens estruturais
+refletem em parte essa organização (ver ``src.ontology_features``).
 
-O que este módulo faz (decisões 4 e 5 do ponto 4):
+O que este módulo faz:
 
 1. **Informação mútua** entre cada feature ontológica e o mecanismo, **só no treino**
    (substitui o Spearman, que mede só relação monotônica com um rótulo codificado
@@ -15,12 +17,12 @@ O que este módulo faz (decisões 4 e 5 do ponto 4):
    (``discrete_features=True``): a conta é exata, feita pela tabela de contagens, sem
    semente nem parâmetro de vizinhos. Também se dá a fração da entropia do rótulo
    que cada feature explica (IM / H(mecanismo)), para a leitura ficar em 0 a 1.
-   É **descritiva**: nenhuma feature é removida (decisão 5).
+   É **descritiva**: nenhum atributo é removido.
    As 73 features de sequência ficam de fora: são contínuas e exigiriam outro
    estimador (por vizinhos), e os números não seriam comparáveis.
 
 2. **Ablação por grupo de features**, com os mesmos 50 folds da validação cruzada e o
-   mesmo teste final do experimento, nos dois cenários do ponto 4 (anotação curada e
+   mesmo teste final do experimento, nos dois cenários (anotação curada e
    gene novo; ver ``src.nearest_neighbor``):
 
        A                     só sequência (controle: igual ao experimento)
@@ -32,14 +34,15 @@ O que este módulo faz (decisões 4 e 5 do ponto 4):
        só ontologia          as 41, sem sequência (substitui o experimento de sanidade)
 
    No cenário gene novo, um gene sem nenhum parecido no treino não tem anotação: as
-   configurações com sequência usam a predição do Pipeline A (regra P4-1) e as sem
+   configurações com sequência usam a predição do Pipeline A e as sem
    sequência, a classe mais comum do treino (a mesma regra da referência por
    homologia: sem sequência e sem anotação, não há com que prever).
-   Os resultados são **descritivos** (decisão do ponto 5): média da CV com o
+   Os resultados são **descritivos**: média da CV com o
    intervalo corrigido de Nadeau e Bengio e a diferença para o A, sem teste.
 
-Saem o Spearman (|ρ| ≥ 0,95) e a regra "F1 ≤ 0,85 = sem vazamento" do experimento de
-sanidade (apontamento D3: limiar arbitrário). O módulo **não altera mais**
+Na primeira versão do experimento, a verificação usava o Spearman (|ρ| ≥ 0,95) e a
+regra "F1 ≤ 0,85 = sem vazamento" (limiar arbitrário); as duas saíram. As linhas
+"A" e "B" da ablação reproduzem exatamente o experimento principal (controle). O módulo **não altera mais**
 ``data/processed/features_ontologicas.csv``: as 41 features ficam todas no Pipeline B.
 Os arquivos antigos (``spearman_features_ontologicas.csv``, ``sanidade_leakage.json``,
 ``leakage_check.log``) não são mais gerados.

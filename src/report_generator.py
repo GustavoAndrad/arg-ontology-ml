@@ -10,18 +10,20 @@ Saídas:
     reports/tabelas_latex/tabela_cv.tex            — Tabela 5.5 (CV 10 × 5, IC corrigido)
     reports/tabelas_latex/tabela_teste_t.tex       — Tabela 5.6 (teste t corrigido + Holm)
     reports/tabelas_latex/tabela_por_classe.tex    — precisão, revocação e F1 por classe (teste)
-    results/tabela_cenarios.csv                    — A, B curado, B gene novo e homologia no teste (ponto 4)
+    results/tabela_cenarios.csv                    — A, B curado, B gene novo e homologia no teste
     results/cenarios_cv.csv                        — diferenças entre os cenários na CV, IC corrigido (descritivo)
     reports/tabelas_latex/tabela_cenarios.tex      — idem, em LaTeX
     reports/tabelas_latex/tabela_ablacao.tex       — ablação das features ontológicas (CV, IC corrigido)
-    reports/tabelas_latex/tabela_importancia_grupos.tex — queda do F1 ao embaralhar cada grupo (CV; ponto 8)
+    reports/tabelas_latex/tabela_importancia_grupos.tex — queda do F1 ao embaralhar cada grupo (CV)
     reports/tabelas_latex/tabela_top_atributos_{a,b}.tex — 15 atributos mais importantes por modelo
     reports/tabelas_latex/tabela_dicionario_atributos.tex — todos os atributos e o significado (apêndice; longtable)
-    reports/tabelas_latex/tabela_overfitting.tex   — F1 no treino, na validação e no teste (ponto 9)
-    reports/tabelas_latex/tabela_curva_aprendizado.tex — F1 na validação por fração do treino (ponto 9)
+    reports/tabelas_latex/tabela_overfitting.tex   — F1 no treino, na validação e no teste
+    reports/tabelas_latex/tabela_curva_aprendizado.tex — F1 na validação por fração dos grupos do treino
+    reports/tabelas_latex/tabela_{composicao,grupos,familias_teste,ganho_por_classe_cv,recortes_teste}.tex
+    reports/tabelas_latex/tabela_sensibilidade_{representacao,balanceamento,ajuste}.tex, tabela_estudo_caso.tex
     results/conclusoes_experimento.txt
 
-Intervalos (TCC2, ponto 5): no teste, IC 95% por bootstrap de grupos
+Intervalos: no teste, IC 95% por bootstrap de grupos
 (``src.bootstrap_test``); na validação cruzada, IC 95% com o erro padrão corrigido
 de Nadeau e Bengio (``src.statistical_tests``). A decisão sobre H0 usa o p corrigido
 por Holm.
@@ -226,7 +228,7 @@ def curated_tests(tests: pd.DataFrame) -> pd.DataFrame:
 def generate_scenario_table(boot: pd.DataFrame) -> pd.DataFrame:
     """
     F1-macro no teste (IC 95% por bootstrap de grupos) do A, do B nos dois cenários e da
-    referência por homologia, e as diferenças pareadas (TCC2, ponto 4). Média da CV ao lado.
+    referência por homologia, e as diferenças pareadas. Média da CV ao lado.
     """
     keys = ("a", "b", "b_gene_novo", "b_gene_novo_zeros", "b_gene_novo_piso40")
     cv = {key: pd.read_csv(RESULTS_DIR / f"metrics_pipeline_{key}.csv").set_index(["modelo", "metrica"]) for key in keys}
@@ -285,9 +287,9 @@ CV_COMPARISONS: list[tuple[str, str, str]] = [
 
 def generate_scenario_cv_table(cv_folds: pd.DataFrame) -> pd.DataFrame:
     """
-    Diferenças entre os cenários do ponto 4 na validação cruzada (mesmos 50 folds), com o
+    Diferenças entre os cenários de dependência da anotação na validação cruzada (mesmos 50 folds), com o
     intervalo de 95% corrigido de Nadeau e Bengio (o mesmo do teste t), sem teste: são
-    comparações descritivas (decisão do ponto 5). A referência por homologia, que não
+    comparações descritivas. A referência por homologia, que não
     tem modelo, é pareada com cada modelo pelo fold.
     """
     from src.statistical_tests import corrected_interval, test_train_ratio
@@ -350,7 +352,7 @@ def _tex(text: str) -> str:
 
 
 def generate_interpretation_tables() -> None:
-    """Tabelas do ponto 8 (importância por grupo, top-15 e dicionário), se os resultados existirem."""
+    """Tabelas de interpretação (importância por grupo, top-15 e dicionário), se os resultados existirem."""
     path = RESULTS_DIR / "importancia_grupos.csv"
     if not path.exists():
         logger.warning("Sem %s: rode python -m src.interpretability.", path)
@@ -396,7 +398,7 @@ def generate_interpretation_tables() -> None:
 
 
 def generate_overfitting_tables() -> None:
-    """Tabelas do ponto 9 (overfitting e curva de aprendizado), se os resultados existirem."""
+    """Tabelas de overfitting e da curva de aprendizado, se os resultados existirem."""
     path = RESULTS_DIR / "overfitting.csv"
     if not path.exists():
         logger.warning("Sem %s: rode python -m src.learning_curve.", path)
@@ -424,14 +426,14 @@ def generate_overfitting_tables() -> None:
                 _br(sub.loc[f, "media_macro"], 3) + ("" if sub.loc[f, "atende_criterio"] else "$^\\dagger$") for f in fracs])
     _write("tabela_curva_aprendizado.tex", _latex_table(
         ["Modelo", "Pipeline"] + [f"{int(round(100 * f))}\\%" for f in fracs], body,
-        "Curva de aprendizado: F1-macro médio na validação cruzada (50 folds) com o modelo treinado em frações do "
-        "conjunto de ajuste, por grupos de similaridade inteiros e estratificado por classe. $^\\dagger$: alguma classe "
+        "Curva de aprendizado: F1-macro médio na validação cruzada (50 folds) com o modelo treinado numa fração "
+        "dos grupos de similaridade de cada classe do conjunto de ajuste (grupos inteiros). $^\\dagger$: alguma classe "
         "com menos de 5 genes no treino em algum fold. Intervalos em \\texttt{results/curva\\_aprendizado.csv}.",
         "tab:curva_aprendizado"))
 
 
 def generate_per_class_table(per_class: pd.DataFrame) -> None:
-    """Precisão, revocação e F1 de cada classe no teste, A e B (ponto 10, decisão 1)."""
+    """Precisão, revocação e F1 de cada classe no teste, A e B."""
     rows = []
     for model in MODEL_NAMES:
         sub = per_class[per_class["modelo"] == model]
@@ -514,6 +516,144 @@ def generate_conclusions_text(
     return text
 
 
+# ── Tabelas de caracterização e de sensibilidade ─────────────────────────────────
+# Cada tabela formata um arquivo de results/ já gerado e justificado pelo módulo de
+# origem (ver results/caracterizacao_metadados.json para as do data_characterization).
+SHORT = lambda c: str(c).replace("antibiotic ", "").replace(" to antibiotic", "")
+DESTINATIONS = {"experimento": "experimento", "estudo_de_caso": "estudo de caso", "multirrotulo": "fora (multirrótulo)"}
+
+
+def _exists(name: str, module: str) -> bool:
+    if (RESULTS_DIR / name).exists():
+        return True
+    logger.warning("Tabela não gerada: falta results/%s (rode python -m src.%s).", name, module)
+    return False
+
+
+def generate_extra_tables() -> None:
+    """
+    Tabelas que faltavam para o texto: composição do dataset (nova Tabela 4.1), grupos
+    por limiar, famílias no treino e no teste (R2), ganho por classe na CV (R19), recortes
+    do teste, as três sensibilidades e o estudo de caso. Só formatam arquivos de results/.
+    """
+    if _exists("composicao_dataset.csv", "train_evaluate"):
+        c = pd.read_csv(RESULTS_DIR / "composicao_dataset.csv")
+        rows = [[_tex(r.mecanismo), f"{int(r.genes):_}".replace("_", "."), DESTINATIONS.get(r.destino, r.destino)] for r in c.itertuples()]
+        rows.append(["Total", f"{int(c.genes.sum()):_}".replace("_", "."), ""])
+        _write("tabela_composicao.tex", _latex_table(["Mecanismo (rótulo do CARD)", "Genes", "Destino"], rows,
+               "Mecanismos de resistência do dataset integrado (CARD 4.0.1, modelo homólogo) e o destino de cada um. "
+               "Entram no experimento os mecanismos com genes suficientes para cerca de 5 genes por fold.", "tab:composicao"))
+    if _exists("grupos_resumo.csv", "homology_groups"):
+        g = pd.read_csv(RESULTS_DIR / "grupos_resumo.csv")
+        g = g[~g["mecanismo"].astype(str).str.startswith("(")]
+        mechs = list(dict.fromkeys(g["mecanismo"]))
+        rows = []
+        for t, sub in g.groupby("limiar"):
+            sub = sub.set_index("mecanismo")
+            rows.append([f"{int(t)}\\%"] + [f"{int(sub.loc[m, 'grupos'])} ({_br(sub.loc[m, 'fracao_maior_grupo'], 2)})" for m in mechs])
+        _write("tabela_grupos.tex", _latex_table(["Limiar"] + [SHORT(m) for m in mechs], rows,
+               "Grupos de similaridade por limiar de identidade (cobertura $\\geq$ 0,5; componentes conexos) e, entre "
+               "parênteses, a fração da classe no maior grupo. A divisão principal usa 70\\%.", "tab:grupos"))
+    if _exists("familias_treino_teste.csv", "data_characterization"):
+        f = pd.read_csv(RESULTS_DIR / "familias_treino_teste.csv")
+        rows = [[SHORT(r.mecanismo), str(int(r.genes_teste)), f"{int(r.genes_teste_familia_no_treino)} ({_br(100 * r.fracao_familia_no_treino, 0)}\\%)",
+                 f"{int(r.familias_no_teste_ausentes_do_treino)} de {int(r.familias_no_teste)}"] for r in f.itertuples()]
+        _write("tabela_familias_teste.tex", _latex_table(["Mecanismo", "Genes no teste", "Família com genes no treino", "Famílias do teste ausentes do treino"], rows,
+               "Genes de teste cuja família AMR também tem genes no treino. A divisão por grupos separa sequências parecidas, "
+               "não famílias: nas classes menores, o teste mede variantes novas de famílias conhecidas.", "tab:familias_teste"))
+    if _exists("ganho_por_classe_cv.csv", "data_characterization"):
+        gc = pd.read_csv(RESULTS_DIR / "ganho_por_classe_cv.csv")
+        gc = gc[gc["cenario"] == "anotacao_curada"]
+        rows = []
+        for c, sub in gc.groupby("classe"):
+            sub = sub.set_index("modelo")
+            rows.append([SHORT(c)] + [f"{_br(sub.loc[m, 'dif_cv'], 2)} {_ic(sub.loc[m, 'ic95_inf'], sub.loc[m, 'ic95_sup'], 2)}"
+                                      + ("" if sub.loc[m, "ic_acima_de_zero"] else "$^\\dagger$") for m in MODEL_NAMES])
+        _write("tabela_ganho_por_classe_cv.tex", _latex_table(["Mecanismo"] + [MODEL_LABELS[m] for m in MODEL_NAMES], rows,
+               f"Ganho B $-$ A no F1 de cada mecanismo na validação cruzada ({N_CV_REPEATS} $\\times$ {N_CV_SPLITS}, folds pareados), "
+               "com IC 95\\% corrigido (Nadeau e Bengio); descritivo, sem correção para comparações múltiplas. "
+               "$^\\dagger$: IC inclui zero.", "tab:ganho_por_classe_cv"))
+    if _exists("recortes_teste.csv", "data_characterization"):
+        rc = pd.read_csv(RESULTS_DIR / "recortes_teste.csv")
+        names = {"com_parente_no_treino": "Com parente no treino", "distantes_sem_parente_40": "Distantes (sem parente $\\geq$ 40\\%)",
+                 "sem_nenhum_parente": "Sem nenhum parente"}
+        rows = []
+        for r_name, sub in rc.groupby("recorte", sort=False):
+            acc = lambda k: [sub[(sub.pipeline == k) & (sub.modelo == m)].acuracia.iloc[0] for m in MODEL_NAMES]
+            hom = sub[sub.pipeline == "homologia"].acuracia.iloc[0]
+            rows.append([f"{names[r_name]} ({int(sub.genes.iloc[0])})", _br(hom, 2),
+                         f"{_br(min(acc('a')), 2)}--{_br(max(acc('a')), 2)}", f"{_br(min(acc('b_gene_novo')), 2)}--{_br(max(acc('b_gene_novo')), 2)}"])
+        _write("tabela_recortes_teste.tex", _latex_table(["Recorte do teste (genes)", "Homologia", "A (4 modelos)", "B gene novo (4 modelos)"], rows,
+               "Acurácia no teste por recorte, segundo o parentesco com o treino (busca do MMseqs2). Usa-se a acurácia porque os "
+               "recortes pequenos têm classes com 1 gene.", "tab:recortes_teste"))
+    if _exists("sensibilidade_representacao.csv", "sensitivity_representation"):
+        sr = pd.read_csv(RESULTS_DIR / "sensibilidade_representacao.csv")
+        rows = [[_tex(r.config) if i == 0 else "", MODEL_LABELS[r.modelo], _br(r.f1_cv_media_a, 3), _br(r.f1_cv_media_b, 3),
+                 f"{_br(r.ganho_cv, 3)} {_ic(r.ganho_cv_ic95_inf, r.ganho_cv_ic95_sup, 3)}"]
+                for _, grp in sr.groupby("config", sort=False) for i, r in enumerate(grp.itertuples())]
+        _write("tabela_sensibilidade_representacao.tex", _latex_table(["Representação", "Modelo", "A (CV)", "B (CV)", "B $-$ A (CV) [IC 95\\%]"], rows,
+               "Sensibilidade à representação da sequência: F1-macro médio na validação cruzada e ganho do B com IC corrigido. "
+               "Descritivo. reduzida\\_73 é a representação do experimento.", "tab:sens_representacao"))
+    if _exists("sensibilidade_balanceamento.csv", "sensitivity_balancing"):
+        sb = pd.read_csv(RESULTS_DIR / "sensibilidade_balanceamento.csv")
+        rows = [[_tex(r.estrategia) if i == 0 else "", MODEL_LABELS[r.modelo], _br(r.f1_cv_media_a, 3), _br(r.f1_cv_media_b, 3),
+                 f"{_br(r.ganho_cv, 3)} {_ic(r.ganho_cv_ic95_inf, r.ganho_cv_ic95_sup, 3)}"]
+                for _, grp in sb.groupby("estrategia", sort=False) for i, r in enumerate(grp.itertuples())]
+        _write("tabela_sensibilidade_balanceamento.tex", _latex_table(["Estratégia", "Modelo", "A (CV)", "B (CV)", "B $-$ A (CV) [IC 95\\%]"], rows,
+               "Sensibilidade à estratégia de balanceamento: F1-macro médio na validação cruzada e ganho do B com IC corrigido. "
+               "Descritivo. \"peso\" é a estratégia do experimento.", "tab:sens_balanceamento"))
+    if _exists("sensibilidade_ajuste.csv", "sensitivity_tuning"):
+        st = pd.read_csv(RESULTS_DIR / "sensibilidade_ajuste.csv")
+        rows = [[MODEL_LABELS[r.modelo] if r.pipeline == "a" else "", r.pipeline.upper(), _br(r.f1_cv_padrao, 3), _br(r.f1_cv_ajustado, 3),
+                 _br(r.f1_teste_padrao, 3), _br(r.f1_teste_ajustado, 3)] for r in st.itertuples()]
+        _write("tabela_sensibilidade_ajuste.tex", _latex_table(["Modelo", "Pipeline", "CV padrão", "CV ajustado", "Teste padrão", "Teste ajustado"], rows,
+               "Sensibilidade ao ajuste de hiperparâmetros (validação cruzada aninhada por grupos, 5 folds externos e 3 internos; "
+               "grade definida pelos autores em torno do padrão). Descritivo.", "tab:sens_ajuste"))
+    if _exists("cenarios_cv.csv", "report_generator"):
+        # Substitui a figura analises/cenarios_cv: são comparações técnicas (custo de perder a
+        # anotação curada, homologia, variantes do gene novo), lidas melhor como números.
+        cc = pd.read_csv(RESULTS_DIR / "cenarios_cv.csv")
+        names = {"b_gene_novo_menos_b": "B gene novo $-$ B curado", "homologia_menos_b": "Homologia $-$ B curado",
+                 "homologia_menos_b_gene_novo": "Homologia $-$ B gene novo",
+                 "b_gene_novo_zeros_menos_b_gene_novo": "Gene sem vizinho: atributos zerados $-$ usar o A",
+                 "b_gene_novo_piso40_menos_b_gene_novo": "B gene novo: piso de 40\\% $-$ sem piso",
+                 "homologia_piso40_menos_homologia": "Homologia: piso de 40\\% $-$ sem piso"}
+        rows = []
+        for comp, sub in cc.groupby("comparacao", sort=False):
+            sub = sub.set_index("modelo")
+            rows.append([names.get(comp, _tex(comp))] + [f"{_br(sub.loc[m, 'media'], 3)} {_ic(sub.loc[m, 'ic95_inf'], sub.loc[m, 'ic95_sup'], 3)}"
+                                                        for m in MODEL_NAMES])
+        _write("tabela_cenarios_cv.tex", _latex_table(["Comparação"] + [MODEL_LABELS[m] for m in MODEL_NAMES], rows,
+               f"Diferenças no F1-macro entre os cenários na validação cruzada ({N_CV_REPEATS} $\\times$ {N_CV_SPLITS}, mesmos folds), "
+               "com IC 95\\% corrigido (Nadeau e Bengio). Descritivo, sem teste. A homologia não tem modelo: nas linhas só "
+               "de homologia, o valor é o mesmo nas quatro colunas.", "tab:cenarios_cv"))
+    if _exists("vetores_ontologicos.csv", "data_characterization"):
+        # Substitui a figura dados/vetores_ontologicos: um identificador de vetor ("vetor 12")
+        # não diz nada ao leitor; a mensagem é quanto cada mecanismo fica em vetores compartilhados.
+        v = pd.read_csv(RESULTS_DIR / "vetores_ontologicos.csv")
+        amb = v[v["n_classes"] > 1]
+        rows = []
+        for m in [c for c in v.columns if c.startswith("genes_") and c != "genes_na_majoritaria"]:
+            total, shared = int(v[m].sum()), int(amb[m].sum())
+            rows.append([_tex(m.replace("genes_", "").replace("_", " ")), str(total), f"{shared} ({_br(100 * shared / total, 1)}\\%)"])
+        rows.sort(key=lambda r: -int(r[1]))
+        purity = v["genes_na_majoritaria"].sum() / v["genes"].sum()
+        rows.append(["Total", str(int(v["genes"].sum())), f"{int(amb['genes'].sum())} ({_br(100 * amb['genes'].sum() / v['genes'].sum(), 1)}\\%)"])
+        _write("tabela_vetores_ontologicos.tex", _latex_table(["Mecanismo", "Genes", "Em vetor compartilhado com outro mecanismo"], rows,
+               f"Vetores ontológicos: combinações distintas dos 41 atributos da ARO ({len(v)} vetores; {len(amb)} com genes de mais "
+               f"de um mecanismo). Pureza global (genes na classe majoritária do seu vetor): {_br(100 * purity, 1)}\\%, calculada no "
+               "próprio conjunto, portanto otimista.", "tab:vetores_ontologicos"))
+    if _exists("estudo_caso_resumo.csv", "case_study"):
+        ec = pd.read_csv(RESULTS_DIR / "estudo_caso_resumo.csv")
+        cols = [f"{k}_{m}" for k in ("A", "B") for m in MODEL_NAMES]
+        abbrev = {"inactivation": "inat.", "efflux": "eflux.", "target alteration": "alt.", "target protection": "prot.", "target replacement": "subst."}
+        rows = [[r["ARO_Accession"], _tex(SHORT(r["Resistance_Mechanism"]))] + [abbrev.get(r[c], _tex(r[c])) for c in cols] for _, r in ec.iterrows()]
+        header = ["Gene", "Mecanismo"] + [f"{k}-{MODEL_LABELS[m].split(' ')[0]}" for k in ("A", "B") for m in MODEL_NAMES]
+        _write("tabela_estudo_caso.tex", _latex_table(header, rows,
+               "Estudo de caso: classe prevista (predict) pelos 8 modelos finais para os genes dos mecanismos raros, que não "
+               "estão entre as classes aprendidas. Qualitativo, sem F1.", "tab:estudo_caso"))
+
+
 if __name__ == "__main__":
     logging.basicConfig(
         level=logging.INFO,
@@ -531,4 +671,5 @@ if __name__ == "__main__":
     generate_ablation_table()
     generate_interpretation_tables()
     generate_overfitting_tables()
+    generate_extra_tables()
     print(generate_conclusions_text(comp, tests, scenarios=scenarios))

@@ -1,0 +1,95 @@
+{
+  "sobre": {
+    "o_que_mostra": "Distribuição dos mecanismos do dataset integrado com o destino de cada um no TCC, razão de desbalanceamento (integrado e só as 5 classes do experimento) e estatísticas da hierarquia is-a da ARO.",
+    "como": "Contagens do dataset_integrado.csv; destino por experiment_config.assign_split; ontologia lida com o mesmo leitor OWL/XML dos atributos (ontology_features).",
+    "por_que": "Revisão geral, R1 e R7: a análise da ontologia na EDA nunca tinha funcionado (rdflib não lê OWL/XML) e a razão de 5.239:1 do integrado não vale para os modelos; a do experimento é 74,84:1. Os números ficam em arquivo para o texto citar (seção 4.3).",
+    "fontes": [
+      "data/processed/dataset_integrado.csv",
+      "data/ontologia/aro.owl"
+    ]
+  },
+  "n_total_instances": 6052,
+  "class_distribution": [
+    {
+      "classe": "antibiotic inactivation",
+      "contagem": 5239,
+      "proporcao_pct": 86.57,
+      "destino": "experimento"
+    },
+    {
+      "classe": "antibiotic target alteration",
+      "contagem": 285,
+      "proporcao_pct": 4.71,
+      "destino": "experimento"
+    },
+    {
+      "classe": "antibiotic efflux",
+      "contagem": 269,
+      "proporcao_pct": 4.44,
+      "destino": "experimento"
+    },
+    {
+      "classe": "antibiotic target protection",
+      "contagem": 170,
+      "proporcao_pct": 2.81,
+      "destino": "experimento"
+    },
+    {
+      "classe": "antibiotic target replacement",
+      "contagem": 70,
+      "proporcao_pct": 1.16,
+      "destino": "experimento"
+    },
+    {
+      "classe": "reduced permeability to antibiotic",
+      "contagem": 8,
+      "proporcao_pct": 0.13,
+      "destino": "estudo_de_caso"
+    },
+    {
+      "classe": "antibiotic efflux;antibiotic target alteration",
+      "contagem": 4,
+      "proporcao_pct": 0.07,
+      "destino": "multirrotulo"
+    },
+    {
+      "classe": "antibiotic efflux;reduced permeability to antibiotic",
+      "contagem": 4,
+      "proporcao_pct": 0.07,
+      "destino": "multirrotulo"
+    },
+    {
+      "classe": "antibiotic target alteration;antibiotic target replacement",
+      "contagem": 2,
+      "proporcao_pct": 0.03,
+      "destino": "multirrotulo"
+    },
+    {
+      "classe": "resistance by host-dependent nutrient acquisition",
+      "contagem": 1,
+      "proporcao_pct": 0.02,
+      "destino": "estudo_de_caso"
+    }
+  ],
+  "imbalance_ratio": 5239.0,
+  "imbalance_ratio_experimento": 74.84,
+  "ontology_stats": {
+    "n_classes": 8582,
+    "n_is_a_relations": 8678,
+    "n_restrictions": 6184,
+    "n_roots": 3,
+    "max_depth": 8,
+    "resistance_mechanisms_found": [
+      "antibiotic efflux",
+      "antibiotic inactivation",
+      "antibiotic target alteration",
+      "antibiotic target overexpression",
+      "antibiotic target protection",
+      "antibiotic target replacement",
+      "modification to cell morphology",
+      "reduced permeability to antibiotic",
+      "resistance by absence",
+      "resistance by host-dependent nutrient acquisition"
+    ]
+  }
+}

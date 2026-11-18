@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Estudo de caso: classe prevista (predict) pelos 8 modelos finais para os genes dos mecanismos raros, que não estão entre as classes aprendidas. Qualitativo, sem F1.}
+  \label{tab:estudo_caso}
+  \begin{tabular}{lccccccccc}
+    \toprule
+    Gene & Mecanismo & A-Random & A-XGBoost & A-Regressão & A-SVM & B-Random & B-XGBoost & B-Regressão & B-SVM \\
+    \midrule
+    ARO:3004123 & reduced permeability & inat. & inat. & inat. & inat. & inat. & inat. & inat. & inat. \\
+    ARO:3007678 & reduced permeability & inat. & eflux. & subst. & eflux. & inat. & eflux. & inat. & eflux. \\
+    ARO:3004122 & reduced permeability & inat. & inat. & inat. & inat. & inat. & inat. & inat. & inat. \\
+    ARO:3005052 & reduced permeability & inat. & alt. & alt. & alt. & inat. & eflux. & alt. & eflux. \\
+    ARO:3005051 & reduced permeability & inat. & inat. & eflux. & eflux. & inat. & eflux. & alt. & alt. \\
+    ARO:3007682 & reduced permeability & eflux. & eflux. & inat. & eflux. & eflux. & eflux. & inat. & eflux. \\
+    ARO:3005044 & reduced permeability & inat. & inat. & subst. & inat. & inat. & alt. & alt. & alt. \\
+    ARO:3007427 & resistance by host-dependent nutrient acquisition & eflux. & eflux. & eflux. & eflux. & eflux. & eflux. & eflux. & eflux. \\
+    ARO:3003059 & reduced permeability & inat. & alt. & inat. & alt. & inat. & inat. & inat. & eflux. \\
+    \bottomrule
+  \end{tabular}
+\end{table}

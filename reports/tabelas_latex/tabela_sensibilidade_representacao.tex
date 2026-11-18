@@ -1,0 +1,39 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Sensibilidade à representação da sequência: F1-macro médio na validação cruzada e ganho do B com IC corrigido. Descritivo. reduzida\_73 é a representação do experimento.}
+  \label{tab:sens_representacao}
+  \begin{tabular}{lcccc}
+    \toprule
+    Representação & Modelo & A (CV) & B (CV) & B $-$ A (CV) [IC 95\%] \\
+    \midrule
+    reduzida\_73 & Random Forest & 0,551 & 0,787 & 0,236 [0,169; 0,303] \\
+     & XGBoost & 0,726 & 0,908 & 0,182 [0,102; 0,262] \\
+     & Regressão Logística & 0,557 & 0,920 & 0,363 [0,269; 0,457] \\
+     & SVM (RBF) & 0,673 & 0,936 & 0,263 [0,172; 0,354] \\
+    tcc1\_k100\_todos & Random Forest & 0,629 & 0,824 & 0,195 [0,112; 0,279] \\
+     & XGBoost & 0,747 & 0,892 & 0,145 [0,062; 0,228] \\
+     & Regressão Logística & 0,582 & 0,861 & 0,278 [0,169; 0,387] \\
+     & SVM (RBF) & 0,640 & 0,905 & 0,264 [0,145; 0,384] \\
+    k100\_sequencia & Random Forest & 0,629 & 0,809 & 0,180 [0,105; 0,256] \\
+     & XGBoost & 0,747 & 0,901 & 0,154 [0,070; 0,237] \\
+     & Regressão Logística & 0,582 & 0,903 & 0,321 [0,224; 0,418] \\
+     & SVM (RBF) & 0,640 & 0,916 & 0,276 [0,164; 0,388] \\
+    completa\_426 & Random Forest & 0,489 & 0,649 & 0,160 [0,068; 0,252] \\
+     & XGBoost & 0,765 & 0,885 & 0,120 [0,048; 0,192] \\
+     & Regressão Logística & 0,733 & 0,936 & 0,202 [0,123; 0,282] \\
+     & SVM (RBF) & 0,676 & 0,871 & 0,195 [0,101; 0,289] \\
+    basicas\_26 & Random Forest & 0,668 & 0,893 & 0,225 [0,147; 0,302] \\
+     & XGBoost & 0,739 & 0,911 & 0,172 [0,118; 0,227] \\
+     & Regressão Logística & 0,539 & 0,908 & 0,369 [0,265; 0,473] \\
+     & SVM (RBF) & 0,669 & 0,919 & 0,250 [0,144; 0,356] \\
+    k50\_sequencia & Random Forest & 0,645 & 0,863 & 0,218 [0,130; 0,306] \\
+     & XGBoost & 0,723 & 0,906 & 0,184 [0,102; 0,265] \\
+     & Regressão Logística & 0,500 & 0,892 & 0,391 [0,262; 0,520] \\
+     & SVM (RBF) & 0,617 & 0,905 & 0,288 [0,177; 0,398] \\
+    k20\_sequencia & Random Forest & 0,595 & 0,904 & 0,309 [0,202; 0,415] \\
+     & XGBoost & 0,605 & 0,905 & 0,301 [0,204; 0,398] \\
+     & Regressão Logística & 0,344 & 0,852 & 0,507 [0,406; 0,608] \\
+     & SVM (RBF) & 0,392 & 0,809 & 0,416 [0,319; 0,514] \\
+    \bottomrule
+  \end{tabular}
+\end{table}

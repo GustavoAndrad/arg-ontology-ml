@@ -1,28 +1,47 @@
 """
-ontology_features.py — Features ontológicas da ARO (Pipeline B, Seção 4.5).
+ontology_features.py — Atributos ontológicos da ARO (Pipeline B, Seção 4.5).
 
 Atributos por instância:
     * ``depth_isa``      — profundidade na hierarquia is-a (raiz = 0, menor caminho);
     * ``ancestor_count`` — número de ancestrais (fecho transitivo de is-a);
-    * ``children_count`` — número de subclasses diretas;
+    * ``children_count`` — número de subclasses diretas (os termos de gene são
+      folhas: no CARD 4.0.1, só 1 dos 6.033 genes tem valor diferente de zero);
     * uma flag binária ``drug_class_*`` por classe de antibiótico observada nos genes
       do experimento (coluna ``Drug Class`` do ``aro_index.tsv``, separada por ';').
 
 Quantidade: as 3 estruturais vêm do ``aro.owl``; as flags dependem das classes do
-experimento. Com as 5 classes do TCC2 (CARD 4.0.1) são 38 flags, 41 no total; no
-TCC1, com 4 classes, eram 36 (39 no total). As duas novas, "sulfone antibiotic" e
-"antibiotic without defined classification", só aparecem em genes de substituição
-(3) e de proteção do alvo (2), respectivamente — ponto a observar na ablação e na
-informação mútua (ponto 4).
+experimento. Com as 5 classes (CARD 4.0.1) são 38 flags, 41 no total; na primeira
+versão do experimento, com 4 classes, eram 36 (39 no total). As duas a mais,
+"sulfone antibiotic" e "antibiotic without defined classification", só aparecem em
+genes de substituição (3) e de proteção do alvo (2), respectivamente.
 
 O vocabulário de flags é definido pelos genes do experimento e reaplicado, com as
 mesmas colunas, aos genes do estudo de caso (``extract_ontological_features(...,
-vocabulary=...)``). Assim os modelos treinados podem ser aplicados a eles.
+vocabulary=...)``). Assim os modelos treinados podem ser aplicados a eles. Definir o
+vocabulário com todos os genes (treino e teste) só fixa quais colunas existem; não
+usa o rótulo.
 
 O ``aro.owl`` do CARD 4.0.1 está em sintaxe OWL/XML (não RDF/XML), que o rdflib não
 lê. Por isso a hierarquia é extraída com ``xml.etree`` dos axiomas
 ``<SubClassOf><Class/><Class/></SubClassOf>``. Restrições (``ObjectSomeValuesFrom``)
-são ignoradas.  # ANTI-LEAKAGE: apenas relações is-a
+são ignoradas.
+
+O que os atributos leem e o que não leem (ANTI-LEAKAGE):
+    * A ARO liga termos a mecanismos pela relação ``participates_in`` (uma restrição,
+      ignorada aqui). Nenhum atributo lê essa relação nem o mecanismo do gene.
+    * A hierarquia is-a, porém, coloca os genes sob categorias com nome de mecanismo
+      ("antibiotic inactivation enzyme", "efflux pump complex or subunit conferring
+      antibiotic resistance", "antibiotic target protection protein" etc.). No CARD
+      4.0.1, 5.827 dos 6.033 genes têm entre os ancestrais uma dessas categorias, e
+      ela coincide com o mecanismo do gene em todos esses casos. Por isso os
+      atributos estruturais são **contagens** (profundidade, ancestrais, filhos) e
+      nunca a identidade dos ancestrais, que entregaria o rótulo. Ainda assim, as
+      contagens diferem entre os ramos e refletem em parte essa organização (por
+      exemplo, os genes de inativação ficam nas profundidades 6 a 8).
+    * As classes de antibiótico descrevem o antibiótico afetado, não o mecanismo, e
+      não são derivadas dele. São, porém, fortemente associadas a ele (por exemplo,
+      os β-lactâmicos quase só em genes de inativação). Essa associação é o que o
+      experimento mede, na informação mútua e na ablação.
 
 Uso:
     python -m src.ontology_features
@@ -100,7 +119,8 @@ def load_ontology(owl_path: Path) -> IsAGraph:
 
 def build_is_a_graph(owl_path: Path) -> IsAGraph:
     """Constrói o grafo a partir dos axiomas SubClassOf entre duas classes nomeadas."""
-    # ANTI-LEAKAGE: apenas relações is-a (rdfs:subClassOf entre classes nomeadas)
+    # ANTI-LEAKAGE: apenas relações is-a (SubClassOf entre classes nomeadas); a relação
+    # participates_in, que liga termos a mecanismos, é uma restrição e fica de fora.
     graph = IsAGraph()
     for _, el in ET.iterparse(str(owl_path), events=("end",)):
         if el.tag == OWL_NS + "SubClassOf":
@@ -169,8 +189,8 @@ def extract_drug_class_flags(drug_class_values: pd.Series, vocabulary: list[str]
     de caso), passe o vocabulário do experimento, para obter as mesmas colunas;
     classes fora dele são ignoradas com aviso, porque o modelo não as conhece.
 
-    # ANTI-LEAKAGE: Drug Class NÃO é proxy de Resistance_Mechanism — descreve o
-    # antibiótico afetado, não o mecanismo pelo qual o gene confere resistência.
+    # ANTI-LEAKAGE: Drug Class descreve o antibiótico afetado e não é derivada do
+    # mecanismo, embora seja fortemente associada a ele (ver docstring do módulo).
     """
     sets = [split_drug_classes(v) for v in drug_class_values]
     classes = drug_class_vocabulary(drug_class_values) if vocabulary is None else list(vocabulary)

@@ -1,14 +1,14 @@
 """
-compare_with_tcc.py — Confronta os resultados gerados com os valores publicados no TCC 1.
+compare_with_tcc.py — Confronta os resultados gerados com os valores publicados no TCC.
 
-**Congelado no TCC1.** Desde o TCC2 (ponto 2, 5 classes) o experimento é outro, e
-este script passa a apontar diferenças por construção. Ele só faz sentido no commit
-``2b0247f``, onde o código reproduz 73/73 itens do PDF do TCC1. Fica no repositório
-como registro do gabarito usado para validar a reimplementação. Desde o ponto 5, o
-Wilcoxon foi trocado pelo teste t corrigido, e ``results/testes_estatisticos.csv`` não
-tem mais as colunas que este script lê: fora daquele commit, ele termina com erro.
-Desde o ponto 4, ``results/sanidade_leakage.json`` também não é mais gerado (o
-experimento de sanidade virou a configuração "só ontologia" de ``src.leakage_check``).
+**Legado da primeira apresentação do TCC à banca.** Este script compara o código com
+o texto daquela versão (4 classes, Wilcoxon, divisão aleatória) e só faz sentido no
+commit ``2b0247f``, onde o código reproduz 73/73 itens do PDF. Fica no repositório
+como registro do gabarito usado para validar a reimplementação. O experimento atual
+é outro (5 classes, divisão por grupos, teste t corrigido), então fora daquele commit
+o script aponta diferenças por construção e termina com erro: ``results/testes_estatisticos.csv``
+não tem mais as colunas do Wilcoxon, e ``results/sanidade_leakage.json`` não é mais
+gerado.
 
 Os valores de referência abaixo foram transcritos do PDF (Tabelas 4.1, 4.2, 5.1–5.6 e
 Seção 4.6.1). Nenhum deles é usado para gerar resultados: servem apenas de gabarito.

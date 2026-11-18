@@ -1,0 +1,222 @@
+{
+  "caracterizacao_familias.csv": {
+    "o_que_mostra": "Cada família AMR do experimento: genes, mecanismos, número de mecanismos e número de grupos de similaridade de 70% que a família ocupa.",
+    "como": "Coluna AMR_Gene_Family do aro_index (nomes compostos separados por ';'); grupos de results/grupos_similaridade.csv.",
+    "por_que": "R2 da revisão geral: se cada família tem um único mecanismo, classificar o mecanismo equivale a reconhecer a família, o que explica a força da referência por homologia. E, se uma família ocupa vários grupos, a divisão por grupos pode pôr membros dela no treino e no teste.",
+    "fontes": [
+      "data/processed/dataset_integrado.csv",
+      "results/grupos_similaridade.csv"
+    ],
+    "numeros": {
+      "familias_no_experimento": 385,
+      "familias_com_mais_de_um_mecanismo_no_experimento": 0,
+      "familias_em_mais_de_um_grupo_de_70": 96,
+      "dataset_integrado": {
+        "familias_no_integrado": 393,
+        "familias_com_mais_de_um_rotulo": 6,
+        "familias_com_mais_de_um_mecanismo_entre_genes_de_rotulo_unico": 0,
+        "familias_que_misturam_so_por_genes_multirrotulo": [
+          "ATP-binding cassette (ABC) antibiotic efflux pump",
+          "General Bacterial Porin with reduced permeability to beta-lactams",
+          "Outer Membrane Porin (Opr)",
+          "major facilitator superfamily (MFS) antibiotic efflux pump",
+          "pmr phosphoethanolamine transferase",
+          "resistance-nodulation-cell division (RND) antibiotic efflux pump"
+        ]
+      }
+    },
+    "observacao": "Contagem com os nomes compostos separados por ';' (um gene pode ter duas famílias). Sem separar, o experimento tem 388 nomes de família distintos; a revisão de 17/11 misturou os dois critérios ('392 famílias', '87 de 388') e foi corrigida para os valores deste arquivo."
+  },
+  "familias_treino_teste.csv": {
+    "o_que_mostra": "Por mecanismo: genes de teste, quantos têm alguma família com genes no treino, e famílias do teste ausentes do treino.",
+    "como": "Partição final (train/test_indices.npy); família presente = alguma das famílias do gene aparece em algum gene de treino.",
+    "por_que": "R2: diz o que o teste mede em cada classe. Nas classes pequenas, quase todo gene de teste é variante nova de família conhecida; o resultado não se estende a famílias desconhecidas (limitação 12 do consolidado).",
+    "fontes": [
+      "data/processed/train_indices.npy",
+      "data/processed/test_indices.npy"
+    ],
+    "numeros": {
+      "classes_pequenas": "148 de 151",
+      "inativacao": "120 de 900"
+    }
+  },
+  "vetores_ontologicos.csv": {
+    "o_que_mostra": "Os vetores distintos formados pelos 41 atributos da ARO, com genes por classe, classe majoritária e pureza.",
+    "como": "Agrupa os 6.033 genes pelo vetor completo de atributos ontológicos; pureza = genes na classe majoritária / genes do vetor. Calculado no próprio conjunto (medida otimista).",
+    "por_que": "R3: quantifica quanto a ontologia, sozinha, separa as classes; complementa a informação mútua (que olha um atributo por vez) e mostra onde fica a ambiguidade (proteção, efluxo e inativação).",
+    "fontes": [
+      "data/processed/features_ontologicas.csv"
+    ],
+    "numeros": {
+      "vetores_distintos": 174,
+      "pureza_global": 0.9824299685065473,
+      "vetores_com_mais_de_uma_classe": 15,
+      "genes_em_vetores_com_mais_de_uma_classe": 397
+    }
+  },
+  "categoria_isa_por_mecanismo.csv": {
+    "o_que_mostra": "Rótulo × categoria de mecanismo encontrada entre os ancestrais is-a do gene (categoria = termo que a ARO liga a um mecanismo por participates_in).",
+    "como": "Hierarquia is-a do aro.owl (o mesmo leitor dos atributos) e os axiomas SubClassOf com ObjectSomeValuesFrom(participates_in, mecanismo).",
+    "por_que": "R8: a is-a da ARO coloca os genes sob categorias com nome de mecanismo. Por isso os atributos estruturais são contagens, e não a identidade dos ancestrais; e a importância da profundidade reflete essa organização curada.",
+    "fontes": [
+      "data/ontologia/aro.owl"
+    ],
+    "numeros": {
+      "termos_ligados_a_mecanismo_por_participates_in": {
+        "efflux pump complex or subunit conferring antibiotic resistance": "antibiotic efflux",
+        "antibiotic target protection protein": "antibiotic target protection",
+        "protein modulating permeability to antibiotic": "reduced permeability to antibiotic",
+        "antibiotic target replacement protein": "antibiotic target replacement",
+        "protein(s) and two-component regulatory system modulating antibiotic efflux": "antibiotic efflux",
+        "antibiotic target modifying enzyme": "antibiotic target alteration",
+        "antibiotic inactivation enzyme": "antibiotic inactivation",
+        "gene involved in antibiotic sequestration": "antibiotic inactivation",
+        "gene conferring resistance via absence": "resistance by absence",
+        "protein(s) conferring resistance via host-dependent nutrient acquisition": "resistance by host-dependent nutrient acquisition",
+        "antibiotic resistant ergosterol biosynthesis pathway transcription factor": "antibiotic target overexpression"
+      },
+      "genes_com_categoria_entre_os_ancestrais": 5827,
+      "genes_em_que_a_categoria_coincide_com_o_rotulo": 5827,
+      "genes_sem_categoria_por_mecanismo": {
+        "antibiotic target alteration": 202,
+        "antibiotic inactivation": 2,
+        "antibiotic target replacement": 2
+      }
+    }
+  },
+  "regra_simples_ontologia.csv": {
+    "o_que_mostra": "F1-macro e acurácia no teste de uma regra sem aprendizado de máquina: combinação de valores vista no treino → classe mais comum dela.",
+    "como": "Treino e teste da partição final; combinação não vista no treino prevê a classe mais comum do treino.",
+    "por_que": "R8: mede quanto cada grupo de atributos da ARO revela da classe por si só. As estruturais separam basicamente a inativação; as classes de antibiótico carregam a maior parte da informação, coerente com a ablação.",
+    "fontes": [
+      "data/processed/features_ontologicas.csv",
+      "data/processed/train_indices.npy",
+      "data/processed/test_indices.npy"
+    ],
+    "numeros": {
+      "profundidade": 0.402,
+      "3 estruturais": 0.409,
+      "38 classes de antibiotico": 0.87,
+      "41 atributos da ARO": 0.88
+    }
+  },
+  "ganho_por_classe_cv.csv": {
+    "o_que_mostra": "B − A no F1 de cada classe na validação cruzada (50 folds pareados), com o IC 95% corrigido de Nadeau e Bengio, nos cenários anotação curada e gene novo.",
+    "como": "results/cv_por_classe.csv; razão n_validação/n_ajuste média dos folds; mesmo erro padrão corrigido do teste t do experimento.",
+    "por_que": "R19: as conclusões se apoiam na CV, mas o ganho por classe só existia no bootstrap do teste. Descritivo (sem correção para comparações múltiplas; R13).",
+    "fontes": [
+      "results/cv_por_classe.csv",
+      "results/cv_folds.csv"
+    ],
+    "numeros": {
+      "efflux": "IC acima de zero em 2 de 4 modelos (curado)",
+      "inactivation": "IC acima de zero em 3 de 4 modelos (curado)",
+      "target alteration": "IC acima de zero em 4 de 4 modelos (curado)",
+      "target protection": "IC acima de zero em 0 de 4 modelos (curado)",
+      "target replacement": "IC acima de zero em 4 de 4 modelos (curado)"
+    }
+  },
+  "recortes_teste.csv": {
+    "o_que_mostra": "Acurácia no teste por recorte (com parente no treino; distantes, sem parente com identidade ≥ 40%; sem nenhum parente), para A, B, B gene novo e a homologia.",
+    "como": "results/vizinho_mais_parecido_teste.csv (tem_vizinho, tem_vizinho_piso40) e as predições salvas.",
+    "por_que": "Ponto 4: separa onde a homologia resolve (com parente) de onde nenhuma abordagem resolve (sem parente). Usa acurácia porque os recortes pequenos têm classes com 1 gene (R12).",
+    "fontes": [
+      "results/vizinho_mais_parecido_teste.csv",
+      "results/predicoes/*.npz"
+    ],
+    "numeros": {
+      "com_parente_no_treino": 1038,
+      "distantes_sem_parente_40": 58,
+      "sem_nenhum_parente": 13
+    }
+  },
+  "erros_por_classe.csv": {
+    "o_que_mostra": "Matriz de confusão do teste em formato longo (pipeline, modelo, verdadeiro, previsto, genes).",
+    "como": "confusion_matrix das predições salvas (classe prevista por predict()).",
+    "por_que": "Pontos 5, 9 e 10: tipo de erro de cada modelo (deixar passar × alarme falso) e o erro mais comum.",
+    "fontes": [
+      "results/predicoes/*.npz"
+    ]
+  },
+  "erros_principais.csv": {
+    "o_que_mostra": "Por pipeline e modelo: erros totais, erros entre inativação e alteração do alvo (somando os dois sentidos) e o maior erro.",
+    "como": "Soma das células de erros_por_classe.csv.",
+    "por_que": "Ponto 9 (P9-D6): o erro mais comum do A, nos 4 modelos, é entre inativação e alteração, e o B o reduz.",
+    "fontes": [
+      "results/erros_por_classe.csv"
+    ],
+    "numeros": {
+      "a_random_forest": 31,
+      "a_xgboost": 17,
+      "a_logistic_regression": 59,
+      "a_svm": 31,
+      "b_random_forest": 16,
+      "b_xgboost": 4,
+      "b_logistic_regression": 7,
+      "b_svm": 2
+    }
+  },
+  "atributos_por_mecanismo.csv": {
+    "o_que_mostra": "Por mecanismo: fração de genes com cada classe de antibiótico, genes por profundidade na ARO e mediana da fração de cisteína.",
+    "como": "Atributos do experimento (6.033 genes).",
+    "por_que": "Ponto 8 e R8: os 'fatos dos dados' que explicam a importância dos atributos (profundidade → inativação; diaminopirimidina → substituição; glicopeptídeo → alteração; cisteína → proteção).",
+    "fontes": [
+      "data/processed/features_ontologicas.csv",
+      "data/processed/features_sequencia.csv"
+    ],
+    "numeros": {
+      "inativacao_entre_genes_com_profundidade_6_ou_mais": 0.9784075573549258,
+      "substituicao_com_diaminopirimidina": 0.8428571428571429,
+      "alteracao_com_glicopeptideo": 0.2807017543859649,
+      "profundidade_igual_a_ancestrais": 0.9632023868722028
+    }
+  },
+  "identidade_teste_treino.csv": {
+    "o_que_mostra": "Para cada divisão (aleatória e grupos de 90, 70 e 50%), a maior identidade de cada gene de teste com algum gene de treino.",
+    "como": "Partições da curva por limiar (mesma regra do experimento); busca dos grupos (MMseqs2, piso de 40%), cobertura ≥ 0,5 nas duas sequências. 0 = nenhum par ≥ 40%.",
+    "por_que": "Motivação da divisão por grupos (seção 4.8): na divisão aleatória quase todo gene de teste tem um parente quase idêntico no treino; com grupos de 70%, nenhum tem parente ≥ 70%. Confere com curva_limiar_particoes.csv.",
+    "fontes": [
+      "data/processed/mmseqs/hits.m8",
+      "results/grupos_similaridade.csv"
+    ],
+    "numeros": {
+      "percentual_de_genes_de_teste_com_parente": {
+        "50": {
+          "ge_50": 0.0,
+          "ge_70": 0.0,
+          "ge_90": 0.0
+        },
+        "70": {
+          "ge_50": 82.4,
+          "ge_70": 0.0,
+          "ge_90": 0.0
+        },
+        "90": {
+          "ge_50": 85.5,
+          "ge_70": 71.0,
+          "ge_90": 0.0
+        },
+        "aleatoria": {
+          "ge_50": 94.9,
+          "ge_70": 88.6,
+          "ge_90": 83.7
+        }
+      }
+    }
+  },
+  "ramos_aro_exemplos.csv": {
+    "o_que_mostra": "O caminho is-a mais curto até a raiz de um gene clássico por mecanismo (TEM-1, vanA, acrB, QnrA1, dfrA1), com os termos ligados a um mecanismo por participates_in.",
+    "como": "Hierarquia is-a do aro.owl (leitor dos atributos); em cada passo, o pai de menor profundidade; categorias pelos axiomas participates_in.",
+    "por_que": "R8 e seção 2.5.1: mostrar com dados reais que o nível de cima da is-a agrupa os genes por categoria de mecanismo (substitui a Figura 2.1 desenhada à mão).",
+    "fontes": [
+      "data/ontologia/aro.owl"
+    ],
+    "numeros": {
+      "antibiotic efflux": 4,
+      "antibiotic inactivation": 6,
+      "antibiotic target alteration": 6,
+      "antibiotic target protection": 4,
+      "antibiotic target replacement": 5
+    }
+  }
+}

@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Sensibilidade ao ajuste de hiperparâmetros (validação cruzada aninhada por grupos, 5 folds externos e 3 internos; grade definida pelos autores em torno do padrão). Descritivo.}
+  \label{tab:sens_ajuste}
+  \begin{tabular}{lccccc}
+    \toprule
+    Modelo & Pipeline & CV padrão & CV ajustado & Teste padrão & Teste ajustado \\
+    \midrule
+    Random Forest & A & 0,553 & 0,685 & 0,641 & 0,795 \\
+     & B & 0,758 & 0,873 & 0,888 & 0,933 \\
+    XGBoost & A & 0,717 & 0,697 & 0,865 & 0,870 \\
+     & B & 0,877 & 0,881 & 0,965 & 0,965 \\
+    Regressão Logística & A & 0,531 & 0,501 & 0,611 & 0,611 \\
+     & B & 0,913 & 0,934 & 0,961 & 0,955 \\
+    SVM (RBF) & A & 0,650 & 0,699 & 0,680 & 0,625 \\
+     & B & 0,923 & 0,926 & 0,973 & 0,970 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

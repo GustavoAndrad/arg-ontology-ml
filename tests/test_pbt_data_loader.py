@@ -1,7 +1,9 @@
 """
-test_pbt_data_loader.py — Teste de Propriedade P9: Integridade do Dataset Final.
+test_pbt_data_loader.py — Teste de propriedade: integridade do dataset final.
 
-Valida: Requirements 2.3, 2.6
+Propriedade: depois da integração, nenhum gene fica sem accession, sem sequência ou
+sem mecanismo (os requisitos 2.3 e 2.6 da especificação original, que não está no
+repositório).
 
 Para qualquer par (aro_index, fasta_sequences):
   df = integrate_dataset(aro_index, fasta_sequences)
@@ -186,8 +188,6 @@ def fasta_sequences_strategy(aro_accessions_from_df=None, max_extra: int = 5):
 
 # ──────────────────────────────────────────────────────────────────────────────
 # P9 — Integridade do Dataset Final
-#
-# Validates: Requirements 2.3, 2.6
 # ──────────────────────────────────────────────────────────────────────────────
 
 @given(
@@ -201,8 +201,6 @@ def test_p9_dataset_integrity(
 ):
     """
     P9 — Integridade do Dataset Final.
-
-    **Validates: Requirements 2.3, 2.6**
 
     Para qualquer par (aro_index, fasta_sequences):
     - df['ARO_Accession'] nunca contém valores nulos
@@ -256,7 +254,6 @@ def test_p9_output_columns_always_present(
     """
     P9 (complementar) — As colunas de saída obrigatórias devem estar sempre presentes.
 
-    **Validates: Requirements 2.6**
     """
     df = integrate_dataset(aro_index, fasta_sequences)
 
@@ -286,7 +283,6 @@ def test_p9_result_is_subset_of_inputs(
     P9 (complementar) — O conjunto de ARO_Accession no resultado é subconjunto
     da interseção entre aro_index e fasta_sequences (inner join).
 
-    **Validates: Requirements 2.3, 2.6**
     """
     df = integrate_dataset(aro_index, fasta_sequences)
 

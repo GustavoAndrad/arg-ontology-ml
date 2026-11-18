@@ -1,12 +1,12 @@
 """
 bootstrap_test.py — Intervalos de confiança no conjunto de teste por bootstrap de grupos.
 
-Por que (TCC2, ponto 5, decisão 5; apontamento D8 do Diego): o teste final é uma
+Por que: o teste final é uma
 única partição. Um número sozinho (ex.: F1-macro = 0,97) não diz quanto ele
 mudaria com outros genes. O bootstrap reamostra o conjunto de teste e mostra essa
 variação, sem treinar de novo (as previsões dos modelos finais são reaproveitadas).
 
-Como (decisões registradas em TCC2_resultados_para_o_texto.md, pontos 5 e 10):
+Como:
     * **Grupos inteiros** (grupos de similaridade de 70%): genes do mesmo grupo são
       quase cópias, e sorteá-los um a um fingiria ter mais informação do que há
       (Hastie et al. 2009, seção 7.11, para o bootstrap).
@@ -20,7 +20,7 @@ Como (decisões registradas em TCC2_resultados_para_o_texto.md, pontos 5 e 10):
       o intervalo da diferença B − A.
     * **Intervalo de percentil de 95%** (2,5% e 97,5% das reamostragens), coerente
       com α = 0,05.
-    * **2.000 reamostragens** (decisão 5 do ponto 5). Para conferir se bastam, as
+    * **2.000 reamostragens**. Para conferir se bastam, as
       reamostragens são divididas em duas metades, e os limites dos intervalos
       calculados em cada metade são comparados: a maior diferença fica em
       ``results/bootstrap_estabilidade.json``. Se intervalos com metade das
@@ -30,7 +30,8 @@ Como (decisões registradas em TCC2_resultados_para_o_texto.md, pontos 5 e 10):
 Métricas: F1-macro, e precisão, revocação e F1 de cada classe; para cada pipeline e
 para a diferença B − A. O valor pontual é o do teste original.
 
-Cenários do ponto 4: além de A e B (anotação curada), entram o B "gene novo", a
+Cenários de dependência da anotação: além de A e B (anotação curada), entram o B
+"gene novo", a
 regra "ontologia zerada" (sensibilidade) e a referência por homologia, com as
 diferenças pareadas de ``DIFFERENCES``. Tudo descritivo (o teste confirmatório é o
 teste t corrigido da validação cruzada). Também é feito o recorte dos genes de teste
@@ -66,9 +67,9 @@ from src.experiment_config import (
 
 logger = logging.getLogger(__name__)
 PREDICTIONS_DIR = RESULTS_DIR / "predicoes"
-N_BOOTSTRAP: int = 2000  # decisão 5 do ponto 5; conferido em bootstrap_estabilidade.json
+N_BOOTSTRAP: int = 2000  # conferido em bootstrap_estabilidade.json
 PERCENTILES = (100 * ALPHA_STAT / 2, 100 * (1 - ALPHA_STAT / 2))  # 2,5 e 97,5
-# Cenários do ponto 4 (ver src.train_evaluate.scenario_predictions).
+# Cenários de dependência da anotação (ver src.train_evaluate.scenario_predictions).
 PIPELINE_KEYS: list[str] = ["a", "b", "b_gene_novo", "b_gene_novo_zeros", "b_gene_novo_piso40"]
 HOMOLOGY_KEYS: list[str] = ["homologia", "homologia_piso40"]  # sem modelo
 # (nome, minuendo, subtraendo): diferenças pareadas calculadas para cada modelo.
@@ -213,10 +214,15 @@ def load_test_predictions() -> tuple[dict, np.ndarray]:
 
 def without_neighbor_subset(predictions: dict, groups: np.ndarray, has_neighbor: np.ndarray):
     """
-    Recorte dos genes de teste **distantes do treino** (TCC2, ponto 4, P4-7): os que não
-    têm nenhum parecido com identidade ≥ 40% (busca do ponto 3). É onde a homologia
-    próxima não ajuda; mostra o que cada abordagem faz com genes pouco parecidos com
-    os conhecidos. Descritivo (poucos genes).
+    Recorte dos genes de teste **distantes do treino**: os que não têm nenhum parecido
+    com identidade ≥ 40% (busca dos grupos). É onde a homologia próxima não ajuda;
+    mostra o que cada abordagem faz com genes pouco parecidos com os conhecidos.
+    Descritivo (poucos genes).
+
+    Cuidado com o F1-macro deste recorte: com os dados atuais são 58 genes, e a
+    proteção do alvo tem 1 (a substituição, 4). O F1 dessa classe é 0 ou 1 e pesa
+    1/5 da média; como a reamostragem sempre sorteia esse mesmo gene, o intervalo não
+    mostra essa instabilidade. Para o texto, a acurácia do recorte é mais informativa.
     """
     keep = ~has_neighbor
     sub = {k: (yt[keep], yp[keep]) for k, (yt, yp) in predictions.items()}

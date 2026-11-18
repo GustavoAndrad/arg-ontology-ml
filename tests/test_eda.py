@@ -7,6 +7,9 @@ Cobre:
 - flag_small_classes: detecção de classes abaixo do limiar.
 - check_missing_values: reporte correto de valores ausentes.
 - plot_class_distribution: criação do arquivo PNG com DPI ≥ 300.
+- add_destination: destino de cada mecanismo no TCC.
+- analyze_ontology_structure: contagens sobre um OWL/XML pequeno, no mesmo formato
+  do aro.owl do CARD.
 - generate_eda_report: orquestração retorna todas as chaves esperadas.
 """
 
@@ -19,6 +22,8 @@ import pytest
 
 from src.eda import (
     ACCESSIBLE_PALETTE,
+    add_destination,
+    analyze_ontology_structure,
     check_missing_values,
     compute_class_distribution,
     compute_imbalance_ratio,
@@ -356,10 +361,100 @@ class TestPlotClassDistribution:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# analyze_ontology_structure
+# ─────────────────────────────────────────────────────────────────────────────
+
+_OBO = "http://purl.obolibrary.org/obo/"
+
+
+def _owl_xml(path: Path) -> Path:
+    """
+    Ontologia mínima em OWL/XML, a mesma sintaxe do aro.owl do CARD:
+
+        ARO_1000001 (raiz)
+        └── ARO_1000002 "mechanism of antibiotic resistance"
+            ├── ARO_0001004 "antibiotic inactivation"
+            │   └── ARO_3000001 (+ um SubClassOf com restrição, que não conta)
+            └── ARO_0010000 "antibiotic efflux"
+    """
+    def cls(n: str) -> str:
+        return f'<Class IRI="{_OBO}ARO_{n}"/>'
+
+    def label(n: str, text: str) -> str:
+        return (
+            '<AnnotationAssertion><AnnotationProperty abbreviatedIRI="rdfs:label"/>'
+            f"<IRI>{_OBO}ARO_{n}</IRI><Literal>{text}</Literal></AnnotationAssertion>"
+        )
+
+    ids = ["1000001", "1000002", "0001004", "0010000", "3000001"]
+    edges = [("1000002", "1000001"), ("0001004", "1000002"), ("0010000", "1000002"), ("3000001", "0001004")]
+    body = "".join(f"<Declaration>{cls(n)}</Declaration>" for n in ids)
+    body += "".join(f"<SubClassOf>{cls(c)}{cls(p)}</SubClassOf>" for c, p in edges)
+    body += (
+        f"<SubClassOf>{cls('3000001')}<ObjectSomeValuesFrom>"
+        f'<ObjectProperty IRI="{_OBO}RO_0002"/>{cls("0010000")}'
+        "</ObjectSomeValuesFrom></SubClassOf>"
+    )
+    body += label("1000002", "mechanism of antibiotic resistance")
+    body += label("0001004", "antibiotic inactivation") + label("0010000", "antibiotic efflux")
+    path.write_text(
+        '<?xml version="1.0"?>\n'
+        f'<Ontology xmlns="http://www.w3.org/2002/07/owl#" ontologyIRI="{_OBO}aro.owl">{body}</Ontology>',
+        encoding="utf-8",
+    )
+    return path
+
+
+class TestAnalyzeOntologyStructure:
+
+    def test_counts_on_owl_xml(self, tmp_path):
+        stats = analyze_ontology_structure(_owl_xml(tmp_path / "aro.owl"))
+        assert stats["n_classes"] == 5
+        assert stats["n_is_a_relations"] == 4  # só entre classes nomeadas
+        assert stats["n_restrictions"] == 1
+        assert stats["n_roots"] == 1
+        assert stats["max_depth"] == 3
+        assert stats["resistance_mechanisms_found"] == ["antibiotic efflux", "antibiotic inactivation"]
+
+    def test_missing_file_raises(self, tmp_path):
+        with pytest.raises(FileNotFoundError):
+            analyze_ontology_structure(tmp_path / "nao_existe.owl")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# add_destination
+# ─────────────────────────────────────────────────────────────────────────────
+
+class TestAddDestination:
+
+    def test_destination_of_each_label(self):
+        dist = pd.DataFrame({
+            "classe": [
+                "antibiotic inactivation",
+                "reduced permeability to antibiotic",
+                "antibiotic efflux; reduced permeability to antibiotic",
+                "rótulo inventado",
+            ],
+            "contagem": [10, 5, 2, 1],
+            "proporcao_pct": [55.56, 27.78, 11.11, 5.56],
+        })
+        out = add_destination(dist)
+        assert out["destino"].tolist() == ["experimento", "estudo_de_caso", "multirrotulo", "desconhecido"]
+        assert "destino" not in dist.columns  # não altera a entrada
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # generate_eda_report
 # ─────────────────────────────────────────────────────────────────────────────
 
 class TestGenerateEdaReport:
+
+    @pytest.fixture(autouse=True)
+    def small_ontology(self, tmp_path, monkeypatch):
+        """Usa a ontologia mínima: ler o aro.owl real levaria ~10 s por teste."""
+        import src.config as config_module
+
+        monkeypatch.setattr(config_module, "ONTOLOGY_PATH", _owl_xml(tmp_path / "aro.owl"))
 
     @pytest.fixture
     def sample_df(self) -> pd.DataFrame:
@@ -384,6 +479,7 @@ class TestGenerateEdaReport:
         expected_keys = {
             "class_distribution",
             "imbalance_ratio",
+            "imbalance_ratio_experimento",
             "small_classes",
             "missing_values",
             "ontology_stats",
@@ -404,6 +500,22 @@ class TestGenerateEdaReport:
         assert isinstance(report["imbalance_ratio"], float)
         # 50 / 2 = 25.0
         assert math.isclose(report["imbalance_ratio"], 25.0, abs_tol=0.01)
+
+    def test_imbalance_ratio_of_experiment_classes_only(self, sample_df, tmp_path):
+        """Só as classes do experimento: efflux 50 / target alteration 10 = 5,0."""
+        report = generate_eda_report(sample_df, tmp_path)
+        assert math.isclose(report["imbalance_ratio_experimento"], 5.0, abs_tol=0.01)
+
+    def test_ontology_stats_from_file(self, sample_df, tmp_path):
+        report = generate_eda_report(sample_df, tmp_path)
+        assert report["ontology_stats"]["n_is_a_relations"] == 4
+
+    def test_unreadable_ontology_raises(self, sample_df, tmp_path):
+        """Arquivo presente mas ilegível: o erro sobe, em vez de virar None."""
+        bad = tmp_path / "ruim.owl"
+        bad.write_text("isto não é XML", encoding="utf-8")
+        with pytest.raises(Exception):
+            generate_eda_report(sample_df, tmp_path, ontology_path=bad)
 
     def test_small_classes_detected(self, sample_df, tmp_path):
         report = generate_eda_report(sample_df, tmp_path)

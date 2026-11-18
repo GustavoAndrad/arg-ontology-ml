@@ -5,14 +5,14 @@ Calcula hashes MD5 e SHA-256 dos arquivos de dados brutos e registra a
 proveniência do dataset em `results/data_provenance.json`, garantindo que os
 dados usados no experimento sejam identificáveis e reproduzíveis.
 
-Por que o SHA-256 (TCC2, ponto 13): o ``aro.owl`` não traz número de versão; a
-versão da ARO usada fica identificada pela data de download e pelo checksum.
-O MD5 continua, para comparar com o registro do TCC1.
+Por que o SHA-256: o ``aro.owl`` não traz número de versão; a versão da ARO usada
+fica identificada pela data de download e pelo checksum. O MD5 continua, para
+comparar com o registro da primeira versão do experimento.
 
-Data de acesso: é a do primeiro registro (14/06/2026, quando os dados do TCC1
-foram baixados; é também a data de modificação do ``aro.owl``). Rodar o módulo de
-novo **não** troca essa data: ela é lida do JSON existente. Antes do TCC2, cada
-execução gravava a data do dia, o que apagaria a informação.
+Data de acesso: é a do primeiro registro (14/06/2026, quando os dados foram
+baixados; é também a data de modificação do ``aro.owl``). Rodar o módulo de novo
+**não** troca essa data: ela é lida do JSON existente, porque gravar a data do dia
+apagaria a informação.
 
 Caminhos: gravados relativos à raiz do projeto, para não depender da pasta (nem
 do usuário) de quem rodou. A data de modificação de cada arquivo também é

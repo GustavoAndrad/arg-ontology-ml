@@ -2,8 +2,8 @@
 sensitivity_balancing.py — Sensibilidade do resultado à estratégia de balanceamento.
 
 Pergunta: a conclusão "B > A" depende de como o desbalanceamento das classes é
-tratado? Responde aos apontamentos J5 (Jéssica: undersampling, oversampling,
-híbridos) e D6 (Diego: abordagem hierárquica) — TCC2, ponto 6.
+tratado? Compara reamostragem (undersampling, oversampling, híbridos) e uma
+abordagem hierárquica com o peso por classe.
 
 O experimento principal usa **peso por classe** nos 4 modelos ("peso" abaixo).
 As outras estratégias são comparadas a ele, com tudo o mais igual: mesmas 5
@@ -20,7 +20,7 @@ Estratégias:
     hierarquica   nível 1: inativação × resto; nível 2: qual das outras 4 classes.
                   Os dois níveis usam o mesmo classificador, com peso por classe.
 
-Decisões (registradas em TCC2_resultados_para_o_texto.md, pontos 6 e 13):
+Escolhas:
     * Nas estratégias de reamostragem, os modelos ficam **sem** peso: a
       reamostragem substitui o peso, em vez de somar a ele.
     * A reamostragem roda **só no treino de cada fold** (Pipeline do
@@ -30,17 +30,21 @@ Decisões (registradas em TCC2_resultados_para_o_texto.md, pontos 6 e 13):
       sem a escala o comprimento da proteína dominaria a vizinhança.
     * Undersampling "até a segunda maior classe": regra simples e explicável que
       tira o desequilíbrio dominante (inativação ≈ 19 × a segunda maior) sem
-      descartar genes das classes pequenas. A prévia usou 600, número sem
-      justificativa registrada; por isso não foi mantido.
+      descartar genes das classes pequenas. Uma análise preliminar usou 600, número
+      sem justificativa registrada; por isso não foi mantido.
     * Pipeline B com SMOTENC: as 41 colunas ontológicas (38 flags 0/1 e 3
       estruturais inteiras) são tratadas como categóricas, para que um gene
       sintético só tenha valores que existem na ontologia (o SMOTE comum criaria
       flags como 0,4). No Pipeline A, todas as colunas são contínuas: SMOTE comum.
     * Hierárquica: prevê inativação se o nível 1 der probabilidade ≥ 0,5; senão, a
       classe mais provável do nível 2. A probabilidade conjunta é
-      P(inativação) = p1 e P(outra c) = (1 − p1) · p2(c), usada só na ROC-AUC.
+      P(inativação) = p1 e P(outra c) = (1 − p1) · p2(c), usada só na ROC-AUC. No SVM,
+      p1 e p2 vêm da calibração de Platt (``predict_proba``), e não da decisão do
+      próprio SVM usada no experimento principal; é uma diferença conhecida desta
+      estratégia, que é descritiva.
 
-É uma análise **descritiva** (sem teste estatístico), como definido no ponto 5.
+É uma análise **descritiva** (sem teste estatístico). A estratégia "peso" reproduz
+exatamente o experimento principal.
 Usa as mesmas divisões da validação cruzada repetida 10 × 5 do experimento; o ganho
 do B na CV vem com o intervalo de 95% corrigido (Nadeau e Bengio), sem teste.
 
@@ -106,7 +110,7 @@ def undersample_to_second_largest(y: np.ndarray) -> dict[int, int]:
 
 class HierarchicalClassifier(ClassifierMixin, BaseEstimator):
     """
-    Abordagem hierárquica (apontamento D6): inativação × resto, depois as outras classes.
+    Abordagem hierárquica: inativação × resto, depois as outras classes.
 
     ``base`` é um classificador já configurado (com peso por classe); cada nível
     recebe um clone. Os rótulos do nível 2 são renumerados 0..k-1 (o XGBoost exige).

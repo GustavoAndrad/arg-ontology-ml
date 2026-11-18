@@ -1,0 +1,6 @@
+mecanismo,(nenhuma),antibiotic efflux,antibiotic inactivation,antibiotic target alteration,antibiotic target protection,antibiotic target replacement
+antibiotic efflux,0,269,0,0,0,0
+antibiotic inactivation,2,0,5237,0,0,0
+antibiotic target alteration,202,0,0,83,0,0
+antibiotic target protection,0,0,0,0,170,0
+antibiotic target replacement,2,0,0,0,0,68

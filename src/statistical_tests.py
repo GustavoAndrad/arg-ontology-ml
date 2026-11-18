@@ -1,12 +1,13 @@
 """
 statistical_tests.py — Teste t corrigido para validação cruzada repetida, com Holm (Seções 4.12 e 5.5.1).
 
-Por que trocar o Wilcoxon (TCC2, ponto 5; apontamento D8 do Diego):
+Por que não o Wilcoxon (usado na primeira versão do experimento):
     * os resultados de folds diferentes **não são independentes**: os conjuntos de
       treino se sobrepõem (em 5 folds, dois treinos dividem 3/4 dos genes). O
       Wilcoxon e o teste t comuns tratam os folds como amostras independentes e
-      subestimam a variância, dando p pequenos demais (na prévia: p ≈ 2 × 10⁻¹⁵ com
-      o Wilcoxon contra p = 0,01 com o teste corrigido, para a mesma diferença);
+      subestimam a variância, dando p pequenos demais (neste experimento, o teste t
+      pareado comum dá p entre 10⁻³² e 10⁻¹⁸ nos 8 testes; o corrigido, entre
+      4 × 10⁻¹⁰ e 8 × 10⁻⁴);
     * com 5 folds, o Wilcoxon exato nem consegue chegar a p < 0,05 (mínimo 0,0625).
 
 Teste t corrigido (Nadeau e Bengio, 2003; na forma para validação cruzada repetida
@@ -23,20 +24,22 @@ O intervalo de 95% da diferença usa o mesmo erro padrão:
     média(d) ± t_{0,975; J−1} · sqrt((1/J + n_val/n_ajuste) · s²).
 O mesmo intervalo, aplicado ao F1 de cada pipeline, dá o intervalo da média da CV.
 
-Quais comparações são testadas (decisões 3 e 4 do ponto 5; decisão 3 do ponto 10):
+Quais comparações são testadas (definidas antes de ver os resultados):
     * só o **F1-macro** (uma métrica, definida antes, para não multiplicar testes);
-    * B × A para os 4 classificadores em dois cenários (ponto 4): "anotação curada"
+    * B × A para os 4 classificadores em dois cenários: "anotação curada"
       (pipeline ``b``) e "gene novo" (pipeline ``b_gene_novo``, ontologia do gene mais
       parecido do treino). A família confirmatória tem **8 testes**.
     * correção de Holm sobre os 8 (referência a adicionar): controla a chance de
       pelo menos um falso positivo entre os testes, sem ser tão conservadora
       quanto Bonferroni.
     * A regra "ontologia zerada" (``b_gene_novo_zeros``) e a referência por
-      homologia ficam fora da família: são descritivas (decisão do ponto 5).
+      homologia ficam fora da família: são descritivas.
     * Hipóteses: H0: média(d) = 0; H1: média(d) ≠ 0 (bilateral); α = 0,05, aplicado ao
       p corrigido por Holm.
 Todas as outras comparações (por classe, ablação, curva por limiar, sensibilidades)
-são descritivas: intervalos, sem teste.
+são descritivas: intervalos, sem teste. Os intervalos de 95% (também os da família
+confirmatória) são individuais, sem correção para comparações múltiplas; a correção
+de Holm vale só para os p da família de 8.
 
 Saída:
     results/testes_estatisticos.csv

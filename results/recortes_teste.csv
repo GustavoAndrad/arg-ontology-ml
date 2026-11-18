@@ -1,0 +1,40 @@
+recorte,genes,composicao,pipeline,modelo,acuracia
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,a,random_forest,0.9431599229287091
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,a,xgboost,0.9730250481695568
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,a,logistic_regression,0.871868978805395
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,a,svm,0.9200385356454721
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,b,random_forest,0.9778420038535646
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,b,xgboost,0.9942196531791907
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,b,logistic_regression,0.9913294797687862
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,b,svm,0.9942196531791907
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,b_gene_novo,random_forest,0.9788053949903661
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,b_gene_novo,xgboost,0.9942196531791907
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,b_gene_novo,logistic_regression,0.9884393063583815
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,b_gene_novo,svm,0.9932562620423893
+com_parente_no_treino,1038,efflux 40; inactivation 899; target alteration 50; target protection 32; target replacement 17,homologia,homologia,0.9990366088631984
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,a,random_forest,0.5172413793103449
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,a,xgboost,0.6379310344827587
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,a,logistic_regression,0.5172413793103449
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,a,svm,0.5862068965517241
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,b,random_forest,0.7413793103448276
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,b,xgboost,0.8793103448275862
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,b,logistic_regression,0.8275862068965517
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,b,svm,0.9482758620689655
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,b_gene_novo,random_forest,0.7068965517241379
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,b_gene_novo,xgboost,0.7931034482758621
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,b_gene_novo,logistic_regression,0.7068965517241379
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,b_gene_novo,svm,0.8275862068965517
+distantes_sem_parente_40,58,efflux 22; inactivation 20; target alteration 11; target protection 1; target replacement 4,homologia,homologia,0.7931034482758621
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,a,random_forest,0.07692307692307693
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,a,xgboost,0.23076923076923078
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,a,logistic_regression,0.3076923076923077
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,a,svm,0.3076923076923077
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,b,random_forest,0.15384615384615385
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,b,xgboost,0.6153846153846154
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,b,logistic_regression,0.6153846153846154
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,b,svm,0.7692307692307693
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,b_gene_novo,random_forest,0.07692307692307693
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,b_gene_novo,xgboost,0.23076923076923078
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,b_gene_novo,logistic_regression,0.3076923076923077
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,b_gene_novo,svm,0.3076923076923077
+sem_nenhum_parente,13,efflux 7; inactivation 1; target alteration 5,homologia,homologia,0.07692307692307693

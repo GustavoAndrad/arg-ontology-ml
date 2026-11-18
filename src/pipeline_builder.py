@@ -6,19 +6,21 @@ Experimento:
     MinMaxScaler → classificador
 
 Todos os atributos entram no modelo (73 no Pipeline A, 114 no B), sem seleção.
-Por que não há mais SelectKBest nem VarianceThreshold (TCC2, ponto 7):
-    * o k = 100 do TCC1 era arbitrário, e o tamanho do ganho do B dependia dele;
+Por que não há mais SelectKBest nem VarianceThreshold (usados na primeira versão do
+experimento):
+    * o k = 100 era arbitrário, e o tamanho do ganho do B dependia dele;
     * no Pipeline B, a seleção conjunta deixava entrar só 18 dos 41 atributos
-      ontológicos e mudava também quais atributos de sequência entravam, de modo
+      ontológicos (na divisão aleatória da primeira versão; 21 com a divisão por
+      grupos) e mudava também quais atributos de sequência entravam, de modo
       que A e B não diferiam só pela ontologia (Seção 4.7);
     * o VarianceThreshold só remove colunas constantes; sem ele, todas as colunas
       entram em todo fold (duas flags de classe de antibiótico têm 1 gene no treino
       e poderiam ficar constantes num fold, mudando o número de atributos do B).
 
-A seleção do TCC1 continua disponível via ``selection`` (``FeatureSelection``) só
+A seleção da primeira versão continua disponível via ``selection`` (``FeatureSelection``) só
 para a análise de sensibilidade à representação (``src.sensitivity_representation``):
     * escopo "todos": MinMaxScaler → VarianceThreshold → SelectKBest(k) → clf
-      (exatamente o pipeline do TCC1);
+      (exatamente o pipeline da primeira versão);
     * escopo "sequencia": a seleção é aplicada só às colunas de sequência e as
       ontológicas passam inteiras (B = A_k + 41).
 
@@ -31,7 +33,22 @@ Os demais hiperparâmetros são os padrão das bibliotecas; a lista completa, li
 com ``get_params()``, fica em ``models/hyperparameters.json`` e em
 ``results/hiperparametros.csv`` (``src.experiment_record``).
 
-Peso por classe em todos os modelos (TCC2, ponto 6): o XGBoost não tem
+"Iguais para A e B" vale para a configuração. Alguns padrões são regras, e o valor
+efetivo depende dos dados: ``max_features='sqrt'`` do RF dá 8 atributos por divisão
+no A (73) e 10 no B (114); ``gamma='scale'`` do SVM dá 0,40 no A e 0,16 no B (modelos
+finais). A regra é a mesma; o valor acompanha o número de atributos.
+
+SVM: ``predict`` usa a decisão do próprio SVM (um contra um), e ``predict_proba``
+vem de uma calibração de Platt feita com validação cruzada interna. As duas podem
+discordar: no teste, a classe de maior probabilidade difere da prevista em 6,2% dos
+genes no SVM-A e em 1,0% no SVM-B. Acurácia, precisão, revocação e F1 usam
+``predict``; a ROC-AUC e a PR-AUC usam ``predict_proba``. Com a classe de maior
+probabilidade, o F1-macro de teste seria 0,704 (A) e 0,951 (B), em vez de 0,680 e
+0,973. ``decision_function_shape='ovr'`` só
+muda o formato da saída de ``decision_function``; o treino multiclasse do SVC é
+sempre um contra um.
+
+Peso por classe em todos os modelos: o XGBoost não tem
 ``class_weight``; o peso vai como ``sample_weight`` no ``fit``. Em vez de passar o
 peso em cada lugar que treina um modelo (CV, modelo final, curva por limiar,
 análises de sensibilidade) — e arriscar esquecer um —, ``BalancedXGBClassifier``
@@ -39,7 +56,7 @@ calcula o peso sozinho a cada ``fit``, com a mesma fórmula do
 ``class_weight='balanced'`` do scikit-learn: n_amostras / (n_classes × n_da_classe).
 Assim os 4 modelos usam exatamente a mesma regra de balanceamento.
 
-Hiperparâmetros fixos (TCC2, ponto 13): o objetivo é comparar conjuntos de
+Hiperparâmetros fixos: o objetivo é comparar conjuntos de
 atributos nas mesmas condições, não achar o melhor modelo possível. O ajuste entra
 só como análise de sensibilidade (``src.sensitivity_tuning``).
 
@@ -98,7 +115,7 @@ CLASS_BALANCING: dict[str, str] = {
 }
 
 # Nomes exibidos em figuras e tabelas. "Regressão Logística" em português, como no
-# resto do texto do TCC (ponto 12 do documento de decisões); os demais são nomes próprios.
+# resto do texto do TCC; os demais são nomes próprios.
 MODEL_LABELS: dict[str, str] = {
     "random_forest": "Random Forest",
     "xgboost": "XGBoost",
@@ -120,10 +137,10 @@ def _model_params() -> dict[str, dict]:
 @dataclass(frozen=True)
 class FeatureSelection:
     """
-    Seleção de atributos do TCC1, usada só na análise de sensibilidade.
+    Seleção de atributos da primeira versão do experimento, usada só na análise de sensibilidade.
 
     ``k``: número de atributos mantidos pelo SelectKBest (ANOVA F).
-    ``scope``: "todos" (seleção conjunta, como no TCC1) ou "sequencia" (seleção só
+    ``scope``: "todos" (seleção conjunta, como na primeira versão) ou "sequencia" (seleção só
     nas primeiras ``n_sequence`` colunas, que são as de sequência; as demais passam).
     """
 
@@ -139,7 +156,7 @@ class FeatureSelection:
 
 
 def _selector(k: int) -> Pipeline:
-    """VarianceThreshold → SelectKBest(f_classif, k), como no TCC1."""
+    """VarianceThreshold → SelectKBest(f_classif, k), como na primeira versão do experimento."""
     return Pipeline(
         [
             ("variance", VarianceThreshold(threshold=VARIANCE_THRESHOLD)),
@@ -161,7 +178,7 @@ def build_preprocessor(
     if selection is None:
         return steps
     if selection.scope == "todos" or (n_features is not None and selection.n_sequence >= n_features):
-        # Seleção conjunta (TCC1). No Pipeline A, "sequencia" é o mesmo que "todos".
+        # Seleção conjunta (primeira versão). No Pipeline A, "sequencia" é o mesmo que "todos".
         return steps + [("variance", VarianceThreshold(threshold=VARIANCE_THRESHOLD)),
                         ("select", SelectKBest(score_func=f_classif, k=selection.k))]
     if n_features is None:

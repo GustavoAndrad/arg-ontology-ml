@@ -1,0 +1,326 @@
+pipeline,modelo,verdadeiro,previsto,genes
+a,random_forest,antibiotic efflux,antibiotic efflux,33
+a,random_forest,antibiotic efflux,antibiotic inactivation,14
+a,random_forest,antibiotic efflux,antibiotic target alteration,0
+a,random_forest,antibiotic efflux,antibiotic target protection,0
+a,random_forest,antibiotic efflux,antibiotic target replacement,0
+a,random_forest,antibiotic inactivation,antibiotic efflux,0
+a,random_forest,antibiotic inactivation,antibiotic inactivation,898
+a,random_forest,antibiotic inactivation,antibiotic target alteration,0
+a,random_forest,antibiotic inactivation,antibiotic target protection,2
+a,random_forest,antibiotic inactivation,antibiotic target replacement,0
+a,random_forest,antibiotic target alteration,antibiotic efflux,4
+a,random_forest,antibiotic target alteration,antibiotic inactivation,31
+a,random_forest,antibiotic target alteration,antibiotic target alteration,20
+a,random_forest,antibiotic target alteration,antibiotic target protection,0
+a,random_forest,antibiotic target alteration,antibiotic target replacement,0
+a,random_forest,antibiotic target protection,antibiotic efflux,0
+a,random_forest,antibiotic target protection,antibiotic inactivation,3
+a,random_forest,antibiotic target protection,antibiotic target alteration,0
+a,random_forest,antibiotic target protection,antibiotic target protection,29
+a,random_forest,antibiotic target protection,antibiotic target replacement,0
+a,random_forest,antibiotic target replacement,antibiotic efflux,0
+a,random_forest,antibiotic target replacement,antibiotic inactivation,17
+a,random_forest,antibiotic target replacement,antibiotic target alteration,0
+a,random_forest,antibiotic target replacement,antibiotic target protection,0
+a,random_forest,antibiotic target replacement,antibiotic target replacement,0
+a,xgboost,antibiotic efflux,antibiotic efflux,39
+a,xgboost,antibiotic efflux,antibiotic inactivation,4
+a,xgboost,antibiotic efflux,antibiotic target alteration,2
+a,xgboost,antibiotic efflux,antibiotic target protection,2
+a,xgboost,antibiotic efflux,antibiotic target replacement,0
+a,xgboost,antibiotic inactivation,antibiotic efflux,0
+a,xgboost,antibiotic inactivation,antibiotic inactivation,891
+a,xgboost,antibiotic inactivation,antibiotic target alteration,7
+a,xgboost,antibiotic inactivation,antibiotic target protection,2
+a,xgboost,antibiotic inactivation,antibiotic target replacement,0
+a,xgboost,antibiotic target alteration,antibiotic efflux,4
+a,xgboost,antibiotic target alteration,antibiotic inactivation,10
+a,xgboost,antibiotic target alteration,antibiotic target alteration,39
+a,xgboost,antibiotic target alteration,antibiotic target protection,1
+a,xgboost,antibiotic target alteration,antibiotic target replacement,1
+a,xgboost,antibiotic target protection,antibiotic efflux,0
+a,xgboost,antibiotic target protection,antibiotic inactivation,0
+a,xgboost,antibiotic target protection,antibiotic target alteration,0
+a,xgboost,antibiotic target protection,antibiotic target protection,32
+a,xgboost,antibiotic target protection,antibiotic target replacement,0
+a,xgboost,antibiotic target replacement,antibiotic efflux,0
+a,xgboost,antibiotic target replacement,antibiotic inactivation,3
+a,xgboost,antibiotic target replacement,antibiotic target alteration,2
+a,xgboost,antibiotic target replacement,antibiotic target protection,0
+a,xgboost,antibiotic target replacement,antibiotic target replacement,12
+a,logistic_regression,antibiotic efflux,antibiotic efflux,41
+a,logistic_regression,antibiotic efflux,antibiotic inactivation,2
+a,logistic_regression,antibiotic efflux,antibiotic target alteration,2
+a,logistic_regression,antibiotic efflux,antibiotic target protection,1
+a,logistic_regression,antibiotic efflux,antibiotic target replacement,1
+a,logistic_regression,antibiotic inactivation,antibiotic efflux,19
+a,logistic_regression,antibiotic inactivation,antibiotic inactivation,800
+a,logistic_regression,antibiotic inactivation,antibiotic target alteration,58
+a,logistic_regression,antibiotic inactivation,antibiotic target protection,2
+a,logistic_regression,antibiotic inactivation,antibiotic target replacement,21
+a,logistic_regression,antibiotic target alteration,antibiotic efflux,5
+a,logistic_regression,antibiotic target alteration,antibiotic inactivation,1
+a,logistic_regression,antibiotic target alteration,antibiotic target alteration,42
+a,logistic_regression,antibiotic target alteration,antibiotic target protection,3
+a,logistic_regression,antibiotic target alteration,antibiotic target replacement,4
+a,logistic_regression,antibiotic target protection,antibiotic efflux,0
+a,logistic_regression,antibiotic target protection,antibiotic inactivation,0
+a,logistic_regression,antibiotic target protection,antibiotic target alteration,12
+a,logistic_regression,antibiotic target protection,antibiotic target protection,20
+a,logistic_regression,antibiotic target protection,antibiotic target replacement,0
+a,logistic_regression,antibiotic target replacement,antibiotic efflux,5
+a,logistic_regression,antibiotic target replacement,antibiotic inactivation,0
+a,logistic_regression,antibiotic target replacement,antibiotic target alteration,6
+a,logistic_regression,antibiotic target replacement,antibiotic target protection,0
+a,logistic_regression,antibiotic target replacement,antibiotic target replacement,6
+a,svm,antibiotic efflux,antibiotic efflux,41
+a,svm,antibiotic efflux,antibiotic inactivation,1
+a,svm,antibiotic efflux,antibiotic target alteration,5
+a,svm,antibiotic efflux,antibiotic target protection,0
+a,svm,antibiotic efflux,antibiotic target replacement,0
+a,svm,antibiotic inactivation,antibiotic efflux,20
+a,svm,antibiotic inactivation,antibiotic inactivation,845
+a,svm,antibiotic inactivation,antibiotic target alteration,30
+a,svm,antibiotic inactivation,antibiotic target protection,3
+a,svm,antibiotic inactivation,antibiotic target replacement,2
+a,svm,antibiotic target alteration,antibiotic efflux,4
+a,svm,antibiotic target alteration,antibiotic inactivation,1
+a,svm,antibiotic target alteration,antibiotic target alteration,48
+a,svm,antibiotic target alteration,antibiotic target protection,1
+a,svm,antibiotic target alteration,antibiotic target replacement,1
+a,svm,antibiotic target protection,antibiotic efflux,1
+a,svm,antibiotic target protection,antibiotic inactivation,0
+a,svm,antibiotic target protection,antibiotic target alteration,11
+a,svm,antibiotic target protection,antibiotic target protection,20
+a,svm,antibiotic target protection,antibiotic target replacement,0
+a,svm,antibiotic target replacement,antibiotic efflux,4
+a,svm,antibiotic target replacement,antibiotic inactivation,2
+a,svm,antibiotic target replacement,antibiotic target alteration,6
+a,svm,antibiotic target replacement,antibiotic target protection,0
+a,svm,antibiotic target replacement,antibiotic target replacement,5
+b,random_forest,antibiotic efflux,antibiotic efflux,42
+b,random_forest,antibiotic efflux,antibiotic inactivation,5
+b,random_forest,antibiotic efflux,antibiotic target alteration,0
+b,random_forest,antibiotic efflux,antibiotic target protection,0
+b,random_forest,antibiotic efflux,antibiotic target replacement,0
+b,random_forest,antibiotic inactivation,antibiotic efflux,1
+b,random_forest,antibiotic inactivation,antibiotic inactivation,897
+b,random_forest,antibiotic inactivation,antibiotic target alteration,0
+b,random_forest,antibiotic inactivation,antibiotic target protection,2
+b,random_forest,antibiotic inactivation,antibiotic target replacement,0
+b,random_forest,antibiotic target alteration,antibiotic efflux,4
+b,random_forest,antibiotic target alteration,antibiotic inactivation,16
+b,random_forest,antibiotic target alteration,antibiotic target alteration,35
+b,random_forest,antibiotic target alteration,antibiotic target protection,0
+b,random_forest,antibiotic target alteration,antibiotic target replacement,0
+b,random_forest,antibiotic target protection,antibiotic efflux,0
+b,random_forest,antibiotic target protection,antibiotic inactivation,1
+b,random_forest,antibiotic target protection,antibiotic target alteration,1
+b,random_forest,antibiotic target protection,antibiotic target protection,30
+b,random_forest,antibiotic target protection,antibiotic target replacement,0
+b,random_forest,antibiotic target replacement,antibiotic efflux,1
+b,random_forest,antibiotic target replacement,antibiotic inactivation,3
+b,random_forest,antibiotic target replacement,antibiotic target alteration,0
+b,random_forest,antibiotic target replacement,antibiotic target protection,0
+b,random_forest,antibiotic target replacement,antibiotic target replacement,13
+b,xgboost,antibiotic efflux,antibiotic efflux,46
+b,xgboost,antibiotic efflux,antibiotic inactivation,1
+b,xgboost,antibiotic efflux,antibiotic target alteration,0
+b,xgboost,antibiotic efflux,antibiotic target protection,0
+b,xgboost,antibiotic efflux,antibiotic target replacement,0
+b,xgboost,antibiotic inactivation,antibiotic efflux,1
+b,xgboost,antibiotic inactivation,antibiotic inactivation,896
+b,xgboost,antibiotic inactivation,antibiotic target alteration,1
+b,xgboost,antibiotic inactivation,antibiotic target protection,2
+b,xgboost,antibiotic inactivation,antibiotic target replacement,0
+b,xgboost,antibiotic target alteration,antibiotic efflux,2
+b,xgboost,antibiotic target alteration,antibiotic inactivation,3
+b,xgboost,antibiotic target alteration,antibiotic target alteration,50
+b,xgboost,antibiotic target alteration,antibiotic target protection,0
+b,xgboost,antibiotic target alteration,antibiotic target replacement,0
+b,xgboost,antibiotic target protection,antibiotic efflux,0
+b,xgboost,antibiotic target protection,antibiotic inactivation,0
+b,xgboost,antibiotic target protection,antibiotic target alteration,0
+b,xgboost,antibiotic target protection,antibiotic target protection,32
+b,xgboost,antibiotic target protection,antibiotic target replacement,0
+b,xgboost,antibiotic target replacement,antibiotic efflux,1
+b,xgboost,antibiotic target replacement,antibiotic inactivation,0
+b,xgboost,antibiotic target replacement,antibiotic target alteration,0
+b,xgboost,antibiotic target replacement,antibiotic target protection,0
+b,xgboost,antibiotic target replacement,antibiotic target replacement,16
+b,logistic_regression,antibiotic efflux,antibiotic efflux,45
+b,logistic_regression,antibiotic efflux,antibiotic inactivation,0
+b,logistic_regression,antibiotic efflux,antibiotic target alteration,1
+b,logistic_regression,antibiotic efflux,antibiotic target protection,1
+b,logistic_regression,antibiotic efflux,antibiotic target replacement,0
+b,logistic_regression,antibiotic inactivation,antibiotic efflux,0
+b,logistic_regression,antibiotic inactivation,antibiotic inactivation,891
+b,logistic_regression,antibiotic inactivation,antibiotic target alteration,6
+b,logistic_regression,antibiotic inactivation,antibiotic target protection,3
+b,logistic_regression,antibiotic inactivation,antibiotic target replacement,0
+b,logistic_regression,antibiotic target alteration,antibiotic efflux,2
+b,logistic_regression,antibiotic target alteration,antibiotic inactivation,1
+b,logistic_regression,antibiotic target alteration,antibiotic target alteration,52
+b,logistic_regression,antibiotic target alteration,antibiotic target protection,0
+b,logistic_regression,antibiotic target alteration,antibiotic target replacement,0
+b,logistic_regression,antibiotic target protection,antibiotic efflux,0
+b,logistic_regression,antibiotic target protection,antibiotic inactivation,0
+b,logistic_regression,antibiotic target protection,antibiotic target alteration,0
+b,logistic_regression,antibiotic target protection,antibiotic target protection,32
+b,logistic_regression,antibiotic target protection,antibiotic target replacement,0
+b,logistic_regression,antibiotic target replacement,antibiotic efflux,0
+b,logistic_regression,antibiotic target replacement,antibiotic inactivation,0
+b,logistic_regression,antibiotic target replacement,antibiotic target alteration,0
+b,logistic_regression,antibiotic target replacement,antibiotic target protection,0
+b,logistic_regression,antibiotic target replacement,antibiotic target replacement,17
+b,svm,antibiotic efflux,antibiotic efflux,47
+b,svm,antibiotic efflux,antibiotic inactivation,0
+b,svm,antibiotic efflux,antibiotic target alteration,0
+b,svm,antibiotic efflux,antibiotic target protection,0
+b,svm,antibiotic efflux,antibiotic target replacement,0
+b,svm,antibiotic inactivation,antibiotic efflux,0
+b,svm,antibiotic inactivation,antibiotic inactivation,893
+b,svm,antibiotic inactivation,antibiotic target alteration,2
+b,svm,antibiotic inactivation,antibiotic target protection,5
+b,svm,antibiotic inactivation,antibiotic target replacement,0
+b,svm,antibiotic target alteration,antibiotic efflux,2
+b,svm,antibiotic target alteration,antibiotic inactivation,0
+b,svm,antibiotic target alteration,antibiotic target alteration,53
+b,svm,antibiotic target alteration,antibiotic target protection,0
+b,svm,antibiotic target alteration,antibiotic target replacement,0
+b,svm,antibiotic target protection,antibiotic efflux,0
+b,svm,antibiotic target protection,antibiotic inactivation,0
+b,svm,antibiotic target protection,antibiotic target alteration,0
+b,svm,antibiotic target protection,antibiotic target protection,32
+b,svm,antibiotic target protection,antibiotic target replacement,0
+b,svm,antibiotic target replacement,antibiotic efflux,0
+b,svm,antibiotic target replacement,antibiotic inactivation,0
+b,svm,antibiotic target replacement,antibiotic target alteration,0
+b,svm,antibiotic target replacement,antibiotic target protection,0
+b,svm,antibiotic target replacement,antibiotic target replacement,17
+b_gene_novo,random_forest,antibiotic efflux,antibiotic efflux,39
+b_gene_novo,random_forest,antibiotic efflux,antibiotic inactivation,8
+b_gene_novo,random_forest,antibiotic efflux,antibiotic target alteration,0
+b_gene_novo,random_forest,antibiotic efflux,antibiotic target protection,0
+b_gene_novo,random_forest,antibiotic efflux,antibiotic target replacement,0
+b_gene_novo,random_forest,antibiotic inactivation,antibiotic efflux,0
+b_gene_novo,random_forest,antibiotic inactivation,antibiotic inactivation,898
+b_gene_novo,random_forest,antibiotic inactivation,antibiotic target alteration,0
+b_gene_novo,random_forest,antibiotic inactivation,antibiotic target protection,2
+b_gene_novo,random_forest,antibiotic inactivation,antibiotic target replacement,0
+b_gene_novo,random_forest,antibiotic target alteration,antibiotic efflux,3
+b_gene_novo,random_forest,antibiotic target alteration,antibiotic inactivation,16
+b_gene_novo,random_forest,antibiotic target alteration,antibiotic target alteration,36
+b_gene_novo,random_forest,antibiotic target alteration,antibiotic target protection,0
+b_gene_novo,random_forest,antibiotic target alteration,antibiotic target replacement,0
+b_gene_novo,random_forest,antibiotic target protection,antibiotic efflux,0
+b_gene_novo,random_forest,antibiotic target protection,antibiotic inactivation,1
+b_gene_novo,random_forest,antibiotic target protection,antibiotic target alteration,1
+b_gene_novo,random_forest,antibiotic target protection,antibiotic target protection,30
+b_gene_novo,random_forest,antibiotic target protection,antibiotic target replacement,0
+b_gene_novo,random_forest,antibiotic target replacement,antibiotic efflux,1
+b_gene_novo,random_forest,antibiotic target replacement,antibiotic inactivation,2
+b_gene_novo,random_forest,antibiotic target replacement,antibiotic target alteration,0
+b_gene_novo,random_forest,antibiotic target replacement,antibiotic target protection,0
+b_gene_novo,random_forest,antibiotic target replacement,antibiotic target replacement,14
+b_gene_novo,xgboost,antibiotic efflux,antibiotic efflux,40
+b_gene_novo,xgboost,antibiotic efflux,antibiotic inactivation,4
+b_gene_novo,xgboost,antibiotic efflux,antibiotic target alteration,2
+b_gene_novo,xgboost,antibiotic efflux,antibiotic target protection,1
+b_gene_novo,xgboost,antibiotic efflux,antibiotic target replacement,0
+b_gene_novo,xgboost,antibiotic inactivation,antibiotic efflux,0
+b_gene_novo,xgboost,antibiotic inactivation,antibiotic inactivation,896
+b_gene_novo,xgboost,antibiotic inactivation,antibiotic target alteration,2
+b_gene_novo,xgboost,antibiotic inactivation,antibiotic target protection,2
+b_gene_novo,xgboost,antibiotic inactivation,antibiotic target replacement,0
+b_gene_novo,xgboost,antibiotic target alteration,antibiotic efflux,1
+b_gene_novo,xgboost,antibiotic target alteration,antibiotic inactivation,2
+b_gene_novo,xgboost,antibiotic target alteration,antibiotic target alteration,50
+b_gene_novo,xgboost,antibiotic target alteration,antibiotic target protection,1
+b_gene_novo,xgboost,antibiotic target alteration,antibiotic target replacement,1
+b_gene_novo,xgboost,antibiotic target protection,antibiotic efflux,0
+b_gene_novo,xgboost,antibiotic target protection,antibiotic inactivation,0
+b_gene_novo,xgboost,antibiotic target protection,antibiotic target alteration,0
+b_gene_novo,xgboost,antibiotic target protection,antibiotic target protection,32
+b_gene_novo,xgboost,antibiotic target protection,antibiotic target replacement,0
+b_gene_novo,xgboost,antibiotic target replacement,antibiotic efflux,0
+b_gene_novo,xgboost,antibiotic target replacement,antibiotic inactivation,0
+b_gene_novo,xgboost,antibiotic target replacement,antibiotic target alteration,0
+b_gene_novo,xgboost,antibiotic target replacement,antibiotic target protection,0
+b_gene_novo,xgboost,antibiotic target replacement,antibiotic target replacement,17
+b_gene_novo,logistic_regression,antibiotic efflux,antibiotic efflux,41
+b_gene_novo,logistic_regression,antibiotic efflux,antibiotic inactivation,1
+b_gene_novo,logistic_regression,antibiotic efflux,antibiotic target alteration,2
+b_gene_novo,logistic_regression,antibiotic efflux,antibiotic target protection,2
+b_gene_novo,logistic_regression,antibiotic efflux,antibiotic target replacement,1
+b_gene_novo,logistic_regression,antibiotic inactivation,antibiotic efflux,0
+b_gene_novo,logistic_regression,antibiotic inactivation,antibiotic inactivation,889
+b_gene_novo,logistic_regression,antibiotic inactivation,antibiotic target alteration,5
+b_gene_novo,logistic_regression,antibiotic inactivation,antibiotic target protection,4
+b_gene_novo,logistic_regression,antibiotic inactivation,antibiotic target replacement,2
+b_gene_novo,logistic_regression,antibiotic target alteration,antibiotic efflux,1
+b_gene_novo,logistic_regression,antibiotic target alteration,antibiotic inactivation,1
+b_gene_novo,logistic_regression,antibiotic target alteration,antibiotic target alteration,51
+b_gene_novo,logistic_regression,antibiotic target alteration,antibiotic target protection,1
+b_gene_novo,logistic_regression,antibiotic target alteration,antibiotic target replacement,1
+b_gene_novo,logistic_regression,antibiotic target protection,antibiotic efflux,0
+b_gene_novo,logistic_regression,antibiotic target protection,antibiotic inactivation,0
+b_gene_novo,logistic_regression,antibiotic target protection,antibiotic target alteration,0
+b_gene_novo,logistic_regression,antibiotic target protection,antibiotic target protection,32
+b_gene_novo,logistic_regression,antibiotic target protection,antibiotic target replacement,0
+b_gene_novo,logistic_regression,antibiotic target replacement,antibiotic efflux,0
+b_gene_novo,logistic_regression,antibiotic target replacement,antibiotic inactivation,0
+b_gene_novo,logistic_regression,antibiotic target replacement,antibiotic target alteration,0
+b_gene_novo,logistic_regression,antibiotic target replacement,antibiotic target protection,0
+b_gene_novo,logistic_regression,antibiotic target replacement,antibiotic target replacement,17
+b_gene_novo,svm,antibiotic efflux,antibiotic efflux,41
+b_gene_novo,svm,antibiotic efflux,antibiotic inactivation,1
+b_gene_novo,svm,antibiotic efflux,antibiotic target alteration,5
+b_gene_novo,svm,antibiotic efflux,antibiotic target protection,0
+b_gene_novo,svm,antibiotic efflux,antibiotic target replacement,0
+b_gene_novo,svm,antibiotic inactivation,antibiotic efflux,0
+b_gene_novo,svm,antibiotic inactivation,antibiotic inactivation,893
+b_gene_novo,svm,antibiotic inactivation,antibiotic target alteration,2
+b_gene_novo,svm,antibiotic inactivation,antibiotic target protection,5
+b_gene_novo,svm,antibiotic inactivation,antibiotic target replacement,0
+b_gene_novo,svm,antibiotic target alteration,antibiotic efflux,2
+b_gene_novo,svm,antibiotic target alteration,antibiotic inactivation,0
+b_gene_novo,svm,antibiotic target alteration,antibiotic target alteration,52
+b_gene_novo,svm,antibiotic target alteration,antibiotic target protection,0
+b_gene_novo,svm,antibiotic target alteration,antibiotic target replacement,1
+b_gene_novo,svm,antibiotic target protection,antibiotic efflux,0
+b_gene_novo,svm,antibiotic target protection,antibiotic inactivation,0
+b_gene_novo,svm,antibiotic target protection,antibiotic target alteration,0
+b_gene_novo,svm,antibiotic target protection,antibiotic target protection,32
+b_gene_novo,svm,antibiotic target protection,antibiotic target replacement,0
+b_gene_novo,svm,antibiotic target replacement,antibiotic efflux,0
+b_gene_novo,svm,antibiotic target replacement,antibiotic inactivation,0
+b_gene_novo,svm,antibiotic target replacement,antibiotic target alteration,0
+b_gene_novo,svm,antibiotic target replacement,antibiotic target protection,0
+b_gene_novo,svm,antibiotic target replacement,antibiotic target replacement,17
+homologia,homologia,antibiotic efflux,antibiotic efflux,40
+homologia,homologia,antibiotic efflux,antibiotic inactivation,7
+homologia,homologia,antibiotic efflux,antibiotic target alteration,0
+homologia,homologia,antibiotic efflux,antibiotic target protection,0
+homologia,homologia,antibiotic efflux,antibiotic target replacement,0
+homologia,homologia,antibiotic inactivation,antibiotic efflux,0
+homologia,homologia,antibiotic inactivation,antibiotic inactivation,899
+homologia,homologia,antibiotic inactivation,antibiotic target alteration,0
+homologia,homologia,antibiotic inactivation,antibiotic target protection,1
+homologia,homologia,antibiotic inactivation,antibiotic target replacement,0
+homologia,homologia,antibiotic target alteration,antibiotic efflux,0
+homologia,homologia,antibiotic target alteration,antibiotic inactivation,5
+homologia,homologia,antibiotic target alteration,antibiotic target alteration,50
+homologia,homologia,antibiotic target alteration,antibiotic target protection,0
+homologia,homologia,antibiotic target alteration,antibiotic target replacement,0
+homologia,homologia,antibiotic target protection,antibiotic efflux,0
+homologia,homologia,antibiotic target protection,antibiotic inactivation,0
+homologia,homologia,antibiotic target protection,antibiotic target alteration,0
+homologia,homologia,antibiotic target protection,antibiotic target protection,32
+homologia,homologia,antibiotic target protection,antibiotic target replacement,0
+homologia,homologia,antibiotic target replacement,antibiotic efflux,0
+homologia,homologia,antibiotic target replacement,antibiotic inactivation,0
+homologia,homologia,antibiotic target replacement,antibiotic target alteration,0
+homologia,homologia,antibiotic target replacement,antibiotic target protection,0
+homologia,homologia,antibiotic target replacement,antibiotic target replacement,17

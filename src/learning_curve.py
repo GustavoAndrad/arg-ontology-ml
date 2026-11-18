@@ -1,10 +1,10 @@
 """
-learning_curve.py — Curva de aprendizado e overfitting por classe (capítulo 5; TCC2, ponto 9).
+learning_curve.py — Curva de aprendizado e overfitting por classe (capítulo 5).
 
-Pergunta (apontamento J11 da Jéssica): os modelos "decoram" o treino? Generalizam bem
+Pergunta: os modelos "decoram" o treino? Generalizam bem
 só para a classe majoritária? E mais dados de treino ajudariam?
 
-**Overfitting** (decisão 3 do ponto 9): F1-macro e F1 de cada classe em três lugares:
+**Overfitting**: F1-macro e F1 de cada classe em três lugares:
     * treino: o modelo avaliado nos próprios genes com que foi ajustado
       (nos folds, ``f1_treino_cv``; no modelo final, ``f1_treino_final``);
     * validação: os folds de validação da CV 10 × 5;
@@ -13,30 +13,31 @@ só para a classe majoritária? E mais dados de treino ajudariam?
 treino); o que importa é a **queda** do treino para os dados novos e se ela é maior
 nas classes pequenas.
 
-**Curva de aprendizado** (decisão 4): em cada um dos 50 folds, o modelo é treinado
-com 20, 40, 60, 80 e 100% do conjunto de ajuste e avaliado no fold de validação
-(inteiro, sempre o mesmo). Decisões:
+**Curva de aprendizado**: em cada um dos 50 folds, o modelo é treinado com 20, 40,
+60, 80 e 100% **dos grupos** de cada classe do conjunto de ajuste e avaliado no fold
+de validação (inteiro, sempre o mesmo). Em genes, a média acompanha a fração de
+grupos (20% dos grupos ≈ 22% dos genes), mas varia de fold para fold por causa dos
+grupos grandes (com 20%, de 6% a 54% dos genes). Decisões:
     * **Redução por grupos inteiros**, estratificada por classe: em cada classe, os
       grupos de similaridade (70%) são sorteados, e a fração f mantém os primeiros
       ceil(f × número de grupos da classe). Sortear genes soltos manteria
       representantes de quase todas as famílias e mediria pouco; sorteando grupos,
       a curva mede quanto o modelo melhora quando vê **mais famílias de genes**.
-      Nenhum grupo mistura classes (verificado no ponto 5), então a estratificação
+      Nenhum grupo mistura classes (conferido no código), então a estratificação
       por grupo é exata.
     * **Frações encaixadas** (os 20% estão dentro dos 40%, e assim por diante; uma
       única ordem de sorteio por fold): reduz o ruído entre pontos da curva.
     * **As mesmas frações para A, B e os 4 modelos** (mesma semente por fold):
       comparações pareadas.
-    * **Frações de 20 a 100% em passos iguais de 20%:** 5 pontos, os mesmos da prévia
-      de 11/11 (comparabilidade). Em cada fração registra-se o menor número de genes
-      de cada classe no treino; a fração em que alguma classe fica com menos de 5
-      genes em algum fold (critério do ponto 2) é **marcada** (``atende_criterio``),
-      como na curva por limiar. Medido: com 20%, a substituição do alvo chega a 4.
+    * **Frações de 20 a 100% em passos iguais de 20%:** 5 pontos. Em cada fração
+      registra-se o menor número de genes de cada classe no treino; a fração em que
+      alguma classe fica com menos de 5 genes em algum fold (critério de entrada das
+      classes) é **marcada** (``atende_criterio``), como na curva por limiar. Medido: com 20%, a substituição do alvo chega a 4.
     * A fração de 100% é o próprio experimento (controle: reproduz ``cv_folds.csv``).
 O F1 médio de cada ponto vem com o IC 95% corrigido de Nadeau e Bengio sobre os 50
-folds. Descritivo, sem teste (ponto 5).
+folds. Descritivo, sem teste.
 
-Hiperparâmetros fixos e iguais nos dois pipelines (decisão 5 do ponto 9); a
+Hiperparâmetros fixos e iguais nos dois pipelines; a
 sensibilidade ao ajuste está em ``src.sensitivity_tuning``.
 
 Saídas:

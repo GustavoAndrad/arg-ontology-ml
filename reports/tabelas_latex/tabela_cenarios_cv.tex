@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+  \centering
+  \caption{Diferenças no F1-macro entre os cenários na validação cruzada (10 $\times$ 5, mesmos folds), com IC 95\% corrigido (Nadeau e Bengio). Descritivo, sem teste. A homologia não tem modelo: nas linhas só de homologia, o valor é o mesmo nas quatro colunas.}
+  \label{tab:cenarios_cv}
+  \begin{tabular}{lcccc}
+    \toprule
+    Comparação & Random Forest & XGBoost & Regressão Logística & SVM (RBF) \\
+    \midrule
+    B gene novo $-$ B curado & -0,009 [-0,032; 0,013] & -0,050 [-0,102; 0,002] & -0,059 [-0,107; -0,010] & -0,050 [-0,099; -0,001] \\
+    Homologia $-$ B curado & 0,136 [0,031; 0,241] & 0,016 [-0,069; 0,100] & 0,003 [-0,052; 0,058] & -0,013 [-0,074; 0,048] \\
+    Homologia $-$ B gene novo & 0,145 [0,041; 0,250] & 0,066 [-0,007; 0,139] & 0,062 [0,021; 0,102] & 0,037 [-0,001; 0,075] \\
+    Gene sem vizinho: atributos zerados $-$ usar o A & -0,001 [-0,006; 0,005] & 0,003 [-0,012; 0,019] & 0,003 [-0,015; 0,020] & -0,008 [-0,020; 0,005] \\
+    B gene novo: piso de 40\% $-$ sem piso & -0,034 [-0,062; -0,006] & -0,036 [-0,070; -0,002] & -0,057 [-0,104; -0,010] & -0,045 [-0,089; -0,002] \\
+    Homologia: piso de 40\% $-$ sem piso & -0,095 [-0,143; -0,047] & -0,095 [-0,143; -0,047] & -0,095 [-0,143; -0,047] & -0,095 [-0,143; -0,047] \\
+    \bottomrule
+  \end{tabular}
+\end{table}

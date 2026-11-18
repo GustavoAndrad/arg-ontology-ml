@@ -1,0 +1,386 @@
+familia,genes,mecanismos,n_mecanismos,n_grupos_70
+OXA beta-lactamase,1273,antibiotic inactivation,1,43
+PDC beta-lactamase,639,antibiotic inactivation,1,1
+OXA-51-like beta-lactamase,383,antibiotic inactivation,1,1
+ADC beta-lactamases pending classification for carbapenemase activity,274,antibiotic inactivation,1,1
+CTX-M beta-lactamase,270,antibiotic inactivation,1,5
+KPC beta-lactamase,231,antibiotic inactivation,1,2
+SHV beta-lactamase,219,antibiotic inactivation,1,4
+TEM beta-lactamase,218,antibiotic inactivation,1,3
+CMY beta-lactamase,195,antibiotic inactivation,1,4
+ACT beta-lactamase,172,antibiotic inactivation,1,2
+major facilitator superfamily (MFS) antibiotic efflux pump,118,antibiotic efflux,1,92
+quinolone resistance protein (qnr),108,antibiotic target protection,1,6
+MCR phosphoethanolamine transferase,105,antibiotic target alteration,1,6
+resistance-nodulation-cell division (RND) antibiotic efflux pump,105,antibiotic efflux,1,96
+OXA-50-like beta-lactamase,104,antibiotic inactivation,1,1
+OXA-213-like beta-lactamase,103,antibiotic inactivation,1,1
+IMP beta-lactamase,102,antibiotic inactivation,1,4
+VIM beta-lactamase,91,antibiotic inactivation,1,3
+glycopeptide resistance gene cluster,78,antibiotic target alteration,1,62
+OXY beta-lactamase,73,antibiotic inactivation,1,1
+NDM beta-lactamase,71,antibiotic inactivation,1,1
+OXA-48-like beta-lactamase,68,antibiotic inactivation,1,2
+AAC(6'),67,antibiotic inactivation,1,23
+OXA-10-like beta-lactamase,65,antibiotic inactivation,1,1
+GES beta-lactamase,64,antibiotic inactivation,1,1
+trimethoprim resistant dihydrofolate reductase dfr,59,antibiotic target replacement,1,28
+CARB beta-lactamase,54,antibiotic inactivation,1,3
+GOB beta-lactamase,53,antibiotic inactivation,1,1
+ADC beta-lactamase without carbapenemase activity,51,antibiotic inactivation,1,2
+OXA-23-like beta-lactamase,51,antibiotic inactivation,1,1
+OXA-61-like beta-lactamase,49,antibiotic inactivation,1,1
+Erm 23S ribosomal RNA methyltransferase,47,antibiotic target alteration,1,33
+OKP beta-lactamase,47,antibiotic inactivation,1,1
+LEN beta-lactamase,44,antibiotic inactivation,1,1
+OXA-184-like beta-lactamase,39,antibiotic inactivation,1,1
+VEB beta-lactamase,39,antibiotic inactivation,1,1
+BlaB beta-lactamase,37,antibiotic inactivation,1,1
+PEN-A beta-lactamase,35,antibiotic inactivation,1,1
+CMH beta-lactamase,32,antibiotic inactivation,1,1
+DHA beta-lactamase,32,antibiotic inactivation,1,1
+MIR beta-lactamase,32,antibiotic inactivation,1,1
+OXA-2-like beta-lactamase,31,antibiotic inactivation,1,1
+chloramphenicol acetyltransferase (CAT),31,antibiotic inactivation,1,15
+fosfomycin thiol transferase,30,antibiotic inactivation,1,15
+ANT(3''),29,antibiotic inactivation,1,7
+ATP-binding cassette (ABC) antibiotic efflux pump,28,antibiotic efflux,1,28
+IMI beta-lactamase,28,antibiotic inactivation,1,2
+OXA-134-like beta-lactamase,28,antibiotic inactivation,1,1
+MOX beta-lactamase,26,antibiotic inactivation,1,2
+OXA-114-like beta-lactamase,26,antibiotic inactivation,1,1
+OXA-63-like beta-lactamase,23,antibiotic inactivation,1,1
+OXA-229-like beta-lactamase,22,antibiotic inactivation,1,1
+CfiA beta-lactamase,21,antibiotic inactivation,1,1
+AAC(3),20,antibiotic inactivation,1,10
+FOX beta-lactamase,19,antibiotic inactivation,1,1
+IND beta-lactamase,19,antibiotic inactivation,1,1
+tetracycline-resistant ribosomal protection protein,19,antibiotic target protection,1,7
+OXA-211-like beta-lactamase,18,antibiotic inactivation,1,1
+PER beta-lactamase,18,antibiotic inactivation,1,1
+APH(3'),17,antibiotic inactivation,1,14
+OXA-286-like beta-lactamase,17,antibiotic inactivation,1,1
+tetracycline inactivation enzyme,17,antibiotic inactivation,1,7
+OXA-62-like beta-lactamase,15,antibiotic inactivation,1,1
+macrolide phosphotransferase (MPH),15,antibiotic inactivation,1,14
+OXA-1-like beta-lactamase,14,antibiotic inactivation,1,3
+OXA-24-like beta-lactamase,14,antibiotic inactivation,1,1
+FONA beta-lactamase,13,antibiotic inactivation,1,1
+FRI beta-lactamase,13,antibiotic inactivation,1,1
+OXA-294-like beta-lactamase,13,antibiotic inactivation,1,1
+Van ligase,13,antibiotic target alteration,1,9
+vanR,13,antibiotic target alteration,1,9
+16S rRNA methyltransferase (G1405),12,antibiotic target alteration,1,9
+Miscellaneous ABC-F subfamily ATP-binding cassette ribosomal protection proteins,12,antibiotic target protection,1,11
+ROB beta-lactamase,12,antibiotic inactivation,1,1
+nitroimidazole reductase,12,antibiotic inactivation,1,4
+small multidrug resistance (SMR) antibiotic efflux pump,12,antibiotic efflux,1,10
+vanS,12,antibiotic target alteration,1,11
+ACC beta-lactamase,11,antibiotic inactivation,1,1
+OXA-12-like beta-lactamase,11,antibiotic inactivation,1,1
+OXA-143-like beta-lactamase,11,antibiotic inactivation,1,1
+lincosamide nucleotidyltransferase (LNU),11,antibiotic inactivation,1,8
+AAC(6')-Ib-cr,10,antibiotic inactivation,1,1
+Cfr 23S ribosomal RNA methyltransferase,10,antibiotic target alteration,1,6
+CphA beta-lactamase,9,antibiotic inactivation,1,1
+multidrug and toxic compound extrusion (MATE) transporter,9,antibiotic efflux,1,9
+AAC(2'),8,antibiotic inactivation,1,6
+AXC beta-lactamase,8,antibiotic inactivation,1,1
+EC beta-lactamase,8,antibiotic inactivation,1,1
+OCH beta-lactamase,8,antibiotic inactivation,1,1
+OXA-55-like beta-lactamase,8,antibiotic inactivation,1,1
+OXA-58-like beta-lactamase,8,antibiotic inactivation,1,1
+msr-type ABC-F protein,8,antibiotic target protection,1,6
+streptogramin vat acetyltransferase,8,antibiotic inactivation,1,6
+subclass B3 LRA beta-lactamase,8,antibiotic inactivation,1,6
+vanX,8,antibiotic target alteration,1,3
+HER beta-lactamase,7,antibiotic inactivation,1,1
+LHK beta-lactamase,7,antibiotic inactivation,1,1
+OXA-214-like beta-lactamase,7,antibiotic inactivation,1,1
+OXA-22-like beta-lactamase,7,antibiotic inactivation,1,1
+OXA-60-like beta-lactamase,7,antibiotic inactivation,1,1
+OXA-679-like beta-lactamase,7,antibiotic inactivation,1,1
+SGM beta-lactamase,7,antibiotic inactivation,1,1
+methicillin resistant PBP2,7,antibiotic target replacement,1,7
+rifampin ADP-ribosyltransferase (Arr),7,antibiotic inactivation,1,2
+vanH,7,antibiotic target alteration,1,5
+vga-type ABC-F protein,7,antibiotic target protection,1,5
+APH(2''),6,antibiotic inactivation,1,5
+ARL Beta-lactamase,6,antibiotic inactivation,1,1
+CfxA beta-lactamase,6,antibiotic inactivation,1,1
+KLUC beta-lactamase,6,antibiotic inactivation,1,1
+LUT beta-lactamase,6,antibiotic inactivation,1,1
+ORN beta-lactamase,6,antibiotic inactivation,1,1
+OXA-274-like beta-lactamase,6,antibiotic inactivation,1,1
+OXA-46-like beta-lactamase,6,antibiotic inactivation,1,1
+OXA-548-like beta-lactamase,6,antibiotic inactivation,1,1
+PLA beta-lactamase,6,antibiotic inactivation,1,1
+RAHN beta-lactamase,6,antibiotic inactivation,1,1
+pmr phosphoethanolamine transferase,6,antibiotic target alteration,1,6
+vanT,6,antibiotic target alteration,1,6
+vanY,6,antibiotic target alteration,1,6
+AFM beta-lactamase,5,antibiotic inactivation,1,1
+ANT(6),5,antibiotic inactivation,1,4
+EBR beta-lactamase,5,antibiotic inactivation,1,1
+OXA-364-like beta-lactamase,5,antibiotic inactivation,1,1
+SME beta-lactamase,5,antibiotic inactivation,1,1
+defensin resistant mprF,5,antibiotic target alteration,1,5
+lsa-type ABC-F protein,5,antibiotic target protection,1,5
+macrolide esterase,5,antibiotic inactivation,1,4
+non-erm 23S ribosomal RNA methyltransferase (G748),5,antibiotic target alteration,1,5
+sal-type ABC-F protein,5,antibiotic target protection,1,4
+streptothricin acetyltransferase (SAT),5,antibiotic inactivation,1,5
+vanXY,5,antibiotic target alteration,1,5
+ANT(4'),4,antibiotic inactivation,1,3
+ANT(9),4,antibiotic inactivation,1,4
+APH(6),4,antibiotic inactivation,1,3
+BEL beta-lactamase,4,antibiotic inactivation,1,1
+BlaZ beta-lactamase,4,antibiotic inactivation,1,3
+CIA beta-lactamase,4,antibiotic inactivation,1,1
+CepA beta-lactamase,4,antibiotic inactivation,1,1
+OXA-198-like beta-lactamase,4,antibiotic inactivation,1,1
+OXA-42-like beta-lactamase,4,antibiotic inactivation,1,1
+PAM beta-lactamase,4,antibiotic inactivation,1,1
+PEN-B beta-lactamase,4,antibiotic inactivation,1,1
+PFM beta-lactamase,4,antibiotic inactivation,1,1
+SRT beta-lactamase,4,antibiotic inactivation,1,1
+Target protecting FusB-type protein conferring resistance to Fusidic acid,4,antibiotic target protection,1,4
+aminoglycoside bifunctional resistance protein,4,antibiotic inactivation,1,2
+sulfonamide resistant sul,4,antibiotic target replacement,1,4
+APH(3''),3,antibiotic inactivation,1,3
+APH(9),3,antibiotic inactivation,1,3
+AQU beta-lactamase,3,antibiotic inactivation,1,1
+CME beta-lactamase,3,antibiotic inactivation,1,1
+CRH beta-lactamase,3,antibiotic inactivation,1,1
+GIM beta-lactamase,3,antibiotic inactivation,1,1
+OXA-372-like beta-lactamase,3,antibiotic inactivation,1,1
+PNC beta-lactamase,3,antibiotic inactivation,1,1
+TLA beta-lactamase,3,antibiotic inactivation,1,2
+ampC-type beta-lactamase,3,antibiotic inactivation,1,3
+antibiotic-resistant isoleucyl-tRNA synthetase (ileS),3,antibiotic target alteration,1,3
+class C LRA beta-lactamase,3,antibiotic inactivation,1,3
+polymyxin resistance operon,3,antibiotic target alteration,1,3
+rifampin monooxygenase,3,antibiotic inactivation,1,2
+streptogramin vgb lyase,3,antibiotic inactivation,1,3
+vanW,3,antibiotic target alteration,1,3
+16S rRNA methyltransferase (A1408),2,antibiotic target alteration,1,2
+AIM beta-lactamase,2,antibiotic inactivation,1,1
+ALI beta-lactamase,2,antibiotic inactivation,1,1
+APH(4),2,antibiotic inactivation,1,2
+BIC Beta-lactamase,2,antibiotic inactivation,1,1
+BKC Beta-lactamase,2,antibiotic inactivation,1,1
+BRO Beta-lactamase,2,antibiotic inactivation,1,1
+BUT beta-lactamase,2,antibiotic inactivation,1,1
+Bleomycin resistant protein,2,antibiotic inactivation,1,2
+CAM beta-lactamase,2,antibiotic inactivation,1,1
+CDD beta-lactamase,2,antibiotic inactivation,1,1
+CMA beta-lactamase,2,antibiotic inactivation,1,1
+CSA beta-lactamase,2,antibiotic inactivation,1,1
+Fom phosphotransferase family,2,antibiotic inactivation,1,2
+GMA beta-lactamase,2,antibiotic inactivation,1,1
+HMB beta-lactamase,2,antibiotic inactivation,1,1
+IDC beta-lactamase,2,antibiotic inactivation,1,1
+KHM beta-lactamase,2,antibiotic inactivation,1,1
+LAP beta-lactamase,2,antibiotic inactivation,1,1
+MAL beta-lactamase,2,antibiotic inactivation,1,1
+MUN beta-lactamase,2,antibiotic inactivation,1,1
+MUS beta-lactamase,2,antibiotic inactivation,1,1
+OXA-266-like beta-lactamase,2,antibiotic inactivation,1,1
+OXA-427-like beta-lactamase,2,antibiotic inactivation,1,1
+OXA-493-like beta-lactamase,2,antibiotic inactivation,1,1
+OXA-5-like beta-lactamase,2,antibiotic inactivation,1,1
+OXA-727-like beta-lactamase,2,antibiotic inactivation,1,1
+OXA-9-like beta-lactamase,2,antibiotic inactivation,1,1
+PJM beta-lactamase,2,antibiotic inactivation,1,1
+POM beta-lactamase,2,antibiotic inactivation,1,1
+PST beta-lactamase,2,antibiotic inactivation,1,1
+RATA beta-lactamase,2,antibiotic inactivation,1,1
+RSD2 beta-lactamase,2,antibiotic inactivation,1,1
+SED beta-lactamase,2,antibiotic inactivation,1,1
+SFC beta-lactamase,2,antibiotic inactivation,1,1
+SHW beta-lactamase,2,antibiotic inactivation,1,2
+SIM beta-lactamase,2,antibiotic inactivation,1,1
+TER beta-lactamase,2,antibiotic inactivation,1,1
+TMB beta-lactamase,2,antibiotic inactivation,1,1
+class A Bacillus cereus Bc beta-lactamase,2,antibiotic inactivation,1,2
+class A LRA beta-lactamase,2,antibiotic inactivation,1,2
+class A Mycobacterium abscessus beta-lactamase,2,antibiotic inactivation,1,2
+fosC phosphotransferase family,2,antibiotic inactivation,1,2
+intrinsic colistin resistant phosphoethanolamine transferase,2,antibiotic target alteration,1,2
+kdpDE,2,antibiotic efflux,1,2
+ole glycosyltransferase,2,antibiotic inactivation,1,2
+rifampin phosphotransferase,2,antibiotic inactivation,1,2
+subclass B3 PEDO beta-lactamase,2,antibiotic inactivation,1,2
+undecaprenyl pyrophosphate related proteins,2,antibiotic target alteration,1,2
+vanZ,2,antibiotic target alteration,1,2
+AAK beta-lactamase,1,antibiotic inactivation,1,1
+ACI beta-lactamase,1,antibiotic inactivation,1,1
+ADC beta-lactamase with carbapenemase activity,1,antibiotic inactivation,1,1
+AER beta-lactamase,1,antibiotic inactivation,1,1
+ALG11 beta-lactamase,1,antibiotic inactivation,1,1
+ALG6 beta-lactamases,1,antibiotic inactivation,1,1
+AMZ beta-lactamase,1,antibiotic inactivation,1,1
+ANA beta-lactamase,1,antibiotic inactivation,1,1
+ANT(2''),1,antibiotic inactivation,1,1
+APH(7''),1,antibiotic inactivation,1,1
+AST Beta-lactamase,1,antibiotic inactivation,1,1
+ASU1 beta-lactamase,1,antibiotic inactivation,1,1
+B3SU1 beta-lactamase,1,antibiotic inactivation,1,1
+B3SU2 beta-lactamase,1,antibiotic inactivation,1,1
+BAT Beta-lactamase,1,antibiotic inactivation,1,1
+BCL Beta-lactamase,1,antibiotic inactivation,1,1
+BES Beta-lactamase,1,antibiotic inactivation,1,1
+BIL Beta-lactamase,1,antibiotic inactivation,1,1
+BIM beta-lactamase,1,antibiotic inactivation,1,1
+BJP beta-lactamase,1,antibiotic inactivation,1,1
+BMHC beta-lactamase,1,antibiotic inactivation,1,1
+BOR beta-lactamase,1,antibiotic inactivation,1,1
+BPU Beta-lactamase,1,antibiotic inactivation,1,1
+BSU beta-lactamase,1,antibiotic inactivation,1,1
+Bah amidohydrolase,1,antibiotic inactivation,1,1
+BlaA beta-lactamase,1,antibiotic inactivation,1,1
+CAE beta-lactamase,1,antibiotic inactivation,1,1
+CAR beta-lactamase,1,antibiotic inactivation,1,1
+CAU beta-lactamase,1,antibiotic inactivation,1,1
+CBP beta-lactamase,1,antibiotic inactivation,1,1
+CDA beta-lactamase,1,antibiotic inactivation,1,1
+CGA beta-lactamase,1,antibiotic inactivation,1,1
+CGB beta-lactamase,1,antibiotic inactivation,1,1
+CHM beta-lactamase,1,antibiotic inactivation,1,1
+CIM beta-lactamase,1,antibiotic inactivation,1,1
+CKO beta-lactamase,1,antibiotic inactivation,1,1
+CPS beta-lactamase,1,antibiotic inactivation,1,1
+CRD3 beta-lactamase,1,antibiotic inactivation,1,1
+CRP beta-lactamase,1,antibiotic inactivation,1,1
+CSP beta-lactamase,1,antibiotic inactivation,1,1
+CVI beta-lactamase,1,antibiotic inactivation,1,1
+CblA beta-lactamase,1,antibiotic inactivation,1,1
+CepS beta-lactamase,1,antibiotic inactivation,1,1
+DES beta-lactamase,1,antibiotic inactivation,1,1
+DHT2 beta-lactamase,1,antibiotic inactivation,1,1
+DIM beta-lactamase,1,antibiotic inactivation,1,1
+DYB beta-lactamase,1,antibiotic inactivation,1,1
+EAM beta-lactamase,1,antibiotic inactivation,1,1
+ECM beta-lactamase,1,antibiotic inactivation,1,1
+ECV beta-lactamase,1,antibiotic inactivation,1,1
+EFM beta-lactamase,1,antibiotic inactivation,1,1
+ELM beta-lactamase,1,antibiotic inactivation,1,1
+ERP beta-lactamase,1,antibiotic inactivation,1,1
+ESP beta-lactamase,1,antibiotic inactivation,1,1
+EVM beta-lactamase,1,antibiotic inactivation,1,1
+EXO beta-lactamase,1,antibiotic inactivation,1,1
+Edeine acetyltransferase,1,antibiotic inactivation,1,1
+FAR beta-lactamase,1,antibiotic inactivation,1,1
+FEZ beta-lactamase,1,antibiotic inactivation,1,1
+FIA beta-lactamase,1,antibiotic inactivation,1,1
+FIM beta-lactamase,1,antibiotic inactivation,1,1
+FPH beta-lactamase,1,antibiotic inactivation,1,1
+FTU beta-lactamase,1,antibiotic inactivation,1,1
+GIL beta-lactamase,1,antibiotic inactivation,1,1
+GMB beta-lactamase,1,antibiotic inactivation,1,1
+GPC beta-lactamase,1,antibiotic inactivation,1,1
+GRD23 beta-lactamase,1,antibiotic inactivation,1,1
+GRD33 beta-lactamase,1,antibiotic inactivation,1,1
+HBL beta-lactamase,1,antibiotic inactivation,1,1
+JOHN beta-lactamase,1,antibiotic inactivation,1,1
+KBL beta-lactamase,1,antibiotic inactivation,1,1
+L1 family beta-lactamase,1,antibiotic inactivation,1,1
+LAQ beta lactamase,1,antibiotic inactivation,1,1
+LCR beta-lactamase,1,antibiotic inactivation,1,1
+LMB beta-lactamase,1,antibiotic inactivation,1,1
+LRG beta-lactamase,1,antibiotic inactivation,1,1
+LUS beta-lactamase,1,antibiotic inactivation,1,1
+Llm 23S ribosomal RNA methyltransferase,1,antibiotic target alteration,1,1
+MBL beta-lactamase,1,antibiotic inactivation,1,1
+MOC beta-lactamase,1,antibiotic inactivation,1,1
+MOR beta-lactamase,1,antibiotic inactivation,1,1
+MSI beta-lactamase,1,antibiotic inactivation,1,1
+MSI-OXA family beta-lactamase,1,antibiotic inactivation,1,1
+MYO beta-lactamase,1,antibiotic inactivation,1,1
+MYX beta-lactamase,1,antibiotic inactivation,1,1
+NPS beta-lactamase,1,antibiotic inactivation,1,1
+NWM beta-lactamase,1,antibiotic inactivation,1,1
+OHIO beta-lactamase,1,antibiotic inactivation,1,1
+ORR beta-lactamase,1,antibiotic inactivation,1,1
+PAC beta-lactamase,1,antibiotic inactivation,1,1
+PAD beta-lactamase,1,antibiotic inactivation,1,1
+PAU beta-lactamase,1,antibiotic inactivation,1,1
+PLN beta-lactamase,1,antibiotic inactivation,1,1
+PME beta-lactamase,1,antibiotic inactivation,1,1
+PNGM beta-lactamase,1,antibiotic inactivation,1,1
+PRC beta-lactamase,1,antibiotic inactivation,1,1
+PSV beta-lactamase,1,antibiotic inactivation,1,1
+PSZ beta-lactamase,1,antibiotic inactivation,1,1
+R39 beta-lactamase,1,antibiotic inactivation,1,1
+RAA beta-lactamase,1,antibiotic inactivation,1,1
+RAD beta-lactamase,1,antibiotic inactivation,1,1
+RASA beta-lactamase,1,antibiotic inactivation,1,1
+RCP beta-lactamase,1,antibiotic inactivation,1,1
+RSA beta-lactamase,1,antibiotic inactivation,1,1
+RSA2 beta-lactamase,1,antibiotic inactivation,1,1
+RSC1 beta-lactamase,1,antibiotic inactivation,1,1
+RSD1,1,antibiotic inactivation,1,1
+RUB beta-lactamase,1,antibiotic inactivation,1,1
+RbpA bacterial RNA polymerase-binding protein,1,antibiotic target protection,1,1
+Rm3 family beta-lactamase,1,antibiotic inactivation,1,1
+SCO beta-lactamase,1,antibiotic inactivation,1,1
+SFDC beta-lactamase,1,antibiotic inactivation,1,1
+SFH beta-lactamase,1,antibiotic inactivation,1,1
+SFO beta-lactamase,1,antibiotic inactivation,1,1
+SHD beta-lactamase,1,antibiotic inactivation,1,1
+SHN beta-lactamase,1,antibiotic inactivation,1,1
+SIE beta-lactamase,1,antibiotic inactivation,1,1
+SMB beta-lactamase,1,antibiotic inactivation,1,1
+SPG beta-lactamase,1,antibiotic inactivation,1,1
+SPM beta-lactamase,1,antibiotic inactivation,1,1
+SPN79 beta-lactamase,1,antibiotic inactivation,1,1
+SPR beta-lactamase,1,antibiotic inactivation,1,1
+SPS beta-lactamase,1,antibiotic inactivation,1,1
+SPU beta-lactamase,1,antibiotic inactivation,1,1
+SSA beta-lactamase,1,antibiotic inactivation,1,1
+SST beta-lactamase,1,antibiotic inactivation,1,1
+STA beta-lactamase,1,antibiotic inactivation,1,1
+Subclass B1 Vibrio cholerae varG beta-lactamase,1,antibiotic inactivation,1,1
+THIN-B beta-lactamase,1,antibiotic inactivation,1,1
+TRU beta-lactamase,1,antibiotic inactivation,1,1
+TTU beta-lactamase,1,antibiotic inactivation,1,1
+TUS beta-lactamase,1,antibiotic inactivation,1,1
+VAM beta-lactamase,1,antibiotic inactivation,1,1
+VCC beta-lactamase,1,antibiotic inactivation,1,1
+VHH beta-lactamase,1,antibiotic inactivation,1,1
+VHW beta-lactamase,1,antibiotic inactivation,1,1
+VMB beta-lactamase,1,antibiotic inactivation,1,1
+WUS beta-lactamase,1,antibiotic inactivation,1,1
+YEM beta-lactamase,1,antibiotic inactivation,1,1
+YOC beta-lactamase,1,antibiotic inactivation,1,1
+YRC beta-lactamase,1,antibiotic inactivation,1,1
+ZOG beta-lactamase,1,antibiotic inactivation,1,1
+alm glycyl carrier protein,1,antibiotic target alteration,1,1
+alm glycyltransferase,1,antibiotic target alteration,1,1
+antibiotic-resistant murA transferase,1,antibiotic target alteration,1,1
+blaF family beta-lactamase,1,antibiotic inactivation,1,1
+blaS,1,antibiotic inactivation,1,1
+capreomycin phosphotransferase,1,antibiotic inactivation,1,1
+chloramphenicol phosphotransferase,1,antibiotic inactivation,1,1
+class A Bacillus anthracis Bla beta-lactamase,1,antibiotic inactivation,1,1
+class A Mycobacterium tuberculosis bla beta-lactamase,1,antibiotic inactivation,1,1
+class D LRA beta-lactamase,1,antibiotic inactivation,1,1
+cpa acetyltransferase,1,antibiotic inactivation,1,1
+fusidic acid inactivation enzyme,1,antibiotic inactivation,1,1
+gimA family macrolide glycosyltransferase,1,antibiotic inactivation,1,1
+helicase-like RNA polymerase protection protein,1,antibiotic target protection,1,1
+lipid A acyltransferase,1,antibiotic target alteration,1,1
+lipid A phosphatase,1,antibiotic target alteration,1,1
+metal transporters with antibiotic efflux,1,antibiotic efflux,1,1
+mgt macrolide glycotransferase,1,antibiotic inactivation,1,1
+non-erm 23S ribosomal RNA methyltransferase (A1067),1,antibiotic target alteration,1,1
+rifampin glycosyltransferase,1,antibiotic inactivation,1,1
+subclass B1 Bacillus anthracis Bla beta-lactamase,1,antibiotic inactivation,1,1
+subclass B1 Bacillus cereus Bc beta-lactamase,1,antibiotic inactivation,1,1
+subclass B1 Bacteroides xylanisolvens crx beta-lactamase,1,antibiotic inactivation,1,1
+subclass B1 PEDO beta-lactamase,1,antibiotic inactivation,1,1
+vanJ membrane protein,1,antibiotic target alteration,1,1
+vanK,1,antibiotic target alteration,1,1
+vanU,1,antibiotic target alteration,1,1
+vanV,1,antibiotic target alteration,1,1
+viomycin phosphotransferase,1,antibiotic inactivation,1,1

@@ -1,7 +1,7 @@
 """
 threshold_curve.py — Desempenho dos Pipelines A e B por limiar de similaridade.
 
-Pergunta (TCC2, ponto 3): a ontologia ajuda mais quando o gene do teste é menos
+Pergunta: a ontologia ajuda mais quando o gene do teste é menos
 parecido com os genes que o modelo viu no treino? Para responder, o experimento é
 repetido com quatro divisões, das mais fáceis às mais difíceis:
 
@@ -11,18 +11,17 @@ repetido com quatro divisões, das mais fáceis às mais difíceis:
     50         grupos de identidade ≥ 50%
 
 O limiar de 40% fica de fora porque não atende o critério de entrada das classes
-(documento de decisões, ponto 3). Em cada cenário, a partição de teste e a semente dos
+(menos de 5 genes de alguma classe por fold). Em cada cenário, a partição de teste e a semente dos
 folds são escolhidas pelas mesmas regras do experimento (``choose_test_partition`` e
 ``choose_cv_seeds``, só pela distribuição das classes), e a validação cruzada é por
-grupos, repetida 10 × 5, como no experimento (decisão do ponto 5: "a curva por
-limiar usa o mesmo desenho 10 × 5"). Um cenário em que alguma classe fica com menos
+grupos, repetida 10 × 5, como no experimento. Um cenário em que alguma classe fica com menos
 de 5 genes num fold é marcado em ``atende_criterio`` e não deve ser usado para
 conclusões. Atributos, modelos e hiperparâmetros são os do experimento.
 
 O ganho do B na CV vem com o intervalo de 95% corrigido (Nadeau e Bengio, o mesmo do
 teste t do experimento), mas **sem teste**: a curva é descritiva.
 
-Ponto 4: em cada cenário entram também o Pipeline B no cenário "gene novo"
+Em cada cenário entram também o Pipeline B no cenário "gene novo"
 (ontologia do gene mais parecido do treino daquela divisão; sem parecido, predição do
 A) e a referência por homologia (mecanismo do gene mais parecido), com os mesmos
 folds (``src.train_evaluate.run_cross_validation_scenarios``). O ganho do B gene novo
@@ -33,14 +32,15 @@ Para cada cenário também é medido o parentesco entre teste e treino: a identi
 de cada gene do teste com o gene mais parecido do treino (``nearest_identity``),
 com e sem a exigência de cobertura de 50%.
 
-É uma análise **descritiva** (sem teste estatístico), como definido no ponto 5.
+É uma análise **descritiva** (sem teste estatístico). O cenário "70" reproduz
+exatamente o experimento principal (mesma partição, mesmos folds).
 
 Saídas:
     results/curva_limiar.csv            — uma linha por cenário × modelo (F1 de teste e CV: A, B, B gene novo, homologia)
     results/curva_limiar_particoes.csv  — uma linha por cenário (partição, critério por fold, parentesco)
     results/curva_limiar_folds.csv      — F1-macro de cada estimativa da CV (cenário, modelo, pipeline)
 
-Uso (cerca de 1 h; 55 min na última rodada sem o ponto 4):
+Uso (cerca de 1 h):
     python -m src.threshold_curve
 """
 
@@ -78,7 +78,7 @@ from src.train_evaluate import (
 
 logger = logging.getLogger(__name__)
 SCENARIOS: list[tuple[str, int | None]] = [("aleatoria", None), ("90", 90), ("70", 70), ("50", 50)]
-# Ponto 4 (decisão 3 e coerência com o ponto 3): a curva ganha o B "gene novo" e a referência por homologia.
+# A curva inclui o B "gene novo" e a referência por homologia.
 CURVE_KEYS: list[str] = ["a", "b", "b_gene_novo", "homologia"]
 
 
@@ -150,8 +150,8 @@ def run(scenarios=SCENARIOS) -> pd.DataFrame:
     onto_cols = ontology_columns(X_a_df, X_b_df)
     X_a, X_b = X_a_df.to_numpy(dtype=float), X_b_df.to_numpy(dtype=float)
     ids = load_experiment_dataset()["ARO_Accession"].to_numpy()
-    hits = load_hits(WORK_DIR / "hits.m8")  # busca do ponto 3: só para o perfil de parentesco teste–treino
-    nn = NeighborIndex.from_files(ids)  # gene mais parecido: busca sem piso de identidade (ponto 4, P4-3b)
+    hits = load_hits(WORK_DIR / "hits.m8")  # busca dos grupos: só para o perfil de parentesco teste–treino
+    nn = NeighborIndex.from_files(ids)  # gene mais parecido: busca sem piso de identidade
     rows, parts, folds = [], [], []
     for name, threshold in scenarios:
         t0 = time.time()

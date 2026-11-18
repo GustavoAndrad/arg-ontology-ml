@@ -1,5 +1,5 @@
 """
-case_study.py — Estudo de caso qualitativo dos mecanismos raros (TCC2, ponto 2).
+case_study.py — Estudo de caso qualitativo dos mecanismos raros.
 
 Os mecanismos com poucos genes para a avaliação quantitativa (``CASE_STUDY_CLASSES``:
 *reduced permeability to antibiotic*, 8 genes, e *resistance by host-dependent
@@ -57,8 +57,8 @@ def load_case_study_matrices() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame
     Retorna (info, X_a, X_b) dos genes do estudo de caso, com as colunas na mesma
     ordem das matrizes de treino.
 
-    As colunas ontológicas seguem ``features_ontologicas.csv`` do experimento (já
-    depois do ``leakage_check``), para o caso de alguma ter sido removida lá.
+    As colunas seguem ``features_sequencia.csv`` e ``features_ontologicas.csv`` do
+    experimento, para a ordem ser a mesma das matrizes de treino.
     """
     info = load_case_study_dataset()
     seq = pd.read_csv(PROCESSED_DIR / "features_sequencia_estudo_caso.csv")
@@ -81,7 +81,10 @@ def predict_case_study(info: pd.DataFrame, X_a: pd.DataFrame, X_b: pd.DataFrame,
         for model in MODEL_NAMES:
             pipe = joblib.load(MODELS_DIR / f"pipeline_{key}_{model}.joblib")
             proba = pipe.predict_proba(Xn)
-            pred = proba.argmax(axis=1)
+            # A classe prevista vem de predict(), como no resto do experimento. No SVM, a
+            # probabilidade vem de uma calibração separada (Platt) e a classe de maior
+            # probabilidade pode não ser a que o SVM prevê.
+            pred = pipe.predict(Xn)
             for i in range(len(info)):
                 rows.append(
                     {

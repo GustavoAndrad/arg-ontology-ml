@@ -1,8 +1,8 @@
 """
 nearest_neighbor.py — Gene mais parecido do treino, cenário "gene novo" e referência por homologia.
 
-Por que (TCC2, ponto 4; apontamentos D2 do Diego e K2 da Kele): o rótulo (mecanismo)
-e as 41 features ontológicas de um gene saem da mesma ficha do CARD. Um gene novo,
+Por que: o rótulo (mecanismo) e os 41 atributos ontológicos de um gene saem da mesma
+ficha do CARD. Um gene novo,
 ainda não anotado, não teria essa ficha. Na prática, um gene novo é anotado pela
 semelhança com genes conhecidos (é o que faz o RGI do CARD). Este módulo reproduz
 isso de forma simples:
@@ -18,19 +18,19 @@ isso de forma simples:
 * **Referência por homologia** (``homology_prediction``): copia o mecanismo do
   gene mais parecido, sem aprendizado de máquina.
 
-Busca (decisão 3 do ponto 4, com a correção P4-3b): o mesmo programa e os mesmos
-parâmetros da busca do ponto 3 (MMseqs2, sensibilidade 7,5, e-value ≤ 10⁻³, sem
-filtro de cobertura), de todos contra todos os genes do experimento, mas **sem piso
-de identidade** (``--min-seq-id 0``), em ``data/processed/mmseqs/vizinho_sem_piso/``.
-Por que sem piso: o piso de 40% da busca do ponto 3 existe para **formar os grupos**
-(o menor limiar de agrupamento é 40%), não para transferir anotação; o critério da
-decisão 3 (Yagimoto et al., 2024: mecanismo do acerto de menor e-value) não tem piso
+Busca: o mesmo programa e os mesmos parâmetros da busca dos grupos de similaridade
+(``homology_groups``: MMseqs2, sensibilidade 7,5, e-value ≤ 10⁻³, sem filtro de
+cobertura), de todos contra todos os genes do experimento, mas **sem piso de
+identidade** (``--min-seq-id 0``), em ``data/processed/mmseqs/vizinho_sem_piso/``.
+Por que sem piso: o piso de 40% da busca dos grupos existe para **formar os grupos**
+(o menor limiar de agrupamento é 40%), não para transferir anotação; o critério
+adotado (Yagimoto et al., 2024: mecanismo do acerto de menor e-value) não tem piso
 de identidade, só o corte de e-value. Com o piso, 58 dos 1.051 genes de teste ficavam
 sem vizinho; sem ele, 13 — e os 45 que passam a ter vizinho (identidade mediana de
 34%) têm todos o mesmo mecanismo dele. O piso prejudicava artificialmente a referência
-por homologia e o B "gene novo". O piso de 40% (``hits.m8`` do ponto 3) continua
-calculado como sensibilidade (``FLOOR_40_HITS``). Os grupos e a partição do ponto 3
-não mudam.
+por homologia e o B "gene novo". A busca com piso de 40% (``hits.m8`` dos grupos)
+continua calculada como sensibilidade (``FLOOR_40_HITS``). Os grupos e a partição não
+dependem desta busca.
 
 Em cada divisão, ficam só os acertos cujo alvo está no treino daquela divisão. Para
 um mesmo gene consultado, a ordem dos acertos por e-value não depende de quais outros
@@ -39,14 +39,15 @@ banco, o mesmo para todos os acertos de uma consulta; referência a adicionar: K
 e Altschul); por isso filtrar dá o mesmo vizinho que uma busca feita só no treino. A
 única diferença possível é na borda do corte de e-value (o banco do treino é menor, e
 um acerto com e-value um pouco acima de 10⁻³ no banco todo poderia passar no treino).
-Não há filtro de cobertura: a cobertura mínima de 50% é a regra para formar os grupos
-(ponto 3), não para transferir anotação (com ela e o piso de 40%, os genes de teste sem
-vizinho passavam de 58 para 60).
+Não há filtro de cobertura: a cobertura mínima de 50% é a regra para formar os grupos,
+não para transferir anotação (com ela e o piso de 40%, os genes de teste sem vizinho
+passavam de 58 para 60). Os acertos usados são os da direção "gene consultado →
+gene de referência"; nenhum dos 13 genes de teste sem vizinho tem acerto só na direção
+inversa.
 
 Gene sem nenhum parecido no treino (nenhum acerto com e-value ≤ 10⁻³): não há de onde
-copiar a anotação. Regra adotada (registrada como P4-1, que substitui o cuidado 3 da
-decisão de 11/11, "features zeradas"): **o gene é classificado só pela sequência,
-com a predição do Pipeline A**. Motivos: nenhum gene do treino tem as 41 features
+copiar a anotação. Regra adotada (no lugar da regra anterior, "atributos zerados"):
+**o gene é classificado só pela sequência, com a predição do Pipeline A**. Motivos: nenhum gene do treino tem as 41 features
 zeradas (a profundidade mínima é 3 e todos têm ao menos uma classe de antibiótico),
 então zerar daria ao modelo uma entrada que ele nunca viu; e, no uso real, um gene
 sem parente conhecido não tem anotação, só sequência. A regra antiga (zerar) é
@@ -230,14 +231,14 @@ def homology_prediction(y: np.ndarray, reference_idx, neighbors: np.ndarray, n_c
 
 # ── Busca usada para achar o vizinho ─────────────────────────────────────────────
 NEIGHBOR_DIR: Path = WORK_DIR / "vizinho_sem_piso"
-NEIGHBOR_HITS: Path = NEIGHBOR_DIR / "hits.m8"  # principal: sem piso de identidade (P4-3b)
-FLOOR_40_HITS: Path = WORK_DIR / "hits.m8"  # busca do ponto 3 (piso de 40%): sensibilidade
+NEIGHBOR_HITS: Path = NEIGHBOR_DIR / "hits.m8"  # principal: sem piso de identidade
+FLOOR_40_HITS: Path = WORK_DIR / "hits.m8"  # busca dos grupos (piso de 40%): sensibilidade
 
 
 def run_neighbor_search(data: pd.DataFrame, work_dir: Path = NEIGHBOR_DIR) -> dict:
     """
     ``mmseqs easy-search`` de todos contra todos os genes de ``data``, **sem piso de
-    identidade** e com os demais parâmetros da busca do ponto 3. Grava ``hits.m8`` e
+    identidade** e com os demais parâmetros da busca dos grupos. Grava ``hits.m8`` e
     devolve os parâmetros (salvos em ``results/mmseqs_vizinho_parametros.json``).
     """
     import os

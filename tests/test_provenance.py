@@ -166,7 +166,7 @@ class TestGenerateProvenance:
         assert result["access_date"] == today
 
     def test_existing_access_date_is_kept(self, tmp_path: Path):
-        """Rodar de novo não troca a data de acesso original (TCC2, ponto 13)."""
+        """Rodar de novo não troca a data de acesso original."""
         data_files = self._make_data_files(tmp_path)
         out = tmp_path / "p.json"
         out.write_text(json.dumps({"access_date": "2026-06-14"}), encoding="utf-8")

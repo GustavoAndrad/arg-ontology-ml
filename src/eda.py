@@ -4,12 +4,17 @@ eda.py — Análise Exploratória dos Dados (EDA).
 Responsabilidade: Gerar o relatório EDA completo, visualizações e registrar
 decisões metodológicas antes de qualquer modelagem.
 
-Dependências externas: pandas, matplotlib, seaborn, rdflib
-Dependências internas: config
+A EDA descreve o dataset integrado (todos os rótulos do CARD) e marca o destino de
+cada mecanismo no TCC; a razão de desbalanceamento é dada nas duas visões. A
+estrutura da ontologia é lida com o mesmo leitor dos atributos do Pipeline B.
+
+Saídas: plots/eda/class_distribution.png e results/eda_resumo.json.
+
+Dependências externas: pandas, matplotlib, seaborn
+Dependências internas: config, experiment_config, ontology_features
 """
 
 import logging
-from collections import deque
 from pathlib import Path
 
 import matplotlib
@@ -126,6 +131,35 @@ def compute_imbalance_ratio(distribution: pd.DataFrame) -> float:
     return ratio
 
 
+def add_destination(distribution: pd.DataFrame) -> pd.DataFrame:
+    """
+    Acrescenta a coluna 'destino' com o uso de cada mecanismo no TCC.
+
+    A EDA descreve o dataset integrado (todos os rótulos do CARD), mas o
+    experimento usa só as 5 classes de ``config.TARGET_CLASSES``. O destino vem de
+    ``experiment_config.assign_split``: 'experimento', 'estudo_de_caso' ou
+    'multirrotulo'. Um rótulo fora das listas recebe 'desconhecido' (na carga do
+    experimento ele gera erro; aqui a EDA só o descreve).
+
+    Parâmetros:
+        distribution: DataFrame retornado por compute_class_distribution().
+
+    Retorno:
+        Cópia de `distribution` com a coluna 'destino'.
+    """
+    from src.experiment_config import assign_split
+
+    def _destination(label: str) -> str:
+        try:
+            return assign_split(label)
+        except ValueError:
+            return "desconhecido"
+
+    out = distribution.copy()
+    out["destino"] = out["classe"].map(_destination)
+    return out
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # 5.3 — Identificação de classes pequenas
 # ──────────────────────────────────────────────────────────────────────────────
@@ -220,127 +254,94 @@ def check_missing_values(df: pd.DataFrame) -> pd.DataFrame:
 # 5.5 — Análise da estrutura da ontologia ARO
 # ──────────────────────────────────────────────────────────────────────────────
 
+# Termo da ARO cujas subclasses diretas são os mecanismos de resistência
+# ("mechanism of antibiotic resistance").
+MECHANISM_ROOT: str = "ARO:1000002"
+
+
 def analyze_ontology_structure(ontology_path: Path) -> dict:
     """
-    Analisa a estrutura hierárquica da ontologia ARO (OWL/RDF) e reporta
-    estatísticas topológicas.
+    Estatísticas da hierarquia is-a da ARO, lidas do ``aro.owl``.
 
-    Utiliza rdflib para carregar a ontologia sem ferramentas externas de
-    raciocínio ontológico.
+    O ``aro.owl`` do CARD está em sintaxe OWL/XML, que o rdflib não lê. A hierarquia
+    vem do mesmo leitor que gera os atributos do Pipeline B
+    (``ontology_features.load_ontology``), para que a EDA descreva exatamente o
+    grafo usado nos atributos. Uma segunda leitura do arquivo conta as classes
+    declaradas, os axiomas com restrição e os rótulos.
 
     Parâmetros:
-        ontology_path: Caminho para o arquivo aro.owl.
+        ontology_path: Caminho para o arquivo aro.owl (OWL/XML).
 
     Retorno:
         dict com campos:
-            - n_classes (int): Número total de classes OWL na ontologia.
-            - n_is_a_relations (int): Número de relações rdfs:subClassOf.
-            - max_depth (int): Profundidade máxima da hierarquia is-a (raiz = 0).
-            - resistance_mechanisms_found (list[str]): Mecanismos de resistência
-              identificados via labels das classes.
+            - n_classes (int): classes nomeadas declaradas na ontologia.
+            - n_is_a_relations (int): axiomas SubClassOf entre duas classes
+              nomeadas, que são as arestas usadas nos atributos.
+            - n_restrictions (int): axiomas SubClassOf com restrição
+              (ObjectSomeValuesFrom etc.), que os atributos ignoram.
+            - n_roots (int): classes sem superclasse.
+            - max_depth (int): maior profundidade is-a, com a mesma definição de
+              ``depth_isa`` (menor caminho até uma raiz; raiz = 0).
+            - resistance_mechanisms_found (list[str]): rótulos das subclasses
+              diretas de "mechanism of antibiotic resistance" (ARO:1000002).
 
     Levanta:
         FileNotFoundError: Se o arquivo OWL não existir.
-        RuntimeError: Se a ontologia não puder ser carregada.
     """
-    import rdflib
-    from rdflib.namespace import OWL, RDFS, RDF
+    import xml.etree.ElementTree as ET
+
+    from src.ontology_features import OWL_NS, iri_to_accession, load_ontology
 
     ontology_path = Path(ontology_path)
     if not ontology_path.exists():
         raise FileNotFoundError(f"Ontologia não encontrada: {ontology_path}")
 
     logger.info("Carregando ontologia de: %s", ontology_path)
-    graph = rdflib.Graph()
-    try:
-        graph.parse(str(ontology_path))
-    except Exception as exc:
-        raise RuntimeError(f"Falha ao carregar a ontologia: {exc}") from exc
+    graph = load_ontology(ontology_path)
 
-    # ── Contar classes OWL ────────────────────────────────────────────────────
-    owl_classes = set(graph.subjects(RDF.type, OWL.Class))
-    n_classes = len(owl_classes)
-    logger.info("Número de classes OWL: %d", n_classes)
+    # Segunda leitura: declarações, axiomas com restrição e rótulos.
+    n_classes = 0
+    n_restrictions = 0
+    labels: dict[str, str] = {}
+    for _, el in ET.iterparse(str(ontology_path), events=("end",)):
+        if el.tag == OWL_NS + "Declaration":
+            n_classes += sum(1 for k in el if k.tag == OWL_NS + "Class")
+            el.clear()
+        elif el.tag == OWL_NS + "SubClassOf":
+            if any(k.tag != OWL_NS + "Class" for k in el):
+                n_restrictions += 1
+            el.clear()
+        elif el.tag == OWL_NS + "AnnotationAssertion":
+            kids = list(el)
+            if len(kids) == 3 and kids[0].get("abbreviatedIRI") == "rdfs:label":
+                accession = iri_to_accession(kids[1].text)
+                if accession and kids[2].text:
+                    labels[accession] = kids[2].text.strip()
+            el.clear()
 
-    # ── Contar relações is-a (rdfs:subClassOf) ────────────────────────────────
-    is_a_triples = list(graph.triples((None, RDFS.subClassOf, None)))
-    n_is_a = len(is_a_triples)
-    logger.info("Número de relações rdfs:subClassOf: %d", n_is_a)
-
-    # ── Construir grafo is-a para cálculo de profundidade ────────────────────
-    # filho -> lista de pais diretos
-    children_to_parents: dict[str, list[str]] = {}
-    for subj, _, obj in is_a_triples:
-        subj_str = str(subj)
-        obj_str = str(obj)
-        if subj_str not in children_to_parents:
-            children_to_parents[subj_str] = []
-        children_to_parents[subj_str].append(obj_str)
-
-    # ── Calcular profundidade máxima via BFS a partir de cada raiz ────────────
-    # Nós raiz: classes sem superclasse (não aparecem como filho)
-    all_nodes = set(children_to_parents.keys())
-    all_parents = {p for parents in children_to_parents.values() for p in parents}
-    roots = all_parents - all_nodes
-
-    max_depth = 0
-    if roots:
-        # BFS do conjunto de raízes (pais -> filhos): inverter o grafo
-        parents_to_children: dict[str, list[str]] = {}
-        for child, parents in children_to_parents.items():
-            for parent in parents:
-                if parent not in parents_to_children:
-                    parents_to_children[parent] = []
-                parents_to_children[parent].append(child)
-
-        # BFS para calcular profundidade máxima
-        queue: deque[tuple[str, int]] = deque()
-        for root in roots:
-            queue.append((root, 0))
-
-        visited_depth: dict[str, int] = {}
-        while queue:
-            node, depth = queue.popleft()
-            if node in visited_depth and visited_depth[node] >= depth:
-                continue
-            visited_depth[node] = depth
-            max_depth = max(max_depth, depth)
-            for child in parents_to_children.get(node, []):
-                queue.append((child, depth + 1))
-
-    logger.info("Profundidade máxima da hierarquia is-a: %d", max_depth)
-
-    # ── Identificar mecanismos de resistência encontrados ────────────────────
-    # Buscamos labels que contenham termos de mecanismo de resistência
-    _MECHANISM_KEYWORDS = [
-        "antibiotic inactivation",
-        "antibiotic efflux",
-        "antibiotic target alteration",
-        "reduced permeability",
-        "resistance by absence",
-        "antibiotic target protection",
-        "antibiotic resistance",
-    ]
-
-    resistance_mechanisms_found: list[str] = []
-    for _, _, label_obj in graph.triples((None, RDFS.label, None)):
-        label_str = str(label_obj).lower().strip()
-        for keyword in _MECHANISM_KEYWORDS:
-            if keyword in label_str and label_str not in resistance_mechanisms_found:
-                resistance_mechanisms_found.append(label_str)
-                break
-
-    logger.info(
-        "Mecanismos de resistência encontrados na ontologia: %d",
-        len(resistance_mechanisms_found),
+    depths = graph.depths()
+    mechanisms = sorted(
+        labels.get(acc, acc) for acc in graph.children.get(MECHANISM_ROOT, ())
     )
-
-    return {
+    stats = {
         "n_classes": n_classes,
-        "n_is_a_relations": n_is_a,
-        "max_depth": max_depth,
-        "resistance_mechanisms_found": sorted(resistance_mechanisms_found),
+        "n_is_a_relations": sum(len(p) for p in graph.parents.values()),
+        "n_restrictions": n_restrictions,
+        "n_roots": len(graph.roots),
+        "max_depth": max(depths.values()) if depths else 0,
+        "resistance_mechanisms_found": mechanisms,
     }
+    logger.info(
+        "Ontologia: %d classes declaradas, %d relações is-a entre classes nomeadas, "
+        "%d axiomas com restrição, %d raízes, profundidade máxima %d, %d mecanismos.",
+        stats["n_classes"],
+        stats["n_is_a_relations"],
+        stats["n_restrictions"],
+        stats["n_roots"],
+        stats["max_depth"],
+        len(mechanisms),
+    )
+    return stats
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -356,11 +357,15 @@ def plot_class_distribution(
     Gera gráfico de barras horizontal da distribuição de classes da variável-alvo.
 
     Salva o gráfico em formato PNG com resolução `dpi` em `output_path`.
-    Usa paleta acessível ColorBrewer Set2.
+    Usa paleta acessível ColorBrewer Set2. Com a coluna 'destino'
+    (add_destination), a cor da barra indica o uso do mecanismo no TCC
+    (experimento, estudo de caso ou multirrótulo, fora) e o destino vai escrito
+    no rótulo, porque as barras dos mecanismos raros somem na escala linear.
 
     Parâmetros:
         distribution: DataFrame retornado por compute_class_distribution(),
-                      com colunas 'classe', 'contagem' e 'proporcao_pct'.
+                      com colunas 'classe', 'contagem' e 'proporcao_pct'
+                      (e, opcionalmente, 'destino').
         output_path: Caminho completo do arquivo PNG de saída
                      (ex.: plots/eda/class_distribution.png).
         dpi: Resolução da figura em pontos por polegada. Padrão: 300.
@@ -379,9 +384,18 @@ def plot_class_distribution(
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     n_classes = len(distribution)
-    palette = (ACCESSIBLE_PALETTE * ((n_classes // len(ACCESSIBLE_PALETTE)) + 1))[:n_classes]
+    has_dest = "destino" in distribution.columns
+    dest_colors = {"experimento": ACCESSIBLE_PALETTE[0], "estudo_de_caso": ACCESSIBLE_PALETTE[1],
+                   "multirrotulo": ACCESSIBLE_PALETTE[2], "desconhecido": "0.7"}
+    dest_labels = {"experimento": "Experimento", "estudo_de_caso": "Estudo de caso",
+                   "multirrotulo": "Multirrótulo (fora)", "desconhecido": "Desconhecido"}
+    dest_notes = {"estudo_de_caso": " [estudo de caso]", "multirrotulo": " [multirrótulo, fora]", "desconhecido": " [desconhecido]"}
+    if has_dest:
+        palette = [dest_colors.get(d, "0.7") for d in distribution["destino"]]
+    else:
+        palette = (ACCESSIBLE_PALETTE * ((n_classes // len(ACCESSIBLE_PALETTE)) + 1))[:n_classes]
 
-    fig, ax = plt.subplots(figsize=(10, max(4, n_classes * 0.9)))
+    fig, ax = plt.subplots(figsize=(10, max(4, n_classes * 0.9 if not has_dest else n_classes * 0.45 + 1.5)))
 
     bars = ax.barh(
         y=distribution["classe"],
@@ -391,31 +405,40 @@ def plot_class_distribution(
         linewidth=0.8,
     )
 
-    # Adicionar rótulos com contagem e proporção
+    # Adicionar rótulos com contagem e proporção (e o destino, quando não é o experimento)
     for bar, (_, row) in zip(bars, distribution.iterrows()):
         width = bar.get_width()
+        note = dest_notes.get(row["destino"], "") if has_dest else ""
         ax.text(
             width + max(distribution["contagem"]) * 0.01,
             bar.get_y() + bar.get_height() / 2,
-            f"{int(row['contagem'])} ({row['proporcao_pct']:.1f}%)",
+            f"{int(row['contagem'])} ({row['proporcao_pct']:.1f}%){note}".replace(".", ","),
             va="center",
             ha="left",
             fontsize=9,
         )
 
-    ax.set_xlabel("Número de Instâncias", fontsize=11)
-    ax.set_ylabel("Mecanismo de Resistência", fontsize=11)
-    ax.set_title("Distribuição de Classes — Mecanismo de Resistência", fontsize=13, pad=12)
+    ax.set_xlabel("Número de genes", fontsize=11)
+    ax.set_ylabel("Mecanismo de resistência (rótulo do CARD)", fontsize=11)
+    ax.set_title("Genes por mecanismo de resistência no dataset integrado", fontsize=13, pad=12, fontweight="bold")
     ax.invert_yaxis()  # classe com mais instâncias no topo
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
 
+    if has_dest:
+        from matplotlib.patches import Patch
+
+        present = [d for d in dest_colors if d in set(distribution["destino"])]
+        ax.legend(handles=[Patch(color=dest_colors[d], label=dest_labels[d]) for d in present], loc="lower right", fontsize=9)
+
     # Margem à direita para os rótulos de texto
-    ax.set_xlim(0, distribution["contagem"].max() * 1.25)
+    ax.set_xlim(0, distribution["contagem"].max() * (1.4 if has_dest else 1.25))
 
     plt.tight_layout()
-    fig.savefig(output_path, dpi=dpi, bbox_inches="tight")
-    plt.close(fig)
+    # PNG e PDF pelo estilo comum (vírgula decimal no eixo; PDF sem data).
+    from src.plot_style import save
+
+    save(fig, output_path, dpi)
 
     logger.info("Gráfico de distribuição de classes salvo em: %s (dpi=%d)", output_path, dpi)
 
@@ -424,27 +447,36 @@ def plot_class_distribution(
 # 5.7 — Orquestrador do relatório EDA
 # ──────────────────────────────────────────────────────────────────────────────
 
-def generate_eda_report(df: pd.DataFrame, output_dir: Path) -> dict:
+def generate_eda_report(
+    df: pd.DataFrame,
+    output_dir: Path,
+    ontology_path: Path | None = None,
+) -> dict:
     """
     Orquestra todas as análises EDA e salva visualizações em `output_dir/eda/`.
 
     Executa em sequência:
-    1. Distribuição de classes do Alvo_Classificacao.
-    2. Razão de desbalanceamento.
+    1. Distribuição de classes do dataset integrado, com o destino de cada
+       mecanismo no TCC (experimento, estudo de caso ou multirrótulo).
+    2. Razão de desbalanceamento: no dataset integrado e só nas classes do
+       experimento, que é a que vale para os modelos.
     3. Identificação de classes pequenas (< 20 instâncias).
     4. Verificação de valores ausentes.
-    5. Análise da estrutura da ontologia ARO (se ONTOLOGY_PATH existir).
-    6. Geração do gráfico de distribuição de classes.
+    5. Análise da estrutura da ontologia ARO (se o arquivo existir).
+    6. Geração do gráfico de distribuição de classes, colorido pelo destino.
 
     Parâmetros:
         df: DataFrame integrado retornado por data_loader.integrate_dataset().
         output_dir: Diretório raiz de plots (ex.: Path('plots')).
                     As figuras EDA serão salvas em output_dir/eda/.
+        ontology_path: Caminho do aro.owl. Padrão: config.ONTOLOGY_PATH.
 
     Retorno:
         dict com campos:
-            - class_distribution (pd.DataFrame)
-            - imbalance_ratio (float)
+            - class_distribution (pd.DataFrame), com a coluna 'destino'
+            - imbalance_ratio (float): dataset integrado
+            - imbalance_ratio_experimento (float | None): só as classes do
+              experimento; None se nenhuma estiver presente
             - small_classes (list[str])
             - missing_values (pd.DataFrame)
             - ontology_stats (dict | None)  — None se a ontologia não existir
@@ -457,6 +489,8 @@ def generate_eda_report(df: pd.DataFrame, output_dir: Path) -> dict:
         from src.config import TARGET_COLUMN, ONTOLOGY_PATH
     except ImportError:
         from config import TARGET_COLUMN, ONTOLOGY_PATH  # type: ignore[no-redef]
+    if ontology_path is None:
+        ontology_path = ONTOLOGY_PATH
 
     output_dir = Path(output_dir)
     eda_dir = output_dir / "eda"
@@ -471,35 +505,36 @@ def generate_eda_report(df: pd.DataFrame, output_dir: Path) -> dict:
     if target_col not in df.columns and "Resistance_Mechanism" in df.columns:
         target_col = "Resistance_Mechanism"
 
-    class_distribution = compute_class_distribution(df, target_col)
+    class_distribution = add_destination(compute_class_distribution(df, target_col))
 
-    # 2. Razão de desbalanceamento
+    # 2. Razão de desbalanceamento: a do dataset integrado é dominada pelos
+    # mecanismos raros (1 gene) e não vale para os modelos; a do experimento sim.
     imbalance_ratio = compute_imbalance_ratio(class_distribution)
-    logger.info("Razão de desbalanceamento: %.2f", imbalance_ratio)
+    logger.info("Razão de desbalanceamento (dataset integrado): %.2f", imbalance_ratio)
+    experiment_rows = class_distribution[class_distribution["destino"] == "experimento"]
+    imbalance_ratio_experiment: float | None = None
+    if not experiment_rows.empty:
+        imbalance_ratio_experiment = compute_imbalance_ratio(experiment_rows)
+        logger.info("Razão de desbalanceamento (experimento): %.2f", imbalance_ratio_experiment)
 
     # 3. Classes pequenas
-    small_classes = flag_small_classes(class_distribution, threshold=20)
-    if small_classes:
-        logger.warning(
-            "Classes com < 20 instâncias (candidatas a agrupamento/exclusão): %s",
-            small_classes,
-        )
+    small_classes = flag_small_classes(class_distribution, threshold=20)  # já registra o aviso
 
     # 4. Valores ausentes
     missing_values = check_missing_values(df)
 
     # 5. Estrutura da ontologia
+    # Arquivo ausente: a análise é pulada com aviso. Arquivo presente mas ilegível:
+    # o erro sobe, para não esconder uma falha (a versão anterior engolia a
+    # exceção e a análise nunca rodou sem que ninguém percebesse).
     ontology_stats: dict | None = None
-    if Path(ONTOLOGY_PATH).exists():
-        try:
-            ontology_stats = analyze_ontology_structure(Path(ONTOLOGY_PATH))
-        except Exception as exc:
-            logger.warning("Falha ao analisar ontologia: %s", exc)
+    if Path(ontology_path).exists():
+        ontology_stats = analyze_ontology_structure(Path(ontology_path))
     else:
         logger.warning(
             "Arquivo de ontologia não encontrado em %s. "
             "Análise ontológica pulada.",
-            ONTOLOGY_PATH,
+            ontology_path,
         )
 
     # 6. Gráfico de distribuição de classes
@@ -509,6 +544,7 @@ def generate_eda_report(df: pd.DataFrame, output_dir: Path) -> dict:
     report = {
         "class_distribution": class_distribution,
         "imbalance_ratio": imbalance_ratio,
+        "imbalance_ratio_experimento": imbalance_ratio_experiment,
         "small_classes": small_classes,
         "missing_values": missing_values,
         "ontology_stats": ontology_stats,
@@ -532,10 +568,9 @@ if __name__ == "__main__":
         handlers=[logging.StreamHandler(sys.stdout)],
     )
 
-    try:
-        from config import PROCESSED_DIR, PLOTS_DIR
-    except ImportError:
-        from src.config import PROCESSED_DIR, PLOTS_DIR  # type: ignore[no-redef]
+    import json
+
+    from src.config import PLOTS_DIR, PROCESSED_DIR, RESULTS_DIR
 
     dataset_path = PROCESSED_DIR / "dataset_integrado.csv"
     if not dataset_path.exists():
@@ -553,10 +588,27 @@ if __name__ == "__main__":
 
     logger.info("Distribuição de classes:")
     logger.info("\n%s", report["class_distribution"].to_string(index=False))
-    logger.info("Razão de desbalanceamento: %.2f", report["imbalance_ratio"])
-    if report["small_classes"]:
-        logger.warning("Classes pequenas: %s", report["small_classes"])
     if not report["missing_values"].empty:
         logger.warning("Valores ausentes:\n%s", report["missing_values"].to_string(index=False))
-    if report["ontology_stats"]:
-        logger.info("Estatísticas da ontologia: %s", report["ontology_stats"])
+
+    # Resumo em arquivo, para o texto citar os números sem depender do log.
+    summary = {
+        "sobre": {
+            "o_que_mostra": "Distribuição dos mecanismos do dataset integrado com o destino de cada um no TCC, razão de desbalanceamento (integrado e só as 5 classes do experimento) e estatísticas da hierarquia is-a da ARO.",
+            "como": "Contagens do dataset_integrado.csv; destino por experiment_config.assign_split; ontologia lida com o mesmo leitor OWL/XML dos atributos (ontology_features).",
+            "por_que": "Revisão geral, R1 e R7: a análise da ontologia na EDA nunca tinha funcionado (rdflib não lê OWL/XML) e a razão de 5.239:1 do integrado não vale para os modelos; a do experimento é 74,84:1. Os números ficam em arquivo para o texto citar (seção 4.3).",
+            "fontes": ["data/processed/dataset_integrado.csv", "data/ontologia/aro.owl"],
+        },
+        "n_total_instances": report["n_total_instances"],
+        "class_distribution": report["class_distribution"].to_dict(orient="records"),
+        "imbalance_ratio": round(report["imbalance_ratio"], 2),
+        "imbalance_ratio_experimento": (
+            round(report["imbalance_ratio_experimento"], 2)
+            if report["imbalance_ratio_experimento"] is not None
+            else None
+        ),
+        "ontology_stats": report["ontology_stats"],
+    }
+    summary_path = RESULTS_DIR / "eda_resumo.json"
+    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    logger.info("Resumo da EDA salvo em: %s", summary_path)

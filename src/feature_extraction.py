@@ -1,5 +1,5 @@
 """
-feature_extraction.py — Features de sequência proteica (Pipeline A, Seção 4.4).
+feature_extraction.py — Atributos de sequência proteica (Pipeline A, Seção 4.4).
 
 Representação do experimento: **73 atributos por sequência**
     * 4 propriedades físico-químicas (Biopython ProtParam): comprimento, ponto
@@ -8,11 +8,13 @@ Representação do experimento: **73 atributos por sequência**
     * 49 frequências de pares de grupos de aminoácidos vizinhos (alfabeto
       reduzido de 7 grupos, ``REDUCED_ALPHABET``).
 
-Por que esta representação (TCC2, ponto 7 do documento de decisões):
-    * Os 400 dipeptídeos do TCC1 eram 94% dos atributos, acrescentavam pouco ao
-      desempenho e 19 deles valiam zero em mais de 95% dos genes. Agrupando os 20
-      aminoácidos em 7 grupos de propriedades parecidas, a informação "que tipo de
-      resíduo vem ao lado de qual" é mantida com 49 colunas, nenhuma tão rara.
+Por que esta representação:
+    * Na primeira versão do experimento, os 400 dipeptídeos eram 94% dos atributos,
+      acrescentavam pouco ao desempenho e 19 deles valiam zero em mais de 95% dos
+      genes. Agrupando os 20 aminoácidos em 7 grupos de propriedades parecidas, a
+      informação "que tipo de resíduo vem ao lado de qual" é mantida com 49 colunas;
+      nenhuma passa de 95% de zeros (a mais rara, (C, C), é zero em 93,6% dos genes,
+      por causa da baixa frequência da cisteína).
       Agrupamento: Shen J. et al. (2007), "Predicting protein–protein interactions
       based only on sequences information", PNAS 104(11):4337–4341,
       doi:10.1073/pnas.0607879104. Os autores agrupam os 20 aminoácidos em 7
@@ -31,11 +33,14 @@ Resíduos ambíguos (X, B, Z, U, ...) são excluídos do denominador das composi
 e do cálculo físico-químico; o comprimento usa a sequência original. Nos pares
 (de aminoácidos ou de grupos), pares que contêm resíduo ambíguo são descartados,
 sem juntar os vizinhos do resíduo removido, e as frequências são divididas pelo
-total de pares válidos (somam 1).
+total de pares válidos (somam 1). Exceção: o índice de instabilidade do ProtParam
+é calculado sobre a sequência já sem os ambíguos, então ali os vizinhos do resíduo
+removido ficam juntos. No CARD 4.0.1 isso atinge 5 sequências (14 resíduos X).
 
-A representação do TCC1 (426 atributos: 6 físico-químicas + 20 + 400 dipeptídeos)
-continua disponível (``representation="completa_426"``) só para a análise de
-sensibilidade à representação (``src.sensitivity_representation``).
+A representação da primeira versão do experimento (426 atributos: 6
+físico-químicas + 20 + 400 dipeptídeos) continua disponível
+(``representation="completa_426"``) só para a análise de sensibilidade à
+representação (``src.sensitivity_representation``).
 
 Saídas:
     data/processed/features_sequencia.csv                — 73 atributos, genes do experimento
@@ -88,9 +93,9 @@ GROUP_PAIR_COLUMNS: list[str] = [f"pair_{g1}_{g2}" for g1, g2 in GROUP_PAIRS]
 DIPEPTIDE_COLUMNS: list[str] = [f"dipep_{d}" for d in DIPEPTIDES]
 
 REPRESENTATIONS: dict[str, list[str]] = {
-    # Experimento (TCC2): 4 + 20 + 49 = 73.
+    # Experimento: 4 + 20 + 49 = 73.
     "reduzida_73": PHYSICOCHEMICAL_COLUMNS + AA_COMPOSITION_COLUMNS + GROUP_PAIR_COLUMNS,
-    # TCC1: 6 + 20 + 400 = 426 (só para a análise de sensibilidade).
+    # Primeira versão do experimento: 6 + 20 + 400 = 426 (só para a análise de sensibilidade).
     "completa_426": ALL_PHYSICOCHEMICAL_COLUMNS + AA_COMPOSITION_COLUMNS + DIPEPTIDE_COLUMNS,
 }
 SEQUENCE_FEATURE_COLUMNS: list[str] = REPRESENTATIONS["reduzida_73"]
@@ -139,7 +144,7 @@ def _valid_pairs(sequence: str) -> list[str]:
 
 def compute_dipeptide_composition(sequence: str) -> dict[str, float]:
     """
-    Frequência fracional dos 400 dipeptídeos consecutivos (representação do TCC1).
+    Frequência fracional dos 400 dipeptídeos consecutivos (representação da primeira versão do experimento).
 
     Os pares são lidos na sequência original; pares que contêm resíduo ambíguo
     (p.ex. ``AX``, ``XG``) não são contados e o denominador é o total de pares

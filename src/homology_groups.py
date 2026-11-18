@@ -1,8 +1,7 @@
 """
 homology_groups.py — Grupos de similaridade de sequência para a divisão treino/teste.
 
-Por que (TCC2, ponto 3 do documento de decisões): o CARD tem muitas variantes quase
-idênticas do mesmo gene. Numa divisão aleatória, uma variante cai no teste e a
+Por que: o CARD tem muitas variantes quase idênticas do mesmo gene. Numa divisão aleatória, uma variante cai no teste e a
 "irmã" fica no treino, e o modelo acerta por já ter visto quase a mesma proteína.
 A divisão passa a ser feita por grupos: genes parecidos ficam no mesmo grupo, e o
 grupo inteiro vai para o treino ou para o teste.
@@ -24,7 +23,14 @@ Cobertura: ``qcov`` e ``tcov`` = fração de cada sequência coberta pelo alinha
 
 Limitação: a busca do MMseqs2 é heurística (filtro de k-mers antes do alinhamento).
 Para reduzir pares perdidos: sensibilidade máxima (``-s 7.5``) e ``--max-seqs``
-acima do número de genes.
+acima do número de genes. Conferência: a busca sem piso de identidade de
+``nearest_neighbor``, rodada à parte, também não acha nenhum par treino–teste da
+partição final com identidade ≥ 70% (o maior é 69,6%, com ou sem a exigência de
+cobertura).
+
+O que os grupos separam: sequências parecidas, não famílias de genes. Membros de uma
+mesma família AMR com identidade < 70% podem cair em grupos diferentes (e, depois, em
+treino e teste), e no CARD a família define o mecanismo.
 
 Saídas:
     results/grupos_similaridade.csv  — grupo de cada gene do experimento, por limiar
